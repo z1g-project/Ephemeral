@@ -27,4 +27,4 @@ server.on("upgrade", (req, socket, head) => {
 server.listen({
     port: port,
 });
-console.log(`running on port ${port}`);
+console.log(`Ephermal is Running on port http://localhost:${port}`);
