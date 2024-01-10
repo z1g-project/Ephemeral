@@ -1,7 +1,8 @@
 export default function Home() {
+  let test: string = "hi"
   return (
     <>
-      <h1>init</h1>
+      <h1>{test}</h1>
     </>
   )
 }

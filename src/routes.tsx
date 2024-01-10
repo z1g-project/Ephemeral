@@ -6,7 +6,7 @@ import './index.css'
 export default function Routes() {
     return (
         <BrowserRouter>
-        <Route path="/" element={<Home />}></Route>
+        <Route path="/" Component={Home}></Route>
         </BrowserRouter>
     )
 }
