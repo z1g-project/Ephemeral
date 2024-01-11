@@ -13,6 +13,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "@radix-ui/react-navigation-menu": "^1.1.4",
     "@tomphttp/bare-server-node": "^2.0.1",
     "autoprefixer": "^10.4.16",
     "class-variance-authority": "^0.7.0",
