@@ -4,6 +4,8 @@ import Routes from "./routes";
 import "./index.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Routes />
+    <div className="h-screen bg-slate-950">
+      <Routes />
+    </div>
   </React.StrictMode>,
 );
