@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   //NavigationMenuContent,
@@ -12,22 +13,34 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 export default function Home() {
-  const test: string = "hi";
   return (
     <>
+    <div className="justify-center min-h-screen">
+    <div className="flex p-5 justify-end">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <Link to="/welcome">
+            <Link to="/">
               <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Welcome
+                Home
+              </NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <Link to="/settings">
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Settings
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <h1 className="flex items-center p-1 text-blue-600">{test}</h1>
-      <Input />
+      </div>
+      <div className="flex justify-center space-x-2">
+        <Input className="w-80 pr-4" placeholder="Search the web freely" />
+        <Button variant="default">Go</Button>
+      </div>
+      </div>
     </>
   );
 }
