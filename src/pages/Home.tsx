@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
+  //NavigationMenuContent,
+  //NavigationMenuIndicator,
+  //NavigationMenuItem,
+  //NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
+  //NavigationMenuTrigger,
+  //NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 export default function Home() {
