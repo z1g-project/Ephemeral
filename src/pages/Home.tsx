@@ -27,7 +27,13 @@ export default function Home() {
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuItem>
+                <Link to="/apps">
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    Apps
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
                   <Link to="/settings">
                     <NavigationMenuLink
                       className={navigationMenuTriggerStyle()}
@@ -36,12 +42,6 @@ export default function Home() {
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
-                <Link to="/apps">
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Apps
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
         </div>
