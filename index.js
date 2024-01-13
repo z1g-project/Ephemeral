@@ -1,7 +1,7 @@
 import { createServer } from "node:http";
 import { createBareServer } from "@tomphttp/bare-server-node";
 import express from "express";
-import { uvPath } from "@nebula-services/ultraviolet";
+import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import path from "path";
 const bare = createBareServer("/bare/");
 const app = express();
