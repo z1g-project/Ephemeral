@@ -2,8 +2,8 @@
 self.__uv$config = {
   prefix: "/light/",
   bare: "/bare/",
-  encodeUrl: Ultraviolet.codec.aes.encode,
-  decodeUrl: Ultraviolet.codec.aes.decode,
+  encodeUrl: Ultraviolet.codec.xor.encode,
+  decodeUrl: Ultraviolet.codec.xor.decode,
   handler: "/uv.handler.js",
   client: "/uv.client.js",
   bundle: "/uv.bundle.js",
