@@ -1,11 +1,13 @@
 import { createServer } from "node:http";
 import { createBareServer } from "@tomphttp/bare-server-node";
 import express from "express";
+import { uvPath } from "@nebula-services/ultraviolet";
 import path from "path";
 const bare = createBareServer("/bare/");
 const app = express();
 const port = 8080;
 
+app.use("/uv/", express.static(uvPath));
 app.use(express.static("dist"));
 const server = createServer();
 app.get("*", (req, res) => {
