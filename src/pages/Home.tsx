@@ -15,17 +15,6 @@ import {
 
 export default function Home() {
   const navigate = useNavigate();
-  function encodeXor(input: string): string {
-    return encodeURIComponent(
-      input
-        .toString()
-        .split("")
-        .map((char, ind) =>
-          ind % 2 ? String.fromCharCode(char.charCodeAt(NaN) ^ 2) : char,
-        )
-        .join(""),
-    );
-  }
   return (
     <>
       <div className="flex min-h-screen flex-row-reverse bg-slate-950">
@@ -73,12 +62,12 @@ export default function Home() {
                 input.value.includes("https://")
               ) {
                 navigate(
-                  `/view?src=${encodeURIComponent(encodeXor(input.value))}`,
+                  `/view?src=${encodeURIComponent(input.value)}`,
                 );
               } else {
                 const src: string =
                   "https://google.com/search?q=" + input.value;
-                navigate(`/view?src=${encodeURIComponent(encodeXor(src))}`);
+                navigate(`/view?src=${encodeURIComponent(src)}`);
               }
             }}
           >
