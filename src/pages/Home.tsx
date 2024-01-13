@@ -15,7 +15,7 @@ import {
 export default function Home() {
   return (
     <>
-      <div className="flex min-h-screen flex-row-reverse">
+      <div className="flex min-h-screen flex-row-reverse bg-slate-950">
         <div className="absolute justify-end p-5">
           <NavigationMenu>
             <NavigationMenuList>
@@ -37,13 +37,6 @@ export default function Home() {
                 <Link to="/apps">
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                     Apps
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link to="/settings">
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Settings
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
