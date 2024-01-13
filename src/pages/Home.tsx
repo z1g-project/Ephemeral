@@ -13,8 +13,18 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
+declare global {
+  interface Window {
+    Ultraviolet: any
+  }
+}
+
 export default function Home() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
+  function xorencode(input: string) {
+    window.Ultraviolet.codec.plain.encode('penis')(input);
+  }
+  
   return (
     <>
       <div className="flex min-h-screen flex-row-reverse bg-slate-950">
@@ -62,12 +72,12 @@ export default function Home() {
                 input.value.includes("https://")
               ) {
                 navigate(
-                  `/view?src=${encodeURIComponent(input.value)}`,
+                  `/view?src=${xorencode(input.value)}`,
                 );
               } else {
                 const src: string =
                   "https://google.com/search?q=" + input.value;
-                navigate(`/view?src=${encodeURIComponent(src)}`);
+                navigate(`/view?src=${xorencode(src)}`);
               }
             }}
           >
