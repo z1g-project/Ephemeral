@@ -15,8 +15,8 @@ import {
 export default function Home() {
   return (
     <>
-    <div className="justify-center min-h-screen">
-    <div className="flex p-5 justify-end">
+    <div className="flex min-h-screen flex-row-reverse">
+    <div className="absolute p-5 justify-end">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -36,7 +36,7 @@ export default function Home() {
         </NavigationMenuList>
       </NavigationMenu>
       </div>
-      <div className="flex justify-center space-x-2">
+      <div className="flex justify-center items-center space-x-2 grow">
         <Input className="w-80 pr-4" placeholder="Search the web freely" />
         <Button variant="default">Go</Button>
       </div>
