@@ -34,7 +34,7 @@ const config = {
       },
       fontFamily: {
         sans: ["Inter"],
-      }
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
