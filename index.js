@@ -10,9 +10,11 @@ const port = 8080;
 app.use("/uv/", express.static(uvPath));
 app.use(express.static("dist"));
 const server = createServer();
-app.get("*", (req, res) => {
+
+app.get(/^(?!\/light\/).*$/, (req, res) => {
   res.sendFile(path.resolve("dist", "index.html"));
 });
+
 
 server.on("request", (req, res) => {
   if (bare.shouldRoute(req)) {
