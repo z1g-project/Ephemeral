@@ -17,17 +17,20 @@ import {
   CommandList,
   CommandGroup,
 } from "@/components/ui/command";
+/*
 declare global {
   interface Window {
     Ultraviolet: any;
   }
-}
+}*/
 
 export default function Home() {
   const navigate = useNavigate();
+  /*
   function xorencode(input: string) {
     return window.Ultraviolet.codec.plain.encode(input); // make this actually encode later im too lazy
   }
+  */
 
   return (
     <>
@@ -67,13 +70,15 @@ export default function Home() {
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   const input: HTMLInputElement = document.getElementsByTagName("input")[0] as HTMLInputElement;
+                  console.log(input.value);
+                  console.log(encodeURIComponent(input.value));
                   if (
                     input.value.includes(".") ||
                     input.value.includes("https://")
                   ) {
-                    navigate(`/view?src=${xorencode(input.value)}`);
+                    navigate(`/view?src=${encodeURIComponent(input.value)}`);
                   } else {
-                    navigate(`/view?src=${xorencode("https://google.com/search?q=" + input.value)}`);
+                    navigate(`/view?src=${encodeURIComponent("https://google.com/search?q=" + input.value)}`);
                   }
                 }
               }}
