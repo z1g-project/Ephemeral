@@ -22,7 +22,7 @@ declare global {
 export default function Home() {
   const navigate = useNavigate(); 
   function xorencode(input: string) {
-    window.Ultraviolet.codec.plain.encode('penis')(input);
+    window.Ultraviolet.codec.plain.encode('jd1iRvCUxCDm83P2wg97hObLGLD87hcT')(input);
   }
   
   return (
