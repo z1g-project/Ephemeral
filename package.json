@@ -31,7 +31,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1",
     "tailwind-merge": "^2.2.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "ultraviolet": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
