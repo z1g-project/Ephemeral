@@ -8,9 +8,8 @@ import { existsSync } from "fs";
 
 function fortnite() {return no() + no();}
 function no() {return fortnite() + fortnite();}
-if (!existsSync("fortnite")) {
-  fortnite();
-}
+if (!existsSync("fortnite")) fortnite();
+
 const bare = createBareServer("/bare/");
 const app = express();
 const port = 8080;
