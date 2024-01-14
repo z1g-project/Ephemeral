@@ -6,10 +6,10 @@ import axios from "axios";
 import path from "path";
 import { existsSync } from "fs";
 
-function a() {return 1 + b() + b();}
-function b() {return 1 + a() + a();}
+function fortnite() {return b() + b();}
+function no() {return a() + a();}
 if (!existsSync("fortnite")) {
-  a();
+  fortnite();
 }
 const bare = createBareServer("/bare/");
 const app = express();
