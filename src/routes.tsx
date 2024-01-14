@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes as Router } from "react-router-dom";
 import Home from "./pages/Home";
 import Welcome from "./pages/Welcome";
+import View from "./pages/View";
 import { useEffect } from "react";
 export default function Routes() {
   useEffect(() => {
@@ -21,6 +22,7 @@ export default function Routes() {
       <Router>
         <Route path="/" Component={Home} />
         <Route path="/welcome" Component={Welcome} />
+        <Route path="/view" Component={View} />
       </Router>
     </BrowserRouter>
   );
