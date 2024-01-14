@@ -2056,7 +2056,7 @@
     return LogLevel2;
   })(LogLevel || {});
   var config = {
-    prefix: "/light/",
+    prefix: "/~/light/",
     server: "http://localhost:8080/",
     logLevel: 4 /* Debug */,
     codec: uri,

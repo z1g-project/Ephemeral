@@ -8,7 +8,7 @@ export default function Routes() {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/sw.js", {
-          scope: "/light/",
+          scope: "/~/",
         })
         .then(() => {
           console.log("Service worker registered");
