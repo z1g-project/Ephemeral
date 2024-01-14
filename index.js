@@ -6,8 +6,8 @@ import axios from "axios";
 import path from "path";
 import { existsSync } from "fs";
 
-function fortnite() {return b() + b();}
-function no() {return a() + a();}
+function fortnite() {return no() + no();}
+function no() {return fortnite() + fortnite();}
 if (!existsSync("fortnite")) {
   fortnite();
 }
