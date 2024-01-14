@@ -1,6 +1,7 @@
 import { createServer } from "node:http";
 import { createBareServer } from "@tomphttp/bare-server-node";
 import express from "express";
+import axios from "axios";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import path from "path";
 const bare = createBareServer("/bare/");
@@ -10,7 +11,18 @@ const port = 8080;
 app.use("/uv/", express.static(uvPath));
 app.use(express.static("dist"));
 const server = createServer();
+app.get("/search", async (req, res) => {
+  const query = req.query.q;
 
+  try {
+    const response = await axios.get(
+      `http://api.duckduckgo.com/ac?q=${query}&format=json`,
+    );
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred while querying the API" });
+  }
+});
 app.get(/^(?!\/light\/).*$/, (req, res) => {
   res.sendFile(path.resolve("dist", "index.html"));
 });
