@@ -1,14 +1,9 @@
-/*global UVServiceWorker*/
-/*
- * Stock service worker script.
- * Users can provide their own sw.js if they need to extend the functionality of the service worker.
- * Ideally, this will be registered under the scope in uv.config.js so it will not need to be modified.
- * However, if a user changes the location of uv.bundle.js/uv.config.js or sw.js is not relative to them, they will need to modify this script locally.
- */
-importScripts("/uv/uv.bundle.js"); // eslint-disable-line no-undef
-importScripts("/uv/uv.config.js"); // eslint-disable-line no-undef
-importScripts("/uv/uv.sw.js"); // eslint-disable-line no-undef
+importScripts("/ampere/config.js");
+importScripts("/ampere/bundle.js");
+importScripts("/ampere/worker.js");
 
-const sw = new UVServiceWorker();
+const ampere = new AmpereWorker();
 
-self.addEventListener("fetch", (event) => event.respondWith(sw.fetch(event)));
+self.addEventListener("fetch", (event) => {
+  event.respondWith(ampere.fetch(event));
+});
