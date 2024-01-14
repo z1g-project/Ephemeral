@@ -67,8 +67,6 @@ export default function Home() {
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   const input: HTMLInputElement = document.getElementsByTagName("input")[0] as HTMLInputElement;
-                  console.log(input.value);
-                  console.log(xorencode(input.value));
                   if (
                     input.value.includes(".") ||
                     input.value.includes("https://")
