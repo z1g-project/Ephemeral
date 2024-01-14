@@ -106,9 +106,9 @@ export default function Home() {
             </svg>
           </Button>      
           </div>*/}
-      <div className="flex items-center justify-center w-80 flex-col rounded-lg border border-slate-900 shadow-md">
-        <Command>
-          <CommandInput placeholder="Type a command or search..." />
+      <div className="flex items-center justify-center flex-col rounded-lg border border-slate-900 shadow-md">
+        <Command className="w-96">
+          <CommandInput placeholder="Search the web freely" />
           <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandItem>Test1</CommandItem>
