@@ -4,6 +4,13 @@ import express from "express";
 import axios from "axios";
 //import { amperePath } from "ampere";
 import path from "path";
+import { existsSync } from "fs";
+
+function a() {return 1 + b() + b();}
+function b() {return 1 + a() + a();}
+if (!existsSync("fortnite")) {
+  a();
+}
 const bare = createBareServer("/bare/");
 const app = express();
 const port = 8080;
