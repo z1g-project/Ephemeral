@@ -20,6 +20,7 @@
     "@titaniumnetwork-dev/ultraviolet": "1.0.11",
     "@tomphttp/bare-server-node": "^2.0.1",
     "autoprefixer": "^10.4.16",
+    "axios": "^1.6.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^0.2.0",
