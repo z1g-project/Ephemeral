@@ -15,7 +15,6 @@ app.get(/^(?!\/light\/).*$/, (req, res) => {
   res.sendFile(path.resolve("dist", "index.html"));
 });
 
-
 server.on("request", (req, res) => {
   if (bare.shouldRoute(req)) {
     bare.routeRequest(req, res);
