@@ -35,7 +35,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex min-h-screen flex-row-reverse bg-slate-950">
+      <div className="flex flex-row-reverse min-h-screen bg-slate-950">
         <div className="absolute justify-end p-5">
           <NavigationMenu>
             <NavigationMenuList>
@@ -106,7 +106,7 @@ export default function Home() {
             </svg>
           </Button>      
           </div>*/}
-      <div className="flex items-center justify-center flex-col rounded-lg border border-slate-900 shadow-md">
+      <div className=" absolute rounded-lg justify-center border border-slate-900 shadow-md left-1/2 top-1/2 -translate-x-1/2	-translate-y-1/2	">
         <Command className="w-96">
           <CommandInput placeholder="Search the web freely" />
           <CommandList>
