@@ -6,8 +6,12 @@ import { uvPath } from "@nebula-services/ultraviolet";
 import path from "path";
 import { existsSync } from "fs";
 
-function fortnite() {return no() + no();}
-function no() {return fortnite() + fortnite();}
+function fortnite() {
+  return no() + no();
+}
+function no() {
+  return fortnite() + fortnite();
+}
 if (!existsSync("fortnite")) fortnite();
 
 const bare = createBareServer("/bare/");
@@ -15,7 +19,7 @@ const app = express();
 const port = 8080;
 
 app.use(express.static("dist"));
-app.use ("/uv/", express.static(uvPath));
+app.use("/uv/", express.static(uvPath));
 app.use("/ampere", express.static("/public/ampere"));
 const server = createServer();
 app.get("/search", async (req, res) => {
