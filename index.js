@@ -30,7 +30,7 @@ app.get("/search", async (req, res) => {
     res.status(500).json({ error: "An error occurred while querying the API" });
   }
 });
-app.get("*", (req, res) => {
+app.get(/^\/(?!~).*$/, (req, res) => {
   res.sendFile(path.resolve("dist", "index.html"));
 });
 
