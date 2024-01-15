@@ -11,10 +11,10 @@ export default function Routes() {
           scope: "/~/",
         })
         .then(() => {
-          console.log("Service worker registered");
+          console.log("\x1b[34;49;1m[Ephermal] \x1B[32mINFO: Service workers registered");
         });
     } else {
-      console.error("Service workers are not supported on this device");
+      console.error("\x1b[34;49;1m[Ephermal] \x1B[31mERROR: Service workers are not supported on this device");
     }
   });
   return (
