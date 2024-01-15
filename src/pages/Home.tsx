@@ -65,6 +65,7 @@ export default function Home() {
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 justify-center rounded-lg border border-slate-900	shadow-md	">
           <Command className="w-96">
             <CommandInput
+              className=""
               placeholder="Search the web freely"
               id="input"
               onKeyDown={(e) => {
@@ -73,11 +74,16 @@ export default function Home() {
                   console.log(input.value);
                   console.log(encodeURIComponent(input.value));
                   if (
-                    input.value.includes(".") ||
+                    input.value.includes(".")
+                  ) {
+                    navigate(`/view?src=${encodeURIComponent("https://" + input.value)}`);
+                  } else if (
+                    input.value.includes("http://") ||
                     input.value.includes("https://")
                   ) {
                     navigate(`/view?src=${encodeURIComponent(input.value)}`);
-                  } else {
+                  }
+                  else {
                     navigate(`/view?src=${encodeURIComponent("https://google.com/search?q=" + input.value)}`);
                   }
                 }
