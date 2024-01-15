@@ -70,21 +70,26 @@ export default function Home() {
               id="input"
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  const input: HTMLInputElement = document.getElementsByTagName("input")[0] as HTMLInputElement;
-                  console.log(input.value);
-                  console.log(encodeURIComponent(input.value));
-                  if (
-                    input.value.includes(".")
-                  ) {
-                    navigate(`/view?src=${encodeURIComponent("https://" + input.value)}`);
+                  const input: HTMLInputElement = document.getElementsByTagName(
+                    "input",
+                  )[0] as HTMLInputElement;
+                  if (input.value.includes(".")) {
+                    navigate(
+                      `/view?src=${encodeURIComponent(
+                        "https://" + input.value,
+                      )}`,
+                    );
                   } else if (
                     input.value.includes("http://") ||
                     input.value.includes("https://")
                   ) {
                     navigate(`/view?src=${encodeURIComponent(input.value)}`);
-                  }
-                  else {
-                    navigate(`/view?src=${encodeURIComponent("https://google.com/search?q=" + input.value)}`);
+                  } else {
+                    navigate(
+                      `/view?src=${encodeURIComponent(
+                        "https://google.com/search?q=" + input.value,
+                      )}`,
+                    );
                   }
                 }
               }}
