@@ -12,7 +12,9 @@ const sw = new UVServiceWorker();
 self.addEventListener("fetch", (event) => {
   if (event.request.url.startsWith(location.origin + __uv$config.prefix)) {
     event.respondWith(sw.fetch(event));
-  } else if (event.request.url.startsWith(location.origin + __$ampere.config.prefix)) {
+  } else if (
+    event.request.url.startsWith(location.origin + __$ampere.config.prefix)
+  ) {
     event.respondWith(ampere.fetch(event));
   }
 });
