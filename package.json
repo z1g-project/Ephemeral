@@ -10,7 +10,8 @@
     "format": "prettier --write .",
     "preview": "vite preview",
     "bstart": "npm run build && npm run start",
-    "start": "node index.js"
+    "start": "node index.js",
+    "build-ampere": "bash ampere.sh"
   },
   "dependencies": {
     "@nebula-services/ultraviolet": "^1.0.1-1.patch.7",
