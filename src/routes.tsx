@@ -26,7 +26,7 @@ export default function Routes() {
       <Router>
         <Route path="/" Component={Home} />
         <Route path="/welcome" Component={Welcome} />
-        <Route path="/view" Component={View} />
+        <Route path="/view/:url" Component={View} />
       </Router>
     </BrowserRouter>
   );

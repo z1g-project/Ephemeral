@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link,useParams } from "react-router-dom";
 import {
   NavigationMenu,
   //NavigationMenuContent,
@@ -10,9 +10,9 @@ import {
   //NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-export default function View() {
-  const searchParams = new URLSearchParams(window.location.search);
-  const src = encodeURIComponent(searchParams.get("src") ?? "");
+
+export default function View ()  {
+  const { url } = useParams();
   function getProxy(): string {
     if (localStorage.getItem("proxy") === "ultraviolet") {
       return "dark";
@@ -22,6 +22,8 @@ export default function View() {
       return "dark";
     }
   }
+  // Changes the URL displayed in the browser to the root (makes it harder to detect)
+  window.history.pushState({},"", "/")
   return (
     <div className="flex h-screen flex-row-reverse bg-slate-950">
       <div className="absolute -translate-y-2 justify-end p-5">
@@ -53,7 +55,7 @@ export default function View() {
       </div>
       <div className="h-[calc(100%_-_4rem)] w-full translate-y-16">
         <iframe
-          src={`/~/${getProxy()}/${src}`}
+          src={`/~/${getProxy()}/${url}`}
           className="h-full w-full border-none"
         />
       </div>
