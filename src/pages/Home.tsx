@@ -62,7 +62,7 @@ export default function Home() {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-        <div className=" absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 justify-center rounded-lg border border-slate-900	shadow-md	">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 justify-center rounded-lg border border-slate-900	shadow-md	">
           <Command className="w-96">
             <CommandInput
               placeholder="Search the web freely"
