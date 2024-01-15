@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <>
       <div className="flex min-h-screen flex-row-reverse bg-slate-950">
-        <div className="absolute justify-end p-5">
+        <div className="absolute justify-end p-5 -translate-y-2">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -77,16 +77,16 @@ export default function Home() {
                     input.value.includes("http://") ||
                     input.value.includes("https://")
                   ) {
-                    navigate(`/view?src=${encodeURIComponent(input.value)}`);
+                    navigate(`/view/${encodeURIComponent(input.value)}`);
                   } else if (input.value.includes(".")) {
                     navigate(
-                      `/view?src=${encodeURIComponent(
+                      `/view/${encodeURIComponent(
                         "https://" + input.value,
                       )}`,
                     );
                   } else {
                     navigate(
-                      `/view?src=${encodeURIComponent(
+                      `/view/${encodeURIComponent(
                         "https://google.com/search?q=" + input.value,
                       )}`,
                     );
