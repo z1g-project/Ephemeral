@@ -181,7 +181,7 @@ export default function View() {
           }
         }}
       />
-      <div className="absolute -translate-y-2 flex-row-reverse items-end justify-end p-5">
+      <div className="absolute -translate-y-2 right-1 flex-row-reverse items-end justify-end p-5">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
