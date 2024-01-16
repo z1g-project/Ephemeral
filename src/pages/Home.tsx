@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   NavigationMenu,
@@ -8,14 +9,30 @@ import {
 } from "@/components/ui/navigation-menu";
 import {
   Command,
-  CommandInput,
+  CommandEmpty,
+  CommandGroup,
   CommandItem,
   CommandList,
-  CommandGroup,
 } from "@/components/ui/command";
+
+import { Input } from "@/components/ui/input";
 
 export default function Home() {
   const navigate = useNavigate();
+  const [inputValue, setInputValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  async function onInputChange(event: any) {
+    setInputValue((event.target as HTMLInputElement).value);
+    const newQuery = event.target.value;
+    setInputValue(newQuery);
+
+    const response = await fetch(`/search?q=${newQuery}`).then((res) =>
+      res.json(),
+    );
+
+    const newSuggestions = response?.map((item: any) => item.phrase) || [];
+    setSuggestions(newSuggestions);
+  }
 
   return (
     <>
@@ -48,40 +65,45 @@ export default function Home() {
           </NavigationMenu>
         </div>
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 justify-center rounded-lg border border-slate-900 shadow-md">
-          <Command className="w-96">
-            <CommandInput
-              className=""
-              placeholder="Search the web freely"
-              id="input"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  const input: HTMLInputElement = document.getElementsByTagName(
-                    "input",
-                  )[0] as HTMLInputElement;
-                  if (
-                    input.value.includes("http://") ||
-                    input.value.includes("https://")
-                  ) {
-                    navigate(`/view/${encodeURIComponent(input.value)}`);
-                  } else if (input.value.includes(".")) {
-                    navigate(
-                      `/view/${encodeURIComponent("https://" + input.value)}`,
-                    );
-                  } else {
-                    navigate(
-                      `/view/${encodeURIComponent(
-                        "https://google.com/search?q=" + input.value,
-                      )}`,
-                    );
-                  }
+          <Input
+            id="input"
+            placeholder="Search the web freely"
+            className="w-96"
+            value={inputValue}
+            onChange={onInputChange}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                if (
+                  inputValue.includes("http://") ||
+                  inputValue.includes("https://")
+                ) {
+                  navigate(`/view/${encodeURIComponent(inputValue)}`);
+                } else if (inputValue.includes(".")) {
+                  navigate(
+                    `/view/${encodeURIComponent("https://" + inputValue)}`,
+                  );
+                } else {
+                  navigate(
+                    `/view/${encodeURIComponent(
+                      "https://google.com/search?q=" + inputValue,
+                    )}`,
+                  );
                 }
-              }}
-            />
+              }
+            }}
+          />
+          <Command>
             <CommandList>
+              <CommandEmpty>Search for {inputValue}</CommandEmpty>
               <CommandGroup heading="Suggestions">
-                <CommandItem>Test1</CommandItem>
-                <CommandItem>Test2</CommandItem>
-                <CommandItem>Test3</CommandItem>
+                <CommandItem>{suggestions[0]}</CommandItem>
+                <CommandItem>{suggestions[1]}</CommandItem>
+                <CommandItem>{suggestions[2]}</CommandItem>
+                <CommandItem>{suggestions[3]}</CommandItem>
+                <CommandItem>{suggestions[4]}</CommandItem>
+                <CommandItem>{suggestions[5]}</CommandItem>
+                <CommandItem>{suggestions[6]}</CommandItem>
+                <CommandItem>{suggestions[7]}</CommandItem>
               </CommandGroup>
             </CommandList>
           </Command>
