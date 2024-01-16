@@ -36,7 +36,11 @@ export default function Home() {
 
   const suggestClick = (suggestion: string) => {
     console.log("Clicked suggestion:", suggestion);
-    navigate(`/view/${encodeURIComponent("https://google.com/search?q=" + suggestion)}`);
+    navigate(
+      `/view/${encodeURIComponent(
+        "https://google.com/search?q=" + suggestion,
+      )}`,
+    );
   };
 
   return (
@@ -98,19 +102,22 @@ export default function Home() {
             }}
           />
           <Command>
-          <CommandList>
-            <CommandEmpty>Search for {inputValue}</CommandEmpty>
-            {suggestions.length > 0 && (
-              <CommandGroup heading="Suggestions">
-                {suggestions.map((suggestion, index) => (
-                  <CommandItem key={index} onClick={() => suggestClick(suggestion)}>
-                    {suggestion}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            )}
-          </CommandList>
-        </Command>
+            <CommandList>
+              <CommandEmpty>Search for {inputValue}</CommandEmpty>
+              {suggestions.length > 0 && (
+                <CommandGroup heading="Suggestions">
+                  {suggestions.map((suggestion, index) => (
+                    <CommandItem
+                      key={index}
+                      onClick={() => suggestClick(suggestion)}
+                    >
+                      {suggestion}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
+            </CommandList>
+          </Command>
         </div>
       </div>
     </>
