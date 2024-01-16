@@ -17,12 +17,6 @@ import {
   CommandList,
   CommandGroup,
 } from "@/components/ui/command";
-/*
-declare global {
-  interface Window {
-    Ultraviolet: any;
-  }
-}*/
 
 export default function Home() {
   const navigate = useNavigate();
@@ -35,7 +29,7 @@ export default function Home() {
   return (
     <>
       <div className="flex min-h-screen flex-row-reverse bg-slate-950">
-        <div className="absolute justify-end p-5 -translate-y-2">
+        <div className="absolute -translate-y-2 justify-end p-5">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -80,9 +74,7 @@ export default function Home() {
                     navigate(`/view/${encodeURIComponent(input.value)}`);
                   } else if (input.value.includes(".")) {
                     navigate(
-                      `/view/${encodeURIComponent(
-                        "https://" + input.value,
-                      )}`,
+                      `/view/${encodeURIComponent("https://" + input.value)}`,
                     );
                   } else {
                     navigate(
