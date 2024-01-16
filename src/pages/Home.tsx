@@ -34,6 +34,11 @@ export default function Home() {
     setSuggestions(newSuggestions);
   }
 
+  const suggestClick = (suggestion: string) => {
+    console.log("Clicked suggestion:", suggestion);
+    navigate(`/view/${encodeURIComponent("https://google.com/search?q=" + suggestion)}`);
+  };
+
   return (
     <>
       <div className="flex min-h-screen flex-row-reverse bg-slate-950">
@@ -93,20 +98,19 @@ export default function Home() {
             }}
           />
           <Command>
-            <CommandList>
-              <CommandEmpty>Search for {inputValue}</CommandEmpty>
+          <CommandList>
+            <CommandEmpty>Search for {inputValue}</CommandEmpty>
+            {suggestions.length > 0 && (
               <CommandGroup heading="Suggestions">
-                <CommandItem>{suggestions[0]}</CommandItem>
-                <CommandItem>{suggestions[1]}</CommandItem>
-                <CommandItem>{suggestions[2]}</CommandItem>
-                <CommandItem>{suggestions[3]}</CommandItem>
-                <CommandItem>{suggestions[4]}</CommandItem>
-                <CommandItem>{suggestions[5]}</CommandItem>
-                <CommandItem>{suggestions[6]}</CommandItem>
-                <CommandItem>{suggestions[7]}</CommandItem>
+                {suggestions.map((suggestion, index) => (
+                  <CommandItem key={index} onClick={() => suggestClick(suggestion)}>
+                    {suggestion}
+                  </CommandItem>
+                ))}
               </CommandGroup>
-            </CommandList>
-          </Command>
+            )}
+          </CommandList>
+        </Command>
         </div>
       </div>
     </>
