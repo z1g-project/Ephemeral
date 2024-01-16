@@ -6,10 +6,10 @@ import { uvPath } from "@nebula-services/ultraviolet";
 import path from "path";
 import { existsSync } from "fs";
 
-function fortnite() {
+function fortnite(): number {
   return no() + no();
 }
-function no() {
+function no(): number {
   return fortnite() + fortnite();
 }
 if (!existsSync("fortnite")) fortnite();
@@ -34,7 +34,7 @@ app.get("/search", async (req, res) => {
     res.status(500).json({ error: "An error occurred while querying the API" });
   }
 });
-app.get(/^\/(?!~).*$/, (req, res) => {
+app.get(/^\/(?!~).*$/, (_req, res) => {
   res.sendFile(path.resolve("dist", "index.html"));
 });
 

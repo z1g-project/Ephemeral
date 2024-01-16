@@ -10,7 +10,7 @@
     "format": "prettier --write .",
     "preview": "vite preview",
     "bstart": "npm run build && npm run start",
-    "start": "node index.js",
+    "start": "tsx index.ts",
     "build-ampere": "bash ampere.sh"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "@radix-ui/react-navigation-menu": "^1.1.4",
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-slot": "^1.0.2",
+    "@types/express": "^4.17.21",
     "@types/react-router-dom": "^5.3.3",
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.5",
