@@ -1,13 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import {
   NavigationMenu,
-  //NavigationMenuContent,
-  //NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  //NavigationMenuTrigger,
-  //NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import {
@@ -20,11 +16,6 @@ import {
 
 export default function Home() {
   const navigate = useNavigate();
-  /*
-  function xorencode(input: string) {
-    return window.Ultraviolet.codec.plain.encode(input); // make this actually encode later im too lazy
-  }
-  */
 
   return (
     <>

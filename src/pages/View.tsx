@@ -1,18 +1,6 @@
 import { useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import {
-  NavigationMenu,
-  //NavigationMenuContent,
-  //NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  //NavigationMenuTrigger,
-  //NavigationMenuViewport,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 interface ProxyWindow extends Window {
@@ -21,14 +9,16 @@ interface ProxyWindow extends Window {
 export default function View() {
   const { url } = useParams();
   const [siteUrl, setSiteUrl] = useState("");
+  const [fullScreen, setFullScreen] = useState(false);
   const frameRef = useRef<HTMLIFrameElement>(null);
+  const pageRef = useRef<HTMLDivElement>(null);
   function getProxy(): string {
     if (localStorage.getItem("proxy") === "ultraviolet") {
-      return "dark";
+      return "/~/dark/";
     } else if (localStorage.getItem("proxy") === "ampere") {
-      return "light";
+      return "/~/light/";
     } else {
-      return "dark";
+      return "/~/dark/";
     }
   }
   function onLoad() {
@@ -52,8 +42,46 @@ export default function View() {
       }
     }
   }
+  function FullScreenIcon() {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="#f8fafc"
+        className="h-6 w-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
+        />
+      </svg>
+    );
+  }
+
+  function ExitFullScreenIcon() {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="#f8fafc"
+        className="h-6 w-6"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5 5.25 5.25"
+        />
+      </svg>
+    );
+  }
+
   return (
-    <div className="flex h-screen bg-slate-950">
+    <div className="flex h-screen bg-slate-950" ref={pageRef}>
       <div className="absolute -translate-y-2 flex-row items-start space-x-4 p-5">
         <Button
           variant="ghost"
@@ -118,6 +146,46 @@ export default function View() {
             />
           </svg>
         </Button>
+        <Button asChild variant="ghost">
+          <Link to="/">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="#faf8fc"
+              className="h-6 w-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+              />
+            </svg>
+          </Link>
+        </Button>
+      </div>
+      <Input
+        id="input"
+        className="absolute left-1/2 w-96 -translate-x-1/2 translate-y-3 flex-col pr-4"
+        value={siteUrl}
+        onChange={(e) => {
+          setSiteUrl(e.target.value);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            if (siteUrl.includes("http://") || siteUrl.includes("https://")) {
+              frameRef.current!.src = getProxy() + siteUrl;
+            } else if (siteUrl.includes(".")) {
+              frameRef.current!.src = getProxy() + "https://" + siteUrl;
+            } else {
+              frameRef.current!.src =
+                getProxy() + "https://google.com/search?q=" + siteUrl;
+            }
+          }
+        }}
+      />
+      <div className="absolute right-1 -translate-y-2 flex-row items-start space-x-4 p-5">
         <Button
           variant="ghost"
           onClick={() => {
@@ -161,56 +229,24 @@ export default function View() {
             />
           </svg>
         </Button>
-      </div>
-      <Input
-        id="input"
-        className="absolute left-1/2 w-96 -translate-x-1/2 translate-y-3 flex-col pr-4"
-        value={siteUrl}
-        onChange={(e) => {
-          setSiteUrl(e.target.value);
-        }}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            if (siteUrl.includes("http://") || siteUrl.includes("https://")) {
-              frameRef.current!.src = `/~/${getProxy()}/${siteUrl}`;
-            } else if (siteUrl.includes(".")) {
-              frameRef.current!.src = `/~/${getProxy()}/https://${siteUrl}`;
+        <Button
+          variant="ghost"
+          onClick={() => {
+            if (document.fullscreenElement) {
+              document.exitFullscreen();
+              setFullScreen(false);
             } else {
-              frameRef.current!.src = `/~/${getProxy()}/https://google.com/search?q=${siteUrl}`;
+              pageRef.current!.requestFullscreen();
+              setFullScreen(true);
             }
-          }
-        }}
-      />
-      <div className="absolute -translate-y-2 right-1 flex-row-reverse items-end justify-end p-5">
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link to="/">
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Home
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link to="/settings">
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Settings
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link to="/apps">
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Apps
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+          }}
+        >
+          {fullScreen ? <ExitFullScreenIcon /> : <FullScreenIcon />}
+        </Button>
       </div>
       <div className="h-[calc(100%_-_4rem)] w-full translate-y-16">
         <iframe
-          src={`/~/${getProxy()}/${url}`}
+          src={getProxy() + url}
           className="h-full w-full border-none"
           ref={frameRef}
           onLoad={onLoad}
