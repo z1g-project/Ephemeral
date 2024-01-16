@@ -167,7 +167,7 @@ export default function View() {
       </div>
       <Input
         id="input"
-        className="absolute left-1/2 w-96 -translate-x-1/2 translate-y-3 flex-col pr-4"
+        className="absolute left-1/2 w-96 -translate-x-1/2 translate-y-3 flex-col pr-4 sm:w-[484px] lg:w-[584px]"
         value={siteUrl}
         onChange={(e) => {
           setSiteUrl(e.target.value);
