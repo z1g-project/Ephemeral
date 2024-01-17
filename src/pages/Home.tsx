@@ -7,6 +7,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+
 import {
   Command,
   CommandEmpty,
@@ -33,7 +34,7 @@ export default function Home() {
     const newSuggestions = response?.map((item: any) => item.phrase) || [];
     setSuggestions(newSuggestions);
   }
-
+  /*
   const suggestClick = (suggestion: string) => {
     console.log("Clicked suggestion:", suggestion);
     navigate(
@@ -42,6 +43,7 @@ export default function Home() {
       )}`,
     );
   };
+  */
 
   return (
     <>
@@ -73,11 +75,11 @@ export default function Home() {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 justify-center rounded-lg border border-slate-900 shadow-md">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-lg border border-slate-900 shadow-md">
           <Input
             id="input"
             placeholder="Search the web freely"
-            className="w-96"
+            className="z-50 w-96"
             value={inputValue}
             onChange={onInputChange}
             onKeyDown={(e) => {
@@ -101,18 +103,20 @@ export default function Home() {
               }
             }}
           />
+
           <Command>
             <CommandList>
               <CommandEmpty>Search for {inputValue}</CommandEmpty>
               {suggestions.length > 0 && (
                 <CommandGroup heading="Suggestions">
                   {suggestions.map((suggestion, index) => (
-                    <CommandItem
-                      key={index}
-                      onClick={() => suggestClick(suggestion)}
+                    <Link
+                      to={`/view/${encodeURIComponent(
+                        "https://google.com/search?q=" + suggestion,
+                      )}`}
                     >
-                      {suggestion}
-                    </CommandItem>
+                      <CommandItem key={index}>{suggestion}</CommandItem>
+                    </Link>
                   ))}
                 </CommandGroup>
               )}
