@@ -22,34 +22,21 @@ export default function View() {
   const pageRef = useRef<HTMLDivElement>(null);
   function getProxy(): string {
     if (localStorage.getItem("proxy") === "ultraviolet") {
-      return "/~/dark/";
+      return "/~/dark/"
     } else if (localStorage.getItem("proxy") === "ampere") {
       return "/~/light/";
     } else {
-      return "/~/dark/";
+      return "/~/dark/"
     }
   }
-  function onLoad() {
-    if (frameRef.current!.contentWindow?.location.href) {
-      if (localStorage.getItem("proxy") === "ultraviolet") {
-        const site = frameRef
-          .current!.contentWindow?.location.href.replace(
-            window.location.origin,
-            "",
-          )
-          .replace(window.__uv$config.prefix, "");
-        setSiteUrl(decodeURIComponent(site.toString()));
-      } else if (localStorage.getItem("proxy") === "ampere") {
-        const site = frameRef
-          .current!.contentWindow?.location.href.replace(
-            window.location.origin,
-            "",
-          )
-          .replace(window.__$ampere.config.prefix, "");
-        setSiteUrl(decodeURIComponent(site.toString()));
-      }
+    function onLoad() {
+      const site = frameRef.current!.contentWindow?.location.href.replace(
+        window.location.origin,
+        "",
+      )
+      .replace(getProxy(), "");
+      setSiteUrl(decodeURIComponent(site!.toString()));
     }
-  }
 
   return (
     <div className="flex h-screen bg-slate-950" ref={pageRef}>
@@ -160,6 +147,7 @@ export default function View() {
           className="h-full w-full border-none"
           ref={frameRef}
           onLoad={onLoad}
+
         />
       </div>
     </div>
