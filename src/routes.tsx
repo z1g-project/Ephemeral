@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes as Router } from "react-router-dom";
 import Home from "./pages/Home";
 import Welcome from "./pages/Welcome";
 import View from "./pages/View";
+import Settings from "./pages/Settings";
 import { useEffect } from "react";
 export default function Routes() {
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function Routes() {
         <Route path="/" Component={Home} />
         <Route path="/welcome" Component={Welcome} />
         <Route path="/view/:url" Component={View} />
+        <Route path="/settings" Component={Settings} />
       </Router>
     </BrowserRouter>
   );

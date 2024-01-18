@@ -46,7 +46,7 @@ export default function View() {
       const interval = setInterval(onLoad, 1000);
       return () => clearInterval(interval);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputFocused]);
   window.history.replaceState(null, "", "/");
 
@@ -99,21 +99,14 @@ export default function View() {
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             if (siteUrl.includes("http://") || siteUrl.includes("https://")) {
-              encodeURIComponent(
-                encoder.encode((frameRef.current!.src = getProxy() + siteUrl)),
-              );
+              frameRef.current!.src = getProxy() + encoder.encode(siteUrl);
             } else if (siteUrl.includes(".") && !siteUrl.includes(" ")) {
-              encodeURIComponent(
-                encoder.encode(
-                  (frameRef.current!.src = getProxy() + "https://" + siteUrl),
-                ),
-              );
+              frameRef.current!.src =
+                getProxy() + encoder.encode("https://" + siteUrl);
             } else {
-              frameRef.current!.src = encodeURIComponent(
-                encoder.encode(
-                  getProxy() + "https://google.com/search?q=" + siteUrl,
-                ),
-              );
+              frameRef.current!.src =
+                getProxy() +
+                encoder.encode("https://google.com/search?q=" + siteUrl);
             }
           }
         }}
