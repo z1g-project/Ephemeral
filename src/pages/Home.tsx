@@ -34,16 +34,6 @@ export default function Home() {
     const newSuggestions = response?.map((item: any) => item.phrase) || [];
     setSuggestions(newSuggestions);
   }
-  /*
-  const suggestClick = (suggestion: string) => {
-    console.log("Clicked suggestion:", suggestion);
-    navigate(
-      `/view/${encodeURIComponent(
-        "https://google.com/search?q=" + suggestion,
-      )}`,
-    );
-  };
-  */
 
   return (
     <>
@@ -89,7 +79,10 @@ export default function Home() {
                   inputValue.includes("https://")
                 ) {
                   navigate(`/view/${encodeURIComponent(inputValue)}`);
-                } else if (inputValue.includes(".")) {
+                } else if (
+                  inputValue.includes(".") &&
+                  !inputValue.includes(" ")
+                ) {
                   navigate(
                     `/view/${encodeURIComponent("https://" + inputValue)}`,
                   );
