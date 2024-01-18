@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { encoder } from "@/utils/encoder";
 import {
   ArrowPathIcon,
   ArrowsPointingInIcon,
@@ -24,7 +25,6 @@ export default function View() {
   const inputRef = useRef<HTMLInputElement>(null);
   const onInputFocus = () => setInputFocused(true);
   const onInputBlur = () => setInputFocused(false);
-  console.log(inputFocused);
   function getProxy(): string {
     if (localStorage.getItem("proxy") === "ultraviolet") {
       return "/~/dark/";
@@ -35,27 +35,21 @@ export default function View() {
     }
   }
   function onLoad() {
-    const site = frameRef.current?.contentWindow?.location.href
-      .replace(window.location.origin, "")
-      .replace(getProxy(), "");
-    setSiteUrl(decodeURIComponent(site?.toString() || ""));
+    const site = encoder.decode(
+      (frameRef.current?.contentWindow?.location.href
+        .replace(window.location.origin, "")
+        .replace(getProxy(), "") || ""),
+    );
+    setSiteUrl(site?.toString() || "");
   }
   // hacky
   useEffect(() => {
-    function intervalFunc() {
-      const site = frameRef
-        .current!.contentWindow?.location.href.replace(
-          window.location.origin,
-          "",
-        )
-        .replace(getProxy(), "");
-      setSiteUrl(decodeURIComponent(site?.toString() || ""));
-    }
     if (!inputFocused) {
-      const interval = setInterval(intervalFunc, 1000);
+      const interval = setInterval(onLoad, 1000);
       return () => clearInterval(interval);
     }
   }, [inputFocused]);
+  window.history.replaceState(null, "", "/");
 
   return (
     <div className="flex h-screen bg-slate-950" ref={pageRef}>
@@ -106,12 +100,15 @@ export default function View() {
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             if (siteUrl.includes("http://") || siteUrl.includes("https://")) {
-              frameRef.current!.src = getProxy() + siteUrl;
+              encodeURIComponent(encoder.encode((frameRef.current!.src = getProxy() + siteUrl)));
             } else if (siteUrl.includes(".") && !siteUrl.includes(" ")) {
-              frameRef.current!.src = getProxy() + "https://" + siteUrl;
+              encodeURIComponent(encoder.encode(
+                (frameRef.current!.src = getProxy() + "https://" + siteUrl),
+              ));
             } else {
-              frameRef.current!.src =
-                getProxy() + "https://google.com/search?q=" + siteUrl;
+              frameRef.current!.src = encodeURIComponent(encoder.encode(
+                getProxy() + "https://google.com/search?q=" + siteUrl,
+              ));
             }
           }
         }}
