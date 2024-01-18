@@ -23,8 +23,6 @@ export default function View() {
   const frameRef = useRef<HTMLIFrameElement>(null);
   const pageRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const onInputFocus = () => setInputFocused(true);
-  const onInputBlur = () => setInputFocused(false);
   function getProxy(): string {
     if (localStorage.getItem("proxy") === "ultraviolet") {
       return "/~/dark/";
@@ -48,6 +46,7 @@ export default function View() {
       const interval = setInterval(onLoad, 1000);
       return () => clearInterval(interval);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputFocused]);
   window.history.replaceState(null, "", "/");
 
@@ -87,8 +86,8 @@ export default function View() {
       <Input
         id="input"
         ref={inputRef}
-        onFocus={onInputFocus}
-        onBlur={onInputBlur}
+        onFocus={() => setInputFocused(true)}
+        onBlur={() => setInputFocused(false)}
         className="absolute left-1/2 w-96 -translate-x-1/2 translate-y-3 flex-col pr-4 sm:w-[484px] lg:w-[584px]"
         placeholder={
           frameRef?.current?.src ? "Search the web freely" : "Loading..."
