@@ -36,9 +36,9 @@ export default function View() {
   }
   function onLoad() {
     const site = encoder.decode(
-      (frameRef.current?.contentWindow?.location.href
+      frameRef.current?.contentWindow?.location.href
         .replace(window.location.origin, "")
-        .replace(getProxy(), "") || ""),
+        .replace(getProxy(), "") || "",
     );
     setSiteUrl(site?.toString() || "");
   }
@@ -100,15 +100,21 @@ export default function View() {
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             if (siteUrl.includes("http://") || siteUrl.includes("https://")) {
-              encodeURIComponent(encoder.encode((frameRef.current!.src = getProxy() + siteUrl)));
+              encodeURIComponent(
+                encoder.encode((frameRef.current!.src = getProxy() + siteUrl)),
+              );
             } else if (siteUrl.includes(".") && !siteUrl.includes(" ")) {
-              encodeURIComponent(encoder.encode(
-                (frameRef.current!.src = getProxy() + "https://" + siteUrl),
-              ));
+              encodeURIComponent(
+                encoder.encode(
+                  (frameRef.current!.src = getProxy() + "https://" + siteUrl),
+                ),
+              );
             } else {
-              frameRef.current!.src = encodeURIComponent(encoder.encode(
-                getProxy() + "https://google.com/search?q=" + siteUrl,
-              ));
+              frameRef.current!.src = encodeURIComponent(
+                encoder.encode(
+                  getProxy() + "https://google.com/search?q=" + siteUrl,
+                ),
+              );
             }
           }
         }}
