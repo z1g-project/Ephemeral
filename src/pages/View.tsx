@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   ArrowPathIcon,
@@ -18,25 +18,44 @@ export default function View() {
   const { url } = useParams();
   const [siteUrl, setSiteUrl] = useState("");
   const [fullScreen, setFullScreen] = useState(false);
+  const [inputFocused, setInputFocused] = useState(false);
   const frameRef = useRef<HTMLIFrameElement>(null);
   const pageRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const onInputFocus = () => setInputFocused(true);
+  const onInputBlur = () => setInputFocused(false);
+  console.log(inputFocused);
   function getProxy(): string {
     if (localStorage.getItem("proxy") === "ultraviolet") {
-      return "/~/dark/"
+      return "/~/dark/";
     } else if (localStorage.getItem("proxy") === "ampere") {
       return "/~/light/";
     } else {
-      return "/~/dark/"
+      return "/~/dark/";
     }
   }
-    function onLoad() {
-      const site = frameRef.current!.contentWindow?.location.href.replace(
-        window.location.origin,
-        "",
-      )
+  function onLoad() {
+    const site = frameRef.current?.contentWindow?.location.href
+      .replace(window.location.origin, "")
       .replace(getProxy(), "");
-      setSiteUrl(decodeURIComponent(site!.toString()));
+    setSiteUrl(decodeURIComponent(site?.toString() || ""));
+  }
+  // hacky
+  useEffect(() => {
+    function intervalFunc() {
+      const site = frameRef
+        .current!.contentWindow?.location.href.replace(
+          window.location.origin,
+          "",
+        )
+        .replace(getProxy(), "");
+      setSiteUrl(decodeURIComponent(site?.toString() || ""));
     }
+    if (!inputFocused) {
+      const interval = setInterval(intervalFunc, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [inputFocused]);
 
   return (
     <div className="flex h-screen bg-slate-950" ref={pageRef}>
@@ -73,7 +92,13 @@ export default function View() {
       </div>
       <Input
         id="input"
+        ref={inputRef}
+        onFocus={onInputFocus}
+        onBlur={onInputBlur}
         className="absolute left-1/2 w-96 -translate-x-1/2 translate-y-3 flex-col pr-4 sm:w-[484px] lg:w-[584px]"
+        placeholder={
+          frameRef?.current?.src ? "Search the web freely" : "Loading..."
+        }
         value={siteUrl}
         onChange={(e) => {
           setSiteUrl(e.target.value);
@@ -82,7 +107,7 @@ export default function View() {
           if (e.key === "Enter") {
             if (siteUrl.includes("http://") || siteUrl.includes("https://")) {
               frameRef.current!.src = getProxy() + siteUrl;
-            } else if (siteUrl.includes(".")) {
+            } else if (siteUrl.includes(".") && !siteUrl.includes(" ")) {
               frameRef.current!.src = getProxy() + "https://" + siteUrl;
             } else {
               frameRef.current!.src =
@@ -147,7 +172,6 @@ export default function View() {
           className="h-full w-full border-none"
           ref={frameRef}
           onLoad={onLoad}
-
         />
       </div>
     </div>
