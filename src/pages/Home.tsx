@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { encoder } from "@/utils/encoder";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -78,19 +79,17 @@ export default function Home() {
                   inputValue.includes("http://") ||
                   inputValue.includes("https://")
                 ) {
-                  navigate(`/view/${encodeURIComponent(inputValue)}`);
+                  navigate(`/view/${encodeURIComponent(encoder.encode(inputValue))}`);
                 } else if (
                   inputValue.includes(".") &&
                   !inputValue.includes(" ")
                 ) {
-                  navigate(
-                    `/view/${encodeURIComponent("https://" + inputValue)}`,
-                  );
+                  navigate(`/view/${encodeURIComponent(encoder.encode("https://" + inputValue))}`);
                 } else {
                   navigate(
-                    `/view/${encodeURIComponent(
+                    `/view/${encodeURIComponent(encoder.encode(
                       "https://google.com/search?q=" + inputValue,
-                    )}`,
+                    ))}`,
                   );
                 }
               }
@@ -104,9 +103,9 @@ export default function Home() {
                 <CommandGroup heading="Suggestions">
                   {suggestions.map((suggestion, index) => (
                     <Link
-                      to={`/view/${encodeURIComponent(
+                      to={`/view/${encodeURIComponent(encoder.encode(
                         "https://google.com/search?q=" + suggestion,
-                      )}`}
+                      ))}`}
                     >
                       <CommandItem key={index}>{suggestion}</CommandItem>
                     </Link>
