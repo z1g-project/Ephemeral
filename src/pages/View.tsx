@@ -10,14 +10,12 @@ import {
   HomeIcon,
   CodeBracketIcon,
 } from "@heroicons/react/24/outline";
-/*
 import {
   Command,
   CommandGroup,
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-*/
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 interface ProxyWindow extends Window {
@@ -28,8 +26,8 @@ export default function View() {
   const [siteUrl, setSiteUrl] = useState("");
   const [fullScreen, setFullScreen] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
-  //const [suggestionFocused, setSuggestionFocused] = useState(false);
-  //const [suggestions, setSuggestions] = useState([]);
+  const [suggestionFocused, setSuggestionFocused] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
   const frameRef = useRef<HTMLIFrameElement>(null);
   const pageRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -45,7 +43,6 @@ export default function View() {
   
   async function onInputChange(event: any) {
     setSiteUrl((event.target as HTMLInputElement).value);
-    /*
     const newQuery = event.target.value;
     setSiteUrl(newQuery);
 
@@ -55,7 +52,6 @@ export default function View() {
 
     const newSuggestions = response?.map((item: any) => item.phrase) || [];
     setSuggestions(newSuggestions);
-    */
   }
   
   function onLoad() {
@@ -135,10 +131,9 @@ export default function View() {
           }
         }}
       />
-      {/*
       <Command
         className={`absolute z-20 left-1/2 translate-y-12 h-auto w-96 sm:w-[484px] lg:w-[584px] -translate-x-1/2 rounded-b-lg rounded-t-none border-slate-800 shadow-md ${
-          suggestions.length > 0 || inputFocused ? `border-x border-b visible` : `hidden`
+          suggestions.length > 0 || suggestionFocused ? `border-x border-b visible` : `hidden`
         } }`}
         onBlur={() => setSuggestionFocused(false)}
       >
@@ -159,7 +154,6 @@ export default function View() {
           )}
         </CommandList>
       </Command>
-      */}
       <div className="absolute right-1 -translate-y-2 flex-row items-start space-x-4 p-5">
         <Button
           variant="ghost"
