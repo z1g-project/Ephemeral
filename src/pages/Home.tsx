@@ -1,14 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { encoder } from "@/utils/encoder";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-
+import Navbar from "@/components/Navbar";
 import {
   Command,
   CommandGroup,
@@ -38,37 +31,11 @@ export default function Home() {
   return (
     <>
       <div className="flex min-h-screen flex-row-reverse bg-slate-950">
-        <div className="absolute -translate-y-2 justify-end p-5">
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <Link to="/">
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Home
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link to="/settings">
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Settings
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link to="/apps">
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Apps
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
-        </div>
+        <Navbar />
         <Input
           id="input"
           placeholder="Search the web freely"
-          className="absolute left-1/2 top-1/2 z-50 w-96 -translate-x-1/2 -translate-y-1/2 !rounded-t-lg focus:!rounded-b-none"
+          className={`absolute left-1/2 top-1/2 z-50 w-96 -translate-x-1/2 -translate-y-1/2 !rounded-t-lg focus:!rounded-b-none ${suggestions.length > 0 && `!border-b-0`}`}
           value={inputValue}
           onChange={onInputChange}
           onKeyDown={(e) => {
