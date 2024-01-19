@@ -1,41 +1,32 @@
-import { Link } from "react-router-dom";
+import Navbar from "@/components/Navbar";
 import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 export default function Settings() {
   return (
     <div className="flex min-h-screen bg-slate-950">
-      <div className="absolute right-1 -translate-y-2 justify-end p-5">
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link to="/">
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Home
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link to="/settings">
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Settings
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link to="/apps">
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Apps
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+      <Navbar />
+      <div className="absolute left-1/2 -translate-x-1/2 font-['Inter'] text-3xl font-extrabold text-slate-400">
+        Settings
       </div>
+      <div className="h-72 w-96 p-6"></div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Card Title</CardTitle>
+          <CardDescription>Card Description</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Card Content</p>
+        </CardContent>
+        <CardFooter>
+          <p>Card Footer</p>
+        </CardFooter>
+      </Card>
     </div>
   );
 }
