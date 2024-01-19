@@ -10,6 +10,14 @@ import {
   HomeIcon,
   CodeBracketIcon,
 } from "@heroicons/react/24/outline";
+/*
+import {
+  Command,
+  CommandGroup,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+*/
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 interface ProxyWindow extends Window {
@@ -20,6 +28,8 @@ export default function View() {
   const [siteUrl, setSiteUrl] = useState("");
   const [fullScreen, setFullScreen] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
+  //const [suggestionFocused, setSuggestionFocused] = useState(false);
+  //const [suggestions, setSuggestions] = useState([]);
   const frameRef = useRef<HTMLIFrameElement>(null);
   const pageRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -32,6 +42,22 @@ export default function View() {
       return "/~/dark/";
     }
   }
+  
+  async function onInputChange(event: any) {
+    setSiteUrl((event.target as HTMLInputElement).value);
+    /*
+    const newQuery = event.target.value;
+    setSiteUrl(newQuery);
+
+    const response = await fetch(`/search?q=${newQuery}`).then((res) =>
+      res.json(),
+    );
+
+    const newSuggestions = response?.map((item: any) => item.phrase) || [];
+    setSuggestions(newSuggestions);
+    */
+  }
+  
   function onLoad() {
     const site = encoder.decode(
       frameRef.current?.contentWindow?.location.href
@@ -93,9 +119,7 @@ export default function View() {
           frameRef?.current?.src ? "Search the web freely" : "Loading..."
         }
         value={siteUrl}
-        onChange={(e) => {
-          setSiteUrl(e.target.value);
-        }}
+        onChange={onInputChange}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             if (siteUrl.includes("http://") || siteUrl.includes("https://")) {
@@ -111,6 +135,31 @@ export default function View() {
           }
         }}
       />
+      {/*
+      <Command
+        className={`absolute z-20 left-1/2 translate-y-12 h-auto w-96 sm:w-[484px] lg:w-[584px] -translate-x-1/2 rounded-b-lg rounded-t-none border-slate-800 shadow-md ${
+          suggestions.length > 0 || inputFocused ? `border-x border-b visible` : `hidden`
+        } }`}
+        onBlur={() => setSuggestionFocused(false)}
+      >
+        <CommandList>
+          {suggestions.length > 0 && (
+            <CommandGroup heading="Suggestions">
+              {suggestions.map((suggestion, index) => (
+                <Link
+                  to={`/view/${encodeURIComponent(
+                    encoder.encode("https://google.com/search?q=" + suggestion),
+                  )}`}
+                  onClick={() => setSuggestionFocused(false)}
+                >
+                  <CommandItem key={index}>{suggestion}</CommandItem>
+                </Link>
+              ))}
+            </CommandGroup>
+          )}
+        </CommandList>
+      </Command>
+      */}
       <div className="absolute right-1 -translate-y-2 flex-row items-start space-x-4 p-5">
         <Button
           variant="ghost"
