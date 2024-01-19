@@ -26,8 +26,9 @@ export default function View() {
   const [siteUrl, setSiteUrl] = useState("");
   const [fullScreen, setFullScreen] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
-  const [suggestionFocused, setSuggestionFocused] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
+  // this isn't with onBlur and onFocus on the element since it's a tiny bit hacky
+  const [suggestionFocused, setSuggestionFocused] = useState(false);
   const frameRef = useRef<HTMLIFrameElement>(null);
   const pageRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -40,7 +41,7 @@ export default function View() {
       return "/~/dark/";
     }
   }
-  
+
   async function onInputChange(event: any) {
     setSiteUrl((event.target as HTMLInputElement).value);
     const newQuery = event.target.value;
@@ -53,7 +54,7 @@ export default function View() {
     const newSuggestions = response?.map((item: any) => item.phrase) || [];
     setSuggestions(newSuggestions);
   }
-  
+  // it's mainly for setting input box
   function onLoad() {
     const site = encoder.decode(
       frameRef.current?.contentWindow?.location.href
@@ -108,7 +109,9 @@ export default function View() {
       <Input
         id="input"
         ref={inputRef}
-        onFocus={() => setInputFocused(true)}
+        onFocus={() => {
+          setInputFocused(true)
+          setSuggestionFocused(true)}}
         onBlur={() => setInputFocused(false)}
         className="absolute left-1/2 w-96 -translate-x-1/2 translate-y-3 flex-col pr-4 sm:w-[484px] lg:w-[584px]"
         placeholder={
@@ -132,10 +135,9 @@ export default function View() {
         }}
       />
       <Command
-        className={`absolute z-20 left-1/2 translate-y-12 h-auto w-96 sm:w-[484px] lg:w-[584px] -translate-x-1/2 rounded-b-lg rounded-t-none border-slate-800 shadow-md ${
-          suggestions.length > 0 || suggestionFocused ? `border-x border-b visible` : `hidden`
+        className={`absolute left-1/2 z-20 h-auto w-96 -translate-x-1/2 translate-y-12 rounded-b-lg rounded-t-none border-x border-slate-800 shadow-md sm:w-[484px] lg:w-[584px] ${
+          suggestions.length < 0 || !suggestionFocused ? `invisible` : `visible`
         } }`}
-        onBlur={() => setSuggestionFocused(false)}
       >
         <CommandList>
           {suggestions.length > 0 && (
@@ -145,7 +147,9 @@ export default function View() {
                   to={`/view/${encodeURIComponent(
                     encoder.encode("https://google.com/search?q=" + suggestion),
                   )}`}
-                  onClick={() => setSuggestionFocused(false)}
+                  onClick={() => {
+                    setSuggestionFocused(false);
+                  }}
                 >
                   <CommandItem key={index}>{suggestion}</CommandItem>
                 </Link>

@@ -35,7 +35,9 @@ export default function Home() {
         <Input
           id="input"
           placeholder="Search the web freely"
-          className={`absolute left-1/2 top-1/2 z-50 w-96 -translate-x-1/2 -translate-y-1/2 !rounded-t-lg focus:!rounded-b-none ${suggestions.length > 0 && `!border-b-0`}`}
+          className={`absolute left-1/2 top-1/2 z-50 w-96 -translate-x-1/2 -translate-y-1/2 !rounded-t-lg focus:!rounded-b-none ${
+            suggestions.length > 0 && `!border-b-0`
+          }`}
           value={inputValue}
           onChange={onInputChange}
           onKeyDown={(e) => {
