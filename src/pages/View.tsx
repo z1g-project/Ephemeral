@@ -54,19 +54,20 @@ export default function View() {
     const newSuggestions = response?.map((item: any) => item.phrase) || [];
     setSuggestions(newSuggestions);
   }
-  // it's mainly for setting input box
+  // it's mainly for setting input box shit
   function onLoad() {
     const site = encoder.decode(
       frameRef.current?.contentWindow?.location.href
         .replace(window.location.origin, "")
         .replace(getProxy(), "") || "",
     );
+    setSuggestionFocused(false);
     setSiteUrl(site?.toString() || "");
   }
   // hacky
   useEffect(() => {
     if (!inputFocused) {
-      const interval = setInterval(onLoad, 1000);
+      const interval = setInterval(onLoad, 500);
       return () => clearInterval(interval);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -110,8 +111,9 @@ export default function View() {
         id="input"
         ref={inputRef}
         onFocus={() => {
-          setInputFocused(true)
-          setSuggestionFocused(true)}}
+          setInputFocused(true);
+          setSuggestionFocused(true);
+        }}
         onBlur={() => setInputFocused(false)}
         className="absolute left-1/2 w-96 -translate-x-1/2 translate-y-3 flex-col pr-4 sm:w-[484px] lg:w-[584px]"
         placeholder={
