@@ -7,6 +7,7 @@ declare global {
     __uv$config: any;
     __$ampere: any;
   }
+  const localforage: any;
 }
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

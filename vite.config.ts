@@ -4,6 +4,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { uvPath } from "@nebula-services/ultraviolet";
+const __dirname = path.resolve();
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,6 +14,14 @@ export default defineConfig({
         {
           src: `${uvPath}/uv.*.js`.replace(/\\/g, "/"),
           dest: "uv",
+          overwrite: false,
+        },
+        {
+          src: `${__dirname}/node_modules/localforage/dist/localforage.*.js`.replace(
+            /\\/g,
+            "/",
+          ),
+          dest: "localforage",
           overwrite: false,
         },
       ],

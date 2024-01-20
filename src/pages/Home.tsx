@@ -36,7 +36,7 @@ export default function Home() {
           id="input"
           placeholder="Search the web freely"
           className={`absolute left-1/2 top-1/2 z-50 w-96 -translate-x-1/2 -translate-y-1/2 !rounded-t-lg focus:!rounded-b-none ${
-            suggestions.length > 0 && `!border-b-0`
+            suggestions.length > 0 && suggestions.length === 8 && `!border-b-0`
           }`}
           value={inputValue}
           onChange={onInputChange}
@@ -71,7 +71,9 @@ export default function Home() {
 
         <Command
           className={`absolute left-1/2 top-[calc(50%_+_10.25rem)] h-auto w-96 -translate-x-1/2 -translate-y-1/2 rounded-b-lg rounded-t-none border-slate-800 shadow-md ${
-            suggestions.length > 0 ? `border-x border-b` : `border-none`
+            suggestions.length > 0 && suggestions.length === 8
+              ? `visible border-x border-b`
+              : `invisible border-none`
           }`}
         >
           <CommandList>
