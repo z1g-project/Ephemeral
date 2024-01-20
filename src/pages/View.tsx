@@ -55,7 +55,7 @@ export default function View() {
     setSuggestions(newSuggestions);
   }
   // it's mainly for setting input box shit
-  function onLoad() {
+  function setSearch() {
     const site = encoder.decode(
       frameRef.current?.contentWindow?.location.href
         .replace(window.location.origin, "")
@@ -67,11 +67,15 @@ export default function View() {
   // hacky
   useEffect(() => {
     if (!inputFocused) {
-      const interval = setInterval(onLoad, 500);
+      const interval = setInterval(setSearch, 500);
       return () => clearInterval(interval);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputFocused]);
+  function onLoad() {
+    setSearch();
+  }
+
   window.history.replaceState(null, "", "/");
 
   return (
