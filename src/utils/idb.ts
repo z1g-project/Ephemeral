@@ -5,7 +5,7 @@ localforage.config({
 });
 const bareServer = {
   addBare: (server: string) => {
-      localforage.setItem("__bserver", server);
+    localforage.setItem("__bserver", server);
   },
   getBare: async () => {
     return await localforage.getItem("__bserver");
