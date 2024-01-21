@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { encoder } from "@/utils/encoder";
+import AES from "crypto-js/aes";
+import Utf8 from "crypto-js/enc-utf8";
 import {
   ArrowPathIcon,
   ArrowsPointingInIcon,
@@ -41,7 +42,21 @@ export default function View() {
       return "/~/dark/";
     }
   }
+  const aesKey = window.location.origin + navigator.userAgent;
 
+  const encoder = {
+    encode: (str: string) => {
+      if (!str) return str;
+  
+      return AES.encrypt(str, aesKey).toString().substring(10);
+    },
+    decode: (str: string) => {
+      if (!str) return str;
+  
+      return AES.decrypt("U2FsdGVkX1" + str, aesKey).toString(Utf8);
+    },
+  };
+  
   async function onInputChange(event: any) {
     setSiteUrl((event.target as HTMLInputElement).value);
     const newQuery = event.target.value;
