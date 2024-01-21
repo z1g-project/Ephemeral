@@ -87,7 +87,9 @@ export default function Home() {
                       ),
                     )}`}
                   >
-                    <CommandItem key={index}>{suggestion}</CommandItem>
+                    <CommandItem className="cursor-pointer" key={index}>
+                      {suggestion}
+                    </CommandItem>
                   </Link>
                 ))}
               </CommandGroup>

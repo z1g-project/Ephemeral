@@ -157,7 +157,9 @@ export default function View() {
                     setSuggestionFocused(false);
                   }}
                 >
-                  <CommandItem key={index}>{suggestion}</CommandItem>
+                  <CommandItem className="cursor-pointer" key={index}>
+                    {suggestion}
+                  </CommandItem>
                 </Link>
               ))}
             </CommandGroup>

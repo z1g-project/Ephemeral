@@ -3,6 +3,8 @@ import Home from "./pages/Home";
 import Welcome from "./pages/Welcome";
 import View from "./pages/View";
 import Settings from "./pages/Settings";
+import ServiceWorkerError from "./pages/ServiceWorkerError";
+import PageNotFound from "./pages/PageNotFound";
 import { useEffect } from "react";
 export default function Routes() {
   useEffect(() => {
@@ -29,6 +31,8 @@ export default function Routes() {
         <Route path="/welcome" Component={Welcome} />
         <Route path="/view/:url" Component={View} />
         <Route path="/settings" Component={Settings} />
+        <Route path="/~/*" Component={ServiceWorkerError} />
+        <Route path="*" Component={PageNotFound} />
       </Router>
     </BrowserRouter>
   );
