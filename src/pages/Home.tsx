@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { encoder } from "@/utils/encoder";
+import AES from "crypto-js/aes";
+import Utf8 from "crypto-js/enc-utf8";
 import Navbar from "@/components/Navbar";
 import {
   Command,
@@ -12,6 +13,22 @@ import {
 import { Input } from "@/components/ui/input";
 
 export default function Home() {
+  
+const aesKey = window.location.origin + navigator.userAgent;
+
+const encoder = {
+  encode: (str: string) => {
+    if (!str) return str;
+
+    return AES.encrypt(str, aesKey).toString().substring(10);
+  },
+  decode: (str: string) => {
+    if (!str) return str;
+
+    return AES.decrypt("U2FsdGVkX1" + str, aesKey).toString(Utf8);
+  },
+};
+
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
