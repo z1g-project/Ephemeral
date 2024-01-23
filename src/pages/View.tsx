@@ -42,7 +42,6 @@ export default function View() {
     }
   }
 
-  
   async function onInputChange(event: any) {
     setSiteUrl((event.target as HTMLInputElement).value);
     const newQuery = event.target.value;
