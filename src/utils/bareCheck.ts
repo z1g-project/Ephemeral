@@ -10,10 +10,10 @@ export async function bareVerify(bare: string): Promise<boolean> {
     method: "GET",
     headers: headers,
   })
-    .then((response) => {
+    .then((res) => {
       if (
-        response.headers.get("x-bare-status") === "200" ||
-        response.headers.get("x-bare-status") === "302"
+        res.headers.get("x-bare-status") === "200" ||
+        res.headers.get("x-bare-status") === "302"
       ) {
         return true;
       } else {
@@ -38,7 +38,7 @@ export async function proxyCompat(bare: string): Promise<boolean> {
     method: "GET",
     headers: headers,
   })
-    .then((response) => response.json())
+    .then((res) => res.json())
     .then((data) => {
       if (Object.prototype.hasOwnProperty.call(data, "HTTPProxy")) {
         return true;
