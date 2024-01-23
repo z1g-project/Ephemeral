@@ -28,19 +28,18 @@ const setUv = new Promise(async (resolve) => {
   resolve();
 });
 // eslint-disable-next-line no-async-promise-executor
-// const setAmpere = new Promise(async (resolve) => {
-//   try {
-//     const bare =
-//       (await localforage.getItem("__bserver")) || location.origin + "/bare/";
-//     self.__$ampere.config.server = bare;
-//     console.log(bare);
-//     self.ampere = new AmpereWorker(self.__$ampere.config);
-//   } catch (error) {
-//     console.log(error);
-//   }
-//   resolve();
-// });
-const ampere = new AmpereWorker();
+const setAmpere = new Promise(async (resolve) => {
+  try {
+    const bare =
+      (await localforage.getItem("__bserver")) || location.origin + "/bare/";
+    self.__$ampere.config.server = bare;
+    self.ampere = new AmpereWorker(self.__$ampere.config);
+  } catch (error) {
+    console.log(error);
+  }
+  resolve();
+});
+
 self.addEventListener("fetch", (event) => {
   if (event.request.url.startsWith(location.origin + __uv$config.prefix)) {
     event.respondWith(
@@ -56,6 +55,13 @@ self.addEventListener("fetch", (event) => {
   } else if (
     event.request.url.startsWith(location.origin + __$ampere.config.prefix)
   ) {
-    event.respondWith(ampere.fetch(event));
+    event.respondWith(async function () {
+      try {
+        await setAmpere;
+      } catch (error) {
+        console.log(error);
+      }
+      return await self.ampere.fetch(event);
+    })();
   }
 });

@@ -25,6 +25,7 @@
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.1.5",
     "@types/express": "^4.17.21",
     "@types/react-router-dom": "^5.3.3",
     "autoprefixer": "^10.4.16",
