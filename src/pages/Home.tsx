@@ -12,7 +12,6 @@ import {
 import { Input } from "@/components/ui/input";
 
 export default function Home() {
-  
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
