@@ -15,8 +15,8 @@ export default function PageNotFound() {
       <Button
         asChild
         type="button"
-        variant="default"
-        className="absolute left-1/2 top-[calc(50%_+_5rem)] -translate-x-1/2 -translate-y-1/2 font-['Inter'] text-slate-800"
+        variant="link"
+        className="absolute left-1/2 top-[calc(50%_+_5rem)] -translate-x-1/2 -translate-y-1/2 font-['Inter'] text-slate-200"
       >
         <Link to="/">Go Home</Link>
       </Button>
