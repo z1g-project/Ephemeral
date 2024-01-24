@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/command";
 
 import { Input } from "@/components/ui/input";
+import Header from "@/components/Header";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ export default function Home() {
   return (
     <>
       <div className="flex min-h-screen flex-row-reverse bg-slate-950">
+      <Header title="Home | Ephermal" />
         <Navbar />
         <Input
           id="input"
