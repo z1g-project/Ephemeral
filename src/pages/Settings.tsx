@@ -11,7 +11,7 @@ export default function Settings() {
         Settings
       </div>
       <Toaster />
-      <div className="flex flex-row space-x-2 p-6 top-1/2 translate-y-20">
+      <div className="flex flex-row space-x-2 p-6 top-1/2 mt-20">
         <ProxySettings />
         <CloakSettings />
       </div>
