@@ -13,7 +13,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast"
-
 import {
   Select,
   SelectContent,
@@ -21,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 export default function ProxySettings() {
   const { toast } = useToast()
   const proxyDropdownRef = useRef<HTMLSelectElement>(null);
@@ -31,7 +31,7 @@ export default function ProxySettings() {
   }
   return (
     <>
-      <Card className="absolute left-20 top-20 h-96 w-96">
+      <Card className="h-96 w-96">
         <CardHeader>
           <CardTitle>Proxy</CardTitle>
           <CardDescription>Set proxy settings</CardDescription>
