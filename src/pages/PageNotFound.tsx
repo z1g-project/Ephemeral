@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
+import Header from "@/components/Header";
 export default function PageNotFound() {
   return (
     <div className="flex min-h-screen bg-slate-950">
+      <Header title="Home" />
       <Navbar />
       <div className="absolute left-1/2 top-[calc(50%_-_5rem)] -translate-x-1/2 -translate-y-1/2 font-['Inter'] text-6xl font-extrabold text-slate-200">
         404

@@ -80,6 +80,9 @@ dependencies:
   million:
     specifier: ^2.6.4
     version: 2.6.4
+  pnpm:
+    specifier: ^8.14.3
+    version: 8.14.3
   prettier-plugin-tailwindcss:
     specifier: ^0.5.11
     version: 0.5.11(prettier@3.1.1)
@@ -89,6 +92,9 @@ dependencies:
   react-dom:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
+  react-helmet:
+    specifier: ^6.1.0
+    version: 6.1.0(react@18.2.0)
   react-router-dom:
     specifier: ^6.21.2
     version: 6.21.2(react-dom@18.2.0)(react@18.2.0)
@@ -115,6 +121,9 @@ devDependencies:
   "@types/react-dom":
     specifier: ^18.2.17
     version: 18.2.18
+  "@types/react-helmet":
+    specifier: ^6.1.11
+    version: 6.1.11
   "@typescript-eslint/eslint-plugin":
     specifier: ^6.14.0
     version: 6.19.0(@typescript-eslint/parser@6.19.0)(eslint@8.56.0)(typescript@5.3.3)
@@ -2362,6 +2371,15 @@ packages:
       }
     dependencies:
       "@types/react": 18.2.48
+
+  /@types/react-helmet@6.1.11:
+    resolution:
+      {
+        integrity: sha512-0QcdGLddTERotCXo3VFlUSWO3ztraw8nZ6e3zJSgG7apwV5xt+pJUS8ewPBqT4NYB1optGLprNQzFleIY84u/g==,
+      }
+    dependencies:
+      "@types/react": 18.2.48
+    dev: true
 
   /@types/react-router-dom@5.3.3:
     resolution:
@@ -4790,6 +4808,15 @@ packages:
       }
     engines: { node: ">= 6" }
 
+  /pnpm@8.14.3:
+    resolution:
+      {
+        integrity: sha512-w+2A61g74+K37zHrlri5z6oFA+XUTscXUUEgtRh7L5M3NukDjFGlojrVgnkLpB1Kt4RhjIn6fiNl9mZWhdYS7g==,
+      }
+    engines: { node: ">=16.14" }
+    hasBin: true
+    dev: false
+
   /postcss-import@15.1.0(postcss@8.4.33):
     resolution:
       {
@@ -4945,6 +4972,17 @@ packages:
     engines: { node: ">=14" }
     hasBin: true
 
+  /prop-types@15.8.1:
+    resolution:
+      {
+        integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==,
+      }
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react-is: 16.13.1
+    dev: false
+
   /proxy-addr@2.0.7:
     resolution:
       {
@@ -5019,6 +5057,35 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-fast-compare@3.2.2:
+    resolution:
+      {
+        integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==,
+      }
+    dev: false
+
+  /react-helmet@6.1.0(react@18.2.0):
+    resolution:
+      {
+        integrity: sha512-4uMzEY9nlDlgxr61NL3XbKRy1hEkXmKNXhjbAIOVw5vcFrsdYbH2FEwcNyWvWinl103nXgzYNlns9ca+8kFiWw==,
+      }
+    peerDependencies:
+      react: ">=16.3.0"
+    dependencies:
+      object-assign: 4.1.1
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-fast-compare: 3.2.2
+      react-side-effect: 2.1.2(react@18.2.0)
+    dev: false
+
+  /react-is@16.13.1:
+    resolution:
+      {
+        integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==,
+      }
     dev: false
 
   /react-refresh@0.14.0:
@@ -5118,6 +5185,17 @@ packages:
       react: ">=16.8"
     dependencies:
       "@remix-run/router": 1.14.2
+      react: 18.2.0
+    dev: false
+
+  /react-side-effect@2.1.2(react@18.2.0):
+    resolution:
+      {
+        integrity: sha512-PVjOcvVOyIILrYoyGEpDN3vmYNLdy1CajSFNt4TDsVQC5KpTijDvWVoR+/7Rz2xT978D8/ZtFceXxzsPwZEDvw==,
+      }
+    peerDependencies:
+      react: ^16.3.0 || ^17.0.0 || ^18.0.0
+    dependencies:
       react: 18.2.0
     dev: false
 
