@@ -18,15 +18,20 @@ import {
 } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Header from "@/components/Header";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/components/ui/use-toast";
 interface ProxyWindow extends Window {
   eruda: any;
 }
 export default function View() {
   const { url } = useParams();
+  const { toast } = useToast();
   const [siteUrl, setSiteUrl] = useState("");
   const [fullScreen, setFullScreen] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
+  const [aboutBlank, setAboutBlank] = useState(false);
   // this isn't with onBlur and onFocus on the element since it's a tiny bit hacky
   const [suggestionFocused, setSuggestionFocused] = useState(false);
   const frameRef = useRef<HTMLIFrameElement>(null);
@@ -72,17 +77,34 @@ export default function View() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputFocused]);
+  function inIframe():boolean {
+      if (window.self !== window.top) {
+        return true;
+      } else {
+        return false;
+      }
+  } 
   function onLoad() {
     setSearch();
+    if (inIframe()) {
+      setAboutBlank(true)
+      toast({
+        description: "Note: Back and Forward buttons will not work in about:blank"
+      })
+    }
   }
 
   window.history.replaceState(null, "", "/");
 
   return (
     <div className="flex h-screen bg-slate-950" ref={pageRef}>
+      <Toaster />
+      <Header title="View | Ephermal" />
       <div className="absolute -translate-y-2 flex-row items-start space-x-4 p-5">
         <Button
+        {...(aboutBlank ? {disabled: true} : {})}
           variant="ghost"
+          className={aboutBlank ? "cursor-not-allowed" : ""}
           onClick={() => {
             frameRef.current!.contentWindow?.history.back();
           }}
@@ -90,7 +112,9 @@ export default function View() {
           <ChevronLeftIcon className="h-6 w-6 text-slate-50" />
         </Button>
         <Button
+        {...(aboutBlank ? {disabled: true} : {})}
           variant="ghost"
+          className={aboutBlank ? "cursor-not-allowed" : ""}
           onClick={() => {
             frameRef.current!.contentWindow?.history.forward();
           }}

@@ -31,7 +31,7 @@ export default function ProxySettings() {
   }
   return (
     <>
-      <Card className="h-96 w-96">
+      <Card className="h-96 w-96 m-2">
         <CardHeader>
           <CardTitle>Proxy</CardTitle>
           <CardDescription>Set proxy settings</CardDescription>
@@ -121,8 +121,7 @@ export default function ProxySettings() {
               unregisterServiceWorker();
               window.location.reload();
               toast({
-                title: "Settings Saved",
-                description: "Settings has been saved",
+                title: "Proxy Settings saved",
               });
             }}
           >

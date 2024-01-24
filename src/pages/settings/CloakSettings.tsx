@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { useToast } from "@/components/ui/use-toast";
 import {
   Card,
   CardContent,
@@ -17,28 +19,76 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 export default function CloakSettings() {
+  const cloakTitleInputRef = useRef<HTMLInputElement>(null);
+  const cloakFaviconInputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
+
   return (
     <>
-      <Card className="h-96 w-96">
+      <Card className="h-96 w-96 m-2">
         <CardHeader>
           <CardTitle>Cloak</CardTitle>
           <CardDescription>Set cloaking settings</CardDescription>
         </CardHeader>
         <CardContent className="bg-slate-950">
           <Label htmlFor="presets">Presets</Label>
-          <Select>
+          <Select
+            onValueChange={(value) => {
+              localStorage.setItem("cloakPreset", value);
+              if (value == "Schoology") {
+                localStorage.setItem("cloakTitle", "Home | Schoology");
+                localStorage.setItem(
+                  "cloakFavicon",
+                  "https://asset-cdn.schoology.com/sites/all/themes/schoology_theme/favicon.ico",
+                );
+              } else if (value == "Google Classroom") {
+                localStorage.setItem("cloakTitle", "Classes");
+                localStorage.setItem(
+                  "cloakFavicon",
+                  "https://ssl.gstatic.com/classroom/ic_product_classroom_144.png",
+                );
+              } else if (value == "Canvas") {
+                localStorage.setItem("cloakTitle", "Dashboard");
+                localStorage.setItem(
+                  "cloakFavicon",
+                  "https://du11hjcvx0uqb.cloudfront.net/dist/images/favicon-e10d657a73.ico",
+                );
+              } else if (value == "Google") {
+                localStorage.setItem("cloakTitle", "Google");
+                localStorage.setItem(
+                  "cloakFavicon",
+                  "https://www.google.com/favicon.ico",
+                );
+              }
+              toast({
+                title: "Cloak Preset Changed",
+                description: "Cloak preset has been changed to " + value,
+              });
+              window.location.reload();
+            }}
+          >
             <SelectTrigger className="bg-slate-950">
-              <SelectValue placeholder="Select a preset" />
+              <SelectValue
+                placeholder={
+                  localStorage.getItem("cloakPreset")
+                    ? localStorage.getItem("cloakPreset")
+                    : "Select a preset"
+                }
+              />
               <SelectContent position="popper" className="bg-slate-950">
-                <SelectItem value="schoology">Schoology</SelectItem>
-                <SelectItem value="gclassroom">Google Classroom</SelectItem>
-                <SelectItem value="canvas">Canvas</SelectItem>
+                <SelectItem value="Schoology">Schoology</SelectItem>
+                <SelectItem value="Google Classroom">
+                  Google Classroom
+                </SelectItem>
+                <SelectItem value="Canvas">Canvas</SelectItem>
+                <SelectItem value="Google">Google</SelectItem>
               </SelectContent>
             </SelectTrigger>
           </Select>
           <Label htmlFor="title">Page Title</Label>
           <Input
             id="page-title"
+            ref={cloakTitleInputRef}
             type="text"
             placeholder="Set how the tab title looks"
             className="bg-slate-950"
@@ -46,18 +96,57 @@ export default function CloakSettings() {
           <Label htmlFor="title">Page Favicon</Label>
           <Input
             id="page-favicon"
+            ref={cloakFaviconInputRef}
             type="text"
             placeholder="Set the favicon"
             className="bg-slate-950"
           />
         </CardContent>
-        <CardFooter className="justify-between">
-          <Button variant="default">Save</Button>
+        <CardFooter className="justify-between space-x-2">
+          <Button
+            variant="default"
+            onClick={() => {
+              localStorage.setItem("cloakPreset", "Custom");
+              localStorage.setItem(
+                "cloakTitle",
+                cloakTitleInputRef.current!.value,
+              );
+              localStorage.setItem(
+                "cloakFavicon",
+                cloakFaviconInputRef.current!.value,
+              );
+              toast({
+                title: "Cloak Preset Changed",
+                description: `Cloak preset has been changed to "${
+                  cloakTitleInputRef.current!.value
+                }"`,
+              });
+              window.location.reload();
+            }}
+          >
+            Save
+          </Button>
+          <Button
+            variant="destructive"
+            onClick={() => {
+              localStorage.removeItem("cloakPreset");
+              localStorage.removeItem("cloakTitle");
+              localStorage.removeItem("cloakFavicon");
+              toast({
+                title: "Cloak Preset Removed",
+                description: "Cloak preset has been removed",
+                variant: "destructive"
+              });
+              window.location.reload();
+            }}
+          >
+            Reset
+          </Button>
           <Button
             variant="secondary"
             onClick={() => {
-              let newWindow = window.open("about:blank");
-              let iframe = document.createElement("iframe");
+              const newWindow = window.open("about:blank");
+              const iframe = document.createElement("iframe");
               iframe.src = window.location.origin;
               iframe.style.width = "100%";
               iframe.style.height = "100%";
@@ -74,7 +163,7 @@ export default function CloakSettings() {
               window.location.replace("https://google.com");
             }}
           >
-            Open in about:blank
+            Open about:blank
           </Button>
         </CardFooter>
       </Card>
