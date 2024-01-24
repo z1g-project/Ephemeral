@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { bareVerify, /*proxyCompat*/ } from "@/utils/bareCheck";
+import { proxyCompat } from "@/utils/bareCheck";
 import { unregisterServiceWorker } from "@/utils/swUtil";
 import {
   Card,
@@ -82,11 +82,7 @@ export default function ProxySettings() {
           <Button
             type="button"
             variant="default"
-            onClick={() => {
-              // TODO: get this to work
-              bareVerify(bareServerInputRef.current!.value).then(async (result) => {
-                if (result) {
-                  console.log("Bare Server is valid");
+            onClick={async () => {
                   await localforage.config({
                     driver: localforage.INDEXEDDB,
                     name: "ephermal",
@@ -96,10 +92,34 @@ export default function ProxySettings() {
                     bareServerInputRef.current!.value
                     await localforage.setItem("__bserver", bareServer);
                     localStorage.setItem("bareServer", bareServer);
-                    unregisterServiceWorker();
-                    window.location.reload();
-                }
-              });
+                 if (localStorage.getItem("proxyServer") !== proxyServerInputRef.current!.value) {
+                  proxyCompat(bareServer).then((res) => {
+                    if (res) {
+                      localStorage.setItem(
+                        "proxyServer",
+                        proxyServerInputRef.current!.value,
+                      );
+                      toast({
+                        title: "Proxy Changed",
+                        description:
+                          "Proxy has been changed to " +
+                            localStorage.getItem("proxy") || "ultraviolet",
+                      });
+                    } else {
+                      toast({
+                        title: "Proxy Error",
+                        description:
+                          "Proxy server is not compatible with the backend",
+                      });
+                    }
+                  });
+                 }
+                 unregisterServiceWorker();
+                 window.location.reload();
+                 toast({
+                  title: "Settings Saved",
+                  description: "Settings has been saved",
+                 })
             }}
           >
             Save
