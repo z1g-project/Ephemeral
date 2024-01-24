@@ -12,7 +12,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast";
 import {
   Select,
   SelectContent,
@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/select";
 
 export default function ProxySettings() {
-  const { toast } = useToast()
+  const { toast } = useToast();
   const proxyDropdownRef = useRef<HTMLSelectElement>(null);
   const bareServerInputRef = useRef<HTMLInputElement>(null);
   const proxyServerInputRef = useRef<HTMLInputElement>(null);
@@ -38,13 +38,15 @@ export default function ProxySettings() {
         </CardHeader>
         <CardContent className="bg-slate-950">
           <Label htmlFor="name">Backend</Label>
-          <Select onValueChange={(value) => {
-            localStorage.setItem("proxy", value);
-            toast({
-              title: "Proxy Changed",
-              description: "Proxy has been changed to " + toUpperCase(value),
-            })
-          }}>
+          <Select
+            onValueChange={(value) => {
+              localStorage.setItem("proxy", value);
+              toast({
+                title: "Proxy Changed",
+                description: "Proxy has been changed to " + toUpperCase(value),
+              });
+            }}
+          >
             <SelectTrigger className="bg-slate-950">
               <SelectValue
                 ref={proxyDropdownRef}
@@ -83,48 +85,50 @@ export default function ProxySettings() {
             type="button"
             variant="default"
             onClick={async () => {
-                  await localforage.config({
-                    driver: localforage.INDEXEDDB,
-                    name: "ephermal",
-                    storeName: "__ephermal_config",
-                  });
-                  const bareServer = 
-                    bareServerInputRef.current!.value
-                    await localforage.setItem("__bserver", bareServer);
-                    localStorage.setItem("bareServer", bareServer);
-                 if (localStorage.getItem("proxyServer") !== proxyServerInputRef.current!.value) {
-                  proxyCompat(bareServer).then((res) => {
-                    if (res) {
-                      localStorage.setItem(
-                        "proxyServer",
-                        proxyServerInputRef.current!.value,
-                      );
-                      toast({
-                        title: "Proxy Changed",
-                        description:
-                          "Proxy has been changed to " +
-                            localStorage.getItem("proxy") || "ultraviolet",
-                      });
-                    } else {
-                      toast({
-                        title: "Proxy Error",
-                        description:
-                          "Proxy server is not compatible with the backend",
-                      });
-                    }
-                  });
-                 }
-                 unregisterServiceWorker();
-                 window.location.reload();
-                 toast({
-                  title: "Settings Saved",
-                  description: "Settings has been saved",
-                 })
+              await localforage.config({
+                driver: localforage.INDEXEDDB,
+                name: "ephermal",
+                storeName: "__ephermal_config",
+              });
+              const bareServer = bareServerInputRef.current!.value;
+              await localforage.setItem("__bserver", bareServer);
+              localStorage.setItem("bareServer", bareServer);
+              if (
+                localStorage.getItem("proxyServer") !==
+                proxyServerInputRef.current!.value
+              ) {
+                proxyCompat(bareServer).then((res) => {
+                  if (res) {
+                    localStorage.setItem(
+                      "proxyServer",
+                      proxyServerInputRef.current!.value,
+                    );
+                    toast({
+                      title: "Proxy Changed",
+                      description:
+                        "Proxy has been changed to " +
+                          localStorage.getItem("proxy") || "ultraviolet",
+                    });
+                  } else {
+                    toast({
+                      title: "Proxy Error",
+                      description:
+                        "Proxy server is not compatible with the backend",
+                    });
+                  }
+                });
+              }
+              unregisterServiceWorker();
+              window.location.reload();
+              toast({
+                title: "Settings Saved",
+                description: "Settings has been saved",
+              });
             }}
           >
             Save
           </Button>
-          </CardFooter>
+        </CardFooter>
       </Card>
     </>
   );
