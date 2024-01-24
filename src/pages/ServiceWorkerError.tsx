@@ -8,6 +8,7 @@ export default function PageNotFound() {
       </div>
       <Button
         type="button"
+        c
         onClick={() => window.location.reload()}
         className="absolute left-1/2 top-[calc(50%_+_10.25rem)] -translate-x-1/2 -translate-y-1/2 font-['Inter'] text-slate-800"
       >

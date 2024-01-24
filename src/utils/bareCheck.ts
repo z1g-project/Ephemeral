@@ -19,7 +19,7 @@ export async function proxyCompat(bare: string): Promise<boolean> {
       }
     })
     .catch((error) => {
-        console.log(error)
+      console.log(error);
       return false;
     });
   return false;
