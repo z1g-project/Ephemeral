@@ -51,8 +51,31 @@ export default function CloakSettings() {
             className="bg-slate-950"
           />
         </CardContent>
-        <CardFooter>
+        <CardFooter className="justify-between">
           <Button variant="default">Save</Button>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              let newWindow = window.open("about:blank");
+              let iframe = document.createElement("iframe");
+              iframe.src = window.location.origin;
+              iframe.style.width = "100%";
+              iframe.style.height = "100%";
+              iframe.style.border = "none";
+              iframe.style.overflow = "hidden";
+              iframe.style.margin = "0";
+              iframe.style.padding = "0";
+              iframe.style.position = "fixed";
+              iframe.style.top = "0";
+              iframe.style.bottom = "0";
+              iframe.style.left = "0";
+              iframe.style.right = "0";
+              newWindow?.document.body.appendChild(iframe);
+              window.location.replace("https://google.com");
+            }}
+          >
+            Open in about:blank
+          </Button>
         </CardFooter>
       </Card>
     </>
