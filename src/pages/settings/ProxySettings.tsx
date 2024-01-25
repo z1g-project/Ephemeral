@@ -31,7 +31,7 @@ export default function ProxySettings() {
   }
   return (
     <>
-      <Card className="h-96 w-96 m-2">
+      <Card className="h-96 w-96">
         <CardHeader>
           <CardTitle>Proxy</CardTitle>
           <CardDescription>Set proxy settings</CardDescription>
