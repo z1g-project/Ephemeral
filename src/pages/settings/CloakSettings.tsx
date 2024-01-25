@@ -25,7 +25,7 @@ export default function CloakSettings() {
 
   return (
     <>
-      <Card className="h-96 w-96 m-2">
+      <Card className="h-96 w-96">
         <CardHeader>
           <CardTitle>Cloak</CardTitle>
           <CardDescription>Set cloaking settings</CardDescription>
@@ -135,7 +135,7 @@ export default function CloakSettings() {
               toast({
                 title: "Cloak Preset Removed",
                 description: "Cloak preset has been removed",
-                variant: "destructive"
+                variant: "destructive",
               });
               window.location.reload();
             }}

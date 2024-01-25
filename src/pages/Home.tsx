@@ -16,6 +16,8 @@ export default function Home() {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const searchEngine =
+    localStorage.getItem("searchUrl") || "https://google.com/search?q=";
   async function onInputChange(event: any) {
     setInputValue((event.target as HTMLInputElement).value);
     const newQuery = event.target.value;
@@ -31,8 +33,8 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex min-h-screen flex-row-reverse bg-slate-950">
       <Header title="Home | Ephermal" />
+      <div className="flex min-h-screen flex-row-reverse bg-slate-950">
         <Navbar />
         <Input
           id="input"
@@ -63,7 +65,7 @@ export default function Home() {
               } else {
                 navigate(
                   `/view/${encodeURIComponent(
-                    encoder.encode("https://google.com/search?q=" + inputValue),
+                    encoder.encode(searchEngine + inputValue),
                   )}`,
                 );
               }
@@ -84,9 +86,7 @@ export default function Home() {
                 {suggestions.map((suggestion, index) => (
                   <Link
                     to={`/view/${encodeURIComponent(
-                      encoder.encode(
-                        "https://google.com/search?q=" + suggestion,
-                      ),
+                      encoder.encode(searchEngine + suggestion),
                     )}`}
                   >
                     <CommandItem className="cursor-pointer" key={index}>
