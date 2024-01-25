@@ -10,6 +10,9 @@ import {
 export default function Navbar() {
   return (
     <>
+      <div className=" absolute left-1 -translate-y-2 justify-end p-5 font-['Inter'] text-3xl font-extrabold text-slate-300">
+        Ephermal
+      </div>
       <div className="absolute right-1 -translate-y-2 justify-end p-5">
         <NavigationMenu>
           <NavigationMenuList>

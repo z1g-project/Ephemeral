@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { encoder } from "@/utils/encoder";
+import encoder from "@/utils/encoder";
 import Navbar from "@/components/Navbar";
 import {
   Command,
@@ -10,11 +10,14 @@ import {
 } from "@/components/ui/command";
 
 import { Input } from "@/components/ui/input";
+import Header from "@/components/Header";
 
 export default function Home() {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const searchEngine =
+    localStorage.getItem("searchUrl") || "https://google.com/search?q=";
   async function onInputChange(event: any) {
     setInputValue((event.target as HTMLInputElement).value);
     const newQuery = event.target.value;
@@ -30,6 +33,7 @@ export default function Home() {
 
   return (
     <>
+      <Header title="Home | Ephermal" />
       <div className="flex min-h-screen flex-row-reverse bg-slate-950">
         <Navbar />
         <Input
@@ -61,7 +65,7 @@ export default function Home() {
               } else {
                 navigate(
                   `/view/${encodeURIComponent(
-                    encoder.encode("https://google.com/search?q=" + inputValue),
+                    encoder.encode(searchEngine + inputValue),
                   )}`,
                 );
               }
@@ -82,12 +86,12 @@ export default function Home() {
                 {suggestions.map((suggestion, index) => (
                   <Link
                     to={`/view/${encodeURIComponent(
-                      encoder.encode(
-                        "https://google.com/search?q=" + suggestion,
-                      ),
+                      encoder.encode(searchEngine + suggestion),
                     )}`}
                   >
-                    <CommandItem key={index}>{suggestion}</CommandItem>
+                    <CommandItem className="cursor-pointer" key={index}>
+                      {suggestion}
+                    </CommandItem>
                   </Link>
                 ))}
               </CommandGroup>
