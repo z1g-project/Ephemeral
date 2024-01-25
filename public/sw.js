@@ -33,7 +33,6 @@ const setAmpere = new Promise(async (resolve) => {
     const bare =
       (await localforage.getItem("__bserver")) || location.origin + "/bare/";
     self.__$ampere.config.server = bare;
-    console.log(bare);
     self.ampere = new AmpereWorker(self.__$ampere.config);
   } catch (error) {
     console.log(error);
