@@ -4,6 +4,7 @@ import View from "./pages/View";
 import Settings from "./pages/Settings";
 import ServiceWorkerError from "./pages/ServiceWorkerError";
 import PageNotFound from "./pages/PageNotFound";
+
 import { useEffect } from "react";
 export default function Routes() {
   useEffect(() => {
