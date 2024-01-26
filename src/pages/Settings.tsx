@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
-//import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Dialog,
   DialogContent,
@@ -25,7 +25,6 @@ export default function Settings() {
           Settings
         </div>
         <Toaster />
-        // todo: make this a tab component
         <div className="flex flex-grow flex-row items-center justify-center space-x-4">
           <ProxySettings />
           <CloakSettings />
