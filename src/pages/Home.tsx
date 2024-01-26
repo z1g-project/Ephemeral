@@ -85,6 +85,7 @@ export default function Home() {
               <CommandGroup heading="Suggestions">
                 {suggestions.map((suggestion, index) => (
                   <Link
+                    key={index}
                     to={`/view/${encodeURIComponent(
                       encoder.encode(searchEngine + suggestion),
                     )}`}
