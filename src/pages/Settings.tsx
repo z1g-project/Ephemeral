@@ -4,7 +4,7 @@ import SearchSettings from "./settings/SearchSettings";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/Header";
-import { Button } from "@/components/ui/button";
+import { Info } from "lucide-react";
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Dialog,
@@ -30,17 +30,17 @@ export default function Settings() {
           <CloakSettings />
           <SearchSettings />
         </div>
-        <div className="absolute bottom-5 left-5 text-slate-200">
+        <div className="absolute bottom-5 right-5 text-slate-200">
           <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="link">About Ephermal</Button>
+            <DialogTrigger>
+              <Info />
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle className="text-slate-200">
-                  About Ephermal 0.2.0 - Beta
+                  Ephermal 0.2.0 - Beta
                 </DialogTitle>
-                <DialogDescription>
+                <DialogDescription className="text-slate-300">
                   Ephermal is a powerful proxy with Ultraviolet and other
                   features, made by the z1g Project.
                   <br />
@@ -48,34 +48,18 @@ export default function Settings() {
                   <br />
                   <li>Ultraviolet</li>
                   <li>Ampere</li>
-                  <li>React</li>
-                  <li>Vite</li>
+                  <li>TOMPHttp Bare Server</li>
                   Developers:
                   <br />
-                  <li>
-                    <Button asChild variant="link">
-                      <a href="https://github.com/notplayingallday383">
-                        Playingallday383
-                      </a>
-                    </Button>
-                  </li>
-                  <li>
-                    <Button asChild variant="link">
-                      <a href="https://github.com/incognitotgt">tgt</a>
-                    </Button>
-                  </li>
-                  <li>
-                    <Button asChild variant="link">
-                      <a href="https://github.com/interpolation-0">
-                        interpolation
-                      </a>
-                    </Button>
-                  </li>
-                  <li>
-                    <Button asChild variant="link">
-                      <a href="https://github.com/vbnm0">vy.x</a>
-                    </Button>
-                  </li>
+                  <ul className="list-disc list-inside">
+                    <li>011010110111100101110011b</li>
+                    <li>tg.t</li>
+                    <li>vy.x</li>
+                    <li>xstars</li>
+                    <li>yu6x</li>
+                  </ul>
+                  Copyright 2024 z1g Project.
+                  Last pushed on 01-26-2024.
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>
