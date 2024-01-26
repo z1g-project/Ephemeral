@@ -16,7 +16,7 @@ if (!existsSync("fortnite")) fortnite();
 
 const bare = createBareServer("/bare/");
 const app = express();
-const port =  process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 
 app.use(express.static("dist"));
 app.use("/uv/", express.static(uvPath));

@@ -51,15 +51,14 @@ export default function Settings() {
                   <li>TOMPHttp Bare Server</li>
                   Developers:
                   <br />
-                  <ul className="list-disc list-inside">
+                  <ul className="list-inside list-disc">
                     <li>011010110111100101110011b</li>
                     <li>tg.t</li>
                     <li>vy.x</li>
                     <li>xstars</li>
                     <li>yu6x</li>
                   </ul>
-                  Copyright 2024 z1g Project.
-                  Last pushed on 01-26-2024.
+                  Copyright 2024 z1g Project. Last pushed on 01-26-2024.
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>
