@@ -145,7 +145,7 @@ export default function View() {
             setSuggestionFocused(true);
           }}
           onBlur={() => setInputFocused(false)}
-          className="absolute left-1/2 w-96 -translate-x-1/2 translate-y-3 flex-col pr-4 sm:w-[484px] lg:w-[584px]"
+          className="absolute left-1/2 w-96 -translate-x-1/2 translate-y-3 flex-col pr-4 sm:w-[484px] lg:w-[584px] focus-visible:ring-0 focus-visible:ring-offset-0"
           placeholder={
             frameRef?.current?.src ? "Search the web freely" : "Loading..."
           }
@@ -247,7 +247,7 @@ export default function View() {
         <div className="h-[calc(100%_-_4rem)] w-full translate-y-16">
           <iframe
             src={getProxy() + url}
-            className="h-full w-full border-none"
+            className="h-full w-full border-none bg-slate-200"
             ref={frameRef}
             onLoad={onLoad}
           />
