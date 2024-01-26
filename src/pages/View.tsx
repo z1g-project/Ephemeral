@@ -145,7 +145,7 @@ export default function View() {
             setSuggestionFocused(true);
           }}
           onBlur={() => setInputFocused(false)}
-          className="absolute left-1/2 w-96 -translate-x-1/2 translate-y-3 flex-col pr-4 sm:w-[484px] lg:w-[584px] focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="absolute left-1/2 w-96 -translate-x-1/2 translate-y-3 flex-col pr-4 focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[484px] lg:w-[584px]"
           placeholder={
             frameRef?.current?.src ? "Search the web freely" : "Loading..."
           }
