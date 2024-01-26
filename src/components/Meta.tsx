@@ -9,6 +9,10 @@ export default function Meta() {
         name="keywords"
         content="proxy, web proxy, unblock websites, unblock chromebook, free web proxy, proxy list, proxy sites, un block chromebook, online proxy, proxy server, proxysite, proxy youtube, bypass securly, bypass iboss, bypass lightspeed filter, z1g, chromebooks, titanium network, unblock youtube, youtube proxy, unblocked youtube, youtube unblocked"
       />
+      <meta
+        name="description"
+        content="Ephermal is a web proxy that allows you to bypass internet restrictions such as firewalls, filters, and parental controls. It has a simple and clean UI, and has powerful features such as userscripts, userstyles, and a browser like UI"
+      />
       <meta property="og:site_name" content="Ephermal" />
       <meta property="og:url" content="https://ephermal.incognitotgt.me/" />
       <meta property="og:title" content="Ephermal" />
