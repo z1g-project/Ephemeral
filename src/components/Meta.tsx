@@ -74,7 +74,7 @@ export default function Meta() {
             }]
            }
             `}
-        </script>
+      </script>
     </Helmet>
   );
 }
