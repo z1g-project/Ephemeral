@@ -251,6 +251,7 @@ export default function View() {
         </div>
         <div className="h-[calc(100%_-_4rem)] w-full translate-y-16">
           <iframe
+            title="View"
             src={getProxy() + url}
             className="h-full w-full border-none bg-slate-200"
             ref={frameRef}
