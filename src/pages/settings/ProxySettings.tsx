@@ -48,7 +48,7 @@ export default function ProxySettings() {
               });
             }}
           >
-            <SelectTrigger>
+            <SelectTrigger aria-label="Presets">
               <SelectValue
                 ref={proxyDropdownRef}
                 placeholder={toUpperCase(
