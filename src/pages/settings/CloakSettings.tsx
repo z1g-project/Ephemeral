@@ -33,7 +33,6 @@ export default function CloakSettings() {
         <CardContent className={``}>
           <Label htmlFor="presets">Presets</Label>
           <Select
-            aria-label="Presets"
             onValueChange={(value) => {
               localStorage.setItem("cloakPreset", value);
               if (value == "Schoology") {
@@ -68,7 +67,7 @@ export default function CloakSettings() {
               window.location.reload();
             }}
           >
-            <SelectTrigger>
+            <SelectTrigger aria-label="Presets">
               <SelectValue
                 placeholder={
                   localStorage.getItem("cloakPreset")
