@@ -8,7 +8,9 @@ const theme = localStorage.getItem("theme") || "";
 const Layout = ({ children }: LayoutProps) => {
   return (
     <>
-      {window.location.origin === "https://ephermal.incognitotgt.me" && <Meta />}
+      {window.location.origin === "https://ephermal.incognitotgt.me" && (
+        <Meta />
+      )}
       <div
         className={`${theme} ${
           theme === "mocha"
