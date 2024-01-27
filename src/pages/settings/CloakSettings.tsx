@@ -33,6 +33,7 @@ export default function CloakSettings() {
         <CardContent className={``}>
           <Label htmlFor="presets">Presets</Label>
           <Select
+            aria-label="Presets"
             onValueChange={(value) => {
               localStorage.setItem("cloakPreset", value);
               if (value == "Schoology") {
