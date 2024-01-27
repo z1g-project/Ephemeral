@@ -29,10 +29,11 @@ export default function SearchSettings() {
           <CardDescription>Set search engine</CardDescription>
         </CardHeader>
         <CardContent>
-          <Label htmlFor="name" className="text-sm font-medium">
+          <Label htmlFor="presets" className="text-sm font-medium">
             Presets
           </Label>
           <Select
+            aria-label="Search Engine"
             onValueChange={(value) => {
               if (value === "Google") {
                 localStorage.setItem("search", "Google");

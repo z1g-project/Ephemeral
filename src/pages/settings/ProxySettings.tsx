@@ -37,8 +37,9 @@ export default function ProxySettings() {
           <CardDescription>Set proxy settings</CardDescription>
         </CardHeader>
         <CardContent>
-          <Label htmlFor="name">Backend</Label>
+          <Label htmlFor="backend">Backend</Label>
           <Select
+            aria-label="Backend"
             onValueChange={(value) => {
               localStorage.setItem("proxy", value);
               toast({

@@ -107,6 +107,7 @@ export default function View() {
         <div className="absolute -translate-y-2 flex-row items-start space-x-4 p-5">
           <Button
             {...(aboutBlank ? { disabled: true } : {})}
+            aria-label="Back"
             variant="ghost"
             onClick={() => {
               frameRef.current!.contentWindow?.history.back();
@@ -116,6 +117,7 @@ export default function View() {
           </Button>
           <Button
             {...(aboutBlank ? { disabled: true } : {})}
+            aria-label="Forward"
             variant="ghost"
             onClick={() => {
               frameRef.current!.contentWindow?.history.forward();
@@ -124,6 +126,7 @@ export default function View() {
             <ChevronRightIcon className="h-6 w-6 text-slate-50" />
           </Button>
           <Button
+            aria-label="Reload"
             variant="ghost"
             onClick={() => {
               frameRef.current!.contentWindow?.location.reload();
@@ -131,7 +134,7 @@ export default function View() {
           >
             <ArrowPathIcon className="h-6 w-6 text-slate-50" />
           </Button>
-          <Button asChild variant="ghost">
+          <Button asChild variant="ghost" aria-label="Home">
             <Link to="/">
               <HomeIcon className="h-6 w-6 text-slate-50" />
             </Link>
@@ -195,6 +198,7 @@ export default function View() {
         </Command>
         <div className="absolute right-1 -translate-y-2 flex-row items-start space-x-4 p-5">
           <Button
+            aria-label="Eruda (Browser Console)"
             variant="ghost"
             onClick={() => {
               const proxyWindow = frameRef.current!
@@ -226,6 +230,7 @@ export default function View() {
             <CodeBracketIcon className="h-6 w-6 text-slate-50" />
           </Button>
           <Button
+            aria-label="Fullscreen"
             variant="ghost"
             onClick={() => {
               if (document.fullscreenElement) {
