@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet";
-// todo - get these to only appear conditionally, and maybe add fake meta tags
+// todo - add fake meta tags
 export default function Meta() {
   return (
     <Helmet>

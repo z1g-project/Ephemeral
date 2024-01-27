@@ -28,7 +28,7 @@ export default function SearchSettings() {
           <CardTitle>Search</CardTitle>
           <CardDescription>Set search engine</CardDescription>
         </CardHeader>
-        <CardContent className="bg-slate-950">
+        <CardContent>
           <Label htmlFor="name" className="text-sm font-medium">
             Presets
           </Label>
@@ -53,17 +53,14 @@ export default function SearchSettings() {
               });
             }}
           >
-            <SelectTrigger className="bg-slate-950">
+            <SelectTrigger>
               <SelectValue
                 placeholder={
                   localStorage.getItem("search") || "Select a search engine"
                 }
               />
             </SelectTrigger>
-            <SelectContent
-              position="popper"
-              className="bg-slate-950 text-white"
-            >
+            <SelectContent position="popper" className=" text-white">
               <SelectItem value="Google">Google</SelectItem>
               <SelectItem value="DuckDuckGo">DuckDuckGo</SelectItem>
               <SelectItem value="Bing">Bing</SelectItem>
