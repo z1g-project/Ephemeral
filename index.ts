@@ -5,6 +5,7 @@ import axios from "axios";
 import { uvPath } from "@nebula-services/ultraviolet";
 import path from "path";
 import { existsSync } from "fs";
+import cors from "cors";
 
 function fortnite(): number {
   return no() + no();
@@ -17,11 +18,16 @@ if (!existsSync("fortnite")) fortnite();
 const bare = createBareServer("/bare/");
 const app = express();
 const port = process.env.PORT || 8080;
+const corsOptions = {
+  origin: `http://localhost:${port}`,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+};
 
+app.use(cors(corsOptions));
 app.use(express.static("dist"));
 app.use("/uv/", express.static(uvPath));
 app.use("/ampere", express.static("/public/ampere"));
-const server = createServer();
 app.get("/search", async (req, res) => {
   const query = req.query.q;
 
@@ -38,6 +44,7 @@ app.get("*", (_req, res) => {
   res.sendFile(path.resolve("dist", "index.html"));
 });
 
+const server = createServer();
 server.on("request", (req, res) => {
   if (bare.shouldRoute(req)) {
     bare.routeRequest(req, res);

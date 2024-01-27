@@ -1,35 +1,36 @@
 "use strict";
-import AES from "crypto-js/aes";
-import Utf8 from "crypto-js/enc-utf8";
+(() => {
+  var uri = {
+    encode: (value) => encodeURIComponent(value),
+    decode: (value) => decodeURIComponent(value)
+  };
 
-export const aes = {
-  encode: (value) => {
-    return encodeURIComponent(
-      AES.encrypt(value, location.origin + navigator.userAgent)
-        .toString()
-        .substring(10)
-    );
-  },
-  decode: (value) => {
-    return AES.decrypt(
-      "U2FsdGVkX1" + decodeURIComponent(value),
-      location.origin + navigator.userAgent
-    ).toString(Utf8);
-  }
-};
-
-(()=>{
-    var n=(e=>(e[e.None=0]="None",e[e.Error=1]="Error",e[e.Warn=2]="Warn",e[e.Info=3]="Info",e[e.Debug=4]="Debug",e))(n||{}),i={
-        prefix:"/~/light",
-        server:"http://localhost:8080/bare/",
-        logLevel:4,
-        codec:AES,
-        files:{
-            directory:"/ampere/",
-            config:"config.js",
-            client:"client.js",
-            worker:"worker.js",
-            bundle:"bundle.js"
-        },
-        plugins:[]
-    };Object.defineProperty(Object.prototype,"__$ampere",{value:Object.assign(globalThis.__$ampere||{},{config:i}),configurable:!1,enumerable:!1});})();
+  var LogLevel = /* @__PURE__ */ ((LogLevel2) => {
+    LogLevel2[LogLevel2["None"] = 0] = "None";
+    LogLevel2[LogLevel2["Error"] = 1] = "Error";
+    LogLevel2[LogLevel2["Warn"] = 2] = "Warn";
+    LogLevel2[LogLevel2["Info"] = 3] = "Info";
+    LogLevel2[LogLevel2["Debug"] = 4] = "Debug";
+    return LogLevel2;
+  })(LogLevel || {});
+  var config = {
+    prefix: "/~/light/",
+    server: "http://localhost:8080/bare/",
+    logLevel: 4 /* Debug */,
+    codec: uri,
+    files: {
+      directory: "/ampere/",
+      config: "config.js",
+      client: "client.js",
+      worker: "worker.js",
+      bundle: "bundle.js"
+    },
+    plugins: []
+  };
+  Object.defineProperty(Object.prototype, "__$ampere", {
+    value: Object.assign(globalThis.__$ampere || {}, { config }),
+    configurable: false,
+    enumerable: false
+  });
+})();
+//# sourceMappingURL=config.js.map

@@ -1,1 +1,751 @@
-"use strict";(()=>{var Q=Object.create;var A=Object.defineProperty;var Y=Object.getOwnPropertyDescriptor;var Z=Object.getOwnPropertyNames;var ee=Object.getPrototypeOf,te=Object.prototype.hasOwnProperty;var re=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports);var ne=(t,e,r,n)=>{if(e&&typeof e=="object"||typeof e=="function")for(let s of Z(e))!te.call(t,s)&&s!==r&&A(t,s,{get:()=>e[s],enumerable:!(n=Y(e,s))||n.enumerable});return t};var se=(t,e,r)=>(r=t!=null?Q(ee(t)):{},ne(e||!t||!t.__esModule?A(r,"default",{value:t,enumerable:!0}):r,t));var H=re((ve,g)=>{"use strict";var p={decodeValues:!0,map:!1,silent:!1};function P(t){return typeof t=="string"&&!!t.trim()}function B(t,e){var r=t.split(";").filter(P),n=r.shift(),s=we(n),a=s.name,i=s.value;e=e?Object.assign({},p,e):p;try{i=e.decodeValues?decodeURIComponent(i):i}catch(d){console.error("set-cookie-parser encountered an error while decoding a cookie with value '"+i+"'. Set options.decodeValues to false to disable this feature.",d)}var f={name:a,value:i};return r.forEach(function(d){var l=d.split("="),c=l.shift().trimLeft().toLowerCase(),h=l.join("=");c==="expires"?f.expires=new Date(h):c==="max-age"?f.maxAge=parseInt(h,10):c==="secure"?f.secure=!0:c==="httponly"?f.httpOnly=!0:c==="samesite"?f.sameSite=h:f[c]=h}),f}function we(t){var e="",r="",n=t.split("=");return n.length>1?(e=n.shift(),r=n.join("=")):r=t,{name:e,value:r}}function V(t,e){if(e=e?Object.assign({},p,e):p,!t)return e.map?{}:[];if(t.headers)if(typeof t.headers.getSetCookie=="function")t=t.headers.getSetCookie();else if(t.headers["set-cookie"])t=t.headers["set-cookie"];else{var r=t.headers[Object.keys(t.headers).find(function(s){return s.toLowerCase()==="set-cookie"})];!r&&t.headers.cookie&&!e.silent&&console.warn("Warning: set-cookie-parser appears to have been called on a request object. It is designed to parse Set-Cookie headers from responses, not Cookie headers from requests. Set the option {silent: true} to suppress this warning."),t=r}if(Array.isArray(t)||(t=[t]),e=e?Object.assign({},p,e):p,e.map){var n={};return t.filter(P).reduce(function(s,a){var i=B(a,e);return s[i.name]=i,s},n)}else return t.filter(P).map(function(s){return B(s,e)})}function ye(t){if(Array.isArray(t))return t;if(typeof t!="string")return[];var e=[],r=0,n,s,a,i,f;function d(){for(;r<t.length&&/\s/.test(t.charAt(r));)r+=1;return r<t.length}function l(){return s=t.charAt(r),s!=="="&&s!==";"&&s!==","}for(;r<t.length;){for(n=r,f=!1;d();)if(s=t.charAt(r),s===","){for(a=r,r+=1,d(),i=r;r<t.length&&l();)r+=1;r<t.length&&t.charAt(r)==="="?(f=!0,r=i,e.push(t.substring(n,a)),n=r):r=a+1}else r+=1;(!f||r>=t.length)&&e.push(t.substring(n,t.length))}return e}g.exports=V;g.exports.parse=V;g.exports.parseString=B;g.exports.splitCookiesString=ye});var R=(t,e)=>e.some(r=>t instanceof r),U,M;function ie(){return U||(U=[IDBDatabase,IDBObjectStore,IDBIndex,IDBCursor,IDBTransaction])}function oe(){return M||(M=[IDBCursor.prototype.advance,IDBCursor.prototype.continue,IDBCursor.prototype.continuePrimaryKey])}var L=new WeakMap,C=new WeakMap,y=new WeakMap;function ae(t){let e=new Promise((r,n)=>{let s=()=>{t.removeEventListener("success",a),t.removeEventListener("error",i)},a=()=>{r(m(t.result)),s()},i=()=>{n(t.error),s()};t.addEventListener("success",a),t.addEventListener("error",i)});return y.set(e,t),e}function de(t){if(L.has(t))return;let e=new Promise((r,n)=>{let s=()=>{t.removeEventListener("complete",a),t.removeEventListener("error",i),t.removeEventListener("abort",i)},a=()=>{r(),s()},i=()=>{n(t.error||new DOMException("AbortError","AbortError")),s()};t.addEventListener("complete",a),t.addEventListener("error",i),t.addEventListener("abort",i)});L.set(t,e)}var I={get(t,e,r){if(t instanceof IDBTransaction){if(e==="done")return L.get(t);if(e==="store")return r.objectStoreNames[1]?void 0:r.objectStore(r.objectStoreNames[0])}return m(t[e])},set(t,e,r){return t[e]=r,!0},has(t,e){return t instanceof IDBTransaction&&(e==="done"||e==="store")?!0:e in t}};function q(t){I=t(I)}function ce(t){return oe().includes(t)?function(...e){return t.apply($(this),e),m(this.request)}:function(...e){return m(t.apply($(this),e))}}function fe(t){return typeof t=="function"?ce(t):(t instanceof IDBTransaction&&de(t),R(t,ie())?new Proxy(t,I):t)}function m(t){if(t instanceof IDBRequest)return ae(t);if(C.has(t))return C.get(t);let e=fe(t);return e!==t&&(C.set(t,e),y.set(e,t)),e}var $=t=>y.get(t);function S(t,e,{blocked:r,upgrade:n,blocking:s,terminated:a}={}){let i=indexedDB.open(t,e),f=m(i);return n&&i.addEventListener("upgradeneeded",d=>{n(m(i.result),d.oldVersion,d.newVersion,m(i.transaction),d)}),r&&i.addEventListener("blocked",d=>r(d.oldVersion,d.newVersion,d)),f.then(d=>{a&&d.addEventListener("close",()=>a()),s&&d.addEventListener("versionchange",l=>s(l.oldVersion,l.newVersion,l))}).catch(()=>{}),f}var le=["get","getKey","getAll","getAllKeys","count"],ue=["put","add","delete","clear"],v=new Map;function j(t,e){if(!(t instanceof IDBDatabase&&!(e in t)&&typeof e=="string"))return;if(v.get(e))return v.get(e);let r=e.replace(/FromIndex$/,""),n=e!==r,s=ue.includes(r);if(!(r in(n?IDBIndex:IDBObjectStore).prototype)||!(s||le.includes(r)))return;let a=async function(i,...f){let d=this.transaction(i,s?"readwrite":"readonly"),l=d.store;return n&&(l=l.index(f.shift())),(await Promise.all([l[r](...f),s&&d.done]))[0]};return v.set(e,a),a}q(t=>({...t,get:(e,r,n)=>j(e,r)||t.get(e,r,n),has:(e,r)=>!!j(e,r)||t.has(e,r)}));var me=["continue","continuePrimaryKey","advance"],K={},D=new WeakMap,W=new WeakMap,he={get(t,e){if(!me.includes(e))return t[e];let r=K[e];return r||(r=K[e]=function(...n){D.set(this,W.get(this)[e](...n))}),r}};async function*pe(...t){let e=this;if(e instanceof IDBCursor||(e=await e.openCursor(...t)),!e)return;e=e;let r=new Proxy(e,he);for(W.set(r,e),y.set(r,$(e));e;)yield r,e=await(D.get(r)||e.continue()),D.delete(r)}function O(t,e){return e===Symbol.asyncIterator&&R(t,[IDBIndex,IDBObjectStore,IDBCursor])||e==="iterate"&&R(t,[IDBIndex,IDBObjectStore])}q(t=>({...t,get(e,r,n){return O(e,r)?pe:t.get(e,r,n)},has(e,r){return O(e,r)||t.has(e,r)}}));var b=class{db;constructor(){this.db=S("__$ampere",1,{upgrade(e){e.createObjectStore("cookies")}})}async findCookies(e,r){return(await(await this.db).getAll("cookies")).filter(i=>k(e,i.domain??"")&&_(r,i.path??"/"))}async putCookie(e){let r=await this.db;e.domain=e.domain?.replace(/^\./,""),await r.put("cookies",e,`${e.domain}:${e.path}:${e.name}`)}async removeCookie(e,r,n){await(await this.db).delete("cookies",`${e}:${r}:${n}`)}async removeCookies(e,r){let n=await this.db,s=await n.getAll("cookies");for(let a of s)a.domain===e&&a.path===r&&await n.delete("cookies",`${a.domain}:${a.path}:${a.name}`)}async removeAllCookies(){await(await this.db).clear("cookies")}async getAllCookies(){return await(await this.db).getAll("cookies")}},ge=/(?:^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$)|(?:^(?:(?:[a-f\d]{1,4}:){7}(?:[a-f\d]{1,4}|:)|(?:[a-f\d]{1,4}:){6}(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|:[a-f\d]{1,4}|:)|(?:[a-f\d]{1,4}:){5}(?::(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-f\d]{1,4}){1,2}|:)|(?:[a-f\d]{1,4}:){4}(?:(?::[a-f\d]{1,4}){0,1}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-f\d]{1,4}){1,3}|:)|(?:[a-f\d]{1,4}:){3}(?:(?::[a-f\d]{1,4}){0,2}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-f\d]{1,4}){1,4}|:)|(?:[a-f\d]{1,4}:){2}(?:(?::[a-f\d]{1,4}){0,3}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-f\d]{1,4}){1,5}|:)|(?:[a-f\d]{1,4}:){1}(?:(?::[a-f\d]{1,4}){0,4}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-f\d]{1,4}){1,6}|:)|(?::(?:(?::[a-f\d]{1,4}){0,5}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-f\d]{1,4}){1,7}|:)))$)/;function k(t,e){if(e==t)return!0;let r=e.lastIndexOf(t);return r<=0||e.length!==t.length+r||e.substr(r-1,1)!=="."?!1:!ge.test(e)}function _(t,e){return!!(e===t||t.indexOf(e)===0&&(e[e.length-1]==="/"||new RegExp(`^${e}`).test(t)&&t[e.length]==="/"))}var F=se(H(),1),E=new b;async function N(t,e){let r=(0,F.parse)(t,{decodeValues:!0,silent:!0})[0];r.domain||(r.domain=new URL(e).host),r.path||(r.path="/"),r.expires&&r.expires.getTime()<Date.now()&&(k(new URL(e).host,r.domain)&&_(new URL(e).pathname,r.path)?await E.removeCookie(r.domain,r.path,r.name):__$ampere.logger.warn("Attempted to set cookie for invalid domain or path.",t)),k(new URL(e).host,r.domain)&&_(new URL(e).pathname,r.path)?await E.putCookie(r):__$ampere.logger.warn("Attempted to set cookie for invalid domain or path.",t)}async function G(t){return(await E.findCookies(new URL(t).host,new URL(t).pathname)).map(r=>`${r.name}=${r.value}`).join("; ")}async function J(t,e){t.set("Origin",new URL(e).origin),t.set("Host",new URL(e).host),t.set("Referer",e.toString());let r=await G(e);return __$ampere.logger.debug("Cookie",r),r!==void 0&&t.set("Cookie",r||""),t}async function X(t,e){t.delete("content-security-policy"),t.delete("content-security-policy-report-only");let r=t.getSetCookie();for(let n of r)await N(n,e);return t}var x=class{listeners={};on(e,r){this.listeners[e]||(this.listeners[e]=[]),this.listeners[e].push(r)}once(e,r){let n=(...s)=>(this.off(e,n),r(...s));this.on(e,n)}off(e,r){this.listeners[e]&&(this.listeners[e]=this.listeners[e].filter(n=>n!==r))}async emit(e,...r){let n;if(this.listeners[e]){for(let s of this.listeners[e])n=await s(...r)??n;return n}}};var T=class extends x{ready;constructor(){super();for(let e of __$ampere.config.plugins)try{e.worker&&(__$ampere.logger.info("Loading plugin",e.name),e.worker(this),__$ampere.logger.info("Loaded plugin",e.name))}catch(r){__$ampere.logger.error("Failed to load plugin",e.name,r)}this.ready=Promise.resolve(),self.addEventListener("install",()=>{__$ampere.logger.info("Service Worker installed")})}async makeRequest(e,r){return __$ampere.logger.info("Fetching",e.href,r),await __$ampere.bareClient.fetch(e,r)}async fetch(e){await this.ready;let{files:r}=__$ampere.config,n=[r.config,r.client,r.worker,r.bundle].map(o=>r.directory+o),s=new URL(e.request.url);if(n.includes(s.pathname))return __$ampere.logger.info("Loading ampere script",s.href),fetch(e.request);let a=__$ampere.unwriteURL(s.pathname)+s.search+s.hash;try{new URL(a)}catch{return __$ampere.logger.error("Decoded URL is invalid",a),new Response("Invalid URL",{status:400})}let i=new URL(a),f={method:e.request.method,headers:Object.fromEntries(e.request.headers),redirect:"manual",duplex:"half"};["GET","HEAD"].includes(e.request.method)||(f.body=e.request.body);let d=new Request(i,f),l=await J(new Headers(f.headers),i);Object.defineProperty(d,"headers",{get(){return l}}),d=await this.emit("request",d)??d;let c=await this.makeRequest(i,f);if(c.status>=300&&c.status<400&&c.headers.has("location"))return __$ampere.logger.debug("Redirecting from",i.href,"to",c.headers.get("location")),new Response(null,{status:301,headers:{location:__$ampere.rewriteURL(c.headers.get("location"),i)}});let h={status:c.status,statusText:c.statusText,headers:await X(c.headers,i)},u;if([101,204,205,304].includes(c.status))u=null,__$ampere.logger.info("Returning empty response for",i.href);else if(c.headers.get("content-type")?.includes("text/html")){__$ampere.logger.info("Rewriting HTML for",i.href);let o=await c.text();o=await this.emit("html",o)??o,o=await this.emit("pre:html",o)??o;let z=await __$ampere.getCookie(i);o=__$ampere.rewriteHTML(o,i,z??""),u=await this.emit("post:html",o)??o}else if(c.headers.get("content-type")?.includes("application/javascript")||["script","sharedworker","worker"].includes(e.request.destination)){__$ampere.logger.info("Rewriting JS for",i.href);let o=await c.text();o=await this.emit("js",o)??o,o=await this.emit("pre:js",o)??o,o=__$ampere.rewriteJS(o,i),u=await this.emit("post:js",o)??o}else if(c.headers.get("content-type")?.includes("text/css")||["style"].includes(e.request.destination)){__$ampere.logger.info("Rewriting CSS for",i.href);let o=await c.text();o=await this.emit("css",o)??o,o=await this.emit("pre:css",o)??o,o=__$ampere.rewriteCSS(o,i),u=await this.emit("post:css",o)??o}else if(e.request.destination==="manifest"){__$ampere.logger.info("Rewriting Manifest for",i.href);let o=await c.text();o=await this.emit("manifest",o)??o,o=await this.emit("pre:manifest",o)??o,o=__$ampere.rewriteManifest(o,i),u=await this.emit("post:manifest",o)??o}else __$ampere.logger.info("Returning binary for",i.href),u=c.body;let w=new Response(u,h);return w=await this.emit("response",w)??w,w}};self.AmpereWorker=T;})();
+"use strict";
+(() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __commonJS = (cb, mod) => function __require() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+    mod
+  ));
+
+  // node_modules/set-cookie-parser/lib/set-cookie.js
+  var require_set_cookie = __commonJS({
+    "node_modules/set-cookie-parser/lib/set-cookie.js"(exports, module) {
+      "use strict";
+      var defaultParseOptions = {
+        decodeValues: true,
+        map: false,
+        silent: false
+      };
+      function isNonEmptyString(str) {
+        return typeof str === "string" && !!str.trim();
+      }
+      function parseString(setCookieValue, options) {
+        var parts = setCookieValue.split(";").filter(isNonEmptyString);
+        var nameValuePairStr = parts.shift();
+        var parsed = parseNameValuePair(nameValuePairStr);
+        var name = parsed.name;
+        var value = parsed.value;
+        options = options ? Object.assign({}, defaultParseOptions, options) : defaultParseOptions;
+        try {
+          value = options.decodeValues ? decodeURIComponent(value) : value;
+        } catch (e) {
+          console.error(
+            "set-cookie-parser encountered an error while decoding a cookie with value '" + value + "'. Set options.decodeValues to false to disable this feature.",
+            e
+          );
+        }
+        var cookie = {
+          name,
+          value
+        };
+        parts.forEach(function(part) {
+          var sides = part.split("=");
+          var key = sides.shift().trimLeft().toLowerCase();
+          var value2 = sides.join("=");
+          if (key === "expires") {
+            cookie.expires = new Date(value2);
+          } else if (key === "max-age") {
+            cookie.maxAge = parseInt(value2, 10);
+          } else if (key === "secure") {
+            cookie.secure = true;
+          } else if (key === "httponly") {
+            cookie.httpOnly = true;
+          } else if (key === "samesite") {
+            cookie.sameSite = value2;
+          } else {
+            cookie[key] = value2;
+          }
+        });
+        return cookie;
+      }
+      function parseNameValuePair(nameValuePairStr) {
+        var name = "";
+        var value = "";
+        var nameValueArr = nameValuePairStr.split("=");
+        if (nameValueArr.length > 1) {
+          name = nameValueArr.shift();
+          value = nameValueArr.join("=");
+        } else {
+          value = nameValuePairStr;
+        }
+        return { name, value };
+      }
+      function parse2(input, options) {
+        options = options ? Object.assign({}, defaultParseOptions, options) : defaultParseOptions;
+        if (!input) {
+          if (!options.map) {
+            return [];
+          } else {
+            return {};
+          }
+        }
+        if (input.headers) {
+          if (typeof input.headers.getSetCookie === "function") {
+            input = input.headers.getSetCookie();
+          } else if (input.headers["set-cookie"]) {
+            input = input.headers["set-cookie"];
+          } else {
+            var sch = input.headers[Object.keys(input.headers).find(function(key) {
+              return key.toLowerCase() === "set-cookie";
+            })];
+            if (!sch && input.headers.cookie && !options.silent) {
+              console.warn(
+                "Warning: set-cookie-parser appears to have been called on a request object. It is designed to parse Set-Cookie headers from responses, not Cookie headers from requests. Set the option {silent: true} to suppress this warning."
+              );
+            }
+            input = sch;
+          }
+        }
+        if (!Array.isArray(input)) {
+          input = [input];
+        }
+        options = options ? Object.assign({}, defaultParseOptions, options) : defaultParseOptions;
+        if (!options.map) {
+          return input.filter(isNonEmptyString).map(function(str) {
+            return parseString(str, options);
+          });
+        } else {
+          var cookies = {};
+          return input.filter(isNonEmptyString).reduce(function(cookies2, str) {
+            var cookie = parseString(str, options);
+            cookies2[cookie.name] = cookie;
+            return cookies2;
+          }, cookies);
+        }
+      }
+      function splitCookiesString(cookiesString) {
+        if (Array.isArray(cookiesString)) {
+          return cookiesString;
+        }
+        if (typeof cookiesString !== "string") {
+          return [];
+        }
+        var cookiesStrings = [];
+        var pos = 0;
+        var start;
+        var ch;
+        var lastComma;
+        var nextStart;
+        var cookiesSeparatorFound;
+        function skipWhitespace() {
+          while (pos < cookiesString.length && /\s/.test(cookiesString.charAt(pos))) {
+            pos += 1;
+          }
+          return pos < cookiesString.length;
+        }
+        function notSpecialChar() {
+          ch = cookiesString.charAt(pos);
+          return ch !== "=" && ch !== ";" && ch !== ",";
+        }
+        while (pos < cookiesString.length) {
+          start = pos;
+          cookiesSeparatorFound = false;
+          while (skipWhitespace()) {
+            ch = cookiesString.charAt(pos);
+            if (ch === ",") {
+              lastComma = pos;
+              pos += 1;
+              skipWhitespace();
+              nextStart = pos;
+              while (pos < cookiesString.length && notSpecialChar()) {
+                pos += 1;
+              }
+              if (pos < cookiesString.length && cookiesString.charAt(pos) === "=") {
+                cookiesSeparatorFound = true;
+                pos = nextStart;
+                cookiesStrings.push(cookiesString.substring(start, lastComma));
+                start = pos;
+              } else {
+                pos = lastComma + 1;
+              }
+            } else {
+              pos += 1;
+            }
+          }
+          if (!cookiesSeparatorFound || pos >= cookiesString.length) {
+            cookiesStrings.push(cookiesString.substring(start, cookiesString.length));
+          }
+        }
+        return cookiesStrings;
+      }
+      module.exports = parse2;
+      module.exports.parse = parse2;
+      module.exports.parseString = parseString;
+      module.exports.splitCookiesString = splitCookiesString;
+    }
+  });
+
+  // node_modules/idb/build/index.js
+  var instanceOfAny = (object, constructors) => constructors.some((c) => object instanceof c);
+  var idbProxyableTypes;
+  var cursorAdvanceMethods;
+  function getIdbProxyableTypes() {
+    return idbProxyableTypes || (idbProxyableTypes = [
+      IDBDatabase,
+      IDBObjectStore,
+      IDBIndex,
+      IDBCursor,
+      IDBTransaction
+    ]);
+  }
+  function getCursorAdvanceMethods() {
+    return cursorAdvanceMethods || (cursorAdvanceMethods = [
+      IDBCursor.prototype.advance,
+      IDBCursor.prototype.continue,
+      IDBCursor.prototype.continuePrimaryKey
+    ]);
+  }
+  var transactionDoneMap = /* @__PURE__ */ new WeakMap();
+  var transformCache = /* @__PURE__ */ new WeakMap();
+  var reverseTransformCache = /* @__PURE__ */ new WeakMap();
+  function promisifyRequest(request) {
+    const promise = new Promise((resolve, reject) => {
+      const unlisten = () => {
+        request.removeEventListener("success", success);
+        request.removeEventListener("error", error);
+      };
+      const success = () => {
+        resolve(wrap(request.result));
+        unlisten();
+      };
+      const error = () => {
+        reject(request.error);
+        unlisten();
+      };
+      request.addEventListener("success", success);
+      request.addEventListener("error", error);
+    });
+    reverseTransformCache.set(promise, request);
+    return promise;
+  }
+  function cacheDonePromiseForTransaction(tx) {
+    if (transactionDoneMap.has(tx))
+      return;
+    const done = new Promise((resolve, reject) => {
+      const unlisten = () => {
+        tx.removeEventListener("complete", complete);
+        tx.removeEventListener("error", error);
+        tx.removeEventListener("abort", error);
+      };
+      const complete = () => {
+        resolve();
+        unlisten();
+      };
+      const error = () => {
+        reject(tx.error || new DOMException("AbortError", "AbortError"));
+        unlisten();
+      };
+      tx.addEventListener("complete", complete);
+      tx.addEventListener("error", error);
+      tx.addEventListener("abort", error);
+    });
+    transactionDoneMap.set(tx, done);
+  }
+  var idbProxyTraps = {
+    get(target, prop, receiver) {
+      if (target instanceof IDBTransaction) {
+        if (prop === "done")
+          return transactionDoneMap.get(target);
+        if (prop === "store") {
+          return receiver.objectStoreNames[1] ? void 0 : receiver.objectStore(receiver.objectStoreNames[0]);
+        }
+      }
+      return wrap(target[prop]);
+    },
+    set(target, prop, value) {
+      target[prop] = value;
+      return true;
+    },
+    has(target, prop) {
+      if (target instanceof IDBTransaction && (prop === "done" || prop === "store")) {
+        return true;
+      }
+      return prop in target;
+    }
+  };
+  function replaceTraps(callback) {
+    idbProxyTraps = callback(idbProxyTraps);
+  }
+  function wrapFunction(func) {
+    if (getCursorAdvanceMethods().includes(func)) {
+      return function(...args) {
+        func.apply(unwrap(this), args);
+        return wrap(this.request);
+      };
+    }
+    return function(...args) {
+      return wrap(func.apply(unwrap(this), args));
+    };
+  }
+  function transformCachableValue(value) {
+    if (typeof value === "function")
+      return wrapFunction(value);
+    if (value instanceof IDBTransaction)
+      cacheDonePromiseForTransaction(value);
+    if (instanceOfAny(value, getIdbProxyableTypes()))
+      return new Proxy(value, idbProxyTraps);
+    return value;
+  }
+  function wrap(value) {
+    if (value instanceof IDBRequest)
+      return promisifyRequest(value);
+    if (transformCache.has(value))
+      return transformCache.get(value);
+    const newValue = transformCachableValue(value);
+    if (newValue !== value) {
+      transformCache.set(value, newValue);
+      reverseTransformCache.set(newValue, value);
+    }
+    return newValue;
+  }
+  var unwrap = (value) => reverseTransformCache.get(value);
+  function openDB(name, version, { blocked, upgrade, blocking, terminated } = {}) {
+    const request = indexedDB.open(name, version);
+    const openPromise = wrap(request);
+    if (upgrade) {
+      request.addEventListener("upgradeneeded", (event) => {
+        upgrade(wrap(request.result), event.oldVersion, event.newVersion, wrap(request.transaction), event);
+      });
+    }
+    if (blocked) {
+      request.addEventListener("blocked", (event) => blocked(
+        // Casting due to https://github.com/microsoft/TypeScript-DOM-lib-generator/pull/1405
+        event.oldVersion,
+        event.newVersion,
+        event
+      ));
+    }
+    openPromise.then((db) => {
+      if (terminated)
+        db.addEventListener("close", () => terminated());
+      if (blocking) {
+        db.addEventListener("versionchange", (event) => blocking(event.oldVersion, event.newVersion, event));
+      }
+    }).catch(() => {
+    });
+    return openPromise;
+  }
+  var readMethods = ["get", "getKey", "getAll", "getAllKeys", "count"];
+  var writeMethods = ["put", "add", "delete", "clear"];
+  var cachedMethods = /* @__PURE__ */ new Map();
+  function getMethod(target, prop) {
+    if (!(target instanceof IDBDatabase && !(prop in target) && typeof prop === "string")) {
+      return;
+    }
+    if (cachedMethods.get(prop))
+      return cachedMethods.get(prop);
+    const targetFuncName = prop.replace(/FromIndex$/, "");
+    const useIndex = prop !== targetFuncName;
+    const isWrite = writeMethods.includes(targetFuncName);
+    if (
+      // Bail if the target doesn't exist on the target. Eg, getAll isn't in Edge.
+      !(targetFuncName in (useIndex ? IDBIndex : IDBObjectStore).prototype) || !(isWrite || readMethods.includes(targetFuncName))
+    ) {
+      return;
+    }
+    const method = async function(storeName, ...args) {
+      const tx = this.transaction(storeName, isWrite ? "readwrite" : "readonly");
+      let target2 = tx.store;
+      if (useIndex)
+        target2 = target2.index(args.shift());
+      return (await Promise.all([
+        target2[targetFuncName](...args),
+        isWrite && tx.done
+      ]))[0];
+    };
+    cachedMethods.set(prop, method);
+    return method;
+  }
+  replaceTraps((oldTraps) => ({
+    ...oldTraps,
+    get: (target, prop, receiver) => getMethod(target, prop) || oldTraps.get(target, prop, receiver),
+    has: (target, prop) => !!getMethod(target, prop) || oldTraps.has(target, prop)
+  }));
+  var advanceMethodProps = ["continue", "continuePrimaryKey", "advance"];
+  var methodMap = {};
+  var advanceResults = /* @__PURE__ */ new WeakMap();
+  var ittrProxiedCursorToOriginalProxy = /* @__PURE__ */ new WeakMap();
+  var cursorIteratorTraps = {
+    get(target, prop) {
+      if (!advanceMethodProps.includes(prop))
+        return target[prop];
+      let cachedFunc = methodMap[prop];
+      if (!cachedFunc) {
+        cachedFunc = methodMap[prop] = function(...args) {
+          advanceResults.set(this, ittrProxiedCursorToOriginalProxy.get(this)[prop](...args));
+        };
+      }
+      return cachedFunc;
+    }
+  };
+  async function* iterate(...args) {
+    let cursor = this;
+    if (!(cursor instanceof IDBCursor)) {
+      cursor = await cursor.openCursor(...args);
+    }
+    if (!cursor)
+      return;
+    cursor = cursor;
+    const proxiedCursor = new Proxy(cursor, cursorIteratorTraps);
+    ittrProxiedCursorToOriginalProxy.set(proxiedCursor, cursor);
+    reverseTransformCache.set(proxiedCursor, unwrap(cursor));
+    while (cursor) {
+      yield proxiedCursor;
+      cursor = await (advanceResults.get(proxiedCursor) || cursor.continue());
+      advanceResults.delete(proxiedCursor);
+    }
+  }
+  function isIteratorProp(target, prop) {
+    return prop === Symbol.asyncIterator && instanceOfAny(target, [IDBIndex, IDBObjectStore, IDBCursor]) || prop === "iterate" && instanceOfAny(target, [IDBIndex, IDBObjectStore]);
+  }
+  replaceTraps((oldTraps) => ({
+    ...oldTraps,
+    get(target, prop, receiver) {
+      if (isIteratorProp(target, prop))
+        return iterate;
+      return oldTraps.get(target, prop, receiver);
+    },
+    has(target, prop) {
+      return isIteratorProp(target, prop) || oldTraps.has(target, prop);
+    }
+  }));
+
+  // src/util/CookieDB.ts
+  var CookieDB = class {
+    db;
+    constructor() {
+      this.db = openDB("__$ampere", 1, {
+        upgrade(db) {
+          db.createObjectStore("cookies");
+        }
+      });
+    }
+    async findCookies(domain, path) {
+      const db = await this.db;
+      const allCookies = await db.getAll("cookies");
+      const cookies = allCookies.filter(
+        (cookie) => domainMatch(domain, cookie.domain ?? "") && pathMatch(path, cookie.path ?? "/")
+      );
+      return cookies;
+    }
+    async putCookie(cookie) {
+      const db = await this.db;
+      cookie.domain = cookie.domain?.replace(/^\./, "");
+      await db.put(
+        "cookies",
+        cookie,
+        `${cookie.domain}:${cookie.path}:${cookie.name}`
+      );
+    }
+    async removeCookie(domain, path, key) {
+      const db = await this.db;
+      await db.delete("cookies", `${domain}:${path}:${key}`);
+    }
+    async removeCookies(domain, path) {
+      const db = await this.db;
+      const cookies = await db.getAll("cookies");
+      for (const cookie of cookies) {
+        if (cookie.domain === domain && cookie.path === path) {
+          await db.delete(
+            "cookies",
+            `${cookie.domain}:${cookie.path}:${cookie.name}`
+          );
+        }
+      }
+    }
+    async removeAllCookies() {
+      const db = await this.db;
+      await db.clear("cookies");
+    }
+    async getAllCookies() {
+      const db = await this.db;
+      const cookies = await db.getAll("cookies");
+      return cookies;
+    }
+  };
+  var IP_REGEX = /(?:^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$)|(?:^(?:(?:[a-f\d]{1,4}:){7}(?:[a-f\d]{1,4}|:)|(?:[a-f\d]{1,4}:){6}(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|:[a-f\d]{1,4}|:)|(?:[a-f\d]{1,4}:){5}(?::(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-f\d]{1,4}){1,2}|:)|(?:[a-f\d]{1,4}:){4}(?:(?::[a-f\d]{1,4}){0,1}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-f\d]{1,4}){1,3}|:)|(?:[a-f\d]{1,4}:){3}(?:(?::[a-f\d]{1,4}){0,2}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-f\d]{1,4}){1,4}|:)|(?:[a-f\d]{1,4}:){2}(?:(?::[a-f\d]{1,4}){0,3}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-f\d]{1,4}){1,5}|:)|(?:[a-f\d]{1,4}:){1}(?:(?::[a-f\d]{1,4}){0,4}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-f\d]{1,4}){1,6}|:)|(?::(?:(?::[a-f\d]{1,4}){0,5}:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}|(?::[a-f\d]{1,4}){1,7}|:)))$)/;
+  function domainMatch(domStr, str) {
+    if (str == domStr) {
+      return true;
+    }
+    const i = str.lastIndexOf(domStr);
+    if (i <= 0) {
+      return false;
+    }
+    if (str.length !== domStr.length + i) {
+      return false;
+    }
+    if (str.substr(i - 1, 1) !== ".") {
+      return false;
+    }
+    return !IP_REGEX.test(str);
+  }
+  function pathMatch(reqPath, cookiePath) {
+    if (cookiePath === reqPath) {
+      return true;
+    }
+    const i = reqPath.indexOf(cookiePath);
+    if (i === 0) {
+      if (cookiePath[cookiePath.length - 1] === "/") {
+        return true;
+      }
+      if (new RegExp(`^${cookiePath}`).test(reqPath) && reqPath[cookiePath.length] === "/") {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // src/util/cookie.ts
+  var import_set_cookie_parser = __toESM(require_set_cookie(), 1);
+  var cookieJar = new CookieDB();
+  async function setCookie(cookieString, meta) {
+    const cookie = (0, import_set_cookie_parser.parse)(cookieString, {
+      decodeValues: true,
+      silent: true
+    })[0];
+    if (!cookie.domain) {
+      cookie.domain = new URL(meta).host;
+    }
+    if (!cookie.path) {
+      cookie.path = "/";
+    }
+    if (cookie.expires) {
+      if (cookie.expires.getTime() < Date.now()) {
+        if (domainMatch(new URL(meta).host, cookie.domain) && pathMatch(new URL(meta).pathname, cookie.path)) {
+          await cookieJar.removeCookie(cookie.domain, cookie.path, cookie.name);
+        } else {
+          __$ampere.logger.warn(
+            "Attempted to set cookie for invalid domain or path.",
+            cookieString
+          );
+        }
+      }
+    }
+    if (domainMatch(new URL(meta).host, cookie.domain) && pathMatch(new URL(meta).pathname, cookie.path)) {
+      await cookieJar.putCookie(cookie);
+    } else {
+      __$ampere.logger.warn(
+        "Attempted to set cookie for invalid domain or path.",
+        cookieString
+      );
+    }
+  }
+  async function getCookie(meta) {
+    const cookies = await cookieJar.findCookies(
+      new URL(meta).host,
+      new URL(meta).pathname
+    );
+    return cookies.map((cookie) => `${cookie.name}=${cookie.value}`).join("; ");
+  }
+
+  // src/rewrite/headers.ts
+  async function outgoing(headers, meta) {
+    headers.set("Origin", new URL(meta).origin);
+    headers.set("Host", new URL(meta).host);
+    headers.set("Referer", meta.toString());
+    const cookie = await getCookie(meta);
+    __$ampere.logger.debug("Cookie", cookie);
+    if (cookie !== void 0) {
+      headers.set("Cookie", cookie || "");
+    }
+    return headers;
+  }
+  async function incoming(headers, meta) {
+    headers.delete("content-security-policy");
+    headers.delete("content-security-policy-report-only");
+    const cookies = headers.getSetCookie();
+    for (const cookie of cookies) {
+      await setCookie(cookie, meta);
+    }
+    return headers;
+  }
+
+  // src/util/TypedEmitter.ts
+  var TypedEmitter = class {
+    listeners = {};
+    on(event, listener) {
+      if (!this.listeners[event])
+        this.listeners[event] = [];
+      this.listeners[event].push(listener);
+    }
+    once(event, listener) {
+      const onceListener = (...args) => {
+        this.off(event, onceListener);
+        return listener(...args);
+      };
+      this.on(event, onceListener);
+    }
+    off(event, listener) {
+      if (!this.listeners[event])
+        return;
+      this.listeners[event] = this.listeners[event].filter((l) => l !== listener);
+    }
+    async emit(event, ...args) {
+      let value;
+      if (!this.listeners[event])
+        return;
+      for (const listener of this.listeners[event]) {
+        value = await listener(...args) ?? value;
+      }
+      return value;
+    }
+  };
+
+  // src/worker.ts
+  var AmpereWorker = class extends TypedEmitter {
+    ready;
+    constructor() {
+      super();
+      for (const plugin of __$ampere.config.plugins) {
+        try {
+          if (plugin.worker) {
+            __$ampere.logger.info("Loading plugin", plugin.name);
+            plugin.worker(this);
+            __$ampere.logger.info("Loaded plugin", plugin.name);
+          }
+        } catch (e) {
+          __$ampere.logger.error("Failed to load plugin", plugin.name, e);
+        }
+      }
+      this.ready = Promise.resolve();
+      self.addEventListener("install", () => {
+        __$ampere.logger.info("Service Worker installed");
+      });
+    }
+    async makeRequest(url, init) {
+      __$ampere.logger.info("Fetching", url.href, init);
+      return await __$ampere.bareClient.fetch(url, init);
+    }
+    async fetch(event) {
+      await this.ready;
+      const { files } = __$ampere.config;
+      const ampereUrls = [
+        files.config,
+        files.client,
+        files.worker,
+        files.bundle
+      ].map((file) => files.directory + file);
+      const url = new URL(event.request.url);
+      if (ampereUrls.includes(url.pathname)) {
+        __$ampere.logger.info("Loading ampere script", url.href);
+        return fetch(event.request);
+      }
+      const rawProxyURL = __$ampere.unwriteURL(url.pathname) + url.search + url.hash;
+      try {
+        new URL(rawProxyURL);
+      } catch {
+        __$ampere.logger.error("Decoded URL is invalid", rawProxyURL);
+        return new Response("Invalid URL", { status: 400 });
+      }
+      const proxyURL = new URL(rawProxyURL);
+      const requestInit = {
+        method: event.request.method,
+        headers: Object.fromEntries(event.request.headers),
+        redirect: "manual",
+        // Typescript doesn't believe in duplex but it's required for certain requests (and yes it's in the spec)
+        duplex: "half"
+      };
+      if (!["GET", "HEAD"].includes(event.request.method)) {
+        requestInit.body = event.request.body;
+      }
+      let request = new Request(proxyURL, requestInit);
+      const requestHeaders = await outgoing(
+        new Headers(requestInit.headers),
+        proxyURL
+      );
+      Object.defineProperty(request, "headers", {
+        get() {
+          return requestHeaders;
+        }
+      });
+      request = await this.emit("request", request) ?? request;
+      const bareRequest = await this.makeRequest(proxyURL, requestInit);
+      if (bareRequest.status >= 300 && bareRequest.status < 400 && bareRequest.headers.has("location")) {
+        __$ampere.logger.debug(
+          "Redirecting from",
+          proxyURL.href,
+          "to",
+          bareRequest.headers.get("location")
+        );
+        return new Response(null, {
+          status: 301,
+          headers: {
+            location: __$ampere.rewriteURL(
+              bareRequest.headers.get("location"),
+              proxyURL
+            )
+          }
+        });
+      }
+      const responseInit = {
+        status: bareRequest.status,
+        statusText: bareRequest.statusText,
+        headers: await incoming(bareRequest.headers, proxyURL)
+      };
+      let responseBody;
+      if ([101, 204, 205, 304].includes(bareRequest.status)) {
+        responseBody = null;
+        __$ampere.logger.info("Returning empty response for", proxyURL.href);
+      } else if (bareRequest.headers.get("content-type")?.includes("text/html")) {
+        __$ampere.logger.info("Rewriting HTML for", proxyURL.href);
+        let html = await bareRequest.text();
+        html = await this.emit("html", html) ?? html;
+        html = await this.emit("pre:html", html) ?? html;
+        const cookie = await __$ampere.getCookie(proxyURL);
+        html = __$ampere.rewriteHTML(html, proxyURL, cookie ?? "");
+        responseBody = await this.emit("post:html", html) ?? html;
+      } else if (bareRequest.headers.get("content-type")?.includes("application/javascript") || // use || destination for non-strict mime type matching
+      ["script", "sharedworker", "worker"].includes(event.request.destination)) {
+        __$ampere.logger.info("Rewriting JS for", proxyURL.href);
+        let js = await bareRequest.text();
+        js = await this.emit("js", js) ?? js;
+        js = await this.emit("pre:js", js) ?? js;
+        js = __$ampere.rewriteJS(js, proxyURL);
+        responseBody = await this.emit("post:js", js) ?? js;
+      } else if (bareRequest.headers.get("content-type")?.includes("text/css") || // use || destination for non-strict mime type matching
+      ["style"].includes(event.request.destination)) {
+        __$ampere.logger.info("Rewriting CSS for", proxyURL.href);
+        let css = await bareRequest.text();
+        css = await this.emit("css", css) ?? css;
+        css = await this.emit("pre:css", css) ?? css;
+        css = __$ampere.rewriteCSS(css, proxyURL);
+        responseBody = await this.emit("post:css", css) ?? css;
+      } else if (event.request.destination === "manifest") {
+        __$ampere.logger.info("Rewriting Manifest for", proxyURL.href);
+        let manifest = await bareRequest.text();
+        manifest = await this.emit("manifest", manifest) ?? manifest;
+        manifest = await this.emit("pre:manifest", manifest) ?? manifest;
+        manifest = __$ampere.rewriteManifest(manifest, proxyURL);
+        responseBody = await this.emit("post:manifest", manifest) ?? manifest;
+      } else {
+        __$ampere.logger.info("Returning binary for", proxyURL.href);
+        responseBody = bareRequest.body;
+      }
+      let response = new Response(responseBody, responseInit);
+      response = await this.emit("response", response) ?? response;
+      return response;
+    }
+  };
+  self.AmpereWorker = AmpereWorker;
+})();
+//# sourceMappingURL=worker.js.map
