@@ -54,7 +54,7 @@ export default function SearchSettings() {
               });
             }}
           >
-            <SelectTrigger>
+            <SelectTrigger aria-label="Presets">
               <SelectValue
                 placeholder={
                   localStorage.getItem("search") || "Select a search engine"
