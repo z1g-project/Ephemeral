@@ -30,7 +30,7 @@ export default function CloakSettings() {
           <CardTitle>Cloak</CardTitle>
           <CardDescription>Set cloaking settings</CardDescription>
         </CardHeader>
-        <CardContent className="bg-slate-950">
+        <CardContent className={``}>
           <Label htmlFor="presets">Presets</Label>
           <Select
             onValueChange={(value) => {
@@ -67,7 +67,7 @@ export default function CloakSettings() {
               window.location.reload();
             }}
           >
-            <SelectTrigger className="bg-slate-950">
+            <SelectTrigger>
               <SelectValue
                 placeholder={
                   localStorage.getItem("cloakPreset")
@@ -75,7 +75,7 @@ export default function CloakSettings() {
                     : "Select a preset"
                 }
               />
-              <SelectContent position="popper" className="bg-slate-950">
+              <SelectContent position="popper">
                 <SelectItem value="Schoology">Schoology</SelectItem>
                 <SelectItem value="Google Classroom">
                   Google Classroom
@@ -91,7 +91,6 @@ export default function CloakSettings() {
             ref={cloakTitleInputRef}
             type="text"
             placeholder="Set how the tab title looks"
-            className="bg-slate-950"
           />
           <Label htmlFor="title">Page Favicon</Label>
           <Input
@@ -99,7 +98,6 @@ export default function CloakSettings() {
             ref={cloakFaviconInputRef}
             type="text"
             placeholder="Set the favicon"
-            className="bg-slate-950"
           />
         </CardContent>
         <CardFooter className="justify-between space-x-2">

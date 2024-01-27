@@ -1,9 +1,10 @@
 import { BrowserRouter, Route, Routes as Router } from "react-router-dom";
-import Home from "./pages/Home";
-import View from "./pages/View";
-import Settings from "./pages/Settings";
-import ServiceWorkerError from "./pages/ServiceWorkerError";
-import PageNotFound from "./pages/PageNotFound";
+import Home from "@/pages/Home";
+import View from "@/pages/View";
+import Settings from "@/pages/Settings";
+import ServiceWorkerError from "@/pages/ServiceWorkerError";
+import PageNotFound from "@/pages/PageNotFound";
+import Layout from "./layout";
 
 import { useEffect } from "react";
 export default function Routes() {
@@ -26,13 +27,15 @@ export default function Routes() {
   });
   return (
     <BrowserRouter>
-      <Router>
-        <Route path="/" Component={Home} />
-        <Route path="/view/:url" Component={View} />
-        <Route path="/settings" Component={Settings} />
-        <Route path="/~/*" Component={ServiceWorkerError} />
-        <Route path="*" Component={PageNotFound} />
-      </Router>
+      <Layout>
+        <Router>
+          <Route path="/" Component={Home} />
+          <Route path="/view/:url" Component={View} />
+          <Route path="/settings" Component={Settings} />
+          <Route path="/~/*" Component={ServiceWorkerError} />
+          <Route path="*" Component={PageNotFound} />
+        </Router>
+      </Layout>
     </BrowserRouter>
   );
 }

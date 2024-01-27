@@ -36,7 +36,7 @@ export default function ProxySettings() {
           <CardTitle>Proxy</CardTitle>
           <CardDescription>Set proxy settings</CardDescription>
         </CardHeader>
-        <CardContent className="bg-slate-950">
+        <CardContent>
           <Label htmlFor="name">Backend</Label>
           <Select
             onValueChange={(value) => {
@@ -47,7 +47,7 @@ export default function ProxySettings() {
               });
             }}
           >
-            <SelectTrigger className="bg-slate-950">
+            <SelectTrigger>
               <SelectValue
                 ref={proxyDropdownRef}
                 placeholder={toUpperCase(
@@ -55,10 +55,7 @@ export default function ProxySettings() {
                 )}
               />
             </SelectTrigger>
-            <SelectContent
-              position="popper"
-              className="bg-slate-950 text-white"
-            >
+            <SelectContent position="popper" className=" text-white">
               <SelectItem value="ultraviolet">Ultraviolet</SelectItem>
               <SelectItem value="ampere">Ampere</SelectItem>
             </SelectContent>
@@ -68,7 +65,6 @@ export default function ProxySettings() {
             id="bareServer"
             ref={bareServerInputRef}
             placeholder="Type a valid Bare URL"
-            className="bg-slate-950"
             defaultValue={localStorage.getItem("bareServer") || "/bare/"}
           />
           <Label htmlFor="name">Proxy Server (Advanced)</Label>
@@ -76,7 +72,6 @@ export default function ProxySettings() {
             id="proxy"
             ref={proxyServerInputRef}
             placeholder="Type a valid HTTP Proxy URL"
-            className="bg-slate-950"
             defaultValue={localStorage.getItem("proxyServer") || ""}
           />
         </CardContent>
