@@ -19,7 +19,7 @@ export default function Settings() {
   return (
     <>
       <Header title="Settings | Ephermal" />
-      <div className="flex min-h-screen bg-slate-950">
+      <div className="flex min-h-screen">
         <Navbar />
         <div className="absolute left-1/2 top-2 -translate-x-1/2 translate-y-5 text-3xl font-bold text-slate-300">
           Settings

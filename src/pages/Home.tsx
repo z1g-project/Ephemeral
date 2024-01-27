@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <>
       <Header title="Home | Ephermal" />
-      <div className="flex min-h-screen flex-row-reverse bg-slate-950">
+      <div className="flex min-h-screen flex-row-reverse">
         <Navbar />
         <Input
           id="input"

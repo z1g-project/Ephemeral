@@ -102,7 +102,7 @@ export default function View() {
   return (
     <>
       <Header title="View | Ephermal" />
-      <div className="flex h-screen bg-slate-950" ref={pageRef}>
+      <div className="flex h-screen" ref={pageRef}>
         <Toaster />
         <div className="absolute -translate-y-2 flex-row items-start space-x-4 p-5">
           <Button
