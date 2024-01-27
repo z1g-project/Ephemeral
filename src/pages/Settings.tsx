@@ -33,7 +33,7 @@ export default function Settings() {
         <div className="absolute bottom-5 right-5 text-slate-200">
           <Dialog>
             <DialogTrigger>
-              <Info />
+              <Info aria-label="Info" />
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
