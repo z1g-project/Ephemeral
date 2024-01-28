@@ -3,8 +3,8 @@ export function unregisterServiceWorker() {
     navigator.serviceWorker.getRegistrations().then((registrations) => {
       for (const registration of registrations) {
         registration.unregister();
-        console.log(
-          "\x1b[34;49;1m[Ephermal] \x1B[32mINFO: Service workers unregistered",
+        console.warn(
+          "\x1b[34;49;1m[Ephermal] \x1B[32mWARN: Service workers unregistered",
         );
       }
     });

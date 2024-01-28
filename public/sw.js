@@ -17,13 +17,16 @@ const setUv = new Promise(async (resolve) => {
     const bare =
       (await localforage.getItem("__bserver")) || location.origin + "/bare/";
     const proxyUrl = (await localforage.getItem("__hproxy")) || "";
-    const [proxyIP, proxyPort] = proxyUrl.split(":");
+    const [proxyIp, proxyPort] = proxyUrl.split(":");
     self.__uv$config.bare = bare;
     self.__uv$config.proxyPort = proxyPort;
-    self.__uv$config.proxyIp = proxyIP;
+    self.__uv$config.proxyIp = proxyIp;
     self.uv = new UVServiceWorker(self.__uv$config);
   } catch (error) {
-    console.log(error);
+    console.error(
+      "\x1b[34;49;1m[Ephermal] \x1B[31mERROR: Settings for Ultraviolet cannot be set (Promise)" +
+        error,
+    );
   }
   resolve();
 });
@@ -35,7 +38,10 @@ const setAmpere = new Promise(async (resolve) => {
     self.__$ampere.config.server = bare;
     self.ampere = new AmpereWorker(self.__$ampere.config);
   } catch (error) {
-    console.log(error);
+    console.error(
+      "\x1b[34;49;1m[Ephermal] \x1B[31mERROR: Settings for Ampere cannot be set (Promise)" +
+        error,
+    );
   }
   resolve();
 });
@@ -47,7 +53,10 @@ self.addEventListener("fetch", (event) => {
         try {
           await setUv;
         } catch (error) {
-          console.log(error);
+          console.error(
+            "\x1b[34;49;1m[Ephermal] \x1B[31mERROR: Settings for Ultraviolet cannot be set (event.respondWith)" +
+              error,
+          );
         }
         return await self.uv.fetch(event);
       })(),
@@ -59,7 +68,10 @@ self.addEventListener("fetch", (event) => {
       try {
         await setAmpere;
       } catch (error) {
-        console.log(error);
+        console.error(
+          "\x1b[34;49;1m[Ephermal] \x1B[31mERROR: Settings for Ampere cannot be set (event.respondWith)" +
+            error,
+        );
       }
       return await self.ampere.fetch(event);
     })();
