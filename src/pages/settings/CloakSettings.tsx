@@ -91,6 +91,7 @@ export default function CloakSettings() {
             ref={cloakTitleInputRef}
             type="text"
             placeholder="Set how the tab title looks"
+            defaultValue={localStorage.getItem("cloakTitle") || ""}
           />
           <Label htmlFor="title">Page Favicon</Label>
           <Input
@@ -98,13 +99,16 @@ export default function CloakSettings() {
             ref={cloakFaviconInputRef}
             type="text"
             placeholder="Set the favicon"
+            defaultValue={localStorage.getItem("cloakFavicon") || ""}
           />
         </CardContent>
         <CardFooter className="justify-between space-x-2">
           <Button
             variant="default"
             onClick={() => {
-              localStorage.setItem("cloakPreset", "Custom");
+              if (cloakTitleInputRef.current!.value && cloakFaviconInputRef.current!.value) {
+                localStorage.setItem("cloakPreset", "Custom");
+              }
               localStorage.setItem(
                 "cloakTitle",
                 cloakTitleInputRef.current!.value,
