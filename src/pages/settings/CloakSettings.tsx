@@ -106,7 +106,7 @@ export default function CloakSettings() {
           <Button
             variant="default"
             onClick={() => {
-              if (cloakTitleInputRef.current!.value && cloakFaviconInputRef.current!.value) {
+              if (localStorage.getItem("cloakPreset") == null && (cloakTitleInputRef.current!.value || cloakFaviconInputRef.current!.value)) {
                 localStorage.setItem("cloakPreset", "Custom");
               }
               localStorage.setItem(
