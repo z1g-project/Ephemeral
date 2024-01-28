@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { proxyCompat } from "@/utils/bareCheck";
 import { unregisterServiceWorker } from "@/utils/swUtil";
 import {
   Card,
@@ -76,7 +75,7 @@ export default function ProxySettings() {
             defaultValue={localStorage.getItem("proxyServer") || ""}
           />
         </CardContent>
-        <CardFooter>
+        <CardFooter className="justify-between space-x-2">
           <Button
             type="button"
             variant="default"
@@ -93,35 +92,45 @@ export default function ProxySettings() {
                 localStorage.getItem("proxyServer") !==
                 proxyServerInputRef.current!.value
               ) {
-                proxyCompat(bareServer).then((res) => {
-                  if (res) {
-                    localStorage.setItem(
-                      "proxyServer",
-                      proxyServerInputRef.current!.value,
-                    );
-                    toast({
-                      title: "Proxy Changed",
-                      description:
-                        "Proxy has been changed to " +
-                          localStorage.getItem("proxy") || "ultraviolet",
-                    });
-                  } else {
-                    toast({
-                      title: "Proxy Error",
-                      description:
-                        "Proxy server is not compatible with the backend",
-                    });
-                  }
-                });
+                localStorage.setItem(
+                  "proxyServer",
+                  proxyServerInputRef.current!.value,
+                );
+                await localforage.setItem(
+                  "__hproxy",
+                  proxyServerInputRef.current!.value,
+                );
               }
               unregisterServiceWorker();
-              window.location.reload();
               toast({
                 title: "Proxy Settings saved",
               });
+              window.location.reload();
             }}
           >
             Save
+          </Button>
+          <Button
+          type="button"
+          variant="destructive"
+          onClick={async () => {
+            await localforage.config({
+              driver: localforage.INDEXEDDB,
+              name: "ephermal",
+              storeName: "__ephermal_config",
+            });
+            localStorage.removeItem("bareServer")
+            localStorage.removeItem("proxyServer")
+            await localforage.removeItem("__bserver")
+            await localforage.removeItem("__hproxy")
+            toast({
+              title: "Proxy Settings have been reset",
+              variant: "destructive"
+            })
+            window.location.reload()
+          }}
+          >
+            Reset
           </Button>
         </CardFooter>
       </Card>
