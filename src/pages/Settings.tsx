@@ -58,7 +58,8 @@ export default function Settings() {
                     <li>xstars</li>
                     <li>yu6x</li>
                   </ul>
-                  Copyright 2024 z1g Project. Last pushed on 01-27-2024.
+                  <br />
+                  Copyright 2024 z1g Project. Last pushed on 01-29-2024.
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>

@@ -111,24 +111,24 @@ export default function ProxySettings() {
             Save
           </Button>
           <Button
-          type="button"
-          variant="destructive"
-          onClick={async () => {
-            await localforage.config({
-              driver: localforage.INDEXEDDB,
-              name: "ephermal",
-              storeName: "__ephermal_config",
-            });
-            localStorage.removeItem("bareServer")
-            localStorage.removeItem("proxyServer")
-            await localforage.removeItem("__bserver")
-            await localforage.removeItem("__hproxy")
-            toast({
-              title: "Proxy Settings have been reset",
-              variant: "destructive"
-            })
-            window.location.reload()
-          }}
+            type="button"
+            variant="destructive"
+            onClick={async () => {
+              await localforage.config({
+                driver: localforage.INDEXEDDB,
+                name: "ephermal",
+                storeName: "__ephermal_config",
+              });
+              localStorage.removeItem("bareServer");
+              localStorage.removeItem("proxyServer");
+              await localforage.removeItem("__bserver");
+              await localforage.removeItem("__hproxy");
+              toast({
+                title: "Proxy Settings have been reset",
+                variant: "destructive",
+              });
+              window.location.reload();
+            }}
           >
             Reset
           </Button>
