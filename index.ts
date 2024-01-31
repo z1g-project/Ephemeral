@@ -6,6 +6,7 @@ import { uvPath } from "@nebula-services/ultraviolet";
 import path from "path";
 import { existsSync } from "fs";
 import cors from "cors";
+import compression from "compression";
 
 function fortnite(): number {
   return no() + no();
@@ -23,8 +24,14 @@ const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
+const compressionOptions = {
+  threshold: 0,
+  filter: () => true,
+};
+app.use(compression(compressionOptions));
 
 app.use(cors(corsOptions));
+app.use(compression());
 app.use(express.static("dist"));
 app.use("/uv/", express.static(uvPath));
 app.use("/ampere", express.static("/public/ampere"));
