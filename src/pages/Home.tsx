@@ -39,8 +39,10 @@ export default function Home() {
         <Input
           id="input"
           placeholder="Search the web freely"
-          className={`absolute left-1/2 top-1/2 z-50 w-96 -translate-x-1/2 -translate-y-1/2 !rounded-t-lg focus:!rounded-b-none focus-visible:ring-0 focus-visible:ring-offset-0 ${
-            suggestions.length > 0 && suggestions.length === 8 && `!border-b-0`
+          className={`absolute left-1/2 top-1/2 z-50 w-96 -translate-x-1/2 -translate-y-1/2 !rounded-t-lg focus-visible:ring-0 focus-visible:ring-offset-0 ${
+            suggestions.length > 0 &&
+            suggestions.length &&
+            `!rounded-b-none !border-b-0`
           }`}
           value={inputValue}
           onChange={onInputChange}
