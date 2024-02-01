@@ -16,12 +16,12 @@ export default function Routes() {
         })
         .then(() => {
           console.log(
-            "\x1b[34;49;1m[Ephermal] \x1B[32mINFO: Service workers registered",
+            "\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Service workers registered",
           );
         });
     } else {
       console.error(
-        "\x1b[34;49;1m[Ephermal] \x1B[31mERROR: Service workers are not supported on this device",
+        "\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Service workers are not supported on this device",
       );
     }
   });

@@ -23,7 +23,7 @@ export default function Navbar() {
                   : "text-slate-300"
         }`}
       >
-        Ephermal
+        Ephemeral
       </div>
       <div className="absolute right-1 -translate-y-2 justify-end p-5">
         <NavigationMenu>

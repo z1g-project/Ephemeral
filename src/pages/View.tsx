@@ -101,7 +101,7 @@ export default function View() {
 
   return (
     <>
-      <Header title="View | Ephermal" />
+      <Header title="View | Ephemeral" />
       <div className="flex h-screen" ref={pageRef}>
         <Toaster />
         <div className="absolute -translate-y-2 flex-row items-start space-x-4 p-5">

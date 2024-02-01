@@ -69,4 +69,4 @@ server.on("upgrade", (req, socket, head) => {
 server.listen({
   port: port,
 });
-console.log(`Ephermal is Running on port http://localhost:${port}`);
+console.log(`Ephemeral is Running on port http://localhost:${port}`);

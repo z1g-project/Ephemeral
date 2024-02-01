@@ -8,8 +8,8 @@ importScripts("/uv/uv.sw.js");
 importScripts("/localforage/localforage.min.js");
 localforage.config({
   driver: localforage.INDEXEDDB,
-  name: "ephermal",
-  storeName: "__ephermal_config",
+  name: "ephemeral",
+  storeName: "__ephemeral_config",
 });
 // eslint-disable-next-line no-async-promise-executor
 const setUv = new Promise(async (resolve) => {
@@ -24,7 +24,7 @@ const setUv = new Promise(async (resolve) => {
     self.uv = new UVServiceWorker(self.__uv$config);
   } catch (error) {
     console.error(
-      "\x1b[34;49;1m[Ephermal] \x1B[31mERROR: Settings for Ultraviolet cannot be set (Promise)" +
+      "\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Settings for Ultraviolet cannot be set (Promise)" +
         error,
     );
   }
@@ -39,7 +39,7 @@ const setAmpere = new Promise(async (resolve) => {
     self.ampere = new AmpereWorker(self.__$ampere.config);
   } catch (error) {
     console.error(
-      "\x1b[34;49;1m[Ephermal] \x1B[31mERROR: Settings for Ampere cannot be set (Promise)" +
+      "\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Settings for Ampere cannot be set (Promise)" +
         error,
     );
   }
@@ -54,7 +54,7 @@ self.addEventListener("fetch", (event) => {
           await setUv;
         } catch (error) {
           console.error(
-            "\x1b[34;49;1m[Ephermal] \x1B[31mERROR: Settings for Ultraviolet cannot be set (event.respondWith)" +
+            "\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Settings for Ultraviolet cannot be set (event.respondWith)" +
               error,
           );
         }
@@ -69,7 +69,7 @@ self.addEventListener("fetch", (event) => {
         await setAmpere;
       } catch (error) {
         console.error(
-          "\x1b[34;49;1m[Ephermal] \x1B[31mERROR: Settings for Ampere cannot be set (event.respondWith)" +
+          "\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Settings for Ampere cannot be set (event.respondWith)" +
             error,
         );
       }
