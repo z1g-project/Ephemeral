@@ -12,7 +12,7 @@ jobs:
       - uses: pnpm/action-setup@v2
           with:
           version: 8
-       run: pnpm install
+      - run: pnpm install
       - run: npm install -g pnpm && pnpm setup && pnpm install && pnpm install -g @lhci/cli@0.13.x
       - run: pnpm run build
       - run: lhci autorun
