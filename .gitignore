@@ -9,6 +9,7 @@ lerna-debug.log*
 .env
 
 node_modules
+.lighthouseci
 dist
 dist-ssr
 *.local

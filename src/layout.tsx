@@ -11,6 +11,7 @@ const Layout = ({ children }: LayoutProps) => {
       {window.location.origin === "https://ephemeral.incognitotgt.me" && (
         <Meta />
       )}
+      {window.location.origin === "http://localhost:8080" && <Meta />}
       <div
         className={`${theme} ${
           theme === "mocha"
