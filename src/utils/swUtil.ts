@@ -4,7 +4,7 @@ export function unregisterServiceWorker() {
       for (const registration of registrations) {
         registration.unregister();
         console.warn(
-          "\x1b[34;49;1m[Ephermal] \x1B[32mWARN: Service workers unregistered",
+          "\x1b[34;49;1m[Ephemeral] \x1B[32mWARN: Service workers unregistered",
         );
       }
     });
@@ -16,7 +16,7 @@ export function updateServiceWorker() {
       for (const registration of registrations) {
         registration.update();
         console.log(
-          "\x1b[34;49;1m[Ephermal] \x1B[32mINFO: Service workers updated",
+          "\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Service workers updated",
         );
       }
     });

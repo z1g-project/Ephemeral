@@ -18,7 +18,7 @@ import {
 export default function Settings() {
   return (
     <>
-      <Header title="Settings | Ephermal" />
+      <Header title="Settings | Ephemeral" />
       <div className="flex min-h-screen">
         <Navbar />
         <div className="absolute left-1/2 top-2 -translate-x-1/2 translate-y-5 text-3xl font-bold text-slate-300">
@@ -38,13 +38,13 @@ export default function Settings() {
             <DialogContent>
               <DialogHeader>
                 <DialogTitle className="text-slate-200">
-                  Ephermal 0.2.0 - Beta
+                  Ephemeral 0.2.0 - Beta
                 </DialogTitle>
                 <DialogDescription className="text-slate-300">
-                  Ephermal is a powerful proxy with Ultraviolet and other
+                  Ephemeral is a powerful proxy with Ultraviolet and other
                   features, made by the z1g Project.
                   <br />
-                  Ephermal is made possble by the following projects:
+                  Ephemeral is made possble by the following projects:
                   <br />
                   <li>Ultraviolet</li>
                   <li>Ampere</li>
