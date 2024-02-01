@@ -71,7 +71,7 @@ export default function ProxySettings() {
           <Input
             id="proxy"
             ref={proxyServerInputRef}
-            placeholder="Type a valid HTTP Proxy URL"
+            placeholder="<ip>:port"
             defaultValue={localStorage.getItem("proxyServer") || ""}
           />
         </CardContent>
