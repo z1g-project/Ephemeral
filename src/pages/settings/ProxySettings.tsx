@@ -82,8 +82,8 @@ export default function ProxySettings() {
             onClick={async () => {
               await localforage.config({
                 driver: localforage.INDEXEDDB,
-                name: "ephermal",
-                storeName: "__ephermal_config",
+                name: "ephemeral",
+                storeName: "__ephemeral_config",
               });
               const bareServer = bareServerInputRef.current!.value;
               await localforage.setItem("__bserver", bareServer);
@@ -116,8 +116,8 @@ export default function ProxySettings() {
             onClick={async () => {
               await localforage.config({
                 driver: localforage.INDEXEDDB,
-                name: "ephermal",
-                storeName: "__ephermal_config",
+                name: "ephemeral",
+                storeName: "__ephemeral_config",
               });
               localStorage.removeItem("bareServer");
               localStorage.removeItem("proxyServer");

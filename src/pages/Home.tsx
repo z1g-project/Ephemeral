@@ -33,7 +33,7 @@ export default function Home() {
 
   return (
     <>
-      <Header title="Home | Ephermal" />
+      <Header title="Home | Ephemeral" />
       <div className="flex min-h-screen flex-row-reverse">
         <Navbar />
         <Input

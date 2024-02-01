@@ -8,7 +8,7 @@ const theme = localStorage.getItem("theme") || "";
 const Layout = ({ children }: LayoutProps) => {
   return (
     <>
-      {window.location.origin === "https://ephermal.incognitotgt.me" && (
+      {window.location.origin === "https://ephemeral.incognitotgt.me" && (
         <Meta />
       )}
       <div
