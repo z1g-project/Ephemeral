@@ -18,7 +18,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm install && pnpm install -g @lhci/cli@0.13.x
+        run: pnpm install && pnpm install -g @lhci/cli@0.13.x tsx
       - name: Run build
         run: pnpm run build
       - name: Run Lighthouse CI
