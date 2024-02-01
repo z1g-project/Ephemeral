@@ -13,18 +13,7 @@ const Layout = ({ children }: LayoutProps) => {
       )}
       {window.location.origin === "http://localhost:8080" && <Meta />}
       <div
-        className={`${theme} ${
-          theme === "mocha"
-            ? "!bg-[#1e1e2e]"
-            : theme === "macchiato"
-              ? "!bg-[#24273a]"
-              : theme === "frappe"
-                ? "!bg-[#303446]"
-                : theme === "latte"
-                  ? "!bg-[#eff1f5]"
-                  : "!bg-slate-950"
-        }
-    `}
+        className={`dark:bg-slate-`}
       >
         {children}
       </div>

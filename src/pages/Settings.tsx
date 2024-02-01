@@ -21,7 +21,7 @@ export default function Settings() {
       <Header title="Settings | Ephemeral" />
       <div className="flex min-h-screen">
         <Navbar />
-        <div className="absolute left-1/2 top-2 -translate-x-1/2 translate-y-5 text-3xl font-bold text-slate-300">
+        <div className="absolute left-1/2 top-2 -translate-x-1/2 translate-y-5 text-3xl font-bold dark:text-slate-300 text-slate-600">
           Settings
         </div>
         <Toaster />
@@ -33,7 +33,7 @@ export default function Settings() {
         <div className="absolute bottom-5 right-5 text-slate-200">
           <Dialog>
             <DialogTrigger>
-              <Info aria-label="Info" />
+              <Info aria-label="Info" className="text-slate-800 dark:text-slate-50" />
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
