@@ -115,7 +115,7 @@ export default function View() {
               frameRef.current!.contentWindow?.history.back();
             }}
           >
-            <ChevronLeftIcon className="h-6 w-6 dark:text-slate-50 text-slate-950" />
+            <ChevronLeftIcon className="h-6 w-6 text-slate-50" />
           </Button>
           <Button
             {...(aboutBlank ? { disabled: true } : {})}
@@ -126,7 +126,7 @@ export default function View() {
               frameRef.current!.contentWindow?.history.forward();
             }}
           >
-            <ChevronRightIcon className="h-6 w-6 dark:text-slate-50 text-slate-950" />
+            <ChevronRightIcon className="h-6 w-6 text-slate-50" />
           </Button>
           <Button
             title="Reload"
@@ -136,11 +136,11 @@ export default function View() {
               frameRef.current!.contentWindow?.location.reload();
             }}
           >
-            <ArrowPathIcon className="h-6 w-6 dark:text-slate-50 text-slate-950" />
+            <ArrowPathIcon className="h-6 w-6 text-slate-50" />
           </Button>
           <Button asChild variant="ghost" title="Home" aria-label="Home">
             <Link to="/">
-              <HomeIcon className="h-6 w-6 dark:text-slate-50 text-slate-950" />
+              <HomeIcon className="h-6 w-6 text-slate-50" />
             </Link>
           </Button>
         </div>
@@ -173,7 +173,7 @@ export default function View() {
           }}
         />
         <Command
-          className={`absolute left-1/2 z-20 h-auto w-96 -translate-x-1/2 translate-y-12 rounded-b-lg rounded-t-none border-x border-slate-200 dark:border-slate-800 shadow-md sm:w-[484px] lg:w-[584px] ${
+          className={`absolute left-1/2 z-20 h-auto w-96 -translate-x-1/2 translate-y-12 rounded-b-lg rounded-t-none border-x border-slate-800 shadow-md sm:w-[484px] lg:w-[584px] ${
             suggestions.length < 0 || !suggestionFocused
               ? `invisible`
               : `visible`
@@ -232,7 +232,7 @@ export default function View() {
               }
             }}
           >
-            <CodeBracketIcon className="h-6 w-6 dark:text-slate-50 text-slate-950" />
+            <CodeBracketIcon className="h-6 w-6 text-slate-50" />
           </Button>
           <Button
             title="Open in New Tab (no cloaking)"
@@ -242,7 +242,7 @@ export default function View() {
               window.open(frameRef.current!.src);
             }}
           >
-            <ArrowTopRightOnSquareIcon className="h-6 w-6 dark:text-slate-50 text-slate-950" />
+            <ArrowTopRightOnSquareIcon className="h-6 w-6 text-slate-50" />
           </Button>
           <Button
             title="Fullscreen"
@@ -259,9 +259,9 @@ export default function View() {
             }}
           >
             {fullScreen ? (
-              <ArrowsPointingInIcon className="h-6 w-6 dark:text-slate-50 text-slate-950" />
+              <ArrowsPointingInIcon className="h-6 w-6 text-slate-50" />
             ) : (
-              <ArrowsPointingOutIcon className="h-6 w-6 dark:text-slate-50 text-slate-950" />
+              <ArrowsPointingOutIcon className="h-6 w-6 text-slate-50" />
             )}
           </Button>
         </div>
@@ -269,7 +269,7 @@ export default function View() {
           <iframe
             title="View"
             src={getProxy() + url}
-            className="h-full w-full border-none dark:bg-slate-200 bg-slate-50"
+            className="h-full w-full border-none bg-slate-200"
             ref={frameRef}
             onLoad={onLoad}
           />
