@@ -15,6 +15,8 @@ export default function Meta() {
       />
       <meta property="og:site_name" content="Ephemeral" />
       <meta property="og:url" content="https://ephemeral.incognitotgt.me/" />
+      <meta property="og:image" content="/ephemeral-sm.png" />
+      <meta property="og:image:secure_url" content="/ephemeral-sm.png" />
       <meta property="og:title" content="Ephemeral" />
       <meta property="og:type" content="website" />
       <meta
