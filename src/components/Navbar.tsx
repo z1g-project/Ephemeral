@@ -11,7 +11,7 @@ export default function Navbar() {
   return (
     <>
       <div
-        className={`absolute left-1 -translate-y-2 justify-end p-5 text-3xl font-extrabold ${
+        className={`absolute left-1 -translate-y-2 justify-end p-5 text-2xl font-bold ${
           theme === "mocha"
             ? "text-[#cdd6f4]"
             : theme === "macchiato"
@@ -23,7 +23,14 @@ export default function Navbar() {
                   : "text-slate-300"
         }`}
       >
-        Ephemeral
+        <div className="flex items-center">
+          <img
+            src="/ephemeral-sm.webp"
+            alt="Ephemeral"
+            className="h-8 w-8 rounded-lg"
+          />
+          <div className="ml-2">Ephemeral</div>
+        </div>
       </div>
       <div className="absolute right-1 -translate-y-2 justify-end p-5">
         <NavigationMenu>

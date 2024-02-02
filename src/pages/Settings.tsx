@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/Header";
 import { Info } from "lucide-react";
+import { Button } from "@/components/ui/button";
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Dialog,
@@ -33,14 +34,22 @@ export default function Settings() {
         <div className="absolute bottom-5 right-5 text-slate-200">
           <Dialog>
             <DialogTrigger>
-              <Info aria-label="Info" />
+              <Button variant="outline" size="sm">
+                About
+                <Info aria-label="Info" className="ml-2 h-5 w-5" />
+              </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle className="text-slate-200">
-                  Ephemeral 0.2.0 - Beta
+                <DialogTitle className="m-2 text-center text-slate-200">
+                  Ephemeral 0.5.0 - Beta
                 </DialogTitle>
-                <DialogDescription className="text-slate-300">
+                <DialogDescription className=" items-center justify-center text-slate-300">
+                  <img
+                    src="/ephemeral.png"
+                    alt="Ephemeral"
+                    className="mx-auto mb-6 h-96 w-96 rounded-lg"
+                  />
                   Ephemeral is a powerful proxy with Ultraviolet and other
                   features, made by the z1g Project.
                   <br />
@@ -59,7 +68,7 @@ export default function Settings() {
                     <li>yu6x</li>
                   </ul>
                   <br />
-                  Copyright 2024 z1g Project. Last pushed on 01-31-2024.
+                  Copyright 2024 z1g Project. Last pushed on 02-02-2024.
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>
