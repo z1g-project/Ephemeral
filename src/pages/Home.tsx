@@ -76,7 +76,7 @@ export default function Home() {
         />
 
         <Command
-          className={`absolute left-1/2 top-[calc(50%_+_10.25rem)] h-auto w-96 -translate-x-1/2 -translate-y-1/2 rounded-b-lg rounded-t-none border-slate-200 dark:border-slate-800 ${
+          className={`absolute left-1/2 top-[calc(50%_+_10.25rem)] h-auto w-96 -translate-x-1/2 -translate-y-1/2 rounded-b-lg rounded-t-none border-slate-800 shadow-md ${
             suggestions.length > 0 && suggestions.length === 8
               ? `visible border-x border-b`
               : `invisible border-none`
