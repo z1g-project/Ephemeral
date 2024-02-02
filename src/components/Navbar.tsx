@@ -6,11 +6,22 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+const theme = localStorage.getItem("theme") || "";
 export default function Navbar() {
   return (
     <>
       <div
-        className={`light:text-slate-800 absolute left-1 -translate-y-2 justify-end p-5 text-3xl font-extrabold text-slate-950 dark:text-slate-800`}
+        className={`absolute left-1 -translate-y-2 justify-end p-5 text-3xl font-extrabold ${
+          theme === "mocha"
+            ? "text-[#cdd6f4]"
+            : theme === "macchiato"
+              ? "text-[#cad3f5]"
+              : theme === "frappe"
+                ? "text-[#c6d0f5]"
+                : theme === "latte"
+                  ? "text-[#4c4f69]"
+                  : "text-slate-300"
+        }`}
       >
         Ephemeral
       </div>
