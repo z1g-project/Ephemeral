@@ -24,11 +24,6 @@ export default function Navbar() {
         }`}
       >
         <div className="flex items-center">
-          <img
-            src="/ephemeral-sm.webp"
-            alt="Ephemeral"
-            className="h-8 w-8 rounded-lg"
-          />
           <div className="ml-2">Ephemeral</div>
         </div>
       </div>
