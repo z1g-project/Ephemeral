@@ -8,7 +8,7 @@ export default function Header(props: HeaderProps) {
       <title>{localStorage.getItem("cloakTitle") || props.title}</title>
       <link
         rel="icon"
-        href={localStorage.getItem("cloakFavicon") || "/favicon.ico"}
+        href={localStorage.getItem("cloakFavicon") || "/ephemeral-sm.webp"}
       />
     </Helmet>
   );

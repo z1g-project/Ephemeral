@@ -1,7 +1,7 @@
 {
   "name": "ephemeral",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.5.0",
   "type": "module",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -50,7 +50,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
-    "react-router-dom": "^6.21.3",
+    "react-router-dom": "^6.22.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "tsx": "^4.7.0"
@@ -60,8 +60,8 @@
     "@types/compression": "^1.7.5",
     "@types/cors": "^2.8.17",
     "@types/crypto-js": "^4.2.2",
-    "@types/node": "^20.11.14",
-    "@types/react": "^18.2.48",
+    "@types/node": "^20.11.16",
+    "@types/react": "^18.2.51",
     "@types/react-dom": "^18.2.18",
     "@types/react-helmet": "^6.1.11",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
