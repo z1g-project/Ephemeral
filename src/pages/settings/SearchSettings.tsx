@@ -67,12 +67,13 @@ export default function SearchSettings() {
               <SelectItem value="Bing">Bing</SelectItem>
             </SelectContent>
           </Select>
-          <Label htmlFor="name" className="text-sm font-medium">
+          <Label htmlFor="search-url" className="text-sm font-medium">
             Search Engine URL
           </Label>
           <Input
-            id="name"
+            id="search-url"
             ref={customSearchRef}
+            spellCheck={false}
             placeholder="Enter a valid Search Engine URL"
           />
         </CardContent>

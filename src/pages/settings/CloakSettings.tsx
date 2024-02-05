@@ -85,7 +85,7 @@ export default function CloakSettings() {
               </SelectContent>
             </SelectTrigger>
           </Select>
-          <Label htmlFor="title">Page Title</Label>
+          <Label htmlFor="page-title">Page Title</Label>
           <Input
             id="page-title"
             ref={cloakTitleInputRef}
@@ -93,11 +93,12 @@ export default function CloakSettings() {
             placeholder="Set how the tab title looks"
             defaultValue={localStorage.getItem("cloakTitle") || ""}
           />
-          <Label htmlFor="title">Page Favicon</Label>
+          <Label htmlFor="page-favicon">Page Favicon</Label>
           <Input
             id="page-favicon"
             ref={cloakFaviconInputRef}
             type="text"
+            spellCheck={false}
             placeholder="Set the favicon"
             defaultValue={localStorage.getItem("cloakFavicon") || ""}
           />

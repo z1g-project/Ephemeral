@@ -1,3 +1,4 @@
+import localforage from "localforage";
 import { useRef } from "react";
 import { unregisterServiceWorker } from "@/utils/swUtil";
 import {
@@ -64,6 +65,7 @@ export default function ProxySettings() {
           <Input
             id="bareServer"
             ref={bareServerInputRef}
+            spellCheck={false}
             placeholder="Type a valid Bare URL"
             defaultValue={localStorage.getItem("bareServer") || "/bare/"}
           />
@@ -71,6 +73,7 @@ export default function ProxySettings() {
           <Input
             id="proxy"
             ref={proxyServerInputRef}
+            spellCheck={false}
             placeholder="<ip>:port"
             defaultValue={localStorage.getItem("proxyServer") || ""}
           />
