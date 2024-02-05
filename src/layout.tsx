@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import Meta from "./components/Meta";
+import { Toaster } from "@/components/ui/toaster";
 
 type LayoutProps = {
   children: ReactNode;
@@ -26,6 +27,7 @@ const Layout = ({ children }: LayoutProps) => {
         }
     `}
       >
+        <Toaster />
         {children}
       </div>
     </>

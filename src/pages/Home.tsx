@@ -44,6 +44,7 @@ export default function Home() {
             suggestions.length === 8 &&
             `!rounded-b-none !border-b-0`
           }`}
+          spellCheck={false}
           value={inputValue}
           onChange={onInputChange}
           onKeyDown={(e) => {
