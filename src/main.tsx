@@ -14,7 +14,6 @@ declare global {
     __uv$config: any;
     __$ampere: any;
   }
-  const localforage: any;
 }
 export default function App() {
   useEffect(() => {

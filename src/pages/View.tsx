@@ -20,7 +20,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Header from "@/components/Header";
-import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 interface ProxyWindow extends Window {
   eruda: any;
@@ -101,7 +100,6 @@ export default function View() {
     <>
       <Header title="View | Ephemeral" />
       <div className="flex h-screen" ref={pageRef}>
-        <Toaster />
         <div className="absolute -translate-y-2 flex-row items-start space-x-4 p-5">
           <Button
             {...(aboutBlank ? { disabled: true } : {})}
@@ -150,6 +148,7 @@ export default function View() {
           }}
           onBlur={() => setInputFocused(false)}
           className="absolute left-1/2 w-96 -translate-x-1/2 translate-y-3 flex-col pr-4 focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[484px] lg:w-[584px]"
+          spellCheck={false}
           placeholder={
             frameRef?.current?.src ? "Search the web freely" : "Loading..."
           }
