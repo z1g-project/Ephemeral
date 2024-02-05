@@ -80,22 +80,19 @@ export default function View() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputFocused]);
-  function inIframe(): boolean {
+  useEffect(() => {
     if (window.self !== window.top) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  function onLoad() {
-    setSearch();
-    if (inIframe()) {
       setAboutBlank(true);
       toast({
         description:
           "Note: Back and Forward buttons will not work in about:blank",
       });
+    } else {
+      setAboutBlank(false);
     }
+  }, []);
+  function onLoad() {
+    setSearch();
   }
 
   window.history.replaceState(null, "", "/");
@@ -218,7 +215,7 @@ export default function View() {
               } else {
                 const script = proxyDocument.createElement("script");
                 script.src = "https://cdn.jsdelivr.net/npm/eruda";
-                script.onload = function () {
+                script.onload = () => {
                   if (!proxyWindow) return;
                   proxyWindow.eruda.init({
                     defaults: {
