@@ -70,9 +70,7 @@ export default function CloakSettings() {
             <SelectTrigger aria-label="Presets">
               <SelectValue
                 placeholder={
-                  localStorage.getItem("cloakPreset")
-                    ? localStorage.getItem("cloakPreset")
-                    : "Select a preset"
+                  localStorage.getItem("cloakPreset") || "Select a preset"
                 }
               />
               <SelectContent position="popper">
