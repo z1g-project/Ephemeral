@@ -9,7 +9,7 @@ export default function PageNotFound() {
       <Button
         type="button"
         onClick={() => window.location.reload()}
-        className="absolute left-1/2 top-[calc(50%_+_10.25rem)] -translate-x-1/2 -translate-y-1/2 text-slate-800"
+        className="absolute left-1/2 top-[calc(50%_+_10.25rem)] -translate-x-1/2 -translate-y-1/2 text-slate-50 dark:text-slate-800"
       >
         Refresh
       </Button>

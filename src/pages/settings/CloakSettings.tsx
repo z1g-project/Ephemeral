@@ -145,7 +145,8 @@ export default function CloakSettings() {
             variant="secondary"
             onClick={() => {
               const newWindow = window.open("about:blank");
-              const iframe = document.createElement("iframe");
+              const iframe: HTMLIFrameElement =
+                document.createElement("iframe");
               iframe.src = window.location.origin;
               iframe.style.width = "100%";
               iframe.style.height = "100%";

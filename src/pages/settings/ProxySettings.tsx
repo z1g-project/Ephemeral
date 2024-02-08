@@ -56,7 +56,10 @@ export default function ProxySettings() {
                 )}
               />
             </SelectTrigger>
-            <SelectContent position="popper" className=" text-white">
+            <SelectContent
+              position="popper"
+              className=" text-foreground dark:text-white"
+            >
               <SelectItem value="ultraviolet">Ultraviolet</SelectItem>
               <SelectItem value="ampere">Ampere</SelectItem>
             </SelectContent>
@@ -83,7 +86,7 @@ export default function ProxySettings() {
             type="button"
             variant="default"
             onClick={async () => {
-              await localforage.config({
+              localforage.config({
                 driver: localforage.INDEXEDDB,
                 name: "ephemeral",
                 storeName: "__ephemeral_config",
@@ -117,7 +120,7 @@ export default function ProxySettings() {
             type="button"
             variant="destructive"
             onClick={async () => {
-              await localforage.config({
+              localforage.config({
                 driver: localforage.INDEXEDDB,
                 name: "ephemeral",
                 storeName: "__ephemeral_config",
@@ -126,6 +129,7 @@ export default function ProxySettings() {
               localStorage.removeItem("proxyServer");
               await localforage.removeItem("__bserver");
               await localforage.removeItem("__hproxy");
+              unregisterServiceWorker();
               toast({
                 title: "Proxy Settings have been reset",
                 variant: "destructive",
