@@ -100,7 +100,7 @@ export default function View() {
     <>
       <Header title="View | Ephemeral" />
       <div className="flex h-screen" ref={pageRef}>
-        <div className="absolute -translate-y-2 flex-row items-start space-x-4 p-5">
+        <div className="absolute -translate-y-2 flex-row items-start space-x-4 p-5 text-slate-900 dark:text-slate-50">
           <Button
             {...(aboutBlank ? { disabled: true } : {})}
             title="Back"
@@ -110,7 +110,7 @@ export default function View() {
               frameRef.current!.contentWindow?.history.back();
             }}
           >
-            <ChevronLeftIcon className="h-6 w-6 text-slate-50" />
+            <ChevronLeftIcon className="h-6 w-6 " />
           </Button>
           <Button
             {...(aboutBlank ? { disabled: true } : {})}
@@ -121,7 +121,7 @@ export default function View() {
               frameRef.current!.contentWindow?.history.forward();
             }}
           >
-            <ChevronRightIcon className="h-6 w-6 text-slate-50" />
+            <ChevronRightIcon className="h-6 w-6" />
           </Button>
           <Button
             title="Reload"
@@ -131,11 +131,11 @@ export default function View() {
               frameRef.current!.contentWindow?.location.reload();
             }}
           >
-            <ArrowPathIcon className="h-6 w-6 text-slate-50" />
+            <ArrowPathIcon className="h-6 w-6" />
           </Button>
           <Button asChild variant="ghost" title="Home" aria-label="Home">
             <Link to="/">
-              <HomeIcon className="h-6 w-6 text-slate-50" />
+              <HomeIcon className="h-6 w-6" />
             </Link>
           </Button>
         </div>
@@ -169,7 +169,7 @@ export default function View() {
           }}
         />
         <Command
-          className={`absolute left-1/2 z-20 h-auto w-96 -translate-x-1/2 translate-y-12 rounded-b-lg rounded-t-none border-x border-slate-800 shadow-md sm:w-[484px] lg:w-[584px] ${
+          className={`absolute left-1/2 z-20 h-auto w-96 -translate-x-1/2 translate-y-12 rounded-b-lg rounded-t-none border-x border-slate-300 dark:border-slate-800 sm:w-[484px] lg:w-[584px] ${
             suggestions.length < 0 || !suggestionFocused
               ? `invisible`
               : `visible`
@@ -196,7 +196,7 @@ export default function View() {
             )}
           </CommandList>
         </Command>
-        <div className="absolute right-1 -translate-y-2 flex-row items-start space-x-4 p-5">
+        <div className="absolute right-1 -translate-y-2 flex-row items-start space-x-4 p-5 text-slate-900 dark:text-slate-50">
           <Button
             title="Eruda (Browser Console)"
             aria-label="Eruda (Browser Console)"
@@ -228,7 +228,7 @@ export default function View() {
               }
             }}
           >
-            <CodeBracketIcon className="h-6 w-6 text-slate-50" />
+            <CodeBracketIcon className="h-6 w-6" />
           </Button>
           <Button
             title="Open in New Tab (no cloaking)"
@@ -238,7 +238,7 @@ export default function View() {
               window.open(frameRef.current!.src);
             }}
           >
-            <ArrowTopRightOnSquareIcon className="h-6 w-6 text-slate-50" />
+            <ArrowTopRightOnSquareIcon className="h-6 w-6" />
           </Button>
           <Button
             title="Fullscreen"
@@ -255,9 +255,9 @@ export default function View() {
             }}
           >
             {fullScreen ? (
-              <ArrowsPointingInIcon className="h-6 w-6 text-slate-50" />
+              <ArrowsPointingInIcon className="h-6 w-6" />
             ) : (
-              <ArrowsPointingOutIcon className="h-6 w-6 text-slate-50" />
+              <ArrowsPointingOutIcon className="h-6 w-6" />
             )}
           </Button>
         </div>

@@ -29,7 +29,7 @@ export default function Settings() {
           <CloakSettings />
           <SearchSettings />
         </div>
-        <div className="absolute bottom-5 right-5 text-slate-200">
+        <div className="absolute bottom-5 right-5 text-foreground">
           <Dialog>
             <DialogTrigger>
               <Button variant="outline" size="sm">
@@ -39,10 +39,10 @@ export default function Settings() {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle className="m-2 text-center text-slate-200">
+                <DialogTitle className="m-2 text-center text-foreground">
                   Ephemeral 0.5.0 - Beta
                 </DialogTitle>
-                <DialogDescription className=" items-center justify-center text-slate-300">
+                <DialogDescription className=" items-center justify-center text-foreground">
                   <img
                     src="/ephemeral.png"
                     alt="Ephemeral"
@@ -51,7 +51,7 @@ export default function Settings() {
                   Ephemeral is a powerful proxy with Ultraviolet and other
                   features, made by the z1g Project.
                   <br />
-                  Ephemeral is made possble by the following projects:
+                  Ephemeral is made possible by the following projects:
                   <br />
                   <li>Ultraviolet</li>
                   <li>Ampere</li>
