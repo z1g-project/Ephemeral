@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
+import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -33,7 +33,9 @@ export default function SearchSettings() {
           <CardDescription>Set search engine</CardDescription>
         </CardHeader>
         <CardContent>
-          <Label htmlFor="presets">Presets</Label>
+          <Label htmlFor="presets" className="text-sm font-medium">
+            Presets
+          </Label>
           <Select
             aria-label="Search Engine"
             onValueChange={(value) => {
@@ -56,20 +58,17 @@ export default function SearchSettings() {
             }}
           >
             <SelectTrigger aria-label="Presets">
-              <SelectValue
-                placeholder={
-                  localStorage.getItem("search") || "Select a search engine"
-                }
-                ref={selectRef}
-              />
+              <SelectValue placeholder={localStorage.getItem("search") ||"Select a search engine"}  ref={selectRef}/>
             </SelectTrigger>
-            <SelectContent position="popper">
+            <SelectContent position="popper" className=" text-white">
               <SelectItem value="Google">Google</SelectItem>
               <SelectItem value="DuckDuckGo">DuckDuckGo</SelectItem>
               <SelectItem value="Bing">Bing</SelectItem>
             </SelectContent>
           </Select>
-          <Label htmlFor="search-url">Search Engine URL</Label>
+          <Label htmlFor="search-url" className="text-sm font-medium">
+            Search Engine URL
+          </Label>
           <Input
             id="search-url"
             ref={customSearchRef}
