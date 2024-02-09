@@ -15,7 +15,6 @@
     "build-ampere": "bash ampere.sh"
   },
   "dependencies": {
-    "@heroicons/react": "^2.1.1",
     "@nebula-services/bare-server-node": "2.0.1-patch.1",
     "@nebula-services/ultraviolet": "1.0.1-1.patch.7",
     "@radix-ui/react-dialog": "^1.0.5",

@@ -2,15 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import encoder from "@/utils/encoder";
 import {
-  ArrowPathIcon,
-  ArrowsPointingInIcon,
-  ArrowsPointingOutIcon,
-  ArrowTopRightOnSquareIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  HomeIcon,
-  CodeBracketIcon,
-} from "@heroicons/react/24/outline";
+  ArrowUpRightFromSquare,
+  ChevronLeft, ChevronRight, Code, LucideHome, Maximize, Minimize,
+  RotateCw
+} from "lucide-react";
 import {
   Command,
   CommandGroup,
@@ -110,7 +105,7 @@ export default function View() {
               frameRef.current!.contentWindow?.history.back();
             }}
           >
-            <ChevronLeftIcon className="h-6 w-6 text-slate-50" />
+            <ChevronLeft className="h-6 w-6 text-slate-50" />
           </Button>
           <Button
             {...(aboutBlank ? { disabled: true } : {})}
@@ -121,7 +116,7 @@ export default function View() {
               frameRef.current!.contentWindow?.history.forward();
             }}
           >
-            <ChevronRightIcon className="h-6 w-6 text-slate-50" />
+            <ChevronRight className="h-6 w-6 text-slate-50" />
           </Button>
           <Button
             title="Reload"
@@ -131,11 +126,11 @@ export default function View() {
               frameRef.current!.contentWindow?.location.reload();
             }}
           >
-            <ArrowPathIcon className="h-6 w-6 text-slate-50" />
+            <RotateCw className="h-6 w-6 text-slate-50" />
           </Button>
           <Button asChild variant="ghost" title="Home" aria-label="Home">
             <Link to="/">
-              <HomeIcon className="h-6 w-6 text-slate-50" />
+              <LucideHome className="h-6 w-6 text-slate-50" />
             </Link>
           </Button>
         </div>
@@ -228,7 +223,7 @@ export default function View() {
               }
             }}
           >
-            <CodeBracketIcon className="h-6 w-6 text-slate-50" />
+            <Code className="h-6 w-6 text-slate-50" />
           </Button>
           <Button
             title="Open in New Tab (no cloaking)"
@@ -238,7 +233,7 @@ export default function View() {
               window.open(frameRef.current!.src);
             }}
           >
-            <ArrowTopRightOnSquareIcon className="h-6 w-6 text-slate-50" />
+            <ArrowUpRightFromSquare className="h-6 w-6 text-slate-50" />
           </Button>
           <Button
             title="Fullscreen"
@@ -255,9 +250,9 @@ export default function View() {
             }}
           >
             {fullScreen ? (
-              <ArrowsPointingInIcon className="h-6 w-6 text-slate-50" />
+              <Minimize className="h-6 w-6 text-slate-50" />
             ) : (
-              <ArrowsPointingOutIcon className="h-6 w-6 text-slate-50" />
+              <Maximize className="h-6 w-6 text-slate-50" />
             )}
           </Button>
         </div>
