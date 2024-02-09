@@ -126,6 +126,7 @@ export default function ProxySettings() {
               localStorage.removeItem("proxyServer");
               await localforage.removeItem("__bserver");
               await localforage.removeItem("__hproxy");
+              unregisterServiceWorker();
               toast({
                 title: "Proxy Settings have been reset",
                 variant: "destructive",
