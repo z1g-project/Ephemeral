@@ -3,8 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import encoder from "@/utils/encoder";
 import {
   ArrowUpRightFromSquare,
-  ChevronLeft, ChevronRight, Code, LucideHome, Maximize, Minimize,
-  RotateCw
+  ChevronLeft,
+  ChevronRight,
+  Code,
+  LucideHome,
+  Maximize,
+  Minimize,
+  RotateCw,
 } from "lucide-react";
 import {
   Command,
