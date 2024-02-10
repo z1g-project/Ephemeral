@@ -58,7 +58,12 @@ export default function SearchSettings() {
             }}
           >
             <SelectTrigger aria-label="Presets">
-              <SelectValue placeholder={localStorage.getItem("search") ||"Select a search engine"}  ref={selectRef}/>
+              <SelectValue
+                placeholder={
+                  localStorage.getItem("search") || "Select a search engine"
+                }
+                ref={selectRef}
+              />
             </SelectTrigger>
             <SelectContent position="popper" className=" text-white">
               <SelectItem value="Google">Google</SelectItem>

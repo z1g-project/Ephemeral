@@ -32,7 +32,6 @@ app.use(compression(compressionOptions));
 app.use(cors(corsOptions));
 app.use(express.static("dist"));
 app.use("/uv/", express.static(uvPath));
-app.use("/ampere", express.static("/public/ampere"));
 app.get("/search", async (req, res) => {
   const query = req.query.q;
 

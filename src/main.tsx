@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { useEffect } from "react";
-import { BrowserRouter, Route, Routes as Router } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "@/pages/Home";
 import View from "@/pages/View";
 import Settings from "@/pages/Settings";
@@ -36,13 +36,13 @@ export default function App() {
   return (
     <BrowserRouter>
       <Layout>
-        <Router>
+        <Routes>
           <Route path="/" Component={Home} />
           <Route path="/view/:url" Component={View} />
           <Route path="/settings" Component={Settings} />
           <Route path="/~/*" Component={ServiceWorkerError} />
           <Route path="*" Component={PageNotFound} />
-        </Router>
+        </Routes>
       </Layout>
     </BrowserRouter>
   );
