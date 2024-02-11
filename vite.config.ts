@@ -39,7 +39,7 @@ export default defineConfig({
       "/bare": {
         target: "http://localhost:8080/bare",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/bare/, ""),
+        rewrite: (path) => path.replace(/^\/bend/, ""),
       },
       "/search": {
         target: "http://localhost:8080/search",

@@ -67,7 +67,7 @@ export default function ProxySettings() {
             ref={bareServerInputRef}
             spellCheck={false}
             placeholder="Type a valid Bare URL"
-            defaultValue={localStorage.getItem("bareServer") || "/bare/"}
+            defaultValue={localStorage.getItem("bareServer") || "/bend/"}
           />
           <Label htmlFor="name">Proxy Server (Advanced)</Label>
           <Input
