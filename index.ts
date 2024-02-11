@@ -16,7 +16,7 @@ function no(): number {
 }
 if (!existsSync("fortnite")) fortnite();
 
-const bare = createBareServer("/bare/");
+const bare = createBareServer("/bend/");
 const app = express();
 const port = process.env.PORT || 8080;
 const corsOptions = {
