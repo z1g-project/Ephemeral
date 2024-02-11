@@ -1,7 +1,7 @@
 /*global Ultraviolet*/
 self.__uv$config = {
   prefix: "/~/dark/",
-  bare: "/bare/",
+  bare: "/bend/",
   encodeUrl: Ultraviolet.codec.aes.encode,
   decodeUrl: Ultraviolet.codec.aes.decode,
   handler: "/uv/uv.handler.js",

@@ -15,7 +15,7 @@ localforage.config({
 const setUv = new Promise(async (resolve) => {
   try {
     const bare =
-      (await localforage.getItem("__bserver")) || location.origin + "/bare/";
+      (await localforage.getItem("__bserver")) || location.origin + "/bend/";
     const proxyUrl = (await localforage.getItem("__hproxy")) || "";
     const [proxyIp, proxyPort] = proxyUrl.split(":");
     self.__uv$config.bare = bare;
@@ -34,7 +34,7 @@ const setUv = new Promise(async (resolve) => {
 const setAmpere = new Promise(async (resolve) => {
   try {
     const bare =
-      (await localforage.getItem("__bserver")) || location.origin + "/bare/";
+      (await localforage.getItem("__bserver")) || location.origin + "/bend/";
     self.__$ampere.config.server = bare;
     self.ampere = new AmpereWorker(self.__$ampere.config);
   } catch (error) {

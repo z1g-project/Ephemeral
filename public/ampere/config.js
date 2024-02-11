@@ -15,7 +15,7 @@
   })(LogLevel || {});
   var config = {
     prefix: "/~/light/",
-    server: "http://localhost:8080/bare/",
+    server: "http://localhost:8080/bend/",
     logLevel: 4 /* Debug */,
     codec: uri,
     files: {
