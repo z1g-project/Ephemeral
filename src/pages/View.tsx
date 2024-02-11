@@ -154,7 +154,10 @@ export default function View() {
           onChange={onInputChange}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              if (siteUrl.includes("http://") || siteUrl.includes("https://")) {
+              if (
+                siteUrl.startsWith("http://") ||
+                siteUrl.startsWith("https://")
+              ) {
                 frameRef.current!.src = getProxy() + encoder.encode(siteUrl);
               } else if (siteUrl.includes(".") && !siteUrl.includes(" ")) {
                 frameRef.current!.src =
