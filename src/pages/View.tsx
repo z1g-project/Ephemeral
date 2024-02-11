@@ -97,7 +97,7 @@ export default function View() {
     } else {
       setAboutBlank(false);
     }
-  }, []);
+  }, [toast]);
   function onLoad() {
     setSearch();
   }
