@@ -50,8 +50,8 @@ export default function Home() {
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               if (
-                inputValue.includes("http://") ||
-                inputValue.includes("https://")
+                inputValue.startsWith("http://") ||
+                inputValue.startsWith("https://")
               ) {
                 navigate(
                   `/view/${encodeURIComponent(encoder.encode(inputValue))}`,
