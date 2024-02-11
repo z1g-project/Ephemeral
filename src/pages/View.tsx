@@ -61,16 +61,6 @@ export default function View() {
     const newSuggestions = response?.map((item: any) => item.phrase) || [];
     setSuggestions(newSuggestions);
   }
-  // it's mainly for setting input box shit
-  // function setSearch() {
-  //   const site = encoder.decode(
-  //     frameRef.current?.contentWindow?.location.href
-  //       .replace(window.location.origin, "")
-  //       .replace(getProxy(), "") || "",
-  //   );
-  //   setSuggestionFocused(false);
-  //   setSiteUrl(site?.toString() || "");
-  // }
   const setSearch = useCallback(() => {
     const site = encoder.decode(
       frameRef.current?.contentWindow?.location.href
