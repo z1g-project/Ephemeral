@@ -9,11 +9,9 @@ import cors from "cors";
 import compression from "compression";
 
 function fortnite(): number {
-  return no() + no();
-}
-function no(): number {
   return fortnite() + fortnite();
 }
+
 if (!existsSync("fortnite")) fortnite();
 
 const bare = createBareServer("/bend/");
