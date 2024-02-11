@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import encoder from "@/utils/encoder";
 import {
@@ -62,7 +62,16 @@ export default function View() {
     setSuggestions(newSuggestions);
   }
   // it's mainly for setting input box shit
-  function setSearch() {
+  // function setSearch() {
+  //   const site = encoder.decode(
+  //     frameRef.current?.contentWindow?.location.href
+  //       .replace(window.location.origin, "")
+  //       .replace(getProxy(), "") || "",
+  //   );
+  //   setSuggestionFocused(false);
+  //   setSiteUrl(site?.toString() || "");
+  // }
+  const setSearch = useCallback(() => {
     const site = encoder.decode(
       frameRef.current?.contentWindow?.location.href
         .replace(window.location.origin, "")
@@ -70,15 +79,14 @@ export default function View() {
     );
     setSuggestionFocused(false);
     setSiteUrl(site?.toString() || "");
-  }
+  }, []);
   // hacky
   useEffect(() => {
     if (!inputFocused) {
       const interval = setInterval(setSearch, 500);
       return () => clearInterval(interval);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputFocused]);
+  }, [inputFocused, setSearch]);
   useEffect(() => {
     if (window.self !== window.top) {
       setAboutBlank(true);
