@@ -1,7 +1,6 @@
 import { createServer } from "node:http";
 import { createBareServer } from "@nebula-services/bare-server-node";
 import express from "express";
-import axios from "axios";
 import { uvPath } from "@nebula-services/ultraviolet";
 import path from "path";
 import { existsSync } from "fs";
@@ -34,10 +33,10 @@ app.get("/search", async (req, res) => {
   const query = req.query.q;
 
   try {
-    const response = await axios.get(
+    const response = await fetch(
       `http://api.duckduckgo.com/ac?q=${query}&format=json`,
-    );
-    res.json(response.data);
+    ).then((res) => res.json());
+    res.json(response);
   } catch (error) {
     res.status(500).json({ error: "An error occurred while querying the API" });
   }
