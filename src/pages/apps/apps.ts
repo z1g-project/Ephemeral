@@ -1,3 +1,9 @@
-// import list from "apps.json";
+import list from "./apps.json";
 
-// export const apps = list as [];
+export type Application = {
+  name: string;
+  desc: string;
+  path: string;
+}
+
+export const apps = list as Application[];

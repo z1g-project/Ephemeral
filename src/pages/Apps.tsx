@@ -1,15 +1,18 @@
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
-/*
 import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
   } from "@/components/ui/card";
-*/
+import { apps } from "./apps/apps";
+
+export function open() {
+  
+}
+
 export default function Apps() {
   return (
     <>
@@ -20,23 +23,21 @@ export default function Apps() {
           Apps
         </div>
         <div className="w-full h-[calc(100%_-_5rem)] translate-y-20">
-          <iframe
-            width="100%"
-            height="100%"
-            src="https://example.com"
-          ></iframe>
-        {/*
         {apps.map((app) => (
           <div>
-            <Card>
-              <CardHeader>
-                <CardTitle></CardTitle>
-                <CardDescription></CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
-        ))}
-        */}
+            <a href={`../../apps/${app.path}`}>
+              <Card>
+                <CardHeader>
+                  <CardTitle>{app.name}</CardTitle>
+                  <CardDescription>{app.desc}</CardDescription>
+                </CardHeader>
+                  <CardContent>
+                    <img src={`../../apps/${app.path}/icon.png`}></img>
+                  </CardContent>
+                </Card>
+              </a>
+            </div>
+          ))}
         </div>
       </div>
     </>
