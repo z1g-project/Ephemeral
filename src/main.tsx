@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "@/pages/Home";
 import View from "@/pages/View";
 import Settings from "@/pages/Settings";
+import Apps from "@/pages/Apps";
 import ServiceWorkerError from "@/pages/ServiceWorkerError";
 import PageNotFound from "@/pages/PageNotFound";
 import Layout from "@/layout";
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="/" Component={Home} />
           <Route path="/view/:url" Component={View} />
           <Route path="/settings" Component={Settings} />
+          <Route path="/apps" Component={Apps} />
           <Route path="/~/*" Component={ServiceWorkerError} />
           <Route path="*" Component={PageNotFound} />
         </Routes>
