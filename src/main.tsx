@@ -16,6 +16,7 @@ declare global {
     __$ampere: any;
   }
 }
+
 export default function App() {
   useEffect(() => {
     if ("serviceWorker" in navigator) {
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="/view/:url" Component={View} />
           <Route path="/settings" Component={Settings} />
           <Route path="/apps" Component={Apps} />
+          <Route path="/app/:url" Component={App} /> 
           <Route path="/~/*" Component={ServiceWorkerError} />
           <Route path="*" Component={PageNotFound} />
         </Routes>
