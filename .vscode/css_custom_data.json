@@ -1,9 +1,25 @@
 {
-	"version": 1.1,
-	"atDirectives": [
-		{
-			"name": "@tailwind",
-			"description": "Use the @tailwind directive to insert Tailwind's `base`, `components`, `utilities`, and `screens` styles into your CSS."
-		}
-	]
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@tailwind",
+      "description": "Use the @tailwind directive to insert Tailwind's `base`, `components`, `utilities`, and `screens` styles into your CSS."
+    },
+    {
+      "name": "@apply",
+      "description": "Use the @apply directive to apply existing classes to an element."
+    },
+    {
+      "name": "@responsive",
+      "description": "Use the @responsive directive to generate responsive variants of your own classes."
+    },
+    {
+      "name": "@variants",
+      "description": "Use the @variants directive to generate variants of your own classes."
+    },
+    {
+      "name": "@screen",
+      "description": "Use the @screen directive to generate responsive variants of your own classes."
+    }
+  ]
 }

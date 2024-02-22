@@ -8,44 +8,44 @@ const __dirname = path.resolve();
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [
-		viteStaticCopy({
-			targets: [
-				{
-					src: `${uvPath}/uv.*.js`.replace(/\\/g, "/"),
-					dest: "uv",
-					overwrite: false,
-				},
-				{
-					src: `${__dirname}/node_modules/localforage/dist/localforage.*.js`.replace(
-						/\\/g,
-						"/",
-					),
-					dest: "localforage",
-					overwrite: false,
-				},
-			],
-		}),
-		million.vite({ auto: true }),
-		react(),
-	],
-	resolve: {
-		alias: {
-			"@": path.resolve(__dirname, "./src"),
-		},
-	},
-	server: {
-		proxy: {
-			"/bare": {
-				target: "http://localhost:8080/bare",
-				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/bend/, ""),
-			},
-			"/search": {
-				target: "http://localhost:8080/search",
-				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/search/, ""),
-			},
-		},
-	},
+  plugins: [
+    viteStaticCopy({
+      targets: [
+        {
+          src: `${uvPath}/uv.*.js`.replace(/\\/g, "/"),
+          dest: "uv",
+          overwrite: false,
+        },
+        {
+          src: `${__dirname}/node_modules/localforage/dist/localforage.*.js`.replace(
+            /\\/g,
+            "/",
+          ),
+          dest: "localforage",
+          overwrite: false,
+        },
+      ],
+    }),
+    million.vite({ auto: true }),
+    react(),
+  ],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  server: {
+    proxy: {
+      "/bend": {
+        target: "http://localhost:8080/bend",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/bend/, ""),
+      },
+      "/search": {
+        target: "http://localhost:8080/search",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/search/, ""),
+      },
+    },
+  },
 });
