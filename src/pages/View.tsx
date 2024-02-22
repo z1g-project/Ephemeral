@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback, ReactElement } from "react";
 import { Link, useParams } from "react-router-dom";
+import type { Eruda as baseEruda } from "eruda";
 import encoder from "@/utils/encoder";
 import {
 	ArrowUpRightFromSquare,
@@ -21,6 +22,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Header from "@/components/Header";
 import { useToast } from "@/components/ui/use-toast";
+interface Eruda extends baseEruda {
+	_isInit: boolean;
+}
+interface ProxyWindow extends Window {
+	eruda: Eruda;
+}
 type NavButton = {
 	title: string;
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
@@ -28,16 +35,7 @@ type NavButton = {
 	children: ReactElement;
 	asChild?: boolean;
 };
-interface ProxyWindow extends Window {
-	eruda: {
-		_isInit: boolean;
-		init: (options: {
-			defaults: { displaySize: number; theme: string };
-		}) => void;
-		show: () => void;
-		destroy: () => void;
-	};
-}
+
 export default function View() {
 	const { url } = useParams();
 	const { toast } = useToast();
@@ -61,7 +59,7 @@ export default function View() {
 				: "/~/dark/";
 
 	async function onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-		setSiteUrl((event.target as HTMLInputElement).value);
+		setSiteUrl(event.target.value);
 		const newQuery = event.target.value;
 		setSiteUrl(newQuery);
 
