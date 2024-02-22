@@ -2,66 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 @font-face {
-  font-family: "Geist";
-  font-style: normal;
-  src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-Light.woff2")
-    format("woff2");
-  font-display: swap;
-  font-weight: 300;
+	font-family: "Geist";
+	font-style: normal;
+	src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-Light.woff2")
+		format("woff2");
+	font-display: swap;
+	font-weight: 300;
 }
 @font-face {
-  font-family: "Geist";
-  font-style: normal;
-  src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-Regular.woff2")
-    format("woff2");
-  font-display: swap;
-  font-weight: 400;
+	font-family: "Geist";
+	font-style: normal;
+	src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-Regular.woff2")
+		format("woff2");
+	font-display: swap;
+	font-weight: 400;
 }
 @font-face {
-  font-family: "Geist";
-  font-style: normal;
-  src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-Medium.woff2")
-    format("woff2");
-  font-display: swap;
-  font-weight: 500;
+	font-family: "Geist";
+	font-style: normal;
+	src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-Medium.woff2")
+		format("woff2");
+	font-display: swap;
+	font-weight: 500;
 }
 @font-face {
-  font-family: "Geist";
-  font-style: normal;
-  src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-SemiBold.woff2")
-    format("woff2");
-  font-display: swap;
-  font-weight: 600;
+	font-family: "Geist";
+	font-style: normal;
+	src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-SemiBold.woff2")
+		format("woff2");
+	font-display: swap;
+	font-weight: 600;
 }
 @font-face {
-  font-family: "Geist";
-  font-style: normal;
-  src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-Bold.woff2")
-    format("woff2");
-  font-display: swap;
-  font-weight: 700;
+	font-family: "Geist";
+	font-style: normal;
+	src: url("/node_modules/geist/dist/fonts/geist-sans/Geist-Bold.woff2")
+		format("woff2");
+	font-display: swap;
+	font-weight: 700;
 }
 
 html,
 body {
-  @apply h-full;
+	@apply h-full;
 }
 body {
-  @apply flex items-stretch;
+	@apply flex items-stretch;
 }
 #root,
 #root > div {
-  @apply h-full w-full;
+	@apply h-full w-full;
 }
 
 *::-webkit-scrollbar {
-  @apply hidden;
+	@apply hidden;
 }
 
 .h-full-navbar-offset {
-  @apply h-[calc(100%_-_5rem)];
+	@apply h-[calc(100%_-_5rem)];
 }
 
 .h-full-navbar-alternate-offset {
-  @apply -mt-20 h-full;
+	@apply -mt-20 h-full;
 }
