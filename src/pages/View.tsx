@@ -195,7 +195,7 @@ export default function View() {
 				return false;
 			},
 			onClick() {
-				window.open(frameRef.current!.src);
+				window.open(frameRef.current!.contentWindow?.location.href);
 			},
 			children: <ArrowUpRightFromSquare className={buttonClasses} />,
 		},
@@ -258,7 +258,7 @@ export default function View() {
 								setSuggestionFocused(true);
 							}}
 							onBlur={() => setInputFocused(false)}
-							className="focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[484px] lg:w-[584px]"
+							className={`focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[484px] lg:w-[584px] ${suggestionFocused && suggestions.length > 0 && `rounded-b-none border-b-0`}`}
 							spellCheck={false}
 							placeholder={
 								frameRef?.current?.src ? "Search the web freely" : "Loading..."
@@ -268,17 +268,19 @@ export default function View() {
 							onKeyDown={parseInput}
 						/>
 						<Command
-							className={`z-20 h-auto w-96 rounded-b-lg rounded-t-none border-x border-slate-800 shadow-md sm:w-[484px] lg:w-[584px] ${
+							className={`absolute z-20 h-auto w-96 self-start rounded-b-lg rounded-t-none border-x border-slate-800 shadow-md sm:w-[484px] lg:w-[584px] ${
 								suggestions.length < 0 || !suggestionFocused
 									? `invisible`
 									: `visible`
-							} }`}
+							}`}
+							onBlur={() => setSuggestionFocused(false)}
 						>
 							<CommandList>
 								{suggestions.length > 0 && (
 									<CommandGroup heading="Suggestions">
 										{suggestions.map((suggestion, index) => (
 											<Link
+												key={index}
 												to={`/view/${encodeURIComponent(
 													encoder.encode(searchEngine + suggestion),
 												)}`}
@@ -296,7 +298,7 @@ export default function View() {
 							</CommandList>
 						</Command>
 					</section>
-					<div className="ml-auto">
+					<div className="pl-12">
 						{rightButtons.map(
 							({ title, onClick, disabled, children, asChild }) => (
 								<Button

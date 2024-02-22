@@ -38,7 +38,7 @@ export default function Settings() {
 						<DialogContent>
 							<DialogHeader>
 								<DialogTitle className="m-2 text-center text-slate-200">
-									Ephemeral 0.5.0 - Beta
+									Ephemeral 0.7.0 - Beta
 								</DialogTitle>
 								<DialogDescription className=" items-center justify-center text-slate-300">
 									<img
@@ -64,7 +64,7 @@ export default function Settings() {
 										<li>yu6x</li>
 									</ul>
 									<br />
-									Copyright 2024 z1g Project. Last pushed on 02-05-2024.
+									Copyright 2024 z1g Project. Last pushed on 02-22-2024.
 								</DialogDescription>
 							</DialogHeader>
 						</DialogContent>
