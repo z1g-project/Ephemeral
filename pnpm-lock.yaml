@@ -118,9 +118,6 @@ dependencies:
     version: 4.7.1
 
 devDependencies:
-  '@catppuccin/tailwindcss':
-    specifier: ^0.1.6
-    version: 0.1.6(tailwindcss@3.4.1)
   '@types/compression':
     specifier: ^1.7.5
     version: 1.7.5
@@ -395,14 +392,6 @@ packages:
       '@babel/helper-string-parser': 7.23.4
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
-
-  /@catppuccin/tailwindcss@0.1.6(tailwindcss@3.4.1):
-    resolution: {integrity: sha512-V+Y0AwZ5SSyvOVAcDl7Ng30xy+m82OKnEJ+9+kcZZ7lRyXuZrAb2GScdq9XR3v+ggt8qiZ/G4TvaC9cJ88AAXA==}
-    peerDependencies:
-      tailwindcss: '>=3.0.0'
-    dependencies:
-      tailwindcss: 3.4.1
-    dev: true
 
   /@esbuild/aix-ppc64@0.19.12:
     resolution: {integrity: sha512-bmoCYyWdEL3wDQIVbcyzRyeKLgk2WtWLTWz1ZIAZF/EGbNOwSA6ew3PftJ1PqMiOOGu0OyFMzG53L0zqIpPeNA==}
