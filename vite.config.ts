@@ -10,6 +10,7 @@ const __dirname = path.resolve();
 export default defineConfig({
 	build: {
 		sourcemap: true,
+		target: "ES2022"
 	},
 	plugins: [
 		viteStaticCopy({
@@ -48,6 +49,11 @@ export default defineConfig({
 				target: "http://localhost:8080/search",
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/search/, ""),
+			},
+			"/json/applications": {
+				target: "http://localhost:8080/json/applications",
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/json\/applications/, ""),
 			},
 		},
 	},

@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "@/pages/Home";
 import View from "@/pages/View";
 import Settings from "@/pages/Settings";
+import StaticApp from "@/pages/App";
 import Apps from "@/pages/Apps";
 import ServiceWorkerError from "@/pages/ServiceWorkerError";
 import PageNotFound from "@/pages/PageNotFound";
@@ -49,7 +50,7 @@ export default function App() {
 					<Route path="/view/:url" Component={View} />
 					<Route path="/settings" Component={Settings} />
 					<Route path="/apps" Component={Apps} />
-					<Route path="/app/:url" Component={App} />
+					<Route path="/staticApp/:url" Component={StaticApp} />
 					<Route path="/~/*" Component={ServiceWorkerError} />
 					<Route path="*" Component={PageNotFound} />
 				</Routes>
