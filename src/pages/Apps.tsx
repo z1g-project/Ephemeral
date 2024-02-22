@@ -22,13 +22,12 @@ export default function Apps() {
   return (
     <>
       <Header title="Apps | Ephemeral" />
-      <div className="flex flex-grow flex-col">
+      <div className="flex flex-grow flex-col bg-slate-950">
         <span className="inline-block w-full text-center text-3xl font-bold text-slate-300">
           Apps
         </span>
         <span className="px-24 pt-4">
           <Input
-            id="appsearch"
             placeholder="Search for apps"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -52,9 +51,7 @@ export default function Apps() {
           ))}
         </div>
         <span className="inline-block w-full text-center text-3xl font-bold text-slate-300">
-          {searchResults.length === 0
-            ? "No apps found"
-            : "You've reached the bottom of this list"}
+          {searchResults.length ? searchResults.length < window.innerWidth * window.innerHeight * 0.00002 ? "" : "No more results." : "No apps found."}
         </span>
       </div>
     </>
