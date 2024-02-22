@@ -7,3 +7,5 @@ export type Application = {
 };
 
 export const apps = list as Application[];
+
+// hi
