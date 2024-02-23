@@ -123,4 +123,4 @@ function throttle(
 	return wrapper;
 }
 
-export default throttle;
+export { throttle };
