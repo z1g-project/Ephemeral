@@ -14,7 +14,7 @@ type Application = {
 	desc: string;
 	path: string;
 };
-const apps: Application[] = await fetch("/json/applications").then((res) =>
+const apps: Application[] = await fetch("/json/apps").then((res) =>
 	res.json(),
 );
 export default function Apps() {

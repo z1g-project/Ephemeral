@@ -50,10 +50,10 @@ export default defineConfig({
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/search/, ""),
 			},
-			"/json/applications": {
-				target: "http://localhost:8080/json/applications",
+			"/json/apps": {
+				target: "http://localhost:8080/json/apps",
 				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/json\/applications/, ""),
+				rewrite: (path) => path.replace(/^\/json\/apps/, ""),
 			},
 		},
 	},
