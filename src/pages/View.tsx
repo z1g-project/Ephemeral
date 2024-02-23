@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, ReactElement } from "react";
+import { useState, useRef, useEffect, useCallback, ReactElement, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import type { Eruda as baseEruda } from "eruda";
 import encoder from "@/utils/encoder";
@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Header from "@/components/Header";
 import { useToast } from "@/components/ui/use-toast";
+import { throttle } from "throttle-debounce";
 interface Eruda extends baseEruda {
 	_isInit: boolean;
 }
@@ -31,7 +32,7 @@ interface ProxyWindow extends Window {
 type NavButton = {
 	title: string;
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
-	disabled: () => boolean;
+	disabled?: boolean;
 	children: ReactElement;
 	asChild?: boolean;
 };
@@ -39,7 +40,7 @@ type NavButton = {
 export default function View() {
 	const { url } = useParams();
 	const { toast } = useToast();
-	const [siteUrl, setSiteUrl] = useState("");
+	// const [siteUrl, setSiteUrl] = useState("");
 	const [fullScreen, setFullScreen] = useState(false);
 	const [inputFocused, setInputFocused] = useState(false);
 	const [suggestions, setSuggestions] = useState([]);
@@ -58,19 +59,19 @@ export default function View() {
 				? "/~/light/"
 				: "/~/dark/";
 
-	async function onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-		setSiteUrl(event.target.value);
-		const newQuery = event.target.value;
-		setSiteUrl(newQuery);
-
-		const response = await fetch(`/search?q=${newQuery}`).then((res) =>
+    function fetchSuggestions(query : string) {
+        return fetch(`/search?q=${query}`).then((res) =>
 			res.json(),
 		);
+    }
 
-		const newSuggestions =
-			response?.map((item: { phrase: string }) => item.phrase) || [];
-		setSuggestions(newSuggestions);
+	async function onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+		const query = event.target.value;
+		setSuggestions(await fetchSuggestions(query));
 	}
+
+    const throttledInputChange = useMemo(() => throttle(750, onInputChange), []) 
+
 	const setSearch = useCallback(() => {
 		const site = encoder.decode(
 			frameRef.current?.contentWindow?.location.href
@@ -78,8 +79,9 @@ export default function View() {
 				.replace(proxyPrefix, "") || "",
 		);
 		setSuggestionFocused(false);
-		setSiteUrl(site?.toString() || "");
-	}, [proxyPrefix]);
+		if (inputRef.current) inputRef.current.value = (site?.toString() || "");
+	}, [proxyPrefix, inputRef.current]);
+
 	// hacky
 	useEffect(() => {
 		if (!inputFocused) {
@@ -102,15 +104,16 @@ export default function View() {
 		setSearch();
 	}
 	function parseInput(event: React.KeyboardEvent<HTMLInputElement>) {
+        if (!inputRef.current) return; 
 		if (event.key === "Enter") {
-			if (siteUrl.startsWith("http://") || siteUrl.startsWith("https://")) {
-				frameRef.current!.src = proxyPrefix + encoder.encode(siteUrl);
-			} else if (siteUrl.includes(".") && !siteUrl.includes(" ")) {
+			if (inputRef.current.value.startsWith("http://") || inputRef.current.value.startsWith("https://")) {
+				frameRef.current!.src = proxyPrefix + encoder.encode(inputRef.current.value);
+			} else if (inputRef.current.value.includes(".") && !inputRef.current.value.includes(" ")) {
 				frameRef.current!.src =
-					proxyPrefix + encoder.encode("https://" + siteUrl);
+					proxyPrefix + encoder.encode("https://" + inputRef.current.value);
 			} else {
 				frameRef.current!.src =
-					proxyPrefix + encoder.encode(searchEngine + siteUrl);
+					proxyPrefix + encoder.encode(searchEngine + inputRef.current.value);
 			}
 		}
 	}
@@ -121,9 +124,7 @@ export default function View() {
 			onClick() {
 				frameRef.current!.contentWindow?.history.back();
 			},
-			disabled() {
-				return aboutBlank;
-			},
+			disabled: aboutBlank,
 			children: <ChevronLeft className={buttonClasses} />,
 		},
 		{
@@ -131,9 +132,7 @@ export default function View() {
 			onClick() {
 				frameRef.current!.contentWindow?.history.forward();
 			},
-			disabled() {
-				return aboutBlank;
-			},
+			disabled: aboutBlank,
 			children: <ChevronRight className={buttonClasses} />,
 		},
 		{
@@ -141,16 +140,12 @@ export default function View() {
 			onClick() {
 				frameRef.current!.contentWindow?.location.reload();
 			},
-			disabled() {
-				return false;
-			},
+			disabled: aboutBlank,
 			children: <RotateCw className={buttonClasses} />,
 		},
 		{
 			title: "Home",
-			disabled() {
-				return false;
-			},
+			disabled: aboutBlank,
 			children: (
 				<Link to="/">
 					<LucideHome className={buttonClasses} />
@@ -162,9 +157,7 @@ export default function View() {
 	const rightButtons: NavButton[] = [
 		{
 			title: "Eruda (Browser console)",
-			disabled() {
-				return false;
-			},
+			disabled: false,
 			onClick() {
 				const proxyWindow = frameRef.current!.contentWindow as ProxyWindow;
 				const proxyDocument = frameRef.current!.contentDocument;
@@ -191,9 +184,7 @@ export default function View() {
 		},
 		{
 			title: "Open in new tab (raw)",
-			disabled() {
-				return false;
-			},
+			disabled: false,
 			onClick() {
 				window.open(frameRef.current!.src);
 			},
@@ -201,9 +192,7 @@ export default function View() {
 		},
 		{
 			title: "Fullscreen",
-			disabled() {
-				return false;
-			},
+			disabled: false,
 			onClick() {
 				if (document.fullscreenElement) {
 					document.exitFullscreen();
@@ -229,13 +218,13 @@ export default function View() {
 				ref={pageRef}
 				className="items-between flex h-full flex-col items-stretch justify-between"
 			>
-				<div className="space-between flex items-start p-2">
-					<div>
+				<div className="space-between flex max-h-14 items-start overflow-visible p-2">
+					<div className="mr-auto">
 						{leftButtons.map(
 							({ title, onClick, disabled, children, asChild }) => (
 								<Button
 									{...{
-										disabled: disabled(),
+										disabled,
 										onClick,
 										title,
 										"aria-label": title,
@@ -248,7 +237,7 @@ export default function View() {
 							),
 						)}
 					</div>
-					<section className="mx-auto items-center justify-center">
+					<section className="z-50 items-center justify-center">
 						<Input
 							id="input"
 							ref={inputRef}
@@ -263,16 +252,16 @@ export default function View() {
 							placeholder={
 								frameRef?.current?.src ? "Search the web freely" : "Loading..."
 							}
-							value={siteUrl}
-							onChange={onInputChange}
+							// value={siteUrl}
+							onChange={throttledInputChange}
 							onKeyDown={parseInput}
 						/>
 						<Command
-							className={`z-20 h-auto w-96 rounded-b-lg rounded-t-none border-x border-slate-800 shadow-md sm:w-[484px] lg:w-[584px] ${
+							className={`z-20 h-auto w-96 rounded-b-lg rounded-t-none border-x border-slate-800 bg-slate-950 shadow-md sm:w-[484px] lg:w-[584px] [&_*]:bg-slate-950 ${
 								suggestions.length < 0 || !suggestionFocused
 									? `invisible`
 									: `visible`
-							} }`}
+							}`}
 						>
 							<CommandList>
 								{suggestions.length > 0 && (
@@ -301,7 +290,7 @@ export default function View() {
 							({ title, onClick, disabled, children, asChild }) => (
 								<Button
 									{...{
-										disabled: disabled(),
+										disabled,
 										onClick,
 										title,
 										"aria-label": title,
