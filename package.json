@@ -28,7 +28,7 @@
 		"@radix-ui/react-toast": "^1.1.5",
 		"@types/express": "^4.17.21",
 		"@types/react-router-dom": "^5.3.3",
-		"@types/throttle-debounce": "^5.0.2",
+		"@vitejs/plugin-react": "^4.2.1",
 		"autoprefixer": "^10.4.17",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.0",
@@ -53,8 +53,8 @@
 		"react-router-dom": "^6.22.1",
 		"tailwind-merge": "^2.2.1",
 		"tailwindcss-animate": "^1.0.7",
-		"throttle-debounce": "^5.0.0",
-		"tsx": "^4.7.1"
+		"tsx": "^4.7.1",
+		"vite-plugin-static-copy": "^1.0.1"
 	},
 	"devDependencies": {
 		"@types/compression": "^1.7.5",
@@ -66,15 +66,13 @@
 		"@types/react-helmet": "^6.1.11",
 		"@typescript-eslint/eslint-plugin": "^6.21.0",
 		"@typescript-eslint/parser": "^6.21.0",
-		"@vitejs/plugin-react": "^4.2.1",
 		"eslint": "^8.56.0",
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-react-refresh": "^0.4.5",
 		"prettier": "3.2.4",
 		"tailwindcss": "^3.4.1",
 		"typescript": "^5.3.3",
-		"vite": "^5.1.4",
-		"vite-plugin-static-copy": "^1.0.1"
+		"vite": "^5.1.4"
 	},
 	"description": "release - 2/23/24 This is using Vite and React. To build and start, run `npm run bstart`. For UI components, we're using https://ui.shadcn.com/. To add a new component run `npx shadcn-ui@latest add [name of component]`. **Note: Whenever you add a component make sure to open it's file, and remove the dark prefixes from the classes. Then, remove the non-prefixed classes that were there before. **",
 	"main": "index.ts",
