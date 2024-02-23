@@ -29,7 +29,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Header from "@/components/Header";
 import { useToast } from "@/components/ui/use-toast";
-import { throttle } from "throttle-debounce";
+import throttle from "@/utils/throttle"
 interface Eruda extends baseEruda {
 	_isInit: boolean;
 }
@@ -265,7 +265,7 @@ export default function View() {
 								setSuggestionFocused(true);
 							}}
 							onBlur={() => setInputFocused(false)}
-							className={`focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[484px] lg:w-[584px] ${suggestionFocused && suggestions.length > 0 && `rounded-b-none border-b-0`}`}
+							className={`focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[484px] lg:w-[584px] ${suggestionFocused && suggestions.length > 0 && 'rounded-b-none border-b-0'}`}
 							spellCheck={false}
 							placeholder={
 								frameRef?.current?.src ? "Search the web freely" : "Loading..."
@@ -302,7 +302,7 @@ export default function View() {
 							</CommandList>
 						</Command>
 					</section>
-					<div>
+					<div className="ml-auto">
 						{rightButtons.map(
 							({ title, onClick, disabled, children, asChild }) => (
 								<Button
