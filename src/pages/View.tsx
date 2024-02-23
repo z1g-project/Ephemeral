@@ -186,7 +186,7 @@ export default function View() {
 			title: "Open in new tab (raw)",
 			disabled: false,
 			onClick() {
-				window.open(frameRef.current!.src);
+				window.open(frameRef.current!.contentWindow?.location.href);
 			},
 			children: <ArrowUpRightFromSquare className={buttonClasses} />,
 		},
@@ -247,7 +247,7 @@ export default function View() {
 								setSuggestionFocused(true);
 							}}
 							onBlur={() => setInputFocused(false)}
-							className="focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[484px] lg:w-[584px]"
+							className={`focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[484px] lg:w-[584px] ${suggestionFocused && suggestions.length > 0 && `rounded-b-none border-b-0`}`}
 							spellCheck={false}
 							placeholder={
 								frameRef?.current?.src ? "Search the web freely" : "Loading..."
@@ -268,6 +268,7 @@ export default function View() {
 									<CommandGroup heading="Suggestions">
 										{suggestions.map((suggestion, index) => (
 											<Link
+												key={index}
 												to={`/view/${encodeURIComponent(
 													encoder.encode(searchEngine + suggestion),
 												)}`}
@@ -285,7 +286,7 @@ export default function View() {
 							</CommandList>
 						</Command>
 					</section>
-					<div className="ml-auto">
+					<div className="pl-12">
 						{rightButtons.map(
 							({ title, onClick, disabled, children, asChild }) => (
 								<Button

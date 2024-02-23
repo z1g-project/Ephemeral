@@ -1,10 +1,8 @@
 import { useParams } from "react-router-dom";
 
-export default function App() {
+export default function StaticApp() {
 	const { url } = useParams();
 	return (
-		<>
-			<iframe src={`../apps/${url}`} />
-		</>
+			<iframe className="w-full h-full" src={`/staticApps/${url}`} />
 	);
 }
