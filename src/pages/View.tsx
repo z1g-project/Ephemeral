@@ -29,7 +29,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Header from "@/components/Header";
 import { useToast } from "@/components/ui/use-toast";
-import throttle from "@/utils/throttle"
+import { throttle } from "@/utils/throttle"
 interface Eruda extends baseEruda {
 	_isInit: boolean;
 }

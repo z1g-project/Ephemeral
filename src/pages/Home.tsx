@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useCallback } from "react";
-import { throttle } from "throttle-debounce";
+import { throttle } from "@/utils/throttle";
 import { Link, useNavigate } from "react-router-dom";
 import encoder from "@/utils/encoder";
 import {
