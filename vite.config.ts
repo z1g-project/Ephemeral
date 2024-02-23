@@ -10,7 +10,7 @@ const __dirname = path.resolve();
 export default defineConfig({
 	build: {
 		sourcemap: true,
-		target: "ES2022"
+		target: "ES2022",
 	},
 	plugins: [
 		viteStaticCopy({

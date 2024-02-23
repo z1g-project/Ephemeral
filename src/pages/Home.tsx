@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useMemo, useRef, useCallback } from "react";
+import { throttle } from "throttle-debounce";
 import { Link, useNavigate } from "react-router-dom";
 import encoder from "@/utils/encoder";
 import {
@@ -12,29 +13,33 @@ import { Input } from "@/components/ui/input";
 import Header from "@/components/Header";
 export default function Home() {
 	const navigate = useNavigate();
-	const [inputValue, setInputValue] = useState("");
+	const inputRef = useRef<HTMLInputElement>(null);
 	const [suggestions, setSuggestions] = useState([]);
 	const searchEngine =
 		localStorage.getItem("searchUrl") || "https://google.com/search?q=";
-	async function onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-		setInputValue(event.target.value);
-		const newQuery = event.target.value;
-		setInputValue(newQuery);
+	const fetchSuggestions = useCallback((query: string) => {
+		return fetch(`/search?q=${query}`).then((res) => res.json());
+	}, []);
 
-		const response = await fetch(`/search?q=${newQuery}`).then((res) =>
-			res.json(),
-		);
+	const onInputChange = useCallback(
+		async (event: React.ChangeEvent<HTMLInputElement>) => {
+			const query = event.target.value;
+			setSuggestions(await fetchSuggestions(query));
+		},
+		[fetchSuggestions],
+	);
 
-		const newSuggestions =
-			response?.map((item: { phrase: string }) => item.phrase) || [];
-		setSuggestions(newSuggestions);
-	}
+	const throttledInputChange = useMemo(
+		() => throttle(500, onInputChange),
+		[onInputChange],
+	);
 
 	return (
 		<>
 			<Header title="Home | Ephemeral" />
 			<div className="h-full-navbar-alternate-offset flex flex-1 flex-col items-center justify-center">
 				<Input
+					ref={inputRef}
 					id="input"
 					placeholder="Search the web freely"
 					className={`absolute z-50 w-96 rounded-t-lg focus-visible:ring-0 focus-visible:ring-offset-0 ${
@@ -43,30 +48,29 @@ export default function Home() {
 						`!rounded-b-none !border-b-0`
 					}`}
 					spellCheck={false}
-					value={inputValue}
-					onChange={onInputChange}
+					onChange={throttledInputChange}
 					onKeyDown={(e) => {
 						if (e.key === "Enter") {
 							if (
-								inputValue.startsWith("http://") ||
-								inputValue.startsWith("https://")
+								inputRef.current!.value.startsWith("http://") ||
+								inputRef.current!.value.startsWith("https://")
 							) {
 								navigate(
-									`/view/${encodeURIComponent(encoder.encode(inputValue))}`,
+									`/view/${encodeURIComponent(encoder.encode(inputRef.current!.value))}`,
 								);
 							} else if (
-								inputValue.includes(".") &&
-								!inputValue.includes(" ")
+								inputRef.current!.value.includes(".") &&
+								!inputRef.current!.value.includes(" ")
 							) {
 								navigate(
 									`/view/${encodeURIComponent(
-										encoder.encode("https://" + inputValue),
+										encoder.encode("https://" + inputRef.current!.value),
 									)}`,
 								);
 							} else {
 								navigate(
 									`/view/${encodeURIComponent(
-										encoder.encode(searchEngine + inputValue),
+										encoder.encode(searchEngine + inputRef.current!.value),
 									)}`,
 								);
 							}
