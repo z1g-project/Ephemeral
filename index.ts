@@ -56,16 +56,6 @@ app.get("/json/applications", async (_req, res) => {
 app.get("*", (_req, res) => {
 	res.sendFile(path.resolve("dist", "index.html"));
 });
-app.get("/json/apps", async (_req, res) => {
-	try {
-		const response = await fetch(
-			"https://incognitotgt.me/ephemeral/apps.json",
-		).then((res) => res.json());
-		res.json(response);
-	} catch (error) {
-		res.status(500).json({ error: "An error occurred while querying the API" });
-	}
-});
 const server = createServer();
 server.on("request", (req, res) => {
 	if (bare.shouldRoute(req)) {
