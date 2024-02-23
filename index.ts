@@ -41,6 +41,14 @@ app.get("/search", async (req, res) => {
 		res.status(500).json({ error: "An error occurred while querying the API" });
 	}
 });
+app.get("/json/applications",async (_req, res) => {
+	try {
+		const response = await fetch("https://incognitotgt.me/ephemeral/apps.json").then((res) => res.json());
+		res.json(response);
+	} catch (error) {
+		res.status(500).json({ error: "An error occurred while querying the API" });
+	}
+})
 app.get("*", (_req, res) => {
 	res.sendFile(path.resolve("dist", "index.html"));
 });
