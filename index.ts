@@ -35,31 +35,37 @@ app.get("/search", async (req, res) => {
 	try {
 		const response = await fetch(
 			`http://api.duckduckgo.com/ac?q=${query}&format=json`,
-		).then((res) => res.json()).then((res) => res.map((item: { phrase: string }) => item.phrase)); // if you already host the endpoint, why not parse the data here as well
+		)
+			.then((res) => res.json())
+			.then((res) => res.map((item: { phrase: string }) => item.phrase)); // if you already host the endpoint, why not parse the data here as well
 		res.json(response);
 	} catch (error) {
 		res.status(500).json({ error: "An error occurred while querying the API" });
 	}
 });
-app.get("/json/applications",async (_req, res) => {
+app.get("/json/applications", async (_req, res) => {
 	try {
-		const response = await fetch("https://incognitotgt.me/ephemeral/apps.json").then((res) => res.json());
+		const response = await fetch(
+			"https://incognitotgt.me/ephemeral/apps.json",
+		).then((res) => res.json());
 		res.json(response);
 	} catch (error) {
 		res.status(500).json({ error: "An error occurred while querying the API" });
 	}
-})
+});
 app.get("*", (_req, res) => {
 	res.sendFile(path.resolve("dist", "index.html"));
 });
-app.get("/json/apps",async (_req, res) => {
+app.get("/json/apps", async (_req, res) => {
 	try {
-		const response = await fetch("https://incognitotgt.me/ephemeral/apps.json").then((res) => res.json());
+		const response = await fetch(
+			"https://incognitotgt.me/ephemeral/apps.json",
+		).then((res) => res.json());
 		res.json(response);
 	} catch (error) {
 		res.status(500).json({ error: "An error occurred while querying the API" });
 	}
-})
+});
 const server = createServer();
 server.on("request", (req, res) => {
 	if (bare.shouldRoute(req)) {

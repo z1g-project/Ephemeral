@@ -1,4 +1,11 @@
-import { useState, useRef, useEffect, useCallback, ReactElement, useMemo } from "react";
+import {
+	useState,
+	useRef,
+	useEffect,
+	useCallback,
+	ReactElement,
+	useMemo,
+} from "react";
 import { Link, useParams } from "react-router-dom";
 import type { Eruda as baseEruda } from "eruda";
 import encoder from "@/utils/encoder";
@@ -59,18 +66,22 @@ export default function View() {
 				? "/~/light/"
 				: "/~/dark/";
 
-    function fetchSuggestions(query : string) {
-        return fetch(`/search?q=${query}`).then((res) =>
-			res.json(),
-		);
-    }
+	const fetchSuggestions = useCallback((query: string) => {
+		return fetch(`/search?q=${query}`).then((res) => res.json());
+	}, []);
 
-	async function onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-		const query = event.target.value;
-		setSuggestions(await fetchSuggestions(query));
-	}
+	const onInputChange = useCallback(
+		async (event: React.ChangeEvent<HTMLInputElement>) => {
+			const query = event.target.value;
+			setSuggestions(await fetchSuggestions(query));
+		},
+		[fetchSuggestions],
+	);
 
-    const throttledInputChange = useMemo(() => throttle(750, onInputChange), []) 
+	const throttledInputChange = useMemo(
+		() => throttle(500, onInputChange),
+		[onInputChange],
+	);
 
 	const setSearch = useCallback(() => {
 		const site = encoder.decode(
@@ -79,8 +90,8 @@ export default function View() {
 				.replace(proxyPrefix, "") || "",
 		);
 		setSuggestionFocused(false);
-		if (inputRef.current) inputRef.current.value = (site?.toString() || "");
-	}, [proxyPrefix, inputRef.current]);
+		if (inputRef.current) inputRef.current.value = site?.toString() || "";
+	}, [proxyPrefix]);
 
 	// hacky
 	useEffect(() => {
@@ -104,11 +115,18 @@ export default function View() {
 		setSearch();
 	}
 	function parseInput(event: React.KeyboardEvent<HTMLInputElement>) {
-        if (!inputRef.current) return; 
+		if (!inputRef.current) return;
 		if (event.key === "Enter") {
-			if (inputRef.current.value.startsWith("http://") || inputRef.current.value.startsWith("https://")) {
-				frameRef.current!.src = proxyPrefix + encoder.encode(inputRef.current.value);
-			} else if (inputRef.current.value.includes(".") && !inputRef.current.value.includes(" ")) {
+			if (
+				inputRef.current.value.startsWith("http://") ||
+				inputRef.current.value.startsWith("https://")
+			) {
+				frameRef.current!.src =
+					proxyPrefix + encoder.encode(inputRef.current.value);
+			} else if (
+				inputRef.current.value.includes(".") &&
+				!inputRef.current.value.includes(" ")
+			) {
 				frameRef.current!.src =
 					proxyPrefix + encoder.encode("https://" + inputRef.current.value);
 			} else {
@@ -219,7 +237,7 @@ export default function View() {
 				className="items-between flex h-full flex-col items-stretch justify-between"
 			>
 				<div className="space-between flex max-h-14 items-start overflow-visible p-2">
-					<div className="mr-auto">
+					<div>
 						{leftButtons.map(
 							({ title, onClick, disabled, children, asChild }) => (
 								<Button
@@ -237,7 +255,7 @@ export default function View() {
 							),
 						)}
 					</div>
-					<section className="z-50 items-center justify-center">
+					<section className="z-50 flex items-center justify-center">
 						<Input
 							id="input"
 							ref={inputRef}
@@ -258,9 +276,7 @@ export default function View() {
 						/>
 						<Command
 							className={`z-20 h-auto w-96 rounded-b-lg rounded-t-none border-x border-slate-800 bg-slate-950 shadow-md sm:w-[484px] lg:w-[584px] [&_*]:bg-slate-950 ${
-								suggestions.length < 0 || !suggestionFocused
-									? `invisible`
-									: `visible`
+								!suggestionFocused ? `invisible` : `visible`
 							}`}
 						>
 							<CommandList>
@@ -286,7 +302,7 @@ export default function View() {
 							</CommandList>
 						</Command>
 					</section>
-					<div className="pl-12">
+					<div>
 						{rightButtons.map(
 							({ title, onClick, disabled, children, asChild }) => (
 								<Button
@@ -305,15 +321,13 @@ export default function View() {
 						)}
 					</div>
 				</div>
-				<div className="h-full w-full">
-					<iframe
-						title="View"
-						src={proxyPrefix + url}
-						className="h-full w-full border-none bg-slate-200"
-						ref={frameRef}
-						onLoad={onLoad}
-					/>
-				</div>
+				<iframe
+					title="View"
+					src={proxyPrefix + url}
+					className="h-full w-full border-none bg-slate-200"
+					ref={frameRef}
+					onLoad={onLoad}
+				/>
 			</div>
 		</>
 	);

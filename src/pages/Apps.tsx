@@ -14,7 +14,9 @@ type Application = {
 	desc: string;
 	path: string;
 };
-const apps: Application[] = await fetch("/json/applications").then((res) => res.json());
+const apps: Application[] = await fetch("/json/applications").then((res) =>
+	res.json(),
+);
 export default function Apps() {
 	const [search, setSearch] = useState("");
 	const [searchResults, setSearchResults] = useState(apps);
@@ -56,8 +58,10 @@ export default function Apps() {
 						</div>
 					))}
 				</div>
-				<span className=" w-full text-center text-3xl font-bold text-slate-300 pb-10">
-					{searchResults.length > 0 ? "You've reached the bottom of this list" : "No apps found."}
+				<span className=" w-full pb-10 text-center text-3xl font-bold text-slate-300">
+					{searchResults.length > 0
+						? "You've reached the bottom of this list"
+						: "No apps found."}
 				</span>
 			</div>
 		</>
