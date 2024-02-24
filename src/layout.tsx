@@ -49,20 +49,25 @@ function Navbar() {
 }
 const Layout = ({ children }: LayoutProps) => {
 	const location = useLocation();
-	const shouldDisplayNavbar =
+	const shouldApply = !location.pathname.startsWith("/staticapp")
+	const shouldDisplayNavbar = 
 		!location.pathname.startsWith("/view/") &&
-		!location.pathname.startsWith("/~/");
-	return (
+		!location.pathname.startsWith("/~/") &&
+		!location.pathname.startsWith("/staticapp")
+		return (
 		<>
 			{window.location.origin === "https://ephemeral.incognitotgt.me" && (
 				<Meta />
 			)}
 			{window.location.origin === "http://localhost:8080" && <Meta />}
-			<div className="h-full bg-slate-950">
-				<Toaster />
-				{shouldDisplayNavbar && <Navbar />}
-				{children}
-			</div>
+			{shouldApply && 
+				<div className="h-full bg-slate-950">
+					<Toaster />
+					{shouldDisplayNavbar && <Navbar />}
+					{children}
+				</div>
+			}
+			{!shouldApply && children}
 		</>
 	);
 };

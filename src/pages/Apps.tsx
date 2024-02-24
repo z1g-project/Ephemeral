@@ -44,7 +44,7 @@ export default function Apps() {
 				<div className="3xl:grid-cols-6 4xl:grid-cols-7 grid grid-cols-1 place-items-center gap-4 p-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
 					{searchResults.map((app) => (
 						<div className="w-64">
-							<Link to={`/app/${app.path}`} className="max-w-0">
+							<Link to={`/staticapp/${app.path}`} className="max-w-0">
 								<Card>
 									<CardHeader>
 										<CardTitle>{app.name}</CardTitle>
@@ -60,7 +60,7 @@ export default function Apps() {
 				</div>
 				<span className=" w-full pb-10 text-center text-3xl font-bold text-slate-300">
 					{searchResults.length > 0
-						? "You've reached the bottom of this list"
+						? "No more results."
 						: "No apps found."}
 				</span>
 			</div>
