@@ -30,6 +30,7 @@ import { Input } from "@/components/ui/input";
 import Header from "@/components/Header";
 import { useToast } from "@/components/ui/use-toast";
 import { throttle } from "@/utils/throttle"
+import { injectPlugins } from "@/utils/injector";
 interface Eruda extends baseEruda {
 	_isInit: boolean;
 }
@@ -69,7 +70,7 @@ export default function View() {
 	const fetchSuggestions = useCallback((query: string) => {
 		return fetch(`/search?q=${query}`).then((res) => res.json());
 	}, []);
-
+	
 	const onInputChange = useCallback(
 		async (event: React.ChangeEvent<HTMLInputElement>) => {
 			const query = event.target.value;
@@ -229,6 +230,15 @@ export default function View() {
 	];
 
 	window.history.replaceState(null, "", "/");
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+		  injectPlugins('mainframe');
+		}, 1000);
+	    return () => {
+		  clearInterval(intervalId);
+		  console.log('Interval cleared');
+		};
+	}, [injectPlugins]);	  
 	return (
 		<>
 			<Header title="View | Ephemeral" />
@@ -326,6 +336,7 @@ export default function View() {
 					src={proxyPrefix + url}
 					className="h-full w-full border-none bg-slate-200"
 					ref={frameRef}
+					id="mainframe"
 					onLoad={onLoad}
 				/>
 			</div>
