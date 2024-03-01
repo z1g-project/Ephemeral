@@ -44,7 +44,7 @@
 		"fs": "0.0.1-security",
 		"geist": "^1.2.2",
 		"localforage": "^1.10.0",
-		"lucide-react": "^0.320.0",
+		"lucide-react": "^0.343.0",
 		"million": "^3.0.3",
 		"pnpm": "^8.15.4",
 		"prettier-plugin-tailwindcss": "^0.5.11",
