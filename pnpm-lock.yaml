@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@nebula-services/bare-client':
+    specifier: 1.1.2-beta.3-patch.1
+    version: 1.1.2-beta.3-patch.1
   '@nebula-services/bare-server-node':
     specifier: 2.0.1-patch.1
     version: 2.0.1-patch.1
@@ -83,6 +86,9 @@ dependencies:
   fs:
     specifier: 0.0.1-security
     version: 0.0.1-security
+  fuse.js:
+    specifier: ^7.0.0
+    version: 7.0.0
   geist:
     specifier: ^1.2.2
     version: 1.2.2(next@14.1.0)
@@ -3148,6 +3154,11 @@ packages:
 
   /function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
+
+  /fuse.js@7.0.0:
+    resolution: {integrity: sha512-14F4hBIxqKvD4Zz/XjDc3y94mNZN6pRv3U13Udo0lNLCWRBUsrMv2xwcF/y/Z5sV6+FQW+/ow68cHpm4sunt8Q==}
+    engines: {node: '>=10'}
+    dev: false
 
   /geist@1.2.2(next@14.1.0):
     resolution: {integrity: sha512-uRDrxhvdnPwWJmh+K5+/5LXSKwvJzaYCl9tDXgiBi4hj7hB4K7+n/WLcvJMFs5btvyn0r9OSwCd1s6CmqAsxEw==}

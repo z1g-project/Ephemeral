@@ -4,6 +4,7 @@ import SearchSettings from "./settings/SearchSettings";
 import Header from "@/components/Header";
 import { Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import lastPushDate from "@/push-date?raw"
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
 	Dialog,
@@ -19,10 +20,10 @@ export default function Settings() {
 		<>
 			<Header title="Settings | Ephemeral" />
 			<div className="h-full-navbar-offset flex flex-col">
-				<span className="inline-block w-full text-center text-3xl font-bold text-slate-300">
+				<span className="inline-block w-full mb-4 text-center text-3xl font-bold text-slate-300">
 					Settings
 				</span>
-				<div className="flex flex-grow flex-row items-center justify-center space-x-4">
+				<div className="flex flex-grow flex-col xl:flex-row items-center justify-center px-4 xl:px-0 xl:space-x-4 xl:space-y-0 space-y-8">
 					<ProxySettings />
 					<CloakSettings />
 					<SearchSettings />
@@ -52,7 +53,6 @@ export default function Settings() {
 									Ephemeral is made possble by the following projects:
 									<br />
 									<li>Ultraviolet</li>
-									<li>Ampere</li>
 									<li>TOMPHttp Bare Server</li>
 									Developers:
 									<br />
@@ -64,7 +64,7 @@ export default function Settings() {
 										<li>yu6x</li>
 									</ul>
 									<br />
-									Copyright 2024 z1g Project. Last pushed on 02-22-2024.
+									Copyright 2024 z1g Project. Last pushed on {lastPushDate}.
 								</DialogDescription>
 							</DialogHeader>
 						</DialogContent>

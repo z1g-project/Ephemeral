@@ -1,7 +1,4 @@
-/*global UVServiceWorker AmpereWorker importScripts __uv$config __$ampere localforage*/
-importScripts("/ampere/config.js");
-importScripts("/ampere/bundle.js");
-importScripts("/ampere/worker.js");
+/*global UVServiceWorker importScripts __uv$config  localforage*/
 importScripts("/uv/uv.bundle.js");
 importScripts("/uv/uv.config.js");
 importScripts("/uv/uv.sw.js");
@@ -14,8 +11,8 @@ localforage.config({
 const setUv = async () => {
 	try {
 		const bare =
-			(await localforage.getItem("__bserver")) || location.origin + "/bend/";
-		const proxyUrl = (await localforage.getItem("__hproxy")) || "";
+			(await localforage.getItem("proxy.bareServer")) || location.origin + "/bend/";
+		const proxyUrl = (await localforage.getItem("proxy.proxyServer")) || "";
 		const [proxyIp, proxyPort] = proxyUrl.split(":");
 		self.__uv$config.bare = bare;
 		self.__uv$config.proxyPort = proxyPort;
@@ -28,20 +25,6 @@ const setUv = async () => {
 		);
 	}
 };
-const setAmpere = async () => {
-	try {
-		const bare =
-			(await localforage.getItem("__bserver")) || location.origin + "/bend/";
-		self.__$ampere.config.server = bare;
-		self.ampere = new AmpereWorker(self.__$ampere.config);
-	} catch (error) {
-		console.error(
-			"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Settings for Ampere cannot be set (self.ampere)" +
-				error,
-		);
-	}
-};
-
 self.addEventListener("fetch", (event) => {
 	if (event.request.url.startsWith(location.origin + __uv$config.prefix)) {
 		event.respondWith(
@@ -57,19 +40,5 @@ self.addEventListener("fetch", (event) => {
 				return await self.uv.fetch(event);
 			})(),
 		);
-	} else if (
-		event.request.url.startsWith(location.origin + __$ampere.config.prefix)
-	) {
-		event.respondWith(async () => {
-			try {
-				await setAmpere();
-			} catch (error) {
-				console.error(
-					"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Settings for Ampere cannot be set (event.respondWith)" +
-						error,
-				);
-			}
-			return await self.ampere.fetch(event);
-		})();
 	}
 });

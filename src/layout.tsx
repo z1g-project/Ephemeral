@@ -1,8 +1,9 @@
-import { ReactNode } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import Meta from "@/components/Meta";
 import { Toaster } from "@/components/ui/toaster";
 import { Link } from "react-router-dom";
+import { LucideHome, Settings, LayoutGrid } from "lucide-react";
 import {
 	NavigationMenu,
 	NavigationMenuItem,
@@ -10,17 +11,16 @@ import {
 	NavigationMenuList,
 	navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import type { LayoutProps } from "@/types/layout";
 
-type LayoutProps = {
-	children: ReactNode;
-};
 const links: {
 	href: string;
 	text: string;
+	icon: React.ReactNode;
 }[] = [
-	{ href: "/", text: "Home" },
-	{ href: "/settings", text: "Settings" },
-	{ href: "/apps", text: "Apps" },
+	{ href: "/", text: "Home", icon: <LucideHome /> },
+	{ href: "/apps", text: "Apps", icon: <LayoutGrid /> },
+	{ href: "/settings", text: "Settings", icon: <Settings /> },
 ];
 function Navbar() {
 	return (
@@ -37,7 +37,10 @@ function Navbar() {
 									asChild
 									className={navigationMenuTriggerStyle()}
 								>
-									<Link to={link.href}>{link.text}</Link>
+									<Link to={link.href}>
+										<span className="mr-2 [&>svg]:w-4 [&>svg]:h-4">{link.icon}</span>
+										{link.text}
+									</Link>
 								</NavigationMenuLink>
 							</NavigationMenuItem>
 						))}
@@ -50,8 +53,10 @@ function Navbar() {
 const Layout = ({ children }: LayoutProps) => {
 	const location = useLocation();
 	const shouldDisplayNavbar =
-		!location.pathname.startsWith("/view/") &&
-		!location.pathname.startsWith("/~/");
+		(!location.pathname.startsWith("/view/") &&
+			!location.pathname.startsWith("/~/")) ||
+		location.pathname == "/view/";
+
 	return (
 		<>
 			{window.location.origin === "https://ephemeral.incognitotgt.me" && (

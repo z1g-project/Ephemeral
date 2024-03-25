@@ -57,4 +57,7 @@ export default defineConfig({
 			},
 		},
 	},
+	define: {
+		"process.env.STATIC": process.env.STATIC,
+	},
 });

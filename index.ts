@@ -3,14 +3,14 @@ import { createBareServer } from "@nebula-services/bare-server-node";
 import express from "express";
 import { uvPath } from "@nebula-services/ultraviolet";
 import path from "path";
-import { existsSync } from "fs";
 import cors from "cors";
 import compression from "compression";
+import { argv } from "node:process";
 import config from "dotenv";
 import wisp from "wisp-server-node"
-import fs from "fs"
 config.config();
-const bare = createBareServer("/bend/");
+
+const bare = createBareServer("/bend/", {});
 const app = express();
 const port = process.env.PORT || 8080;
 const corsOptions = {
@@ -32,109 +32,92 @@ app.use(compression(compressionOptions));
 app.use(cors(corsOptions));
 app.use(express.static("dist"));
 app.use("/uv/", express.static(uvPath));
-app.get("/search", async (req, res) => {
-	const query = req.query.q;
+const statusValidator = (response: Response) =>
+	response.ok ? response : Promise.reject(response);
+const statusCatcher = ({ status, statusText }: Response) => {
+	throw `API returned ${status} ${statusText}`;
+};
+app.get("/search", async (request, response) => {
+	const query = request.query.q;
+
 	try {
-		const response = await fetch(
+		const data = await fetch(
 			`http://api.duckduckgo.com/ac?q=${query}&format=json`,
 		)
-			.then((res) => res.json())
-			.then((res) => res.map((item: { phrase: string }) => item.phrase));
-		res.json(response);
+			.then(statusValidator)
+			.then((reponse) => reponse.json())
+			.then((response) =>
+				response.map((item: { phrase: string }) => item.phrase),
+			)
+			.catch(statusCatcher);
+		response.json({
+			status: "success",
+			data,
+		});
 	} catch (error) {
-		res.status(500).json({ error: "An error occurred while querying the API" });
+		response.status(500).json({
+			status: "error",
+			error: {
+				message: "An error occured while querying the API",
+				detail: error,
+			},
+		});
 	}
 });
-app.get("/json/apps", async (_req, res) => {
+app.get("/json/apps", async (_, response) => {
 	try {
-		const response = await fetch(
-			"https://incognitotgt.me/ephemeral/apps.json",
-		).then((res) => res.json());
-		res.json(response);
+		const data = await fetch("https://incognitotgt.me/ephemeral/apps.json")
+			.then(statusValidator)
+			.then((response) => response.json())
+			.then((response) => Array(20).fill(response).flat())
+			.catch(statusCatcher);
+
+		response.json({ status: "success", data });
 	} catch (error) {
-		res.status(500).json({ error: "An error occurred while retrieving the apps" });
+		console.log(error);
+		response.status(500).json({
+			status: "error",
+			error: {
+				message: "An error occurred while retrieving the apps",
+				detail: error,
+			},
+		});
 	}
 });
-app.get("*", (_req, res) => {
-	res.sendFile(path.resolve("dist", "index.html"));
-});
-async function MasqFail(req, res) {
-	if (!req.headers.host) {
-	  return;
-	}
-	const unsafeSuffix = req.headers.host + ".html";
-	const safeSuffix = path.normalize(unsafeSuffix).replace(/^(\.\.(\/|\\|$))+/, "");
-	const safeJoin = path.join(process.cwd() + "/Masqrd", safeSuffix);
-	try {
-	  await fs.promises.access(safeJoin);
-	  const failureFileLocal = await fs.promises.readFile(safeJoin, "utf8");
-	  res.setHeader("Content-Type", "text/html");
-	  res.send(failureFileLocal);
-	  return;
-	} catch (e) {
-	  res.setHeader("Content-Type", "text/html");
-	  res.send(fs.readFileSync("fail.html", "utf8"));
-	  return;
-	}
-  }
-if (masqr) {
-	app.use(async (req, res, next) => {
-	  if (req.headers.host && process.env.WHITELISTED_DOMAINS.includes(req.headers.host)) {
-		next();
-		return;
-	  }
-	  if (req.url.includes("/bare")) {
-		next();
-		return;
-	  }
-	  const authheader = req.headers.authorization;
-	  if (req.cookies["authcheck"]) {
-		next();
-		return;
-	  }
-	  if (req.cookies['refreshcheck'] != "true") {
-		res.cookie("refreshcheck",  "true",  {maxAge: 10000})
-		MasqFail(req, res) 
-		return;
-	  }
-	  if (!authheader) {   
-		res.setHeader('WWW-Authenticate', 'Basic');
-		res.status(401);
-		MasqFail(req, res) 
-		return;
-	  }
-  
-	  const auth = Buffer.from(authheader.split(' ')[1],'base64').toString().split(':');
-	  const user = auth[0];
-	  const pass = auth[1];
-	  const licenseCheck = ((await (await fetch(process.env.LICENSE_SERVER_URL + pass + "&host=" + req.headers.host)).json()))["status"]
-	  console.log(`\x1b[0m${process.env.LICENSE_SERVER_URL}${pass}&host=${req.headers.host} ` + `returned: ${licenseCheck}`)
-	  if (licenseCheck == "License valid") {
-		  res.cookie("authcheck", "true", {expires: new Date((Date.now()) + (365*24*60*60 * 1000))})
-		  res.send(`<script> window.location.href = window.location.href </script>`)
-		  return;
-	  }  
-	  MasqFail(req, res)
-	  return; 
+console.log(argv);
+if (argv[2] != "--dev") {
+	app.get("*", (_, response) => {
+		response.sendFile(path.resolve("dist", "index.html"));
 	});
-  }
+}
+
 const server = createServer();
-server.on("request", (req, res) => {
-	if (bare.shouldRoute(req)) {
-		bare.routeRequest(req, res);
+server.on("request", (request, response) => {
+	if (bare.shouldRoute(request)) {
+		// if (
+		// 	request.headers["x-bare-host"] &&
+		// 	request.headers["x-bare-host"] != "asdf.com"
+		// ) {
+		// 	console.log(request.headers);
+		// 	request.socket.write(
+		// 		'HTTP/1.1 200 NOT OK\n\n"NO LEAKING MY IP!!! GO TO ASDF.COM NOW"',
+		// 	);
+		// 	request.socket.end();
+		// }
+		bare.routeRequest(request, response);
 	} else {
-		app(req, res);
+		app(request, response);
 	}
 });
 
-server.on("upgrade", (req, socket, head) => {
-	if (bare.shouldRoute(req)) {
-		bare.routeUpgrade(req, socket, head);
+server.on("upgrade", (request, socket, head) => {
+	if (bare.shouldRoute(request)) {
+		bare.routeUpgrade(request, socket, head);
 	} else {
 		socket.end();
 	}
-	// @ts-expect-error stfu
-	wisp.routeRequest(req, socket as Socket, head);
+
+	wisp.routeRequest(request, socket, head);
 });
 
 server.listen({

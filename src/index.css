@@ -44,24 +44,21 @@
 
 html,
 body {
-	@apply h-full;
+	@apply min-h-dvh h-fit min-w-full w-fit;
 }
 body {
 	@apply flex items-stretch;
 }
 #root,
 #root > div {
-	@apply h-full w-full;
+	@apply min-h-full w-full;
 }
-
 *::-webkit-scrollbar {
 	@apply hidden;
 }
-
 .h-full-navbar-offset {
 	@apply h-[calc(100%_-_5rem)];
 }
-
 .h-full-navbar-alternate-offset {
 	@apply -mt-20 h-full;
 }
