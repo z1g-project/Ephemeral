@@ -16,7 +16,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { Label } from "@radix-ui/react-label";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useConfig } from "@/hooks";
 import { Loader2 } from "lucide-react";
@@ -80,7 +80,7 @@ export default function SearchSettings() {
 							<SelectTrigger aria-label="Presets">
 								<SelectValue placeholder="Select a search engine" />
 							</SelectTrigger>
-							<SelectContent position="popper" className="text-white">
+							<SelectContent position="popper">
 								{Object.keys(searchEngines).map((engine) => (
 									<SelectItem key={engine} value={engine}>
 										{engine}

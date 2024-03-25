@@ -4,7 +4,7 @@ import SearchSettings from "./settings/SearchSettings";
 import Header from "@/components/Header";
 import { Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import lastPushDate from "@/push-date?raw"
+import lastPushDate from "@/push-date?raw";
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
 	Dialog,
@@ -20,15 +20,15 @@ export default function Settings() {
 		<>
 			<Header title="Settings | Ephemeral" />
 			<div className="h-full-navbar-offset flex flex-col">
-				<span className="inline-block w-full mb-4 text-center text-3xl font-bold text-slate-300">
+				<span className="mb-4 inline-block w-full text-center text-3xl font-bold text-foreground">
 					Settings
 				</span>
-				<div className="flex flex-grow flex-col xl:flex-row items-center justify-center px-4 xl:px-0 xl:space-x-4 xl:space-y-0 space-y-8">
+				<div className="flex flex-grow flex-col items-center justify-center space-y-8 px-4 xl:flex-row xl:space-x-4 xl:space-y-0 xl:px-0">
 					<ProxySettings />
 					<CloakSettings />
 					<SearchSettings />
 				</div>
-				<div className="flex justify-end pb-2 pr-2 text-slate-200">
+				<div className="flex justify-end pb-2 pr-2 text-foreground">
 					<Dialog>
 						<DialogTrigger>
 							<Button variant="outline" size="sm">
@@ -38,10 +38,10 @@ export default function Settings() {
 						</DialogTrigger>
 						<DialogContent>
 							<DialogHeader>
-								<DialogTitle className="m-2 text-center text-slate-200">
+								<DialogTitle className="m-2 text-center text-foreground">
 									Ephemeral 0.7.0 - Beta
 								</DialogTitle>
-								<DialogDescription className=" items-center justify-center text-slate-300">
+								<DialogDescription className=" items-center justify-center text-foreground">
 									<img
 										src="/ephemeral.png"
 										alt="Ephemeral"
