@@ -37,7 +37,7 @@ To set up Ephemeral, it is super simple. Below are some instructions to get you 
 
 - UI & Design: [IncognitoTGT](https://github.com/IncognitoTGT)
 - CSS & Apps Page: [vyx](https://github.com/vbnm0)
-- README improvements: [Yuko](https://github.com/hemvi)
+- README improvements: [Yuko](https://github.com/yu6x)
 - Frontend Improvements:[XSTARS](https://github.com/notplayingallday383)
 - Frontend Improvements: [Interpolation](https://github.com/interpolation-0)
 - (C) Copyright 2021-2024 [z1g Project](https://github.com/z1g-project/) All rights reserved
