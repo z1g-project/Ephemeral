@@ -3,7 +3,6 @@ import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import { chunkSplitPlugin } from "vite-plugin-chunk-split";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 // @ts-expect-error stfu
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
@@ -15,6 +14,7 @@ const __dirname = path.resolve();
 export default defineConfig({
 	build: {
 		target: "ES2022",
+		chunkSizeWarningLimit: 650,
 	},
 	plugins: [
 		viteStaticCopy({
@@ -45,14 +45,6 @@ export default defineConfig({
 			],
 		}),
 		million.vite({ auto: true }),
-		chunkSplitPlugin({
-			strategy: "all-in-one",
-			customSplitting: {
-				utils: [/src\/utils/],
-				components: [/src\/components/],
-				pages: [/src\/pages/],
-			},
-		}),
 		react(),
 	],
 	resolve: {
