@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Header from "@/components/Header";
 import { useSuggestions } from "@/hooks";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export default function Home() {
 	const navigate = useNavigate();
@@ -112,6 +113,9 @@ export default function Home() {
 						) : null}
 					</CommandList>
 				</Command>
+				<div className="fixed bottom-2 right-2 text-xs">
+					<ModeToggle />
+				</div>
 			</div>
 		</>
 	);

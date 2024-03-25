@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import Meta from "@/components/Meta";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Link } from "react-router-dom";
 import { LucideHome, Settings, LayoutGrid } from "lucide-react";
 import {
@@ -60,16 +61,18 @@ const Layout = ({ children }: LayoutProps) => {
 		location.pathname == "/view/";
 
 	return (
-		<main className="mocha h-full">
-			{window.location.origin === "https://ephemeral.incognitotgt.me" && (
-				<Meta />
-			)}
-			{window.location.origin === "http://localhost:8080" && <Meta />}
-			<div className="h-full bg-background text-foreground">
-				<Toaster />
-				{shouldDisplayNavbar && <Navbar />}
-				{children}
-			</div>
+		<main className="h-full">
+			<ThemeProvider>
+				{window.location.origin === "https://ephemeral.incognitotgt.me" && (
+					<Meta />
+				)}
+				{window.location.origin === "http://localhost:8080" && <Meta />}
+				<div className="h-full bg-background text-foreground">
+					<Toaster />
+					{shouldDisplayNavbar && <Navbar />}
+					{children}
+				</div>
+			</ThemeProvider>
 		</main>
 	);
 };
