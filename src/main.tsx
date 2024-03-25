@@ -11,15 +11,11 @@ import ServiceWorkerError from "@/pages/ServiceWorkerError";
 import PageNotFound from "@/pages/PageNotFound";
 import Layout from "@/layout";
 import "@/index.css";
+import localforage from "localforage";
 declare global {
 	interface Window {
 		__uv$config: {
 			prefix: string;
-		};
-		__$ampere: {
-			config: {
-				prefix: string;
-			};
 		};
 	}
 }
@@ -29,7 +25,7 @@ export default function App() {
 		if ("serviceWorker" in navigator) {
 			navigator.serviceWorker
 				.register("/sw.js", {
-					scope: "/~/",
+					scope: "/~/"
 				})
 				.then(() => {
 					console.log(
@@ -41,6 +37,11 @@ export default function App() {
 				"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Service workers are not supported on this device",
 			);
 		}
+	}, []);
+	localforage.config({
+		driver: localforage.INDEXEDDB,
+		name: "ephemeral",
+		storeName: "__ephemeral_config",
 	});
 	return (
 		<BrowserRouter>
@@ -58,7 +59,7 @@ export default function App() {
 		</BrowserRouter>
 	);
 }
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
 		<App />
 	</React.StrictMode>,

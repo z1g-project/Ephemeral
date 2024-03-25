@@ -1,11 +1,4 @@
-import {
-	useState,
-	useRef,
-	useEffect,
-	useCallback,
-	ReactElement,
-	useMemo,
-} from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import type { Eruda as baseEruda } from "eruda";
 import encoder from "@/utils/encoder";
@@ -29,7 +22,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Header from "@/components/Header";
 import { useToast } from "@/components/ui/use-toast";
-import { throttle } from "@/utils/throttle"
+import { throttle } from "@/utils/throttle";
+import { useSuggestions, useConfig } from "@/hooks";
+import type { NavButton } from "@/types/view";
 import { injectPlugins } from "@/utils/injector";
 interface Eruda extends baseEruda {
 	_isInit: boolean;
@@ -37,111 +32,95 @@ interface Eruda extends baseEruda {
 interface ProxyWindow extends Window {
 	eruda: Eruda;
 }
-type NavButton = {
-	title: string;
-	onClick?: React.MouseEventHandler<HTMLButtonElement>;
-	disabled?: boolean;
-	children: ReactElement;
-	asChild?: boolean;
-};
-
 export default function View() {
 	const { url } = useParams();
 	const { toast } = useToast();
-	// const [siteUrl, setSiteUrl] = useState("");
-	const [fullScreen, setFullScreen] = useState(false);
 	const [inputFocused, setInputFocused] = useState(false);
-	const [suggestions, setSuggestions] = useState([]);
-	const [aboutBlank, setAboutBlank] = useState(false);
-	// this isn't with onBlur and onFocus on the element since it's a tiny bit hacky
-	const [suggestionFocused, setSuggestionFocused] = useState(false);
+	const [fullScreen, setFullScreen] = useState(false);
 	const frameRef = useRef<HTMLIFrameElement>(null);
-	const pageRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
-	const searchEngine =
-		localStorage.getItem("searchUrl") || "https://google.com/search?q=";
-	const proxyPrefix =
-		localStorage.getItem("proxy") === "ultraviolet"
-			? "/~/dark/"
-			: localStorage.getItem("proxy") === "ampere"
-				? "/~/light/"
-				: "/~/dark/";
+	const pageRef = useRef<HTMLDivElement>(null);
+	const [config] = useConfig();
 
-	const fetchSuggestions = useCallback((query: string) => {
-		return fetch(`/search?q=${query}`).then((res) => res.json());
-	}, []);
-	
+	const proxyPrefix = "/~/dark/";
+
+	const { suggestions, error, fetchSuggestions } = useSuggestions();
+
 	const onInputChange = useCallback(
 		async (event: React.ChangeEvent<HTMLInputElement>) => {
 			const query = event.target.value;
-			setSuggestions(await fetchSuggestions(query));
+			await fetchSuggestions(query);
 		},
 		[fetchSuggestions],
 	);
+	const throttledInputChange = useRef(throttle(750, onInputChange));
 
-	const throttledInputChange = useMemo(
-		() => throttle(500, onInputChange),
-		[onInputChange],
+	const setSearch = useCallback(
+		(suggestion?: string) => {
+			if (!inputRef.current) return;
+			let site =
+				frameRef.current?.contentWindow?.location.href
+					?.replace(window.location.origin, "")
+					.replace(proxyPrefix, "") || "";
+			if (site == undefined) return;
+			site = encoder.decode(site);
+			if (suggestion) {
+				inputRef.current.value = suggestion;
+				return;
+			}
+			inputRef.current.value = site?.toString() || "";
+		},
+		[proxyPrefix],
 	);
 
-	const setSearch = useCallback(() => {
-		const site = encoder.decode(
-			frameRef.current?.contentWindow?.location.href
-				.replace(window.location.origin, "")
-				.replace(proxyPrefix, "") || "",
-		);
-		setSuggestionFocused(false);
-		if (inputRef.current) inputRef.current.value = site?.toString() || "";
-	}, [proxyPrefix]);
-
-	// hacky
 	useEffect(() => {
 		if (!inputFocused) {
-			const interval = setInterval(setSearch, 500);
+			const interval = setInterval(setSearch, 13);
 			return () => clearInterval(interval);
 		}
 	}, [inputFocused, setSearch]);
+
+	const aboutBlank = useMemo(() => window.self !== window.top, []);
+
 	useEffect(() => {
-		if (window.self !== window.top) {
-			setAboutBlank(true);
+		if (aboutBlank) {
 			toast({
 				description:
 					"Note: Back and Forward buttons will not work in about:blank",
 			});
-		} else {
-			setAboutBlank(false);
 		}
-	}, [toast]);
+	}, [aboutBlank, toast]);
+
 	function onLoad() {
 		setSearch();
 	}
+
 	function parseInput(event: React.KeyboardEvent<HTMLInputElement>) {
 		if (!inputRef.current) return;
 		if (event.key === "Enter") {
+			let src = "";
+			const inputValue = inputRef.current.value.trim();
 			if (
-				inputRef.current.value.startsWith("http://") ||
-				inputRef.current.value.startsWith("https://")
+				inputValue.startsWith("http://") ||
+				inputValue.startsWith("https://")
 			) {
-				frameRef.current!.src =
-					proxyPrefix + encoder.encode(inputRef.current.value);
-			} else if (
-				inputRef.current.value.includes(".") &&
-				!inputRef.current.value.includes(" ")
-			) {
-				frameRef.current!.src =
-					proxyPrefix + encoder.encode("https://" + inputRef.current.value);
+				src = `/~/dark/${encoder.encode(inputValue)}`;
+			} else if (inputValue.includes(".") && !inputValue.includes(" ")) {
+				src = `/~/dark/${encoder.encode("https://" + inputValue)}`;
 			} else {
-				frameRef.current!.src =
-					proxyPrefix + encoder.encode(searchEngine + inputRef.current.value);
+				src = `/~/dark/${encoder.encode(config.search.url.replace("%s", inputValue))}`;
 			}
+			if (frameRef.current) frameRef.current.src = src;
 		}
 	}
+
 	const buttonClasses = "h-4 w-4 text-slate-50";
 	const leftButtons: NavButton[] = [
 		{
 			title: "Back",
 			onClick() {
-				frameRef.current!.contentWindow?.history.back();
+				if (!frameRef.current) return;
+				frameRef.current.contentWindow?.history.back();
 			},
 			disabled: aboutBlank,
 			children: <ChevronLeft className={buttonClasses} />,
@@ -149,7 +128,8 @@ export default function View() {
 		{
 			title: "Forward",
 			onClick() {
-				frameRef.current!.contentWindow?.history.forward();
+				if (!frameRef.current) return;
+				frameRef.current.contentWindow?.history.forward();
 			},
 			disabled: aboutBlank,
 			children: <ChevronRight className={buttonClasses} />,
@@ -157,7 +137,8 @@ export default function View() {
 		{
 			title: "Reload",
 			onClick() {
-				frameRef.current!.contentWindow?.location.reload();
+				if (!frameRef.current) return;
+				frameRef.current.contentWindow?.location.reload();
 			},
 			disabled: aboutBlank,
 			children: <RotateCw className={buttonClasses} />,
@@ -178,8 +159,9 @@ export default function View() {
 			title: "Eruda (Browser console)",
 			disabled: false,
 			onClick() {
-				const proxyWindow = frameRef.current!.contentWindow as ProxyWindow;
-				const proxyDocument = frameRef.current!.contentDocument;
+				if (!frameRef.current) return;
+				const proxyWindow = frameRef.current.contentWindow as ProxyWindow;
+				const proxyDocument = frameRef.current.contentDocument;
 				if (!proxyWindow || !proxyDocument) return;
 				if (proxyWindow.eruda?._isInit) {
 					proxyWindow.eruda.destroy();
@@ -205,7 +187,8 @@ export default function View() {
 			title: "Open in new tab (raw)",
 			disabled: false,
 			onClick() {
-				window.open(frameRef.current!.contentWindow?.location.href);
+				if (!frameRef.current) return;
+				window.open(frameRef.current.contentWindow?.location.href);
 			},
 			children: <ArrowUpRightFromSquare className={buttonClasses} />,
 		},
@@ -213,11 +196,12 @@ export default function View() {
 			title: "Fullscreen",
 			disabled: false,
 			onClick() {
+				if (!pageRef.current) return;
 				if (document.fullscreenElement) {
 					document.exitFullscreen();
 					setFullScreen(false);
 				} else {
-					pageRef.current!.requestFullscreen();
+					pageRef.current.requestFullscreen();
 					setFullScreen(true);
 				}
 			},
@@ -247,7 +231,7 @@ export default function View() {
 				className="items-between flex h-full flex-col items-stretch justify-between"
 			>
 				<div className="space-between flex max-h-14 items-start overflow-visible p-2">
-					<div>
+					<div className="mr-auto whitespace-nowrap">
 						{leftButtons.map(
 							({ title, onClick, disabled, children, asChild }) => (
 								<Button
@@ -265,54 +249,71 @@ export default function View() {
 							),
 						)}
 					</div>
-					<section className="z-50 flex items-center justify-center">
+					<section className="group z-50 flex w-[32rem] flex-wrap items-start justify-start">
 						<Input
 							id="input"
 							ref={inputRef}
 							onFocus={() => {
 								setInputFocused(true);
-								// hacky
-								setSuggestionFocused(true);
 							}}
 							onBlur={() => setInputFocused(false)}
-							className={`focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[484px] lg:w-[584px] ${suggestionFocused && suggestions.length > 0 && 'rounded-b-none border-b-0'}`}
+							className={`peer focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[484px] lg:w-[584px] ${(suggestions?.length ?? 0) > 0 || error ? "focus:rounded-b-none focus:border-b-0 group-hover:rounded-b-none group-hover:border-b-0" : ""}`}
 							spellCheck={false}
 							placeholder={
 								frameRef?.current?.src ? "Search the web freely" : "Loading..."
 							}
-							// value={siteUrl}
-							onChange={throttledInputChange}
+							onChange={throttledInputChange.current}
 							onKeyDown={parseInput}
 						/>
 						<Command
-							className={`z-20 h-auto w-96 rounded-b-lg rounded-t-none border-x border-slate-800 bg-slate-950 shadow-md sm:w-[484px] lg:w-[584px] [&_*]:bg-slate-950 ${
-								!suggestionFocused ? `invisible` : `visible`
-							}`}
+							className={`invisible z-20 h-0 w-96 rounded-b-lg rounded-t-none border-x border-slate-800 shadow-md group-hover:visible group-hover:h-auto peer-focus:visible peer-focus:h-auto sm:w-[484px] lg:w-[584px]`}
 						>
 							<CommandList>
-								{suggestions.length > 0 && (
-									<CommandGroup heading="Suggestions">
-										{suggestions.map((suggestion, index) => (
-											<Link
-												key={index}
-												to={`/view/${encodeURIComponent(
-													encoder.encode(searchEngine + suggestion),
-												)}`}
-												onClick={() => {
-													setSuggestionFocused(false);
-												}}
-											>
-												<CommandItem className="cursor-pointer" key={index}>
-													{suggestion}
-												</CommandItem>
-											</Link>
-										))}
+								{suggestions ? (
+									suggestions.length > 0 ? (
+										<CommandGroup heading="Suggestions">
+											{suggestions.map((suggestion: string, index: number) => (
+												<Link
+													key={index}
+													to={`/view/${encodeURIComponent(
+														encoder.encode(
+															config.search.url.replace("%s", suggestion),
+														),
+													)}`}
+													onClick={function (this: HTMLAnchorElement) {
+														setSearch(suggestion);
+														/* im proud of this hack */
+														this.style.pointerEvents = "none";
+														setTimeout(
+															function (this: HTMLAnchorElement) {
+																this.style.pointerEvents = "";
+															}.bind(this),
+														);
+													}}
+												>
+													<CommandItem
+														className="cursor-pointer"
+														key={index}
+														onClick={() => setSearch(suggestion)}
+													>
+														{suggestion}
+													</CommandItem>
+												</Link>
+											))}
+										</CommandGroup>
+									) : null
+								) : null}
+								{error ? (
+									<CommandGroup heading="Error">
+										<CommandItem className="cursor-not-allowed !bg-slate-950 !text-red-600">
+											{error.message}
+										</CommandItem>
 									</CommandGroup>
-								)}
+								) : null}
 							</CommandList>
 						</Command>
 					</section>
-					<div className="ml-auto">
+					<div className="ml-auto whitespace-nowrap">
 						{rightButtons.map(
 							({ title, onClick, disabled, children, asChild }) => (
 								<Button

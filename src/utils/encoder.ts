@@ -1,17 +1,9 @@
-import AES from "crypto-js/aes";
-import Utf8 from "crypto-js/enc-utf8";
-const aesKey = window.location.origin + navigator.userAgent;
-
-const encoder = {
-	encode: (str: string) => {
-		if (!str) return str;
-
-		return AES.encrypt(str, aesKey).toString().substring(10);
-	},
-	decode: (str: string) => {
-		if (!str) return str;
-
-		return AES.decrypt("U2FsdGVkX1" + str, aesKey).toString(Utf8);
-	},
-};
-export default encoder;
+declare global {
+	interface Window {
+		encoder: {
+			encode: (dec: string) => string;
+			decode: (enc: string) => string;
+		};
+	}
+}
+export default window.encoder;

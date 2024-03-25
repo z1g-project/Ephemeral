@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
@@ -8,6 +8,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
 	Select,
 	SelectContent,
@@ -16,17 +17,26 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { useConfig } from "@/hooks";
+import { renderToStaticMarkup } from "react-dom/server";
+import { Loader2 } from "lucide-react";
+
 export default function CloakSettings() {
-	const cloakTitleInputRef = useRef<HTMLInputElement>(null);
-	const cloakFaviconInputRef = useRef<HTMLInputElement>(null);
+	const cloakTitleRef = useRef<HTMLInputElement>(null);
+	const cloakFaviconRef = useRef<HTMLInputElement>(null);
 	const { toast } = useToast();
-	const cloakValues: {
-		name: string;
-		title: string;
-		favicon: string;
-	}[] = [
+	const [config, reset, loading] = useConfig("cloak");
+
+	console.log(config);
+	useEffect(() => {
+		if (config && cloakTitleRef.current && cloakFaviconRef.current) {
+			cloakTitleRef.current.value = config.title;
+			cloakFaviconRef.current.value = config.favicon;
+		}
+	}, [config]);
+
+	const cloakValues = [
 		{
 			name: "Schoology",
 			title: "Home | Schoology",
@@ -50,123 +60,117 @@ export default function CloakSettings() {
 			favicon: "https://www.google.com/favicon.ico",
 		},
 	];
+
+	const handleReset = () => {
+		reset();
+		toast({
+			title: "Cloak preset reset",
+			description: "Cloak preset has been reset",
+			variant: "destructive",
+		});
+		setTimeout(window.location.reload.bind(window.location), 1000);
+	};
+
+	const openCloaked = () => {
+		const newWindow = window.open("about:blank");
+		if (!newWindow) return;
+		const code = (
+			<iframe
+				src={window.location.origin}
+				style={{
+					width: "100%",
+					height: "100%",
+					border: "none",
+					overflow: "hidden",
+					margin: "0px",
+					padding: "0px",
+					position: "fixed",
+					inset: "0px",
+				}}
+			></iframe>
+		);
+		newWindow.document.body.innerHTML = renderToStaticMarkup(code);
+		newWindow.document.head.appendChild(
+			Object.assign(document.createElement("link"), {
+				rel: "icon",
+				href: config.favicon,
+			}),
+		);
+		newWindow.document.head.appendChild(
+			Object.assign(document.createElement("title"), {
+				textContent: config.title,
+			}),
+		);
+		window.location.replace("https://google.com");
+	};
+
 	return (
-		<Card className="h-96 w-96">
-			<CardHeader>
-				<CardTitle>Cloak</CardTitle>
-				<CardDescription>Set cloaking settings</CardDescription>
-			</CardHeader>
-			<CardContent className={``}>
-				<Label htmlFor="presets">Presets</Label>
-				<Select
-					onValueChange={(value) => {
-						const cloak = cloakValues.find((cloak) => cloak.name === value);
-						localStorage.setItem("cloakPreset", value);
-						localStorage.setItem("cloakTitle", cloak?.title || "");
-						localStorage.setItem("cloakFavicon", cloak?.favicon || "");
-						toast({
-							title: "Cloak Preset Changed",
-							description: `Cloak preset has been changed to "${value}"`,
-						});
-						window.location.reload();
-					}}
-				>
-					<SelectTrigger aria-label="Presets">
-						<SelectValue
-							placeholder={
-								localStorage.getItem("cloakPreset") || "Select a preset"
-							}
+		<Card
+			className={`flex h-96 w-full flex-col md:w-96 ${loading ? "items-center justify-center" : ""}`}
+		>
+			{!loading ? (
+				<>
+					<CardHeader>
+						<CardTitle>Cloak</CardTitle>
+						<CardDescription>Set cloaking settings</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<Label htmlFor="presets">Presets</Label>
+						<Select
+							onValueChange={async (value) => {
+								const cloak = cloakValues.find((cloak) => cloak.name === value);
+								if (cloak) {
+									config && (config.preset = cloak.name);
+									config && (config.title = cloak.title);
+									config && (config.favicon = cloak.favicon);
+									toast({
+										title: "Cloak Preset Changed",
+										description: `Cloak preset has been changed to "${value}"`,
+									});
+								}
+							}}
+						>
+							<SelectTrigger aria-label="Presets">
+								<SelectValue
+									placeholder={config?.preset || "Select a preset"}
+								/>
+								<SelectContent position="popper">
+									{cloakValues.map((value) => (
+										<SelectItem key={value.name} value={value.name}>
+											{value.name}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</SelectTrigger>
+						</Select>
+						<Label htmlFor="page-title">Page Title</Label>
+						<Input
+							id="page-title"
+							ref={cloakTitleRef}
+							type="text"
+							placeholder="Set how the tab title looks"
 						/>
-						<SelectContent position="popper">
-							<SelectItem value="Schoology">Schoology</SelectItem>
-							<SelectItem value="Google Classroom">Google Classroom</SelectItem>
-							<SelectItem value="Canvas">Canvas</SelectItem>
-							<SelectItem value="Google">Google</SelectItem>
-						</SelectContent>
-					</SelectTrigger>
-				</Select>
-				<Label htmlFor="page-title">Page Title</Label>
-				<Input
-					id="page-title"
-					ref={cloakTitleInputRef}
-					type="text"
-					placeholder="Set how the tab title looks"
-					defaultValue={localStorage.getItem("cloakTitle") || ""}
-				/>
-				<Label htmlFor="page-favicon">Page Favicon</Label>
-				<Input
-					id="page-favicon"
-					ref={cloakFaviconInputRef}
-					type="text"
-					spellCheck={false}
-					placeholder="Set the favicon"
-					defaultValue={localStorage.getItem("cloakFavicon") || ""}
-				/>
-			</CardContent>
-			<CardFooter className="justify-between space-x-2">
-				<Button
-					variant="default"
-					onClick={() => {
-						localStorage.setItem("cloakPreset", "Custom");
-						localStorage.setItem(
-							"cloakTitle",
-							cloakTitleInputRef.current!.value,
-						);
-						localStorage.setItem(
-							"cloakFavicon",
-							cloakFaviconInputRef.current!.value,
-						);
-						toast({
-							title: "Cloak Preset Changed",
-							description: `Cloak preset has been changed to "${
-								cloakTitleInputRef.current!.value
-							}"`,
-						});
-						window.location.reload();
-					}}
-				>
-					Save
-				</Button>
-				<Button
-					variant="destructive"
-					onClick={() => {
-						localStorage.removeItem("cloakPreset");
-						localStorage.removeItem("cloakTitle");
-						localStorage.removeItem("cloakFavicon");
-						toast({
-							title: "Cloak Preset Removed",
-							description: "Cloak preset has been removed",
-							variant: "destructive",
-						});
-						window.location.reload();
-					}}
-				>
-					Reset
-				</Button>
-				<Button
-					variant="secondary"
-					onClick={() => {
-						const newWindow = window.open("about:blank");
-						const iframe = document.createElement("iframe");
-						iframe.src = window.location.origin;
-						iframe.style.width = "100%";
-						iframe.style.height = "100%";
-						iframe.style.border = "none";
-						iframe.style.overflow = "hidden";
-						iframe.style.margin = "0";
-						iframe.style.padding = "0";
-						iframe.style.position = "fixed";
-						iframe.style.top = "0";
-						iframe.style.bottom = "0";
-						iframe.style.left = "0";
-						iframe.style.right = "0";
-						newWindow?.document.body.appendChild(iframe);
-						window.location.replace("https://google.com");
-					}}
-				>
-					Open about:blank
-				</Button>
-			</CardFooter>
+						<Label htmlFor="page-favicon">Page Favicon</Label>
+						<Input
+							id="page-favicon"
+							ref={cloakFaviconRef}
+							type="text"
+							spellCheck={false}
+							placeholder="Set the favicon"
+						/>
+					</CardContent>
+					<CardFooter className="justify-between space-x-2">
+						<Button variant="destructive" onClick={handleReset}>
+							Reset
+						</Button>
+						<Button variant="secondary" onClick={openCloaked}>
+							Open about:blank
+						</Button>
+					</CardFooter>
+				</>
+			) : (
+				<Loader2 size={64} className="animate-spin" />
+			)}
 		</Card>
 	);
 }
