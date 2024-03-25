@@ -7,7 +7,7 @@ import cors from "cors";
 import compression from "compression";
 import { argv } from "node:process";
 import config from "dotenv";
-import wisp from "wisp-server-node"
+import wisp from "wisp-server-node";
 config.config();
 
 const bare = createBareServer("/bend/", {});
@@ -24,9 +24,9 @@ const compressionOptions = {
 };
 const masqr = process.env.MASQR && process.env.MASQR.toLowerCase() === "true";
 if (masqr) {
-  console.log(`Masqr is Enabled`);
+	console.log(`Masqr is Enabled`);
 } else {
-  console.log(`Masqr is Disabled`);
+	console.log(`Masqr is Disabled`);
 }
 app.use(compression(compressionOptions));
 app.use(cors(corsOptions));

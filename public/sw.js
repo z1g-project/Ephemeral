@@ -11,7 +11,8 @@ localforage.config({
 const setUv = async () => {
 	try {
 		const bare =
-			(await localforage.getItem("proxy.bareServer")) || location.origin + "/bend/";
+			(await localforage.getItem("proxy.bareServer")) ||
+			location.origin + "/bend/";
 		const proxyUrl = (await localforage.getItem("proxy.proxyServer")) || "";
 		const [proxyIp, proxyPort] = proxyUrl.split(":");
 		self.__uv$config.bare = bare;

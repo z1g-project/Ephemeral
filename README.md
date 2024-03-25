@@ -14,7 +14,8 @@ Some of the features of Ephemeral are:
 - Auto-Stealth Pages (Loads the pages within the current page you are on instead of loading the page classicly with the example.com/sw/)
 - Tab Cloaking - Changeable Title, Icon, and About:blank cloaking
 - Customizable! - Ephemeral has tons of other customization options for you to play with to match your preferences!
-- *More coming soon! ;)*
+- _More coming soon! ;)_
+
 ## Setup & installation
 
 To set up Ephemeral, it is super simple. Below are some instructions to get you started or you may select a quick deploy button below!
@@ -23,7 +24,6 @@ To set up Ephemeral, it is super simple. Below are some instructions to get you 
 [![Run on Cyclic](https://raw.githubusercontent.com/BinBashBanana/deploy-buttons/master/buttons/official/cyclic.svg)](https://app.cyclic.sh/api/app/deploy/z1g-project/Ephemeral)
 [![Deploy to Cloudflare](https://raw.githubusercontent.com/z1g-project/terbium/main/static/resources/cflogo.png)](https://github.com/z1g-project/Terbium/wiki/Deploy-to-Cloudflare-Pages)
 [![Run on Glitch](https://raw.githubusercontent.com/BinBashBanana/deploy-buttons/master/buttons/official/glitch.svg)](https://glitch.com/edit/#!/import/github/z1g-project/Ephemeral)
-
 
 - Fork This Repository, Clone into the repository by using: `git clone https://github.com/z1g-project/Ephemeral.git`, or download the [Latest Release](https://github.com/z1g-project/Ephemeral/releases) and extract it to your deployments directory.
 - Make sure that you have NodeJS 18.x installed to check this in your operating system of choice command line or terminal type: `Node --Version` and if it says 18.0.0 or anything later than that you are fine. If you need to install or update NodeJS Please Refer to [This Page](https://nodejs.org/en/download). You also need pnpm, which can be installed with `npm i -g pnpm`

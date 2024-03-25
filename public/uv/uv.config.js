@@ -58,7 +58,7 @@ const factory = (key) => {
 						"?" +
 						encodedText.split("?")[1],
 				);
-                console.log(1)
+				console.log(1);
 			}
 			return base64Decode(encodedText);
 		},
