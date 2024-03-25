@@ -25,7 +25,7 @@ export default function App() {
 		if ("serviceWorker" in navigator) {
 			navigator.serviceWorker
 				.register("/sw.js", {
-					scope: "/~/"
+					scope: "/~/",
 				})
 				.then(() => {
 					console.log(
