@@ -16,11 +16,8 @@ export default function Meta() {
 			/>
 			<meta property="og:site_name" content="Ephemeral" />
 			<meta property="og:url" content={url} />
-			<meta property="og:image" content={`${url}/ephemeral-sm.webp`} />
-			<meta
-				property="og:image:secure_url"
-				content={`${url}/ephemeral-sm.webp`}
-			/>
+			<meta property="og:image" content={`${url}/ephemeral.png`} />
+			<meta property="og:image:secure_url" content={`${url}/ephemeral.png`} />
 			<meta property="og:title" content="Ephemeral" />
 			<meta property="og:type" content="website" />
 			<meta
