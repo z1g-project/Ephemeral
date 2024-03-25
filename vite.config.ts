@@ -52,25 +52,6 @@ export default defineConfig({
 			"@": path.resolve(__dirname, "./src"),
 		},
 	},
-	server: {
-		proxy: {
-			"/bend": {
-				target: "http://localhost:8080/bend",
-				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/bend/, ""),
-			},
-			"/search": {
-				target: "http://localhost:8080/search",
-				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/search/, ""),
-			},
-			"/json/apps": {
-				target: "http://localhost:8080/json/apps",
-				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/json\/apps/, ""),
-			},
-		},
-	},
 	define: {
 		"process.env.STATIC": process.env.STATIC,
 	},
