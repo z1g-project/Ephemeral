@@ -25,20 +25,22 @@ const links: {
 function Navbar() {
 	return (
 		<div className="flex justify-between">
-			<div className={`p-5 text-2xl font-bold text-slate-300`}>
+			<div className={`p-5 text-2xl font-bold text-foreground`}>
 				<Link to="/">Ephemeral</Link>
 			</div>
 			<div className="justify-end p-5">
 				<NavigationMenu>
 					<NavigationMenuList>
 						{links.map((link) => (
-							<NavigationMenuItem>
+							<NavigationMenuItem key={link.href}>
 								<NavigationMenuLink
 									asChild
 									className={navigationMenuTriggerStyle()}
 								>
 									<Link to={link.href}>
-										<span className="mr-2 [&>svg]:w-4 [&>svg]:h-4">{link.icon}</span>
+										<span className="mr-2 [&>svg]:h-4 [&>svg]:w-4">
+											{link.icon}
+										</span>
 										{link.text}
 									</Link>
 								</NavigationMenuLink>
@@ -58,17 +60,17 @@ const Layout = ({ children }: LayoutProps) => {
 		location.pathname == "/view/";
 
 	return (
-		<>
+		<main className="mocha h-full">
 			{window.location.origin === "https://ephemeral.incognitotgt.me" && (
 				<Meta />
 			)}
 			{window.location.origin === "http://localhost:8080" && <Meta />}
-			<div className="h-full bg-slate-950">
+			<div className="h-full bg-background text-foreground">
 				<Toaster />
 				{shouldDisplayNavbar && <Navbar />}
 				{children}
 			</div>
-		</>
+		</main>
 	);
 };
 

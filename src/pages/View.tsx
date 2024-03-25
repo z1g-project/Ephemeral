@@ -114,7 +114,7 @@ export default function View() {
 		}
 	}
 
-	const buttonClasses = "h-4 w-4 text-slate-50";
+	const buttonClasses = "h-4 w-4 text-foreground";
 	const leftButtons: NavButton[] = [
 		{
 			title: "Back",
@@ -216,13 +216,13 @@ export default function View() {
 	window.history.replaceState(null, "", "/");
 	useEffect(() => {
 		const intervalId = setInterval(() => {
-		  injectPlugins('mainframe');
+			injectPlugins("mainframe");
 		}, 1000);
-	    return () => {
-		  clearInterval(intervalId);
-		  console.log('Interval cleared');
+		return () => {
+			clearInterval(intervalId);
+			console.log("Interval cleared");
 		};
-	}, [injectPlugins]);	  
+	}, []);
 	return (
 		<>
 			<Header title="View | Ephemeral" />
@@ -266,7 +266,7 @@ export default function View() {
 							onKeyDown={parseInput}
 						/>
 						<Command
-							className={`invisible z-20 h-0 w-96 rounded-b-lg rounded-t-none border-x border-slate-800 shadow-md group-hover:visible group-hover:h-auto peer-focus:visible peer-focus:h-auto sm:w-[484px] lg:w-[584px]`}
+							className={`invisible z-20 h-0 w-96 rounded-b-lg rounded-t-none border-x border-border shadow-md group-hover:visible group-hover:h-auto peer-focus:visible peer-focus:h-auto sm:w-[484px] lg:w-[584px]`}
 						>
 							<CommandList>
 								{suggestions ? (
@@ -305,7 +305,7 @@ export default function View() {
 								) : null}
 								{error ? (
 									<CommandGroup heading="Error">
-										<CommandItem className="cursor-not-allowed !bg-slate-950 !text-red-600">
+										<CommandItem className="cursor-not-allowed !bg-background !text-red-600">
 											{error.message}
 										</CommandItem>
 									</CommandGroup>

@@ -3,13 +3,13 @@ import path from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import { chunkSplitPlugin } from "vite-plugin-chunk-split";
 import { uvPath } from "@nebula-services/ultraviolet";
 const __dirname = path.resolve();
 
 // https://vitejs.dev/config/
 export default defineConfig({
 	build: {
-		sourcemap: true,
 		target: "ES2022",
 	},
 	plugins: [
@@ -31,6 +31,14 @@ export default defineConfig({
 			],
 		}),
 		million.vite({ auto: true }),
+		chunkSplitPlugin({
+			strategy: "all-in-one",
+			customSplitting: {
+				utils: [/src\/utils/],
+				components: [/src\/components/],
+				pages: [/src\/pages/],
+			},
+		}),
 		react(),
 	],
 	resolve: {

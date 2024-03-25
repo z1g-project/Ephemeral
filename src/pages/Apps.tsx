@@ -79,8 +79,8 @@ export default function Apps() {
 	return (
 		<>
 			<Header title="Apps | Ephemeral" />
-			<div className="flex flex-grow flex-col bg-slate-950">
-				<span className="inline-block w-full text-center text-3xl font-bold text-slate-300">
+			<div className="flex flex-grow flex-col bg-background">
+				<span className="inline-block w-full text-center text-3xl font-bold text-foreground">
 					Apps
 				</span>
 				<span className="px-24 pt-4">
@@ -99,7 +99,7 @@ export default function Apps() {
 					{searchResults ? searchResults.map(mapFunction) : null}
 				</div>
 				<span
-					className={`flex w-full items-center justify-center pb-10 text-center text-2xl font-bold ${error ? "text-red-600" : "text-slate-300"}`}
+					className={`flex w-full items-center justify-center pb-10 text-center text-2xl font-bold ${error ? "text-red-600" : "text-foreground"}`}
 				>
 					{!error ? (
 						!loading ? (

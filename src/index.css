@@ -1,6 +1,181 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 222.2 84% 4.9%;
+
+		--card: 0 0% 100%;
+		--card-foreground: 222.2 84% 4.9%;
+
+		--popover: 0 0% 100%;
+		--popover-foreground: 222.2 84% 4.9%;
+
+		--primary: 222.2 47.4% 11.2%;
+		--primary-foreground: 210 40% 98%;
+
+		--secondary: 210 40% 96.1%;
+		--secondary-foreground: 222.2 47.4% 11.2%;
+
+		--muted: 210 40% 96.1%;
+		--muted-foreground: 215.4 16.3% 46.9%;
+
+		--accent: 210 40% 96.1%;
+		--accent-foreground: 222.2 47.4% 11.2%;
+
+		--destructive: 0 84.2% 60.2%;
+		--destructive-foreground: 210 40% 98%;
+
+		--border: 214.3 31.8% 91.4%;
+		--input: 214.3 31.8% 91.4%;
+		--ring: 222.2 84% 4.9%;
+
+		--radius: 0.5rem;
+	}
+
+	.dark {
+		--background: 222.2 84% 4.9%;
+		--foreground: 210 40% 98%;
+
+		--card: 222.2 84% 4.9%;
+		--card-foreground: 210 40% 98%;
+
+		--popover: 222.2 84% 4.9%;
+		--popover-foreground: 210 40% 98%;
+
+		--primary: 210 40% 98%;
+		--primary-foreground: 222.2 47.4% 11.2%;
+
+		--secondary: 217.2 32.6% 17.5%;
+		--secondary-foreground: 210 40% 98%;
+
+		--muted: 217.2 32.6% 17.5%;
+		--muted-foreground: 215 20.2% 65.1%;
+
+		--accent: 217.2 32.6% 17.5%;
+		--accent-foreground: 210 40% 98%;
+
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 210 40% 98%;
+
+		--border: 217.2 32.6% 17.5%;
+		--input: 217.2 32.6% 17.5%;
+		--ring: 212.7 26.8% 83.9%;
+	}
+	.mocha {
+		--background: 240 21% 15%;
+		--foreground: 226 64% 88%;
+		--muted: 240 12% 19%;
+		--muted-foreground: 240 12% 69%;
+		--popover: 240 21% 12%;
+		--popover-foreground: 226 64% 98%;
+		--card: 240 21% 13%;
+		--card-foreground: 226 64% 93%;
+		--border: 240 11% 20%;
+		--input: 240 11% 23%;
+		--primary: 267 84% 81%;
+		--primary-foreground: 267 84% 21%;
+		--secondary: 267 30% 25%;
+		--secondary-foreground: 267 30% 85%;
+		--accent: 240 21% 30%;
+		--accent-foreground: 240 21% 90%;
+		--destructive: 343 81% 75%;
+		/* surface 0 */
+		--destructive-foreground: 237 16% 23%;
+		--ring: 267 84% 81%;
+	}
+	.macchiato {
+		--background: 232 23% 18%;
+		--foreground: 227 68% 88%;
+		--muted: 232 12% 22%;
+		--muted-foreground: 232 12% 72%;
+		--popover: 232 23% 15%;
+		--popover-foreground: 227 68% 98%;
+		--card: 232 23% 16%;
+		--card-foreground: 227 68% 93%;
+		--border: 232 13% 23%;
+		--input: 232 13% 26%;
+		--primary: 267 83% 80%;
+		--primary-foreground: 267 83% 20%;
+		--secondary: 267 30% 25%;
+		--secondary-foreground: 267 30% 85%;
+		--accent: 232 23% 33%;
+		--accent-foreground: 232 23% 93%;
+		--destructive: 351 74% 73%;
+		--destructive-foreground: 230 19% 26%;
+		--ring: 267 83% 80%;
+	}
+	.frappe {
+		--background: 229 19% 23%;
+		--foreground: 227 70% 87%;
+		--muted: 229 12% 27%;
+		--muted-foreground: 229 12% 77%;
+		--popover: 229 19% 20%;
+		--popover-foreground: 227 70% 97%;
+		--card: 229 19% 21%;
+		--card-foreground: 227 70% 92%;
+		--border: 229 9% 28%;
+		--input: 229 9% 31%;
+		--primary: 277 59% 76%;
+		--primary-foreground: 277 59% 16%;
+		--secondary: 277 30% 25%;
+		--secondary-foreground: 277 30% 85%;
+		--accent: 229 19% 38%;
+		--accent-foreground: 229 19% 98%;
+		--destructive: 359 68% 71%;
+		--destructive-foreground: 230 16% 30%;
+		--ring: 277 59% 76%;
+	}
+	.latte {
+		--background: 220 23% 95%;
+		--foreground: 234 16% 35%;
+		--muted: 220 12% 90%;
+		--muted-foreground: 220 12% 30%;
+		--popover: 220 23% 92%;
+		--popover-foreground: 234 16% 25%;
+		--card: 220 23% 93%;
+		--card-foreground: 234 16% 30%;
+		--border: 220 13% 90%;
+		--input: 220 13% 87%;
+		--primary: 266 85% 58%;
+		--primary-foreground: 0 0% 100%;
+		--secondary: 266 30% 75%;
+		--secondary-foreground: 266 30% 15%;
+		--accent: 220 23% 80%;
+		--accent-foreground: 220 23% 20%;
+		--destructive: 347 87% 44%;
+		--destructive-foreground: 223 16% 83%;
+		--ring: 266 85% 58%;
+	}
+}
+
+@layer base {
+	main,
+	body {
+		@apply h-fit min-h-dvh w-fit min-w-full;
+	}
+	* {
+		@apply border-border;
+	}
+	body {
+		@apply flex items-stretch;
+	}
+	#root,
+	#root > div {
+		@apply min-h-full w-full;
+	}
+}
+*::-webkit-scrollbar {
+	@apply hidden;
+}
+.h-full-navbar-offset {
+	@apply h-[calc(100%_-_5rem)];
+}
+.h-full-navbar-alternate-offset {
+	@apply -mt-20 h-full;
+}
 @font-face {
 	font-family: "Geist";
 	font-style: normal;
@@ -40,25 +215,4 @@
 		format("woff2");
 	font-display: swap;
 	font-weight: 700;
-}
-
-html,
-body {
-	@apply min-h-dvh h-fit min-w-full w-fit;
-}
-body {
-	@apply flex items-stretch;
-}
-#root,
-#root > div {
-	@apply min-h-full w-full;
-}
-*::-webkit-scrollbar {
-	@apply hidden;
-}
-.h-full-navbar-offset {
-	@apply h-[calc(100%_-_5rem)];
-}
-.h-full-navbar-alternate-offset {
-	@apply -mt-20 h-full;
 }

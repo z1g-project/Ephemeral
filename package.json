@@ -74,7 +74,8 @@
 		"prettier": "3.2.5",
 		"tailwindcss": "^3.4.1",
 		"typescript": "^5.3.3",
-		"vite": "^5.1.4"
+		"vite": "^5.1.4",
+		"vite-plugin-chunk-split": "^0.5.0"
 	},
 	"description": "release - 2/23/24 This is using Vite and React. To build and start, run `npm run bstart`. For UI components, we're using https://ui.shadcn.com/. To add a new component run `npx shadcn-ui@latest add [name of component]`. **Note: Whenever you add a component make sure to open it's file, and remove the dark prefixes from the classes. Then, remove the non-prefixed classes that were there before. **",
 	"main": "index.ts",

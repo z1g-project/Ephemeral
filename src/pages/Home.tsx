@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input";
 import Header from "@/components/Header";
 import { useSuggestions } from "@/hooks";
 
-
 export default function Home() {
 	const navigate = useNavigate();
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -85,7 +84,7 @@ export default function Home() {
 							: `invisible border-none`
 					}`}
 				>
-					<CommandList className="overflow-visible rounded-b-lg rounded-t-none border-x border-b border-slate-800">
+					<CommandList className="overflow-visible rounded-b-lg rounded-t-none border-x border-b border-border">
 						{suggestions ? (
 							suggestions.length > 0 ? (
 								<CommandGroup heading="Suggestions">
@@ -106,7 +105,7 @@ export default function Home() {
 						) : null}
 						{error ? (
 							<CommandGroup heading="Error">
-								<CommandItem className="cursor-not-allowed !bg-slate-950 !text-red-600">
+								<CommandItem className="cursor-not-allowed !bg-background !text-red-600">
 									{error.message}
 								</CommandItem>
 							</CommandGroup>

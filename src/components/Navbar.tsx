@@ -17,7 +17,7 @@ const links: {
 export default function Navbar() {
 	return (
 		<div className="flex justify-between">
-			<div className={`p-5 text-2xl font-bold text-slate-300`}>
+			<div className={`p-5 text-2xl font-bold text-foreground`}>
 				<Link to="/">Ephemeral</Link>
 			</div>
 			<div className="justify-end p-5">
