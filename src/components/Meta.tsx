@@ -1,10 +1,11 @@
 import { Helmet } from "react-helmet";
 // todo - add fake meta tags
 export default function Meta() {
+	const url = "https://ephemeral.incognitotgt.me";
 	return (
 		<Helmet>
 			<meta name="googlebot" content="index, follow, snippet" />
-			<link rel="canonical" href="https://ephemeral.incognitotgt.me/" />
+			<link rel="canonical" href={url} />
 			<meta
 				name="keywords"
 				content="proxy, web proxy, unblock websites, unblock chromebook, free web proxy, proxy list, proxy sites, un block chromebook, online proxy, proxy server, proxysite, proxy youtube, bypass securly, bypass iboss, bypass lightspeed filter, z1g, chromebooks, titanium network, unblock youtube, youtube proxy, unblocked youtube, youtube unblocked"
@@ -14,9 +15,12 @@ export default function Meta() {
 				content="Ephemeral is a web proxy that allows you to bypass internet restrictions such as firewalls, filters, and parental controls. It has a simple and clean UI, and has powerful features such as userscripts, userstyles, and a browser like UI"
 			/>
 			<meta property="og:site_name" content="Ephemeral" />
-			<meta property="og:url" content="https://ephemeral.incognitotgt.me/" />
-			<meta property="og:image" content="/ephemeral-sm.png" />
-			<meta property="og:image:secure_url" content="/ephemeral-sm.png" />
+			<meta property="og:url" content={url} />
+			<meta property="og:image" content={`${url}/ephemeral-sm.png`} />
+			<meta
+				property="og:image:secure_url"
+				content={`${url}/ephemeral-sm.png`}
+			/>
 			<meta property="og:title" content="Ephemeral" />
 			<meta property="og:type" content="website" />
 			<meta
@@ -29,10 +33,10 @@ export default function Meta() {
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "Ephemeral",
-            "url": "https://ephemeral.incognitotgt.me",
+            "url": "${url}",
             "sameAs": [
                 "https://github.com/z1g-project",
-                "https://ephemeral.incognitotgt.me"
+                "${url}"
             ]
         }
             `}
