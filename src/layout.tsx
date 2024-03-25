@@ -66,7 +66,7 @@ const Layout = ({ children }: LayoutProps) => {
 				{window.location.origin === "https://ephemeral.incognitotgt.me" && (
 					<Meta />
 				)}
-				{window.location.origin === "http://localhost:8080" && <Meta />}
+				{window.location.origin === "http://localhost:5173" && <Meta />}
 				<div className="h-full bg-background text-foreground">
 					<Toaster />
 					{shouldDisplayNavbar && <Navbar />}
