@@ -1,6 +1,6 @@
 import { createServer } from "node:http";
 import { createBareServer } from "@nebula-services/bare-server-node";
-import express, { request, response } from "express";
+import express from "express";
 import { Socket, Head } from "ws";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import path from "path";
@@ -12,7 +12,7 @@ import wisp from "wisp-server-node";
 // @ts-expect-error stfu
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 // @ts-expect-error stfu
-import { epoxyPath } from "@mercuryworkshop/epoxy-transport"
+import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 // @ts-expect-error stfu
 import { baremuxPath } from "@mercuryworkshop/bare-mux";
 config.config();
@@ -37,10 +37,18 @@ if (masqr) {
 }
 app.use(compression(compressionOptions));
 app.use(cors(corsOptions));
-app.use(express.static("dist", { setHeaders: (res, path) => { if (path.endsWith("cjs")) { res.setHeader("Content-Type", "text/javascript"); }}}));
-app.use("/libcurl/", express.static(libcurlPath))
-app.use("/epoxy/", express.static(epoxyPath))
-app.use("/baremux/",express.static(baremuxPath))
+app.use(
+	express.static("dist", {
+		setHeaders: (res, path) => {
+			if (path.endsWith("cjs")) {
+				res.setHeader("Content-Type", "text/javascript");
+			}
+		},
+	}),
+);
+app.use("/libcurl/", express.static(libcurlPath));
+app.use("/epoxy/", express.static(epoxyPath));
+app.use("/baremux/", express.static(baremuxPath));
 app.use("/uv/", express.static(uvPath));
 const statusValidator = (response: Response) =>
 	response.ok ? response : Promise.reject(response);
@@ -122,12 +130,12 @@ server.on("request", (request, response) => {
 
 server.on("upgrade", (req: Request, socket: Socket, head: Head) => {
 	if (req.url.endsWith("/wisp/")) {
-	  wisp.routeRequest(req, socket, head);
+		wisp.routeRequest(req, socket, head);
 	} else if (req.url.endsWith("/bend")) {
-	  // @ts-expect-error no?
-	  bare.routeUpgrade(req, socket, head);
+		// @ts-expect-error no?
+		bare.routeUpgrade(req, socket, head);
 	}
-  });
+});
 
 server.listen({
 	port: port,

@@ -121,6 +121,12 @@ function useConfig(
 					const subKeys = Object.keys(defaultConfig[key as Path]);
 					for (const subKey of subKeys) {
 						const value = await localforage.getItem(`${key}.${subKey}`);
+						if (!value) {
+							await localforage.setItem(
+								`${key}.${subKey}`,
+								defaultConfig[key as Path][subKey as SubPath],
+							);
+						}
 						subConfig[subKey] = (value ||
 							defaultConfig[key as Path][subKey as SubPath]) as string;
 					}
@@ -129,6 +135,9 @@ function useConfig(
 						[key]: subConfig,
 					}));
 				}
+				console.log(
+					"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Default config loaded.",
+				);
 			} catch (error) {
 				console.error(error); // Handle or log the error appropriately
 			}

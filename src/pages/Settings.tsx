@@ -4,6 +4,7 @@ import SearchSettings from "./settings/SearchSettings";
 import Header from "@/components/Header";
 import { Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ModeToggle } from "@/components/mode-toggle";
 import lastPushDate from "@/push-date?raw";
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
@@ -14,7 +15,6 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-
 export default function Settings() {
 	return (
 		<>
@@ -28,12 +28,15 @@ export default function Settings() {
 					<CloakSettings />
 					<SearchSettings />
 				</div>
-				<div className="flex justify-end pb-2 pr-2 text-foreground">
+				<div className="fixed bottom-2 right-2 flex gap-2 text-xs">
+					<ModeToggle />
 					<Dialog>
-						<DialogTrigger>
-							<Button variant="outline" size="sm">
-								About
-								<Info aria-label="Info" className="ml-2 h-5 w-5" />
+						<DialogTrigger asChild>
+							<Button variant="outline" size="icon">
+								<Info
+									aria-label="Info"
+									className="h-[1.2rem] w-[1.2rem] transition-all"
+								/>
 							</Button>
 						</DialogTrigger>
 						<DialogContent>
@@ -41,7 +44,7 @@ export default function Settings() {
 								<DialogTitle className="m-2 text-center text-foreground">
 									Ephemeral 0.7.0 - Beta
 								</DialogTitle>
-								<DialogDescription className=" items-center justify-center text-foreground">
+								<DialogDescription className="items-center justify-center text-foreground">
 									<img
 										src="/ephemeral.png"
 										alt="Ephemeral"

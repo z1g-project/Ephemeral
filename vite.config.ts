@@ -8,7 +8,7 @@ import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 // @ts-expect-error stfu
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 // @ts-expect-error stfu
-import { epoxyPath } from "@mercuryworkshop/epoxy-transport"
+import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 const __dirname = path.resolve();
 
 // https://vitejs.dev/config/
@@ -35,12 +35,12 @@ export default defineConfig({
 				{
 					src: `${epoxyPath}/**/*`.replace(/\\/g, "/"),
 					dest: "epoxy",
-					overwrite: false
+					overwrite: false,
 				},
 				{
 					src: `${libcurlPath}/**/*`.replace(/\\/g, "/"),
 					dest: "libcurl",
-					overwrite: false
+					overwrite: false,
 				},
 			],
 		}),
