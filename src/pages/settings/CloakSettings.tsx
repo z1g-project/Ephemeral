@@ -20,7 +20,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useConfig } from "@/hooks";
 import { renderToStaticMarkup } from "react-dom/server";
-import { Loader2 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function CloakSettings() {
 	const cloakTitleRef = useRef<HTMLInputElement>(null);
@@ -105,9 +105,7 @@ export default function CloakSettings() {
 	};
 
 	return (
-		<Card
-			className={`flex h-96 w-full flex-col md:w-96 ${loading ? "items-center justify-center" : ""}`}
-		>
+		<Card className={`flex h-96 w-full flex-col md:w-96`}>
 			{!loading ? (
 				<>
 					<CardHeader>
@@ -169,7 +167,7 @@ export default function CloakSettings() {
 					</CardFooter>
 				</>
 			) : (
-				<Loader2 size={64} className="animate-spin" />
+				<Skeleton className="h-full w-full" />
 			)}
 		</Card>
 	);
