@@ -19,8 +19,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useConfig } from "@/hooks";
-import { Loader2 } from "lucide-react";
-
+import { Skeleton } from "@/components/ui/skeleton";
 export default function SearchSettings() {
 	const { toast } = useToast();
 	const [custom, setCustom] = useState<boolean>(false);
@@ -59,9 +58,7 @@ export default function SearchSettings() {
 	};
 
 	return (
-		<Card
-			className={`flex h-96 w-full flex-col md:w-96 ${loading ? "items-center justify-center" : ""}`}
-		>
+		<Card className={`flex h-96 w-full flex-col md:w-96`}>
 			{!loading ? (
 				<>
 					<CardHeader>
@@ -115,7 +112,7 @@ export default function SearchSettings() {
 					</CardFooter>
 				</>
 			) : (
-				<Loader2 size={64} className="animate-spin" />
+				<Skeleton className="h-full w-full" />
 			)}
 		</Card>
 	);

@@ -13,8 +13,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-
+import { Skeleton } from "@/components/ui/skeleton";
 export default function ProxySettings() {
 	const { toast } = useToast();
 	const bareRef = useRef<HTMLInputElement>(null);
@@ -56,9 +55,7 @@ export default function ProxySettings() {
 	};
 
 	return (
-		<Card
-			className={`flex h-96 w-full flex-col md:w-96 ${loading ? "items-center justify-center" : ""}`}
-		>
+		<Card className={`flex h-96 w-full flex-col md:w-96`}>
 			{!loading ? (
 				<>
 					<CardHeader>
@@ -92,7 +89,7 @@ export default function ProxySettings() {
 					</CardFooter>
 				</>
 			) : (
-				<Loader2 size={64} className="animate-spin" />
+				<Skeleton className="h-full w-full" />
 			)}
 		</Card>
 	);
