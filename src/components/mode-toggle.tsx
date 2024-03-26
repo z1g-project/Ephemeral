@@ -23,10 +23,11 @@ export function ModeToggle({ text }: { text?: string }) {
 	return (
 
 		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
-				<TooltipProvider>
+						<TooltipProvider>
 					<Tooltip>
-						<TooltipTrigger asChild>
+						<TooltipTrigger>
+			<DropdownMenuTrigger asChild>
+	
 							<Button variant="outline" size={text ? "default" : "icon"}>
 						{text}
 						<SwatchBook
@@ -34,11 +35,12 @@ export function ModeToggle({ text }: { text?: string }) {
 						/>
 						<span className="sr-only">Toggle theme</span>
 					</Button>
-						</TooltipTrigger>
+
+		</DropdownMenuTrigger>
+		</TooltipTrigger>
 						<TooltipContent>Themes</TooltipContent>
 					</Tooltip>
 				</TooltipProvider>
-		</DropdownMenuTrigger>
 			
 			<DropdownMenuContent align="end">
 				<DropdownMenuLabel>Themes</DropdownMenuLabel>
