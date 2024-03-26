@@ -14,7 +14,6 @@ const __dirname = path.resolve();
 export default defineConfig({
 	build: {
 		target: "ES2022",
-		chunkSizeWarningLimit: 650,
 	},
 	plugins: [
 		viteStaticCopy({

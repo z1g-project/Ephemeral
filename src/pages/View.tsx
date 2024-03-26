@@ -335,7 +335,7 @@ export default function View() {
 				<iframe
 					title="View"
 					src={proxyPrefix + url}
-					className="h-full w-full border-none bg-slate-200"
+					className="h-full w-full border-none bg-secondary-foreground"
 					ref={frameRef}
 					id="mainframe"
 					onLoad={onLoad}
