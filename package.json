@@ -5,13 +5,13 @@
 	"type": "module",
 	"scripts": {
 		"preinstall": "npx only-allow pnpm",
-		"dev": "tsx index.ts --dev",
+		"ephemeral": "tsx index.ts",
+		"dev": "pnpm ephemeral --dev",
 		"build": "tsc && vite build",
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"format": "prettier --write .",
-		"preview": "vite preview",
-		"bstart": "npm run build && npm run start",
-		"start": "tsx index.ts"
+		"bstart": "pnpm build && pnpm start",
+		"start": "pnpm ephemeral"
 	},
 	"dependencies": {
 		"@mercuryworkshop/bare-mux": "^1.0.5",
@@ -58,8 +58,7 @@
 		"tailwindcss-animate": "^1.0.7",
 		"tsx": "^4.7.1",
 		"vite-plugin-static-copy": "^1.0.1",
-		"wisp-server-node": "^1.0.1",
-		"ws": "^8.16.0"
+		"wisp-server-node": "^1.0.1"
 	},
 	"devDependencies": {
 		"@types/compression": "^1.7.5",

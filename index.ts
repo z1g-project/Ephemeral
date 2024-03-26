@@ -1,13 +1,14 @@
-import { createServer } from "node:http";
+#!/usr/bin/env tsx
+import { createServer, IncomingMessage } from "node:http";
 import { createServer as createViteServer } from "vite";
 import { createBareServer } from "@nebula-services/bare-server-node";
 import express from "express";
-import { Socket, Head } from "ws";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import path from "path";
 import cors from "cors";
 import compression from "compression";
 import { argv } from "node:process";
+import { Socket } from "node:net";
 import config from "dotenv";
 import wisp from "wisp-server-node";
 // @ts-expect-error stfu
@@ -16,9 +17,28 @@ import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 // @ts-expect-error stfu
 import { baremuxPath } from "@mercuryworkshop/bare-mux";
+const devMode = argv.includes("--dev");
+const usingMasqr = argv.includes("--masqr");
+const noIpLeak = argv.includes("--no-ip-leak");
 config.config();
-
-const bare = createBareServer("/bend/", {});
+if (argv.includes("-h") || argv.includes("--help")) {
+	console.log(`
+\x1b[34;49;1mEphemeral
+---------
+\x1B[32m
+  default: Run in production mode
+  --dev: Run in development mode
+  --help, -h: Display this help message
+  --masqr: Enable masqr
+  --no-ip-leak: only allow going to asdf.com
+    `);
+	process.exit(0);
+}
+const bare = createBareServer("/bend/", {
+	maintainer: {
+		website: "https://z1g-project.vercel.app",
+	},
+});
 const vite = await createViteServer({
 	server: { middlewareMode: true },
 });
@@ -33,12 +53,9 @@ const compressionOptions = {
 	threshold: 0,
 	filter: () => true,
 };
-const masqr = process.env.MASQR && process.env.MASQR.toLowerCase() === "true";
-if (masqr) {
-	console.log(`Masqr is Enabled`);
-} else {
-	console.log(`Masqr is Disabled`);
-}
+const masqr =
+	(process.env.MASQR && process.env.MASQR.toLowerCase() === "true") ||
+	usingMasqr;
 const setCjsHeaders = {
 	setHeaders: (res: express.Response, path: string) => {
 		if (path.endsWith("cjs")) {
@@ -48,7 +65,7 @@ const setCjsHeaders = {
 };
 app.use(compression(compressionOptions));
 app.use(cors(corsOptions));
-if (argv[2] != "--dev") {
+if (!devMode) {
 	app.use(express.static("dist", setCjsHeaders));
 } else {
 	app.use(vite.middlewares);
@@ -109,7 +126,7 @@ app.get("/json/apps", async (_, response) => {
 		});
 	}
 });
-if (argv[2] != "--dev") {
+if (!devMode) {
 	app.get("*", (_, response) => {
 		response.sendFile(path.resolve("dist", "index.html"));
 	});
@@ -118,28 +135,29 @@ if (argv[2] != "--dev") {
 const server = createServer();
 server.on("request", (request, response) => {
 	if (bare.shouldRoute(request)) {
-		// if (
-		// 	request.headers["x-bare-host"] &&
-		// 	request.headers["x-bare-host"] != "asdf.com"
-		// ) {
-		// 	console.log(request.headers);
-		// 	request.socket.write(
-		// 		'HTTP/1.1 200 NOT OK\n\n"NO LEAKING MY IP!!! GO TO ASDF.COM NOW"',
-		// 	);
-		// 	request.socket.end();
-		// }
+		if (noIpLeak) {
+			if (
+				request.headers["x-bare-host"] &&
+				request.headers["x-bare-host"] != "asdf.com"
+			) {
+				console.log(request.headers);
+				request.socket.write(
+					'HTTP/1.1 406 Not Acceptable\n\n"NO LEAKING MY IP!!! GO TO ASDF.COM NOW"',
+				);
+				request.socket.end();
+			}
+		}
 		bare.routeRequest(request, response);
 	} else {
 		app(request, response);
 	}
 });
 
-server.on("upgrade", (req: Request, socket: Socket, head: Head) => {
-	if (req.url.endsWith("/wisp/")) {
-		wisp.routeRequest(req, socket, head);
-	} else if (req.url.endsWith("/bend")) {
-		// @ts-expect-error no?
+server.on("upgrade", (req: IncomingMessage, socket: Socket, head) => {
+	if (bare.shouldRoute(req)) {
 		bare.routeUpgrade(req, socket, head);
+	} else if (req.url.endsWith("/wisp/")) {
+		wisp.routeRequest(req, socket, head);
 	}
 });
 
@@ -147,5 +165,8 @@ server.listen({
 	port: port,
 });
 console.log(
-	`\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Running on port http://localhost:${port} in ${argv[2] ? "dev" : "production"} mode`,
+	`\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Running on port ${port} in ${devMode ? "dev" : "production"} mode
+\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Configured with Masqr: ${masqr}
+\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Configured with IP Leak Protection: ${noIpLeak}
+	`,
 );
