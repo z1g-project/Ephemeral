@@ -77,6 +77,7 @@ export default function Settings() {
 										<li>vy.x</li>
 										<li>xstars</li>
 										<li>yu6x</li>
+										<li>anshnk</li>
 									</ul>
 									<br />
 									Copyright 2024 z1g Project. Last pushed on {lastPushDate}.
