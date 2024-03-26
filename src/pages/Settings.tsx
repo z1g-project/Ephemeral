@@ -2,7 +2,7 @@ import ProxySettings from "./settings/ProxySettings";
 import CloakSettings from "./settings/CloakSettings";
 import SearchSettings from "./settings/SearchSettings";
 import Header from "@/components/Header";
-import { Info } from "lucide-react";
+import { Info, CircleDashed } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import lastPushDate from "@/push-date?raw";
@@ -41,15 +41,14 @@ export default function Settings() {
 						</DialogTrigger>
 						<DialogContent>
 							<DialogHeader>
-								<DialogTitle className="m-2 text-center text-foreground">
-									Ephemeral 0.7.0 - Beta
+								<DialogTitle className="m-2 flex items-center justify-center text-center text-2xl text-foreground">
+									<CircleDashed
+										className="mr-2 flex size-6 flex-row"
+										strokeWidth={3}
+									/>
+									Ephemeral 0.8.0 - Beta
 								</DialogTitle>
 								<DialogDescription className="items-center justify-center text-foreground">
-									<img
-										src="/ephemeral.png"
-										alt="Ephemeral"
-										className="mx-auto mb-6 h-96 w-96 rounded-lg"
-									/>
 									Ephemeral is a powerful proxy with Ultraviolet and other
 									features, made by the z1g Project.
 									<br />

@@ -4,7 +4,7 @@ import Meta from "@/components/Meta";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Link } from "react-router-dom";
-import { LucideHome, Settings, LayoutGrid } from "lucide-react";
+import { LucideHome, Settings, LayoutGrid, CircleDashed } from "lucide-react";
 import {
 	NavigationMenu,
 	NavigationMenuItem,
@@ -27,7 +27,10 @@ function Navbar() {
 	return (
 		<div className="flex justify-between">
 			<div className={`p-5 text-2xl font-bold text-foreground`}>
-				<Link to="/">Ephemeral</Link>
+				<Link to="/" className="flex items-center justify-center">
+					<CircleDashed className="mr-2 flex size-6 flex-row" strokeWidth={3} />
+					Ephemeral
+				</Link>
 			</div>
 			<div className="justify-end p-5">
 				<NavigationMenu>
