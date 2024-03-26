@@ -1,17 +1,17 @@
 {
 	"name": "ephemeral",
 	"private": true,
-	"version": "0.7.0",
+	"version": "0.8.0",
 	"type": "module",
 	"scripts": {
 		"preinstall": "npx only-allow pnpm",
 		"ephemeral": "tsx index.ts",
-		"dev": "pnpm ephemeral --dev",
+		"dev": "tsx index.ts --dev",
 		"build": "tsc && vite build",
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"format": "prettier --write .",
 		"bstart": "pnpm build && pnpm start",
-		"start": "pnpm ephemeral"
+		"start": "tsx index.ts"
 	},
 	"dependencies": {
 		"@mercuryworkshop/bare-mux": "^1.0.5",

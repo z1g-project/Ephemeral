@@ -18,32 +18,38 @@ import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 // @ts-expect-error stfu
 import { baremuxPath } from "@mercuryworkshop/bare-mux";
 const devMode = argv.includes("--dev");
-const usingMasqr = argv.includes("--masqr");
+const usingMasqr = process.env.MASQR || argv.includes("--masqr");
 const noIpLeak = argv.includes("--no-ip-leak");
+const port =
+	process.env.PORT ||
+	(argv.includes("--port") && argv[argv.indexOf("--port") + 1]) ||
+	8080;
 config.config();
+process.chdir(import.meta.url.replace("file://", "").replace("index.ts", ""));
 if (argv.includes("-h") || argv.includes("--help")) {
 	console.log(`
-\x1b[34;49;1mEphemeral
----------
-\x1B[32m
-  default: Run in production mode
-  --dev: Run in development mode
-  --help, -h: Display this help message
-  --masqr: Enable masqr
-  --no-ip-leak: only allow going to asdf.com
+\x1b[34;49mEphemeral
+\x1b[37;49m
+default: Run in production mode
+--port <port>: Specify the port to run on
+--dev: Run in development mode
+--help, -h: Display this help message
+--masqr: Enable masqr
+--no-ip-leak: only allow going to asdf.com
     `);
 	process.exit(0);
 }
 const bare = createBareServer("/bend/", {
 	maintainer: {
 		website: "https://z1g-project.vercel.app",
+		// todo: change this
+		email: "tgt@incognitotgt.me",
 	},
 });
 const vite = await createViteServer({
 	server: { middlewareMode: true },
 });
 const app = express();
-const port = process.env.PORT || 8080;
 const corsOptions = {
 	origin: `http://localhost:${port}`,
 	methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -65,6 +71,26 @@ const setCjsHeaders = {
 };
 app.use(compression(compressionOptions));
 app.use(cors(corsOptions));
+app.get("/json/apps", async (_, response) => {
+	try {
+		const data = await fetch("https://incognitotgt.me/ephemeral/apps.json")
+			.then(statusValidator)
+			.then((response) => response.json())
+			.then((response) => Array(20).fill(response).flat())
+			.catch(statusCatcher);
+
+		response.json({ status: "success", data });
+	} catch (error) {
+		console.log(error);
+		response.status(500).json({
+			status: "error",
+			error: {
+				message: "An error occurred while retrieving the apps",
+				detail: error,
+			},
+		});
+	}
+});
 if (!devMode) {
 	app.use(express.static("dist", setCjsHeaders));
 } else {
@@ -101,26 +127,6 @@ app.get("/search", async (request, response) => {
 			status: "error",
 			error: {
 				message: "An error occured while querying the API",
-				detail: error,
-			},
-		});
-	}
-});
-app.get("/json/apps", async (_, response) => {
-	try {
-		const data = await fetch("https://incognitotgt.me/ephemeral/apps.json")
-			.then(statusValidator)
-			.then((response) => response.json())
-			.then((response) => Array(20).fill(response).flat())
-			.catch(statusCatcher);
-
-		response.json({ status: "success", data });
-	} catch (error) {
-		console.log(error);
-		response.status(500).json({
-			status: "error",
-			error: {
-				message: "An error occurred while retrieving the apps",
 				detail: error,
 			},
 		});
@@ -164,9 +170,8 @@ server.on("upgrade", (req: IncomingMessage, socket: Socket, head) => {
 server.listen({
 	port: port,
 });
-console.log(
-	`\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Running on port ${port} in ${devMode ? "dev" : "production"} mode
-\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Configured with Masqr: ${masqr}
-\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Configured with IP Leak Protection: ${noIpLeak}
-	`,
-);
+console.log(`
+\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Running on port ${port} in ${devMode ? "dev" : "production"} mode
+Configured with Masqr: ${masqr}
+Configured with IP Leak Protection: ${noIpLeak}
+`);
