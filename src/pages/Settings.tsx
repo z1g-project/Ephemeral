@@ -15,6 +15,12 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 export default function Settings() {
 	return (
 		<>
@@ -31,14 +37,21 @@ export default function Settings() {
 				<div className="fixed bottom-2 right-2 flex gap-2 text-xs">
 					<ModeToggle />
 					<Dialog>
-						<DialogTrigger asChild>
-							<Button variant="outline" size="icon">
-								<Info
-									aria-label="Info"
-									className="h-[1.2rem] w-[1.2rem] transition-all"
-								/>
-							</Button>
-						</DialogTrigger>
+						<TooltipProvider>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<DialogTrigger asChild>
+										<Button variant="outline" size="icon">
+											<Info
+												aria-label="Info"
+												className="h-[1.2rem] w-[1.2rem] transition-all"
+											/>
+										</Button>
+									</DialogTrigger>
+								</TooltipTrigger>
+								<TooltipContent>About Ephemeral</TooltipContent>
+							</Tooltip>
+						</TooltipProvider>
 						<DialogContent>
 							<DialogHeader>
 								<DialogTitle className="m-2 flex items-center justify-center text-center text-2xl text-foreground">
