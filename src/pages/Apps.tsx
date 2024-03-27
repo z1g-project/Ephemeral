@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Fuse from "fuse.js";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import {
 	Card,
 	CardContent,
@@ -10,10 +10,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect, useRef } from "react";
-import { useAsync } from "@/hooks";
-import { fetch } from "@/utils/fetch";
 import type { Application } from "@/types/apps";
-import { Loader2, X } from "lucide-react";
+import { X } from "lucide-react";
 
 const mapFunction = (app: Application, key: number) => (
 	<div className="w-64" key={key}>
@@ -32,16 +30,14 @@ const mapFunction = (app: Application, key: number) => (
 );
 
 export default function Apps() {
-	const { loading, data: apps, error, run } = useAsync<Application[]>([]);
+	const { data: apps } = useLoaderData() as {
+		data: Application[] | null;
+	};
 	const [searchTerm, setSearchTerm] = useState("");
 	const [searchResults, setSearchResults] = useState<Application[] | null>([]);
 	const [listOutOfBounds, setListOutOfBounds] = useState(false);
 	const [fuse, setFuse] = useState<Fuse<Application> | null>(null);
 	const listRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		run(() => fetch("/json/apps"));
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		if (!apps) return;
@@ -98,28 +94,18 @@ export default function Apps() {
 				>
 					{searchResults ? searchResults.map(mapFunction) : null}
 				</div>
-				<span
-					className={`flex w-full items-center justify-center pb-10 text-center text-2xl font-bold ${error ? "text-red-600" : "text-foreground"}`}
-				>
-					{!error ? (
-						!loading ? (
-							(searchResults ?? []).length > 0 ? (
-								listOutOfBounds ? (
-									"No more apps."
-								) : (
-									""
-								)
-							) : (
-								<>
-									<X size={32} />
-									No apps found.
-								</>
-							)
+				<span className="flex w-full items-center justify-center pb-10 text-center text-2xl font-bold text-foreground">
+					{(searchResults ?? []).length > 0 ? (
+						listOutOfBounds ? (
+							"No more apps."
 						) : (
-							<Loader2 size={64} className="animate-spin" />
+							""
 						)
 					) : (
-						error.message
+						<>
+							<X size={32} />
+							No apps found.
+						</>
 					)}
 				</span>
 			</div>

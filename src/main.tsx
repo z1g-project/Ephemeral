@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { useEffect } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, json } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import "@/index.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -13,8 +13,8 @@ const Apps = React.lazy(() => import("@/pages/Apps"));
 const ServiceWorkerError = React.lazy(
 	() => import("@/pages/ServiceWorkerError"),
 );
-const PageNotFound = React.lazy(() => import("@/pages/PageNotFound"));
 import Layout from "@/layout";
+import Error from "@/pages/error";
 import localforage from "localforage";
 declare global {
 	interface Window {
@@ -27,6 +27,7 @@ const routes = createBrowserRouter([
 	{
 		Component: Layout,
 		path: "/",
+		ErrorBoundary: Error,
 		children: [
 			{
 				Component: Home,
@@ -39,10 +40,9 @@ const routes = createBrowserRouter([
 			{
 				Component: Apps,
 				path: "/apps",
-			},
-			{
-				Component: PageNotFound,
-				path: "*",
+				loader: async () => {
+					return await fetch("/json/apps").then((res) => res.json());
+				},
 			},
 			{
 				Component: View,
