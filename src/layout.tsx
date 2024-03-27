@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import Meta from "@/components/Meta";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LucideHome, Settings, LayoutGrid, CircleDashed } from "lucide-react";
 import {
 	NavigationMenu,
@@ -12,6 +12,16 @@ import {
 	NavigationMenuList,
 	navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import {
+	Command,
+	CommandDialog,
+	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+	CommandList,
+} from "@/components/ui/command";
+
 import type { LayoutProps } from "@/types/layout";
 
 const links: {
@@ -23,6 +33,46 @@ const links: {
 	{ href: "/apps", text: "Apps", icon: <LayoutGrid /> },
 	{ href: "/settings", text: "Settings", icon: <Settings /> },
 ];
+function CommandBox() {
+	const [open, setOpen] = React.useState(false);
+	const navigate = useNavigate();
+	React.useEffect(() => {
+		const down = (e: KeyboardEvent) => {
+			if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+				e.preventDefault();
+				setOpen((open) => !open);
+			}
+		};
+		document.addEventListener("keydown", down);
+		return () => document.removeEventListener("keydown", down);
+	}, []);
+	return (
+		<CommandDialog open={open} onOpenChange={setOpen}>
+			<Command>
+				<CommandInput placeholder="Type a command or search..." />
+				<CommandList>
+					<CommandEmpty>No results found.</CommandEmpty>
+					<CommandGroup heading="Go to">
+						{links.map((link) => (
+							<CommandItem
+								key={link.href}
+								onSelect={() => {
+									setOpen(false);
+									navigate(link.href);
+								}}
+							>
+								<span className="mr-2 [&>svg]:h-4 [&>svg]:w-4">
+									{link.icon}
+								</span>
+								{link.text}
+							</CommandItem>
+						))}
+					</CommandGroup>
+				</CommandList>
+			</Command>
+		</CommandDialog>
+	);
+}
 function Navbar() {
 	return (
 		<div className="flex justify-between">
@@ -73,6 +123,7 @@ const Layout = ({ children }: LayoutProps) => {
 				<div className="h-full bg-background text-foreground">
 					<Toaster />
 					{shouldDisplayNavbar && <Navbar />}
+					<CommandBox />
 					{children}
 				</div>
 			</ThemeProvider>
