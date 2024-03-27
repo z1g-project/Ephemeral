@@ -15,8 +15,8 @@ import { fetch } from "@/utils/fetch";
 import type { Application } from "@/types/apps";
 import { Loader2, X } from "lucide-react";
 
-const mapFunction = (app: Application) => (
-	<div className="w-64">
+const mapFunction = (app: Application, key: number) => (
+	<div className="w-64" key={key}>
 		<Link to={`/app/${app.path}`} className="max-w-0">
 			<Card>
 				<CardHeader>
