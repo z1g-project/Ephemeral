@@ -1,9 +1,7 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import Meta from "@/components/Meta";
 import { Toaster } from "@/components/ui/toaster";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation, Outlet } from "react-router-dom";
 import { LucideHome, Settings, LayoutGrid, CircleDashed } from "lucide-react";
 import {
 	NavigationMenu,
@@ -21,8 +19,6 @@ import {
 	CommandItem,
 	CommandList,
 } from "@/components/ui/command";
-
-import type { LayoutProps } from "@/types/layout";
 
 const links: {
 	href: string;
@@ -106,7 +102,7 @@ function Navbar() {
 		</div>
 	);
 }
-const Layout = ({ children }: LayoutProps) => {
+export default function Layout() {
 	const location = useLocation();
 	const shouldDisplayNavbar =
 		(!location.pathname.startsWith("/view/") &&
@@ -115,20 +111,16 @@ const Layout = ({ children }: LayoutProps) => {
 
 	return (
 		<main className="h-full">
-			<ThemeProvider>
-				{window.location.origin === "https://ephemeral.incognitotgt.me" && (
-					<Meta />
-				)}
-				{window.location.origin === "http://localhost:5173" && <Meta />}
-				<div className="h-full bg-background text-foreground">
-					<Toaster />
-					{shouldDisplayNavbar && <Navbar />}
-					<CommandBox />
-					{children}
-				</div>
-			</ThemeProvider>
+			{window.location.origin === "https://ephemeral.incognitotgt.me" && (
+				<Meta />
+			)}
+			{window.location.origin === "http://localhost:5173" && <Meta />}
+			<div className="h-full bg-background text-foreground">
+				<Toaster />
+				{shouldDisplayNavbar && <Navbar />}
+				<CommandBox />
+				<Outlet />
+			</div>
 		</main>
 	);
-};
-
-export default Layout;
+}
