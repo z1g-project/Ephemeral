@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { useEffect } from "react";
-import { createBrowserRouter, RouterProvider, json } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import "@/index.css";
 import { ThemeProvider } from "@/components/theme-provider";
