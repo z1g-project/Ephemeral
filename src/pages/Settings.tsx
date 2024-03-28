@@ -80,7 +80,7 @@ export default function Settings() {
 										<li>anshnk</li>
 									</ul>
 									<br />
-									Copyright 2024 z1g Project. Last pushed on {lastPushDate}.
+									Copyright 2024 z1g Project. Last pushed on {lastPushDate} UTC.
 								</DialogDescription>
 							</DialogHeader>
 						</DialogContent>

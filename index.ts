@@ -9,7 +9,6 @@ import cors from "cors";
 import compression from "compression";
 import { argv } from "node:process";
 import { Socket } from "node:net";
-import config from "dotenv";
 import wisp from "wisp-server-node";
 // @ts-expect-error stfu
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
@@ -24,7 +23,7 @@ const port =
 	process.env.PORT ||
 	(argv.includes("--port") && argv[argv.indexOf("--port") + 1]) ||
 	8080;
-config.config();
+const websiteUrl = "https://z1g-project.vercel.app";
 process.chdir(import.meta.url.replace("file://", "").replace("index.ts", ""));
 if (argv.includes("-h") || argv.includes("--help")) {
 	console.log(`
@@ -41,9 +40,9 @@ default: Run in production mode
 }
 const bare = createBareServer("/bend/", {
 	maintainer: {
-		website: "https://z1g-project.vercel.app",
+		website: websiteUrl,
 		// todo: change this
-		email: "tgt@incognitotgt.me",
+		email: process.env.MAINTAINER_EMAIL || "tgt@incognitotgt.me",
 	},
 });
 const vite = await createViteServer({
@@ -73,10 +72,9 @@ app.use(compression(compressionOptions));
 app.use(cors(corsOptions));
 app.get("/json/apps", async (_, response) => {
 	try {
-		const data = await fetch("https://incognitotgt.me/ephemeral/apps.json")
+		const data = await fetch(`${websiteUrl}/api/apps`)
 			.then(statusValidator)
 			.then((response) => response.json())
-			.then((response) => Array(20).fill(response).flat())
 			.catch(statusCatcher);
 
 		response.json({ status: "success", data });
@@ -105,33 +103,6 @@ const statusValidator = (response: Response) =>
 const statusCatcher = ({ status, statusText }: Response) => {
 	throw `API returned ${status} ${statusText}`;
 };
-app.get("/search", async (request, response) => {
-	const query = request.query.q;
-
-	try {
-		const data = await fetch(
-			`http://api.duckduckgo.com/ac?q=${query}&format=json`,
-		)
-			.then(statusValidator)
-			.then((reponse) => reponse.json())
-			.then((response) =>
-				response.map((item: { phrase: string }) => item.phrase),
-			)
-			.catch(statusCatcher);
-		response.json({
-			status: "success",
-			data,
-		});
-	} catch (error) {
-		response.status(500).json({
-			status: "error",
-			error: {
-				message: "An error occured while querying the API",
-				detail: error,
-			},
-		});
-	}
-});
 if (!devMode) {
 	app.get("*", (_, response) => {
 		response.sendFile(path.resolve("dist", "index.html"));
