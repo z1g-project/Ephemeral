@@ -16,10 +16,10 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import { useTheme, themes } from "@/components/theme-provider";
+import { useTheme } from "@/components/theme-provider";
 
 export function ModeToggle({ text }: { text?: string }) {
-	const { setTheme } = useTheme();
+	const { setTheme, themes } = useTheme();
 	return (
 		<DropdownMenu>
 			<TooltipProvider>
@@ -46,9 +46,6 @@ export function ModeToggle({ text }: { text?: string }) {
 						{theme.charAt(0).toUpperCase() + theme.slice(1)}
 					</DropdownMenuItem>
 				))}
-				<DropdownMenuItem onClick={() => setTheme("system")}>
-					System
-				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

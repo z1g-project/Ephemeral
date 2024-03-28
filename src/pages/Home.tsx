@@ -36,7 +36,7 @@ export default function Home() {
 	return (
 		<>
 			<Header title="Home | Ephemeral" />
-			<div className="h-full-navbar-alternate-offset flex flex-1 flex-col items-center justify-center">
+			<div className="flex h-[calc(100%_-_5rem)] flex-1 flex-col items-center justify-center">
 				<Input
 					ref={inputRef}
 					id="input"

@@ -1,7 +1,7 @@
 {
 	"name": "ephemeral",
 	"private": true,
-	"version": "0.8.0",
+	"version": "0.9.0",
 	"type": "module",
 	"scripts": {
 		"preinstall": "npx only-allow pnpm",
@@ -33,7 +33,6 @@
 		"@titaniumnetwork-dev/ultraviolet": "^3.0.0",
 		"@types/express": "^4.17.21",
 		"@types/react-router-dom": "^5.3.3",
-		"@vitejs/plugin-react": "^4.2.1",
 		"autoprefixer": "^10.4.17",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.0",
@@ -71,6 +70,7 @@
 		"@types/react-helmet": "^6.1.11",
 		"@typescript-eslint/eslint-plugin": "^7.0.0",
 		"@typescript-eslint/parser": "^6.21.0",
+		"@vitejs/plugin-react-swc": "^3.6.0",
 		"eslint": "^8.57.0",
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-react-refresh": "^0.4.5",

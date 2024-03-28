@@ -1,34 +1,21 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-type Theme =
-	| "dark"
-	| "light"
-	| "mocha"
-	| "macchiato"
-	| "frappe"
-	| "latte"
-	| "system";
-// eslint-disable-next-line
-export const themes: Theme[] = [
-	"light",
-	"dark",
-	"mocha",
-	"macchiato",
-	"frappe",
-	"latte",
-];
+type Theme = (typeof themes)[number];
 type ThemeProviderProps = {
 	children: React.ReactNode;
 	defaultTheme?: Theme;
 	storageKey?: string;
+	themes: string[];
 };
-
+const themes = [""];
 type ThemeProviderState = {
+	themes: Theme[];
 	theme: Theme;
 	setTheme: (theme: Theme) => void;
 };
 
 const initialState: ThemeProviderState = {
+	themes: themes,
 	theme: "system",
 	setTheme: () => null,
 };
@@ -37,6 +24,7 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
 	children,
+	themes,
 	defaultTheme = "system",
 	storageKey = "vite-ui-theme",
 	...props
@@ -48,14 +36,9 @@ export function ThemeProvider({
 	useEffect(() => {
 		const root = window.document.documentElement;
 
-		root.classList.remove(
-			"light",
-			"dark",
-			"mocha",
-			"macchiato",
-			"frappe",
-			"latte",
-		);
+		themes.forEach((theme) => {
+			root.classList.remove(theme);
+		});
 
 		if (theme === "system") {
 			const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
@@ -68,10 +51,11 @@ export function ThemeProvider({
 		}
 
 		root.classList.add(theme);
-	}, [theme]);
+	}, [theme, themes]);
 
 	const value = {
 		theme,
+		themes,
 		setTheme: (theme: Theme) => {
 			localStorage.setItem(storageKey, theme);
 			setTheme(theme);

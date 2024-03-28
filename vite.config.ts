@@ -1,7 +1,7 @@
 import million from "million/compiler";
 import path from "path";
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 // @ts-expect-error stfu

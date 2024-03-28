@@ -5,7 +5,7 @@ import localforage from "localforage";
 const _fetch = globalThis.fetch;
 async function fetch<T>(
 	url: string,
-	{ backend = true, bare = false } = {},
+	{ backend = true, bare = false }: { backend?: boolean; bare?: boolean; } = {},
 ): Promise<T> {
 	if (backend && !bare) {
 		const response: APIResponse<T> = await _fetch(url).then((response) =>
