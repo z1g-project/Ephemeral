@@ -1,17 +1,21 @@
-import React from "react";
+// React
+import { useEffect, StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { useEffect } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, json } from "react-router-dom";
+// libraries
+import localforage from "localforage";
+// css
 import "@/index.css";
-import { ThemeProvider } from "@/components/theme-provider";
+// layouts
+import RootLayout from "@/root-layout";
+import MainLayout from "@/main-layout";
+// pages
 import Home from "@/pages/Home";
 import View from "@/pages/View";
 import Settings from "@/pages/Settings";
 import Apps from "@/pages/Apps";
 import ServiceWorkerError from "@/pages/ServiceWorkerError";
-import Layout from "@/layout";
 import Error from "@/pages/error";
-import localforage from "localforage";
 declare global {
 	interface Window {
 		__uv$config: {
@@ -21,21 +25,35 @@ declare global {
 }
 const routes = createBrowserRouter([
 	{
-		Component: Layout,
+		Component: RootLayout,
 		path: "/",
 		ErrorBoundary: Error,
 		children: [
 			{
-				Component: Home,
-				path: "/",
-			},
-			{
-				Component: Settings,
-				path: "/settings",
-			},
-			{
-				Component: Apps,
-				path: "/apps",
+				Component: MainLayout,
+				loader: async () => {
+					return json(
+						await fetch(
+							"https://api.github.com/repos/z1g-project/web/commits/main",
+						)
+							.then((res) => res.json())
+							.catch(() => ({})),
+					);
+				},
+				children: [
+					{
+						Component: Home,
+						path: "/",
+					},
+					{
+						Component: Settings,
+						path: "/settings",
+					},
+					{
+						Component: Apps,
+						path: "/apps",
+					},
+				],
 			},
 			{
 				Component: View,
@@ -71,14 +89,10 @@ export default function App() {
 		name: "ephemeral",
 		storeName: "__ephemeral_config",
 	});
-	return (
-		<ThemeProvider>
-			<RouterProvider router={routes} />
-		</ThemeProvider>
-	);
+	return <RouterProvider router={routes} />;
 }
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-	<React.StrictMode>
+	<StrictMode>
 		<App />
-	</React.StrictMode>,
+	</StrictMode>,
 );

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-// too lazy
+import { ThemeProvider } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
-import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CircleDashed } from "lucide-react";
 import { useRouteError, isRouteErrorResponse } from "react-router-dom";
 import Header from "@/components/Header";
@@ -22,12 +21,23 @@ export default function PageNotFound() {
 		errorMessage = "Unknown error";
 	}
 	return (
-		<>
+		<ThemeProvider
+			themes={[
+				"light",
+				"dark",
+				"zinc",
+				"mocha",
+				"macchiato",
+				"frappe",
+				"latte",
+				"system",
+			]}
+		>
 			<Header title="Error | Ephemeral" />
 			<div className="flex h-full w-full flex-col items-center justify-center bg-background text-foreground">
 				<div className="flex flex-col items-center justify-center">
-					<CardHeader>
-						<CardTitle className="mb-4 flex flex-col items-center justify-center text-left text-2xl font-bold">
+					<section>
+						<div className="mb-4 flex flex-col items-center justify-center text-left text-2xl font-bold">
 							<div className="mb-4 flex items-center justify-center">
 								<CircleDashed />
 								<span className="ml-2 text-3xl font-bold">Ephemeral</span>
@@ -37,12 +47,12 @@ export default function PageNotFound() {
 									{errorCode}
 								</p>
 							)}
-						</CardTitle>
-						<p className="text-center text-xl font-semibold">
-							Ephemeral has encountered an error
-						</p>
-					</CardHeader>
-					<CardContent className="flex flex-col items-center justify-center">
+						</div>
+					</section>
+					<p className="mb-2 text-center text-xl font-semibold">
+						Ephemeral has encountered an error
+					</p>
+					<section className="flex flex-col items-center justify-center">
 						<p className="mb-2 text-center font-bold text-destructive">
 							<code>{errorMessage}</code>
 						</p>
@@ -54,9 +64,9 @@ export default function PageNotFound() {
 						>
 							<Link to="/">Go Home</Link>
 						</Button>
-					</CardContent>
+					</section>
 				</div>
 			</div>
-		</>
+		</ThemeProvider>
 	);
 }

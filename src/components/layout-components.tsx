@@ -1,7 +1,5 @@
 import React from "react";
-import Meta from "@/components/Meta";
-import { Toaster } from "@/components/ui/toaster";
-import { Link, useNavigate, useLocation, Outlet } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LucideHome, Settings, LayoutGrid, CircleDashed } from "lucide-react";
 import {
 	NavigationMenu,
@@ -29,7 +27,7 @@ const links: {
 	{ href: "/apps", text: "Apps", icon: <LayoutGrid /> },
 	{ href: "/settings", text: "Settings", icon: <Settings /> },
 ];
-function CommandBox() {
+export function CommandBox() {
 	const [open, setOpen] = React.useState(false);
 	const navigate = useNavigate();
 	React.useEffect(() => {
@@ -69,7 +67,7 @@ function CommandBox() {
 		</CommandDialog>
 	);
 }
-function Navbar() {
+export function Navbar() {
 	return (
 		<div className="flex justify-between">
 			<div className={`p-5 text-2xl font-bold text-foreground`}>
@@ -100,27 +98,5 @@ function Navbar() {
 				</NavigationMenu>
 			</div>
 		</div>
-	);
-}
-export default function Layout() {
-	const location = useLocation();
-	const shouldDisplayNavbar =
-		(!location.pathname.startsWith("/view/") &&
-			!location.pathname.startsWith("/~/")) ||
-		location.pathname == "/view/";
-
-	return (
-		<main className="h-full">
-			{window.location.origin === "https://ephemeral.incognitotgt.me" && (
-				<Meta />
-			)}
-			{window.location.origin === "http://localhost:5173" && <Meta />}
-			<div className="h-full bg-background text-foreground">
-				<Toaster />
-				{shouldDisplayNavbar && <Navbar />}
-				<CommandBox />
-				<Outlet />
-			</div>
-		</main>
 	);
 }

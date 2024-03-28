@@ -1,41 +1,13 @@
 import Header from "@/components/Header";
 import Fuse from "fuse.js";
-import { Link } from "react-router-dom";
-import encoder from "@/utils/encoder";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
+
 import { Input } from "@/components/ui/input";
+import ShortcutCard from "@/components/shortcut-card";
 import { useState, useEffect, useRef } from "react";
 import { useAsync } from "@/hooks";
 import { fetch } from "@/utils/fetch";
 import type { Application } from "@/types/apps";
 import { Loader2, X } from "lucide-react";
-
-const mapFunction = (app: Application, key: number) => (
-	<div className="h-96 w-72" key={key}>
-		<Link to={`/view/${encoder.encode(app.url)}`}>
-			<Card className="flex h-full w-full flex-col items-center justify-center">
-				<CardHeader>
-					<CardTitle>{app.name}</CardTitle>
-					<CardDescription>{app.description}</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<img
-						src={app.image}
-						width={150}
-						height={75}
-						className="aspect-[5/4] w-full rounded-lg object-cover"
-					/>
-				</CardContent>
-			</Card>
-		</Link>
-	</div>
-);
 
 export default function Apps() {
 	const { loading, data: apps, error, run } = useAsync<Application[]>([]);
@@ -100,9 +72,13 @@ export default function Apps() {
 				</span>
 				<div
 					ref={listRef}
-					className="3xl:grid-cols-6 4xl:grid-cols-7 grid grid-cols-1 place-items-center p-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+					className="3xl:grid-cols-6 4xl:grid-cols-7 grid grid-cols-1 place-content-center place-items-center p-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
 				>
-					{searchResults ? searchResults.map(mapFunction) : null}
+					{searchResults
+						? searchResults.map((app, key) => (
+								<ShortcutCard app={app} key={key} />
+							))
+						: null}
 				</div>
 				<span
 					className={`flex w-full items-center justify-center pb-10 text-center text-2xl font-bold ${error ? "text-red-600" : "text-foreground"}`}
