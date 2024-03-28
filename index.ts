@@ -77,7 +77,7 @@ app.get("/json/apps", async (_, response) => {
 			.then((response) => response.json())
 			.catch(statusCatcher);
 
-		response.json({ status: "success", data });
+		response.json(data);
 	} catch (error) {
 		console.log(error);
 		response.status(500).json({
