@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Fuse from "fuse.js";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
+import encoder from "@/utils/encoder";
 import {
 	Card,
 	CardContent,
@@ -10,19 +11,26 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect, useRef } from "react";
+import { useAsync } from "@/hooks";
+import { fetch } from "@/utils/fetch";
 import type { Application } from "@/types/apps";
-import { X } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 
 const mapFunction = (app: Application, key: number) => (
-	<div className="w-64" key={key}>
-		<Link to={`/app/${app.path}`} className="max-w-0">
-			<Card>
+	<div className="h-96 w-72" key={key}>
+		<Link to={`/view/${encoder.encode(app.url)}`}>
+			<Card className="flex h-full w-full flex-col items-center justify-center">
 				<CardHeader>
 					<CardTitle>{app.name}</CardTitle>
-					<CardDescription>{app.desc}</CardDescription>
+					<CardDescription>{app.description}</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<img src={`/staticapps/${app.path}/icon.png`}></img>
+					<img
+						src={app.image}
+						width={150}
+						height={75}
+						className="aspect-[5/4] w-full rounded-lg object-cover"
+					/>
 				</CardContent>
 			</Card>
 		</Link>
@@ -30,9 +38,7 @@ const mapFunction = (app: Application, key: number) => (
 );
 
 export default function Apps() {
-	const { data: apps } = useLoaderData() as {
-		data: Application[] | null;
-	};
+	const { loading, data: apps, error, run } = useAsync<Application[]>([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [searchResults, setSearchResults] = useState<Application[] | null>([]);
 	const [listOutOfBounds, setListOutOfBounds] = useState(false);
@@ -40,11 +46,15 @@ export default function Apps() {
 	const listRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
+		run(() => fetch("/json/apps"));
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
 		if (!apps) return;
 		setSearchResults(apps);
 		setFuse(
 			new Fuse<Application>(apps, {
-				keys: ["name", "desc"],
+				keys: ["name", "description"],
 			}),
 		);
 	}, [apps]);
@@ -90,22 +100,32 @@ export default function Apps() {
 				</span>
 				<div
 					ref={listRef}
-					className="3xl:grid-cols-6 4xl:grid-cols-7 grid grid-cols-1 place-items-center gap-4 p-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+					className="3xl:grid-cols-6 4xl:grid-cols-7 grid grid-cols-1 place-items-center p-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
 				>
 					{searchResults ? searchResults.map(mapFunction) : null}
 				</div>
-				<span className="flex w-full items-center justify-center pb-10 text-center text-2xl font-bold text-foreground">
-					{(searchResults ?? []).length > 0 ? (
-						listOutOfBounds ? (
-							"No more apps."
+				<span
+					className={`flex w-full items-center justify-center pb-10 text-center text-2xl font-bold ${error ? "text-red-600" : "text-foreground"}`}
+				>
+					{!error ? (
+						!loading ? (
+							(searchResults ?? []).length > 0 ? (
+								listOutOfBounds ? (
+									"No more apps."
+								) : (
+									""
+								)
+							) : (
+								<>
+									<X size={32} />
+									No apps found.
+								</>
+							)
 						) : (
-							""
+							<Loader2 size={64} className="animate-spin" />
 						)
 					) : (
-						<>
-							<X size={32} />
-							No apps found.
-						</>
+						error.message
 					)}
 				</span>
 			</div>

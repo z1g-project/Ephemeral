@@ -2,17 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Loader2 } from "lucide-react";
 import "@/index.css";
 import { ThemeProvider } from "@/components/theme-provider";
-const Home = React.lazy(() => import("@/pages/Home"));
-const View = React.lazy(() => import("@/pages/View"));
-const Settings = React.lazy(() => import("@/pages/Settings"));
-const StaticApp = React.lazy(() => import("@/pages/App"));
-const Apps = React.lazy(() => import("@/pages/Apps"));
-const ServiceWorkerError = React.lazy(
-	() => import("@/pages/ServiceWorkerError"),
-);
+import Home from "@/pages/Home";
+import View from "@/pages/View";
+import Settings from "@/pages/Settings";
+import Apps from "@/pages/Apps";
+import ServiceWorkerError from "@/pages/ServiceWorkerError";
 import Layout from "@/layout";
 import Error from "@/pages/error";
 import localforage from "localforage";
@@ -40,17 +36,10 @@ const routes = createBrowserRouter([
 			{
 				Component: Apps,
 				path: "/apps",
-				loader: async () => {
-					return await fetch("/json/apps").then((res) => res.json());
-				},
 			},
 			{
 				Component: View,
 				path: "/view/:url",
-			},
-			{
-				Component: StaticApp,
-				path: "/staticApp/:url",
 			},
 			{
 				Component: ServiceWorkerError,
@@ -84,16 +73,7 @@ export default function App() {
 	});
 	return (
 		<ThemeProvider>
-			<React.Suspense
-				fallback={
-					<div className="h-full-navbar-offset flex flex-col items-center justify-center gap-2 bg-background text-2xl font-bold text-foreground transition-all duration-100">
-						<Loader2 size={64} className="animate-spin" />
-						Ephemeral Is Loading...
-					</div>
-				}
-			>
-				<RouterProvider router={routes} />
-			</React.Suspense>
+			<RouterProvider router={routes} />
 		</ThemeProvider>
 	);
 }

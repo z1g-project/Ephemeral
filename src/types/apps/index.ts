@@ -1,6 +1,7 @@
 type Application = {
 	name: string;
-	desc: string;
-	path: string;
+	description: string;
+	url: string;
+	image: string;
 };
 export type { Application };
