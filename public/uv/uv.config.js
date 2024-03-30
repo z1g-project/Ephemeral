@@ -4,7 +4,6 @@ const factory = (key) => {
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 		return shuffle(alphabet, key);
 	};
-
 	const shuffle = (alphabet, key) => {
 		const shuffledAlphabet = [...alphabet];
 
@@ -78,8 +77,6 @@ self.__uv$config = {
 	bundle: "/uv/uv.bundle.js",
 	config: "/uv/uv.config.js",
 	sw: "/uv/uv.sw.js",
-	proxyIp: "",
-	proxyPort: "",
 };
 
 self.encoder = {

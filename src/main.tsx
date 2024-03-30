@@ -1,21 +1,18 @@
 // React
-import { useEffect, StrictMode } from "react";
+import { useEffect, StrictMode, lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider, json } from "react-router-dom";
 // libraries
 import localforage from "localforage";
+import { libcurl } from "libcurl.js/bundled";
 // css
 import "@/index.css";
-// layouts
-import RootLayout from "@/root-layout";
-import MainLayout from "@/main-layout";
-// pages
-import Home from "@/pages/Home";
-import View from "@/pages/View";
-import Settings from "@/pages/Settings";
-import Apps from "@/pages/Apps";
-import ServiceWorkerError from "@/pages/ServiceWorkerError";
-import Error from "@/pages/error";
+// routes
+const AppRoutes = lazy(() => import("@/routes"));
+// providers
+import { ThemeProvider } from "@/components/theme-provider";
+import themes from "@/lib/themes";
+import { HelmetProvider } from "react-helmet-async";
+import { Loader2 } from "lucide-react";
 declare global {
 	interface Window {
 		__uv$config: {
@@ -23,49 +20,6 @@ declare global {
 		};
 	}
 }
-const routes = createBrowserRouter([
-	{
-		Component: RootLayout,
-		path: "/",
-		ErrorBoundary: Error,
-		children: [
-			{
-				Component: MainLayout,
-				loader: async () => {
-					return json(
-						await fetch(
-							"https://api.github.com/repos/z1g-project/web/commits/main",
-						)
-							.then((res) => res.json())
-							.catch(() => ({})),
-					);
-				},
-				children: [
-					{
-						Component: Home,
-						path: "/",
-					},
-					{
-						Component: Settings,
-						path: "/settings",
-					},
-					{
-						Component: Apps,
-						path: "/apps",
-					},
-				],
-			},
-			{
-				Component: View,
-				path: "/view/:url",
-			},
-			{
-				Component: ServiceWorkerError,
-				path: "/~/*",
-			},
-		],
-	},
-]);
 export default function App() {
 	useEffect(() => {
 		if ("serviceWorker" in navigator) {
@@ -77,6 +31,12 @@ export default function App() {
 					console.log(
 						"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Service workers registered",
 					);
+				})
+				.catch((err) => {
+					console.error(
+						"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Service workers registration failed",
+						err,
+					);
 				});
 		} else {
 			console.error(
@@ -84,12 +44,38 @@ export default function App() {
 			);
 		}
 	}, []);
+	useEffect(() => {
+		const handleLibcurlLoad = () => {
+			libcurl.set_websocket(
+				`${location.protocol.replace("http", "ws")}//${location.hostname}:${location.port}/wisp/`,
+			);
+			console.log("\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Libcurl.js ready!");
+		};
+		document.addEventListener("libcurl_load", handleLibcurlLoad);
+		return () =>
+			document.removeEventListener("libcurl_load", handleLibcurlLoad);
+	}, []);
 	localforage.config({
 		driver: localforage.INDEXEDDB,
 		name: "ephemeral",
 		storeName: "__ephemeral_config",
 	});
-	return <RouterProvider router={routes} />;
+	return (
+		<HelmetProvider>
+			<ThemeProvider themes={themes}>
+				<Suspense
+					fallback={
+						<div className="flex h-screen w-screen flex-col items-center justify-center gap-2 bg-background text-foreground">
+							<Loader2 size={64} className="animate-spin" />
+							<p className="text-xl font-bold">Ephemeral is loading</p>
+						</div>
+					}
+				>
+					<AppRoutes />
+				</Suspense>
+			</ThemeProvider>
+		</HelmetProvider>
+	);
 }
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<StrictMode>

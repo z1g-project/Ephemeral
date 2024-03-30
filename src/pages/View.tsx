@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Header from "@/components/Header";
 import { useToast } from "@/components/ui/use-toast";
 import { throttle } from "@/utils/throttle";
 import { useSuggestions, useConfig } from "@/hooks";
@@ -224,123 +223,120 @@ export default function View() {
 		};
 	}, []);
 	return (
-		<>
-			<Header title="View | Ephemeral" />
-			<div
-				ref={pageRef}
-				className="items-between flex h-full flex-col items-stretch justify-between"
-			>
-				<div className="space-between flex max-h-14 items-start overflow-visible p-2">
-					<div className="mr-auto whitespace-nowrap">
-						{leftButtons.map(
-							({ title, onClick, disabled, children, asChild }) => (
-								<Button
-									{...{
-										disabled,
-										onClick,
-										title,
-										"aria-label": title,
-										asChild: asChild ?? false,
-									}}
-									variant="ghost"
-								>
-									{children}
-								</Button>
-							),
-						)}
-					</div>
-					<section className="group z-50 flex w-[32rem] flex-wrap items-start justify-start">
-						<Input
-							id="input"
-							ref={inputRef}
-							onFocus={() => {
-								setInputFocused(true);
-							}}
-							onBlur={() => setInputFocused(false)}
-							className={`peer focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[484px] lg:w-[584px] ${(suggestions?.length ?? 0) > 0 || error ? "focus:rounded-b-none focus:border-b-0 group-hover:rounded-b-none group-hover:border-b-0" : ""}`}
-							spellCheck={false}
-							placeholder={
-								frameRef?.current?.src ? "Search the web freely" : "Loading..."
-							}
-							onChange={throttledInputChange.current}
-							onKeyDown={parseInput}
-						/>
-						<Command
-							className={`invisible z-20 h-0 w-96 rounded-b-lg rounded-t-none border-x border-border shadow-md group-hover:visible group-hover:h-auto peer-focus:visible peer-focus:h-auto sm:w-[484px] lg:w-[584px]`}
-						>
-							<CommandList>
-								{suggestions ? (
-									suggestions.length > 0 ? (
-										<CommandGroup heading="Suggestions">
-											{suggestions.map((suggestion: string, index: number) => (
-												<Link
-													key={index}
-													to={`/view/${encodeURIComponent(
-														encoder.encode(
-															config.search.url.replace("%s", suggestion),
-														),
-													)}`}
-													onClick={function (this: HTMLAnchorElement) {
-														setSearch(suggestion);
-														/* im proud of this hack */
-														this.style.pointerEvents = "none";
-														setTimeout(
-															function (this: HTMLAnchorElement) {
-																this.style.pointerEvents = "";
-															}.bind(this),
-														);
-													}}
-												>
-													<CommandItem
-														className="cursor-pointer"
-														key={index}
-														onClick={() => setSearch(suggestion)}
-													>
-														{suggestion}
-													</CommandItem>
-												</Link>
-											))}
-										</CommandGroup>
-									) : null
-								) : null}
-								{error ? (
-									<CommandGroup heading="Error">
-										<CommandItem className="cursor-not-allowed !bg-background !text-red-600">
-											{error.message}
-										</CommandItem>
-									</CommandGroup>
-								) : null}
-							</CommandList>
-						</Command>
-					</section>
-					<div className="ml-auto whitespace-nowrap">
-						{rightButtons.map(
-							({ title, onClick, disabled, children, asChild }) => (
-								<Button
-									{...{
-										disabled,
-										onClick,
-										title,
-										"aria-label": title,
-										asChild: asChild ?? false,
-									}}
-									variant="ghost"
-								>
-									{children}
-								</Button>
-							),
-						)}
-					</div>
+		<div
+			ref={pageRef}
+			className="items-between flex h-full flex-col items-stretch justify-between"
+		>
+			<div className="space-between flex max-h-14 items-start overflow-visible p-2">
+				<div className="mr-auto whitespace-nowrap">
+					{leftButtons.map(
+						({ title, onClick, disabled, children, asChild }) => (
+							<Button
+								{...{
+									disabled,
+									onClick,
+									title,
+									"aria-label": title,
+									asChild: asChild ?? false,
+								}}
+								variant="ghost"
+							>
+								{children}
+							</Button>
+						),
+					)}
 				</div>
-				<iframe
-					title="View"
-					src={proxyPrefix + url}
-					className="h-full w-full border-none bg-secondary-foreground"
-					ref={frameRef}
-					id="mainframe"
-					onLoad={onLoad}
-				/>
+				<section className="group z-50 flex w-[32rem] flex-wrap items-start justify-start">
+					<Input
+						id="input"
+						ref={inputRef}
+						onFocus={() => {
+							setInputFocused(true);
+						}}
+						onBlur={() => setInputFocused(false)}
+						className={`peer focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[484px] lg:w-[584px] ${(suggestions?.length ?? 0) > 0 || error ? "focus:rounded-b-none focus:border-b-0 group-hover:rounded-b-none group-hover:border-b-0" : ""}`}
+						spellCheck={false}
+						placeholder={
+							frameRef?.current?.src ? "Search the web freely" : "Loading..."
+						}
+						onChange={throttledInputChange.current}
+						onKeyDown={parseInput}
+					/>
+					<Command
+						className={`invisible z-20 h-0 w-96 rounded-b-lg rounded-t-none border-x border-border shadow-md group-hover:visible group-hover:h-auto peer-focus:visible peer-focus:h-auto sm:w-[484px] lg:w-[584px]`}
+					>
+						<CommandList>
+							{suggestions ? (
+								suggestions.length > 0 ? (
+									<CommandGroup heading="Suggestions">
+										{suggestions.map((suggestion: string, index: number) => (
+											<Link
+												key={index}
+												to={`/view/${encodeURIComponent(
+													encoder.encode(
+														config.search.url.replace("%s", suggestion),
+													),
+												)}`}
+												onClick={function (this: HTMLAnchorElement) {
+													setSearch(suggestion);
+													/* im proud of this hack */
+													this.style.pointerEvents = "none";
+													setTimeout(
+														function (this: HTMLAnchorElement) {
+															this.style.pointerEvents = "";
+														}.bind(this),
+													);
+												}}
+											>
+												<CommandItem
+													className="cursor-pointer"
+													key={index}
+													onClick={() => setSearch(suggestion)}
+												>
+													{suggestion}
+												</CommandItem>
+											</Link>
+										))}
+									</CommandGroup>
+								) : null
+							) : null}
+							{error ? (
+								<CommandGroup heading="Error">
+									<CommandItem className="cursor-not-allowed !bg-background !text-red-600">
+										{error.message}
+									</CommandItem>
+								</CommandGroup>
+							) : null}
+						</CommandList>
+					</Command>
+				</section>
+				<div className="ml-auto whitespace-nowrap">
+					{rightButtons.map(
+						({ title, onClick, disabled, children, asChild }) => (
+							<Button
+								{...{
+									disabled,
+									onClick,
+									title,
+									"aria-label": title,
+									asChild: asChild ?? false,
+								}}
+								variant="ghost"
+							>
+								{children}
+							</Button>
+						),
+					)}
+				</div>
 			</div>
-		</>
+			<iframe
+				title="View"
+				src={proxyPrefix + url}
+				className="h-full w-full border-none bg-secondary-foreground"
+				ref={frameRef}
+				id="mainframe"
+				onLoad={onLoad}
+			/>
+		</div>
 	);
 }

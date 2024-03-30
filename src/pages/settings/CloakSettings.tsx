@@ -28,7 +28,6 @@ export default function CloakSettings() {
 	const { toast } = useToast();
 	const [config, reset, loading] = useConfig("cloak");
 
-	console.log(config);
 	useEffect(() => {
 		if (config && cloakTitleRef.current && cloakFaviconRef.current) {
 			cloakTitleRef.current.value = config.title;
@@ -161,7 +160,7 @@ export default function CloakSettings() {
 						<Button variant="destructive" onClick={handleReset}>
 							Reset
 						</Button>
-						<Button variant="secondary" onClick={openCloaked}>
+						<Button variant="default" onClick={openCloaked}>
 							Open about:blank
 						</Button>
 					</CardFooter>

@@ -1,14 +1,12 @@
-import Header from "@/components/Header";
 import Fuse from "fuse.js";
 
 import { Input } from "@/components/ui/input";
 import ShortcutCard from "@/components/shortcut-card";
 import { useState, useEffect, useRef } from "react";
 import { useAsync } from "@/hooks";
-import { fetch } from "@/utils/fetch";
 import type { Application } from "@/types/apps";
 import { Loader2, X } from "lucide-react";
-
+import { fetch } from "@/utils/fetch";
 export default function Apps() {
 	const { loading, data: apps, error, run } = useAsync<Application[]>([]);
 	const [searchTerm, setSearchTerm] = useState("");
@@ -18,7 +16,7 @@ export default function Apps() {
 	const listRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		run(() => fetch("/json/apps"));
+		run(() => fetch("https://z1g-project.vercel.app/api/apps", { wisp: true }));
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
@@ -55,56 +53,53 @@ export default function Apps() {
 	}, [apps, searchTerm, fuse]);
 
 	return (
-		<>
-			<Header title="Apps | Ephemeral" />
-			<div className="flex flex-grow flex-col bg-background">
-				<span className="inline-block w-full text-center text-3xl font-bold text-foreground">
-					Apps
-				</span>
-				<span className="px-24 pt-4">
-					<Input
-						placeholder="Search for apps"
-						value={searchTerm}
-						onChange={(event) => {
-							setSearchTerm(event.target.value);
-						}}
-					/>
-				</span>
-				<div
-					ref={listRef}
-					className="3xl:grid-cols-6 4xl:grid-cols-7 grid grid-cols-1 place-content-center place-items-center p-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
-				>
-					{searchResults
-						? searchResults.map((app, key) => (
-								<ShortcutCard app={app} key={key} />
-							))
-						: null}
-				</div>
-				<span
-					className={`flex w-full items-center justify-center pb-10 text-center text-2xl font-bold ${error ? "text-red-600" : "text-foreground"}`}
-				>
-					{!error ? (
-						!loading ? (
-							(searchResults ?? []).length > 0 ? (
-								listOutOfBounds ? (
-									"No more apps."
-								) : (
-									""
-								)
+		<div className="flex flex-grow flex-col bg-background">
+			<span className="inline-block w-full text-center text-3xl font-bold text-foreground">
+				Apps
+			</span>
+			<span className="px-24 pt-4">
+				<Input
+					placeholder="Search for apps"
+					value={searchTerm}
+					onChange={(event) => {
+						setSearchTerm(event.target.value);
+					}}
+				/>
+			</span>
+			<div
+				ref={listRef}
+				className="3xl:grid-cols-6 4xl:grid-cols-7 grid grid-cols-1 place-content-center place-items-center p-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+			>
+				{searchResults
+					? searchResults.map((app, key) => (
+							<ShortcutCard app={app} key={key} />
+						))
+					: null}
+			</div>
+			<span
+				className={`flex w-full items-center justify-center pb-10 text-center text-2xl font-bold ${error ? "text-red-600" : "text-foreground"}`}
+			>
+				{!error ? (
+					!loading ? (
+						(searchResults ?? []).length > 0 ? (
+							listOutOfBounds ? (
+								"No more apps."
 							) : (
-								<>
-									<X size={32} />
-									No apps found.
-								</>
+								""
 							)
 						) : (
-							<Loader2 size={64} className="animate-spin" />
+							<>
+								<X size={32} />
+								No apps found.
+							</>
 						)
 					) : (
-						error.message
-					)}
-				</span>
-			</div>
-		</>
+						<Loader2 size={64} className="animate-spin" />
+					)
+				) : (
+					error.message
+				)}
+			</span>
+		</div>
 	);
 }
