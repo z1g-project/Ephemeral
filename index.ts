@@ -95,9 +95,7 @@ server.on("upgrade", (req: IncomingMessage, socket: Socket, head) => {
 		wisp.routeRequest(req, socket, head);
 	}
 });
-server.listen({
-	port: port,
-});
+server.listen(port);
 console.log(`
 \x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Running on port ${port} in ${devMode ? "dev" : "production"} mode
 Configured with Masqr: ${masqr}
