@@ -5,8 +5,6 @@ import react from "@vitejs/plugin-react-swc";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 // @ts-expect-error stfu
-import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
-// @ts-expect-error stfu
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 const __dirname = path.resolve();
 
@@ -14,13 +12,13 @@ const __dirname = path.resolve();
 export default defineConfig({
 	build: {
 		target: "ES2022",
-		chunkSizeWarningLimit: 675,
+		chunkSizeWarningLimit: 2500,
 	},
 	plugins: [
 		viteStaticCopy({
 			targets: [
 				{
-					src: `${uvPath}/uv.*.js`.replace(/\\/g, "/"),
+					src: `${uvPath}/uv.*`.replace(/\\/g, "/"),
 					dest: "uv",
 					overwrite: false,
 				},
@@ -35,11 +33,6 @@ export default defineConfig({
 				{
 					src: `${epoxyPath}/**/*`.replace(/\\/g, "/"),
 					dest: "epoxy",
-					overwrite: false,
-				},
-				{
-					src: `${libcurlPath}/**/*`.replace(/\\/g, "/"),
-					dest: "libcurl",
 					overwrite: false,
 				},
 			],

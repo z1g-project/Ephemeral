@@ -1,4 +1,4 @@
-/*global UVServiceWorker importScripts __uv$config  localforage*/
+/*global UVServiceWorker importScripts __uv$config  localforage */
 importScripts("/uv/uv.bundle.js");
 importScripts("/uv/uv.config.js");
 importScripts("/uv/uv.sw.js");
@@ -13,15 +13,11 @@ const setUv = async () => {
 		const bare =
 			(await localforage.getItem("proxy.bareServer")) ||
 			location.origin + "/bend/";
-		const proxyUrl = (await localforage.getItem("proxy.proxyServer")) || "";
-		const [proxyIp, proxyPort] = proxyUrl.split(":");
 		self.__uv$config.bare = bare;
-		self.__uv$config.proxyPort = proxyPort;
-		self.__uv$config.proxyIp = proxyIp;
 		self.uv = new UVServiceWorker(self.__uv$config);
 	} catch (error) {
 		console.error(
-			"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Settings for Ultraviolet cannot be set (self.uv)" +
+			"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Settings for Ultraviolet cannot be set (self.uv) " +
 				error,
 		);
 	}
@@ -30,14 +26,12 @@ self.addEventListener("fetch", (event) => {
 	if (event.request.url.startsWith(location.origin + __uv$config.prefix)) {
 		event.respondWith(
 			(async () => {
-				try {
-					await setUv();
-				} catch (error) {
+				await setUv().catch((error) => {
 					console.error(
-						"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Settings for Ultraviolet cannot be set (event.respondWith)" +
+						"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Settings for Ultraviolet cannot be set (event.respondWith) " +
 							error,
 					);
-				}
+				});
 				return await self.uv.fetch(event);
 			})(),
 		);

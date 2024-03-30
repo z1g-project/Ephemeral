@@ -17,7 +17,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function ProxySettings() {
 	const { toast } = useToast();
 	const bareRef = useRef<HTMLInputElement>(null);
-	const proxyServerRef = useRef<HTMLInputElement>(null);
+	const wispServerRef = useRef<HTMLInputElement>(null);
 
 	const [config, reset, loading] = useConfig("proxy"); // Using the useConfig hook to get proxy settings
 
@@ -25,8 +25,8 @@ export default function ProxySettings() {
 		if (config) {
 			// Setting default values from config if available
 			if (bareRef.current) bareRef.current.value = config.bareServer;
-			if (proxyServerRef.current)
-				proxyServerRef.current.value = config.proxyServer;
+			if (wispServerRef.current)
+				wispServerRef.current.value = config.wispServer;
 		}
 	}, [config]);
 
@@ -36,14 +36,12 @@ export default function ProxySettings() {
 		unregisterServiceWorker();
 		config && (config.bareServer = event.target.value);
 	};
-
-	const handleProxyServerChange = (
+	const handleWispServerChange = (
 		event: React.ChangeEvent<HTMLInputElement>,
 	) => {
 		unregisterServiceWorker();
-		config && (config.proxyServer = event.target.value);
+		config && (config.wispServer = event.target.value);
 	};
-
 	const handleReset = () => {
 		reset();
 		unregisterServiceWorker();
@@ -72,14 +70,14 @@ export default function ProxySettings() {
 							defaultValue={config?.bareServer || ""}
 							onChange={handleBareServerChange}
 						/>
-						<Label htmlFor="name">Proxy Server (Advanced)</Label>
+						<Label htmlFor="name">Wisp Server</Label>
 						<Input
-							id="proxy"
-							ref={proxyServerRef}
+							id="wispServer"
+							ref={wispServerRef}
 							spellCheck={false}
-							placeholder="<ip>:port"
-							defaultValue={config?.proxyServer || ""}
-							onChange={handleProxyServerChange}
+							placeholder="Type a valid Wisp URL"
+							defaultValue={config?.wispServer || ""}
+							onChange={handleWispServerChange}
 						/>
 					</CardContent>
 					<CardFooter className="mt-auto">

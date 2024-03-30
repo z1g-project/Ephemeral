@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
-import { ThemeProvider } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import { CircleDashed } from "lucide-react";
 import { useRouteError, isRouteErrorResponse } from "react-router-dom";
-import Header from "@/components/Header";
-export default function PageNotFound() {
+export default function ErrorPage() {
 	const error = useRouteError();
 	console.error(error);
 	let errorMessage: string;
@@ -21,52 +19,38 @@ export default function PageNotFound() {
 		errorMessage = "Unknown error";
 	}
 	return (
-		<ThemeProvider
-			themes={[
-				"light",
-				"dark",
-				"zinc",
-				"mocha",
-				"macchiato",
-				"frappe",
-				"latte",
-				"system",
-			]}
-		>
-			<Header title="Error | Ephemeral" />
-			<div className="flex h-full w-full flex-col items-center justify-center bg-background text-foreground">
-				<div className="flex flex-col items-center justify-center">
-					<section>
-						<div className="mb-4 flex flex-col items-center justify-center text-left text-2xl font-bold">
-							<div className="mb-4 flex items-center justify-center">
-								<CircleDashed />
-								<span className="ml-2 text-3xl font-bold">Ephemeral</span>
-							</div>
-							{errorCode && (
-								<p className="text-center text-4xl font-semibold text-muted-foreground">
-									{errorCode}
-								</p>
-							)}
+		<div className="flex h-full w-full flex-col items-center justify-center bg-background text-foreground">
+			<div className="flex flex-col items-center justify-center">
+				<section>
+					<div className="mb-4 flex flex-col items-center justify-center text-left text-2xl font-bold">
+						<div className="mb-4 flex items-center justify-center">
+							<CircleDashed />
+							<span className="ml-2 text-3xl font-bold">Ephemeral</span>
 						</div>
-					</section>
-					<p className="mb-2 text-center text-xl font-semibold">
-						Ephemeral has encountered an error
+						{errorCode && (
+							<p className="text-center text-4xl font-semibold text-muted-foreground">
+								{errorCode}
+							</p>
+						)}
+					</div>
+				</section>
+				<p className="mb-2 text-center text-xl font-semibold">
+					Ephemeral has encountered an error
+				</p>
+				<section className="flex flex-col items-center justify-center">
+					<p className="mb-2 text-center font-bold text-destructive">
+						<code>{errorMessage}</code>
 					</p>
-					<section className="flex flex-col items-center justify-center">
-						<p className="mb-2 text-center font-bold text-destructive">
-							<code>{errorMessage}</code>
-						</p>
-						<Button
-							asChild
-							type="button"
-							variant="link"
-							className="text-foreground"
-						>
-							<Link to="/">Go Home</Link>
-						</Button>
-					</section>
-				</div>
+					<Button
+						asChild
+						type="button"
+						variant="link"
+						className="text-foreground"
+					>
+						<Link to="/">Go Home</Link>
+					</Button>
+				</section>
 			</div>
-		</ThemeProvider>
+		</div>
 	);
 }

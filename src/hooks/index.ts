@@ -63,7 +63,7 @@ function useAsync<T>(
 
 type ProxyConfig = {
 	bareServer: string;
-	proxyServer: string;
+	wispServer: string;
 };
 
 type CloakConfig = {
@@ -86,7 +86,7 @@ type Config = {
 const defaultConfig: Config = {
 	proxy: {
 		bareServer: "/bend/",
-		proxyServer: "",
+		wispServer: "",
 	},
 	cloak: {
 		preset: "Google",
@@ -233,7 +233,8 @@ const useSuggestions = () => {
 					await fetch<Response>(
 						`https://suggestqueries.google.com/complete/search?output=toolbar&hl=en&q=${encodeURIComponent(query)}`,
 						{
-							bare: true,
+							wisp: true,
+							backend: false,
 						},
 					).then((response) => response.text()),
 					"text/xml",

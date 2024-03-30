@@ -1,34 +1,25 @@
-import { ThemeProvider } from "@/components/theme-provider";
+import { Helmet } from "react-helmet-async";
+import { useConfig } from "@/hooks";
 import Meta from "@/components/Meta";
 import { Toaster } from "@/components/ui/toaster";
 import { CommandBox } from "@/components/layout-components";
 import { Outlet } from "react-router-dom";
-
+const allowedOrigins = [
+	"https://ephemeral.incognitotgt.me",
+	"http://localhost:8080",
+];
 export default function RootLayout() {
+	const [config] = useConfig("cloak");
 	return (
-		<ThemeProvider
-			themes={[
-				"light",
-				"dark",
-				"zinc",
-				"mocha",
-				"macchiato",
-				"frappe",
-				"latte",
-				"system",
-			]}
-		>
-			<main className="h-full">
-				{window.location.origin === "https://ephemeral.incognitotgt.me" && (
-					<Meta />
-				)}
-				{window.location.origin === "http://localhost:5173" && <Meta />}
-				<div className="h-full bg-background text-foreground">
-					<Toaster />
-					<CommandBox />
-					<Outlet />
-				</div>
-			</main>
-		</ThemeProvider>
+		<main className="h-full">
+			<Helmet>
+				<title>{config?.title}</title>
+				<link rel="icon" href={config?.favicon || "/ephemeral-sm.webp"} />
+			</Helmet>
+			{allowedOrigins.includes(window.location.origin) && <Meta />}
+			<Toaster />
+			<CommandBox />
+			<Outlet />
+		</main>
 	);
 }

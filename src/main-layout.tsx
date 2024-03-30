@@ -17,10 +17,33 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Navbar } from "@/components/layout-components";
-
+import packageJson from "../package.json";
+const projectsUsed = [
+	{
+		name: "Ultraviolet",
+		url: "https://github.com/titaniumnetwork-dev/ultraviolet",
+	},
+	{
+		name: "wisp-server-node",
+		url: "https://github.com/MercuryWorkshop/wisp-server-node",
+	},
+	{
+		name: "shadcn/ui",
+		url: "https://ui.shadcn.com/",
+	},
+];
+const developers = [
+	"interpolation-0",
+	"incognitotgt",
+	"vbnm0",
+	"notplayingallday383",
+	"yu6x",
+	"anshnk",
+];
 export default function MainLayout() {
 	const data = useLoaderData() as {
 		sha?: string;
+		html_url?: string;
 		commit?: {
 			author: {
 				name: string;
@@ -60,25 +83,37 @@ export default function MainLayout() {
 									className="mr-2 flex size-6 flex-row"
 									strokeWidth={3}
 								/>
-								Ephemeral 0.9.0 - Beta
+								Ephemeral {packageJson.version}
 							</DialogTitle>
-							<DialogDescription className="items-center justify-center text-foreground">
+							<DialogDescription className=" items-center justify-start text-foreground">
 								Ephemeral is a powerful proxy with Ultraviolet and other
 								features, made by the z1g Project.
 								<br />
-								Ephemeral is made possble by the following projects:
+								Ephemeral uses the following things:
 								<br />
-								<li>Ultraviolet</li>
-								<li>TOMPHttp Bare Server</li>
+								<ul className="list-inside list-disc">
+									{projectsUsed.map((project, key) => (
+										<a
+											href={project.url}
+											key={key}
+											className="w-auto font-medium text-primary underline-offset-4 hover:underline"
+										>
+											<li>{project.name}</li>
+										</a>
+									))}
+								</ul>
 								Developers:
 								<br />
 								<ul className="list-inside list-disc">
-									<li>011010110111100101110011b</li>
-									<li>tg.t</li>
-									<li>vy.x</li>
-									<li>xstars</li>
-									<li>yu6x</li>
-									<li>anshnk</li>
+									{developers.map((developer, key) => (
+										<a
+											href={`https://github.com/${developer}`}
+											key={key}
+											className="w-auto font-medium text-primary underline-offset-4 hover:underline"
+										>
+											<li>{developer}</li>
+										</a>
+									))}
 								</ul>
 								<br />
 								Copyright 2024 z1g Project.{" "}
@@ -86,9 +121,10 @@ export default function MainLayout() {
 									<span>
 										Last commit was on{" "}
 										<a
-											href={data?.commit?.url}
+											href={data?.html_url}
 											target="_blank"
 											rel="noreferrer"
+											className="w-auto font-medium text-primary underline-offset-4 hover:underline"
 										>
 											{new Date(
 												data?.commit?.committer.date,

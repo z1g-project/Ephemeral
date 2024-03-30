@@ -32,7 +32,6 @@ export default function SearchSettings() {
 	};
 
 	useEffect(() => {
-		console.log(config);
 		if (config.engine === "Custom") setCustom(true);
 		else setCustom(false);
 	}, [config]);
