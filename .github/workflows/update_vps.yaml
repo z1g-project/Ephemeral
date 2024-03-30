@@ -1,0 +1,25 @@
+name: CI
+run-name: Update server
+on:
+  push:
+    branches:
+      - main
+jobs:
+  update-vps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ubuntu
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            export NODE_OPTIONS=--max-old-space-size=8192
+            cd /home/ubuntu/ephemeral
+            git pull
+            pnpm i
+            /home/ubuntu/.local/share/pnpm/pm2 stop ephemeral
+            pnpm build
+            /home/ubuntu/.local/share/pnpm/pm2 start ephemeral
