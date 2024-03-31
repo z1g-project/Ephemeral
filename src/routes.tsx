@@ -23,7 +23,7 @@ const routes = createBrowserRouter([
 				loader: async () => {
 					return json(
 						await fetch(
-							"https://api.github.com/repos/z1g-project/web/commits/main",
+							"https://api.github.com/repos/z1g-project/ephemer/commits/main",
 						)
 							.then((res) => res.json())
 							.catch(() => ({})),

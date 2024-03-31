@@ -85,7 +85,7 @@ export default function MainLayout() {
 								/>
 								Ephemeral {packageJson.version}
 							</DialogTitle>
-							<DialogDescription className=" items-center justify-start text-foreground">
+							<DialogDescription className="items-center justify-start text-foreground">
 								Ephemeral is a powerful proxy with Ultraviolet and other
 								features, made by the z1g Project.
 								<br />
@@ -96,7 +96,7 @@ export default function MainLayout() {
 										<a
 											href={project.url}
 											key={key}
-											className="w-auto font-medium text-primary underline-offset-4 hover:underline"
+											className="inline font-medium text-primary underline-offset-4 hover:underline"
 										>
 											<li>{project.name}</li>
 										</a>
@@ -109,7 +109,7 @@ export default function MainLayout() {
 										<a
 											href={`https://github.com/${developer}`}
 											key={key}
-											className="w-auto font-medium text-primary underline-offset-4 hover:underline"
+											className="inline font-medium text-primary underline-offset-4 hover:underline"
 										>
 											<li>{developer}</li>
 										</a>
@@ -124,7 +124,7 @@ export default function MainLayout() {
 											href={data?.html_url}
 											target="_blank"
 											rel="noreferrer"
-											className="w-auto font-medium text-primary underline-offset-4 hover:underline"
+											className="inline font-medium text-primary underline-offset-4 hover:underline"
 										>
 											{new Date(
 												data?.commit?.committer.date,
@@ -137,6 +137,8 @@ export default function MainLayout() {
 								) : (
 									"No commit information available."
 								)}
+								<br />
+								This version of Ephemeral was built on {__BUILD_DATE__}
 							</DialogDescription>
 						</DialogHeader>
 					</DialogContent>

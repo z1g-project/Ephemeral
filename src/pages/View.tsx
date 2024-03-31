@@ -240,6 +240,7 @@ export default function View() {
 									asChild: asChild ?? false,
 								}}
 								variant="ghost"
+								size="icon"
 							>
 								{children}
 							</Button>
@@ -322,6 +323,7 @@ export default function View() {
 									asChild: asChild ?? false,
 								}}
 								variant="ghost"
+								size="icon"
 							>
 								{children}
 							</Button>

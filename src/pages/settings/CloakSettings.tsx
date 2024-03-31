@@ -26,6 +26,7 @@ export default function CloakSettings() {
 	const cloakTitleRef = useRef<HTMLInputElement>(null);
 	const cloakFaviconRef = useRef<HTMLInputElement>(null);
 	const { toast } = useToast();
+
 	const [config, reset, loading] = useConfig("cloak");
 
 	useEffect(() => {
@@ -36,6 +37,11 @@ export default function CloakSettings() {
 	}, [config]);
 
 	const cloakValues = [
+		{
+			name: "None",
+			title: "Ephemeral",
+			favicon: "/icon.svg",
+		},
 		{
 			name: "Schoology",
 			title: "Home | Schoology",
@@ -114,7 +120,8 @@ export default function CloakSettings() {
 					<CardContent>
 						<Label htmlFor="presets">Presets</Label>
 						<Select
-							onValueChange={async (value) => {
+							value={config?.preset}
+							onValueChange={(value) => {
 								const cloak = cloakValues.find((cloak) => cloak.name === value);
 								if (cloak) {
 									config && (config.preset = cloak.name);
@@ -124,6 +131,10 @@ export default function CloakSettings() {
 										title: "Cloak Preset Changed",
 										description: `Cloak preset has been changed to "${value}"`,
 									});
+									setTimeout(
+										window.location.reload.bind(window.location),
+										1000,
+									);
 								}
 							}}
 						>
