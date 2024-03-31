@@ -3,7 +3,6 @@ import { useEffect, StrictMode, lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 // libraries
 import localforage from "localforage";
-import { libcurl } from "libcurl.js/bundled";
 // css
 import "@/index.css";
 // routes
@@ -43,17 +42,6 @@ export default function App() {
 				"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Service workers are not supported on this device",
 			);
 		}
-	}, []);
-	useEffect(() => {
-		const handleLibcurlLoad = () => {
-			libcurl.set_websocket(
-				`${location.protocol.replace("http", "ws")}//${location.hostname}:${location.port}/wisp/`,
-			);
-			console.log("\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Libcurl.js ready!");
-		};
-		document.addEventListener("libcurl_load", handleLibcurlLoad);
-		return () =>
-			document.removeEventListener("libcurl_load", handleLibcurlLoad);
 	}, []);
 	localforage.config({
 		driver: localforage.INDEXEDDB,

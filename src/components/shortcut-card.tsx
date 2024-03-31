@@ -22,7 +22,7 @@ export default function ShortcutCard({ app }: { app: Application }) {
 					res.blob().then((blob) => URL.createObjectURL(blob) as string),
 				),
 		);
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [app.image]); // eslint-disable-line react-hooks/exhaustive-deps
 	return (
 		<Link to={`/view/${encoder.encode(app.url)}`}>
 			<Card className="my-2 flex h-[20rem] w-72 flex-col items-center justify-center duration-200 hover:bg-secondary">
@@ -34,13 +34,13 @@ export default function ShortcutCard({ app }: { app: Application }) {
 					{!error ? (
 						!loading ? (
 							<img
-								src={image as string}
-								width={150}
-								height={75}
+								src={image as string | undefined}
+								width={125}
+								height={50}
 								className="aspect-video	h-32 w-56 rounded-lg object-cover"
 							/>
 						) : (
-							<Skeleton className="	h-32 w-56 rounded-lg object-cover" />
+							<Skeleton className="aspect-video h-32 w-56 rounded-lg object-cover" />
 						)
 					) : (
 						<div className="flex h-32 w-56 items-center justify-center rounded-lg bg-secondary text-lg text-destructive">
