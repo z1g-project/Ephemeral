@@ -89,9 +89,9 @@ const defaultConfig: Config = {
 		wispServer: "",
 	},
 	cloak: {
-		preset: "Google",
-		title: "Google",
-		favicon: "https://www.google.com/favicon.ico",
+		preset: "None",
+		title: "Ephemeral",
+		favicon: "/icon.svg",
 	},
 	search: {
 		url: "https://google.com/search?q=",
