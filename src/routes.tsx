@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider, json } from "react-router-dom";
 // layouts
 import RootLayout from "@/root-layout";
@@ -9,6 +10,8 @@ import Settings from "@/pages/Settings";
 import Apps from "@/pages/Apps";
 import ServiceWorkerError from "@/pages/ServiceWorkerError";
 import Error from "@/pages/error";
+// libcurl
+import { libcurl } from "libcurl.js/bundled";
 const routes = createBrowserRouter([
 	{
 		Component: RootLayout,
@@ -52,5 +55,17 @@ const routes = createBrowserRouter([
 		],
 	},
 ]);
-const AppRoutes = () => <RouterProvider router={routes} />;
-export default AppRoutes;
+export default function AppRoutes() {
+	useEffect(() => {
+		const handleLibcurlLoad = () => {
+			libcurl.set_websocket(
+				`${location.protocol.replace("http", "ws")}//${location.hostname}:${location.port}/wisp/`,
+			);
+			console.log("\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Libcurl.js ready!");
+		};
+		document.addEventListener("libcurl_load", handleLibcurlLoad);
+		return () =>
+			document.removeEventListener("libcurl_load", handleLibcurlLoad);
+	}, []);
+	return <RouterProvider router={routes} />;
+}
