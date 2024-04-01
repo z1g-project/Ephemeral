@@ -138,7 +138,8 @@ export default function MainLayout() {
 									"No commit information available."
 								)}
 								<br />
-								This version of Ephemeral was built on {__BUILD_DATE__}
+								This version of Ephemeral was built on{" "}
+								{__BUILD_DATE__.toLocaleString()}
 							</DialogDescription>
 						</DialogHeader>
 					</DialogContent>

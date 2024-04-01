@@ -16,7 +16,7 @@ export default function Apps() {
 	const listRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		run(() => fetch("https://z1g-project.vercel.app/api/apps", { wisp: true }));
+		run(() => fetch("https://z1g-backend.vercel.app/api/apps", { wisp: true }));
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
