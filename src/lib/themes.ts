@@ -2,7 +2,6 @@ const themes = [
 	"light",
 	"dark",
 	"zinc",
-	"green",
 	"monokai",
 	"mocha",
 	"macchiato",

@@ -2,7 +2,6 @@ import { Helmet } from "react-helmet-async";
 import { useConfig } from "@/hooks";
 import Meta from "@/components/Meta";
 import { Toaster } from "@/components/ui/toaster";
-import { CommandBox } from "@/components/layout-components";
 import { Outlet } from "react-router-dom";
 const allowedOrigins = [
 	"https://ephemeral.incognitotgt.me",
@@ -14,11 +13,14 @@ export default function RootLayout() {
 		<main className="h-full">
 			<Helmet>
 				<title>{config?.title}</title>
-				<link rel="icon" href={config?.favicon || "/ephemeral-sm.webp"} />
+				<link
+					rel="icon"
+					href={config?.favicon || "/icon.svg"}
+					id="documentfavicon"
+				/>
 			</Helmet>
-			{allowedOrigins.includes(window.location.origin) && <Meta />}
+			{allowedOrigins.includes(window.location.origin) ? <Meta /> : null}
 			<Toaster />
-			<CommandBox />
 			<Outlet />
 		</main>
 	);

@@ -50,9 +50,6 @@ dependencies:
   '@titaniumnetwork-dev/ultraviolet':
     specifier: ^3.0.0
     version: 3.0.0
-  '@tomphttp/bare-server-node':
-    specifier: ^2.0.3
-    version: 2.0.3
   '@types/express':
     specifier: ^4.17.21
     version: 4.17.21
@@ -2313,23 +2310,6 @@ packages:
       set-cookie-parser: 2.6.0
     dev: false
 
-  /@tomphttp/bare-server-node@2.0.3:
-    resolution: {integrity: sha512-IGzZspDwzto+oPsvlV99OALJKH3X1nRWnpBE8EY6nrqu5I83xw3uSUacEdHNnW4rXG0IQ8vZwMH87VOMoArJ3A==}
-    engines: {node: '>=18.0.0'}
-    hasBin: true
-    dependencies:
-      async-exit-hook: 2.0.1
-      commander: 10.0.1
-      dotenv: 16.4.5
-      http-errors: 2.0.0
-      ipaddr.js: 2.1.0
-      source-map-support: 0.5.21
-      ws: 8.16.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-    dev: false
-
   /@types/body-parser@1.19.5:
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
     dependencies:
@@ -2775,11 +2755,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /async-exit-hook@2.0.1:
-    resolution: {integrity: sha512-NW2cX8m1Q7KPA7a5M2ULQeZ2wR5qI5PAbw5L0UOMxdioVk9PMZ0h1TmyZEkPYrCvYjDlFICusOu1dlEKAAeXBw==}
-    engines: {node: '>=0.12.0'}
-    dev: false
-
   /async@3.2.5:
     resolution: {integrity: sha512-baNZyqaaLhyLVKm/DlvdW051MSgO6b8eVfIezl9E5PqWxFgzLm/wQntEW4zOytVburDEr0JlALEpdOFwvErLsg==}
     dev: false
@@ -2887,10 +2862,6 @@ packages:
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
     dev: false
 
-  /buffer-from@1.1.2:
-    resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
-    dev: false
-
   /buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
     dependencies:
@@ -2965,6 +2936,10 @@ packages:
 
   /caniuse-lite@1.0.30001600:
     resolution: {integrity: sha512-+2S9/2JFhYmYaDpZvo0lKkfvuKIglrx68MwOBqMGHhQsNkLjB5xtc/TGoEPs+MxjSyN/72qer2g97nzR641mOQ==}
+    dev: false
+
+  /caniuse-lite@1.0.30001603:
+    resolution: {integrity: sha512-iL2iSS0eDILMb9n5yKQoTBim9jMZ0Yrk8g0N9K7UzYyWnfIKzXBZD5ngpM37ZcL/cv0Mli8XtVMRYMQAfFpi5Q==}
     dev: false
 
   /chalk@2.4.2:
@@ -3111,11 +3086,6 @@ packages:
     dependencies:
       color: 3.2.1
       text-hex: 1.0.0
-    dev: false
-
-  /commander@10.0.1:
-    resolution: {integrity: sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==}
-    engines: {node: '>=14'}
     dev: false
 
   /commander@11.1.0:
@@ -4182,11 +4152,6 @@ packages:
     engines: {node: '>= 0.10'}
     dev: false
 
-  /ipaddr.js@2.1.0:
-    resolution: {integrity: sha512-LlbxQ7xKzfBusov6UMi4MFpEg0m+mAm9xyNGEduwXMEDuf4WfzB/RZwMVYEd7IKGvh4IUkEXYxtAVu9T3OelJQ==}
-    engines: {node: '>= 10'}
-    dev: false
-
   /is-arrayish@0.3.2:
     resolution: {integrity: sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==}
     dev: false
@@ -4670,7 +4635,7 @@ packages:
       '@next/env': 14.1.4
       '@swc/helpers': 0.5.2
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001600
+      caniuse-lite: 1.0.30001603
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.2.0
@@ -5563,18 +5528,6 @@ packages:
   /source-map-js@1.2.0:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
     engines: {node: '>=0.10.0'}
-
-  /source-map-support@0.5.21:
-    resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
-    dependencies:
-      buffer-from: 1.1.2
-      source-map: 0.6.1
-    dev: false
-
-  /source-map@0.6.1:
-    resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
-    engines: {node: '>=0.10.0'}
-    dev: false
 
   /stack-trace@0.0.10:
     resolution: {integrity: sha512-KGzahc7puUKkzyMt+IqAep+TVNbKP+k2Lmwhub39m1AsTSkaDutx56aDCo+HLDzf/D26BIHTJWNiTG1KAJiQCg==}

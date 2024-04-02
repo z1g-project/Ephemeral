@@ -1,7 +1,6 @@
 #!/usr/bin/env tsx
-import { createServer, IncomingMessage } from "node:http";
+import { createServer } from "node:http";
 import { createServer as createViteServer } from "vite";
-import { createBareServer } from "@tomphttp/bare-server-node";
 import express from "express";
 import path from "path";
 import cors from "cors";
@@ -11,7 +10,6 @@ import { Socket } from "node:net";
 import wisp from "wisp-server-node";
 const devMode = argv.includes("--dev");
 const usingMasqr = process.env.MASQR || argv.includes("--masqr");
-const noIpLeak = argv.includes("--no-ip-leak");
 const port =
 	process.env.PORT ||
 	(argv.includes("--port") && argv[argv.indexOf("--port") + 1]) ||
@@ -26,18 +24,9 @@ default: Run in production mode
 --dev: Run in development mode
 --help, -h: Display this help message
 --masqr: Enable masqr
---no-ip-leak: only allow going to asdf.com
     `);
 	process.exit(0);
 }
-const bare = createBareServer("/bend/", {
-	blockLocal: false,
-	maintainer: {
-		website: "https://z1g-project.vercel.app",
-		// todo: change this
-		email: process.env.MAINTAINER_EMAIL || "tgt@incognitotgt.me",
-	},
-});
 const vite = await createViteServer({
 	server: { middlewareMode: true },
 });
@@ -68,30 +57,10 @@ if (!devMode) {
 }
 
 const server = createServer();
-server.on("request", (request, response) => {
-	if (bare.shouldRoute(request)) {
-		if (noIpLeak) {
-			if (
-				request.headers["x-bare-host"] &&
-				request.headers["x-bare-host"] != "asdf.com"
-			) {
-				console.log(request.headers);
-				request.socket.write(
-					'HTTP/1.1 406 Not Acceptable\n\n"NO LEAKING MY IP!!! GO TO ASDF.COM NOW"',
-				);
-				request.socket.end();
-			}
-		}
-		bare.routeRequest(request, response);
-	} else {
-		app(request, response);
-	}
-});
+server.on("request", app);
 
-server.on("upgrade", (req: IncomingMessage, socket: Socket, head) => {
-	if (bare.shouldRoute(req)) {
-		bare.routeUpgrade(req, socket, head);
-	} else if (req.url.endsWith("/wisp/")) {
+server.on("upgrade", (req, socket: Socket, head) => {
+	if (req.url.endsWith("/wisp/")) {
 		wisp.routeRequest(req, socket, head);
 	}
 });
@@ -99,5 +68,4 @@ server.listen(port);
 console.log(`
 \x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Running on port ${port} in ${devMode ? "dev" : "production"} mode
 Configured with Masqr: ${masqr}
-Configured with IP Leak Protection: ${noIpLeak}
 `);

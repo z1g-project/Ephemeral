@@ -3,5 +3,6 @@ type Application = {
 	description: string;
 	url: string;
 	image: string;
+	icon: string;
 };
 export type { Application };

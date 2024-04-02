@@ -46,9 +46,6 @@ export default function Apps() {
 		const filteredApps = fuse
 			.search(searchTerm.trim())
 			.map((result) => result.item);
-		console.log(filteredApps);
-		console.log(searchTerm);
-		console.log(apps);
 		setSearchResults(filteredApps);
 	}, [apps, searchTerm, fuse]);
 

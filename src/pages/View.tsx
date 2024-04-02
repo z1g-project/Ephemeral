@@ -271,16 +271,17 @@ export default function View() {
 								suggestions.length > 0 ? (
 									<CommandGroup heading="Suggestions">
 										{suggestions.map((suggestion: string, index: number) => (
-											<Link
+											<CommandItem
+												className="cursor-pointer"
 												key={index}
-												to={`/view/${encodeURIComponent(
-													encoder.encode(
-														config.search.url.replace("%s", suggestion),
-													),
-												)}`}
 												onClick={function (this: HTMLAnchorElement) {
 													setSearch(suggestion);
 													/* im proud of this hack */
+													frameRef.current!.src =
+														proxyPrefix +
+														encoder.encode(
+															config.search.url.replace("%s", suggestion),
+														);
 													this.style.pointerEvents = "none";
 													setTimeout(
 														function (this: HTMLAnchorElement) {
@@ -289,14 +290,8 @@ export default function View() {
 													);
 												}}
 											>
-												<CommandItem
-													className="cursor-pointer"
-													key={index}
-													onClick={() => setSearch(suggestion)}
-												>
-													{suggestion}
-												</CommandItem>
-											</Link>
+												{suggestion}
+											</CommandItem>
 										))}
 									</CommandGroup>
 								) : null
