@@ -20,6 +20,7 @@ import {
 	SelectContent,
 	SelectItem,
 } from "@/components/ui/select";
+import { unregisterServiceWorker } from "@/utils/swUtil";
 export default function ProxySettings() {
 	const { toast } = useToast();
 	const [config, reset, loading] = useConfig("proxy"); // Using the useConfig hook to get proxy settings
@@ -35,6 +36,7 @@ export default function ProxySettings() {
 	const handleSave = () => {
 		if (wispServerRef.current)
 			config && (config.wispServer = wispServerRef.current?.value);
+		unregisterServiceWorker();
 		toast({
 			title: "Proxy Settings have been saved",
 		});
@@ -42,6 +44,7 @@ export default function ProxySettings() {
 	};
 	const handleReset = () => {
 		reset();
+		unregisterServiceWorker();
 		toast({
 			title: "Proxy Settings have been reset",
 			variant: "destructive",

@@ -66,10 +66,10 @@ export default function AppRoutes() {
 	const [config] = useConfig("proxy");
 	useEffect(() => {
 		try {
+			registerRemoteListener(navigator.serviceWorker.controller!);
 			SetTransport(transports[config.transport], {
 				wisp: config.wispServer,
 			});
-			registerRemoteListener(navigator.serviceWorker.controller!);
 		} catch (e) {
 			console.error(e);
 		}
