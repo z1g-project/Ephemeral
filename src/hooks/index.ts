@@ -62,7 +62,6 @@ function useAsync<T>(
 }
 
 type ProxyConfig = {
-	bareServer: string;
 	wispServer: string;
 };
 
@@ -85,8 +84,7 @@ type Config = {
 
 const defaultConfig: Config = {
 	proxy: {
-		bareServer: "/bend/",
-		wispServer: "",
+		wispServer: `${location.protocol.replace("http", "ws")}//${location.hostname}:${location.port}/wisp/`,
 	},
 	cloak: {
 		preset: "None",

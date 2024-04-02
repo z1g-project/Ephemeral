@@ -12,12 +12,6 @@ export function unregisterServiceWorker() {
 }
 export function updateServiceWorker() {
 	if ("serviceWorker" in navigator) {
-		// Stub to be changed later
-		// @ts-expect-error stfu
-		BareMux.SetTransport("CurlMod.LibcurlClient", {
-			wisp: `${window.location.origin}/wisp`,
-			wasm: "https://cdn.jsdelivr.net/npm/libcurl.js@v0.6.6/libcurl.wasm",
-		});
 		navigator.serviceWorker.getRegistrations().then((registrations) => {
 			for (const registration of registrations) {
 				registration.update();

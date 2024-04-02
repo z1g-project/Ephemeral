@@ -17,7 +17,7 @@ export default function ShortcutCard({ app }: { app: Application }) {
 	useEffect(() => {
 		run(() =>
 			libcurl
-				.fetch(app.image, { wisp: true, backend: false })
+				.fetch(app.image)
 				.then((res) =>
 					res.blob().then((blob) => URL.createObjectURL(blob) as string),
 				),

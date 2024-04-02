@@ -6,6 +6,8 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 // @ts-expect-error stfu
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
+// @ts-expect-error stfu
+import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
 const __dirname = path.resolve();
 
 // https://vitejs.dev/config/
@@ -28,6 +30,11 @@ export default defineConfig({
 						"/",
 					),
 					dest: "localforage",
+					overwrite: false,
+				},
+				{
+					src: `${libcurlPath}/**/*`.replace(/\\/g, "/"),
+					dest: "libcurl",
 					overwrite: false,
 				},
 				{

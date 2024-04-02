@@ -16,7 +16,6 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 export default function ProxySettings() {
 	const { toast } = useToast();
-	const bareRef = useRef<HTMLInputElement>(null);
 	const wispServerRef = useRef<HTMLInputElement>(null);
 
 	const [config, reset, loading] = useConfig("proxy"); // Using the useConfig hook to get proxy settings
@@ -24,18 +23,11 @@ export default function ProxySettings() {
 	useEffect(() => {
 		if (config) {
 			// Setting default values from config if available
-			if (bareRef.current) bareRef.current.value = config.bareServer;
 			if (wispServerRef.current)
 				wispServerRef.current.value = config.wispServer;
 		}
 	}, [config]);
 
-	const handleBareServerChange = (
-		event: React.ChangeEvent<HTMLInputElement>,
-	) => {
-		unregisterServiceWorker();
-		config && (config.bareServer = event.target.value);
-	};
 	const handleWispServerChange = (
 		event: React.ChangeEvent<HTMLInputElement>,
 	) => {
@@ -61,15 +53,6 @@ export default function ProxySettings() {
 						<CardDescription>Set proxy settings</CardDescription>
 					</CardHeader>
 					<CardContent>
-						<Label htmlFor="name">Bare Server</Label>
-						<Input
-							id="bareServer"
-							ref={bareRef}
-							spellCheck={false}
-							placeholder="Type a valid Bare URL"
-							defaultValue={config?.bareServer || ""}
-							onChange={handleBareServerChange}
-						/>
 						<Label htmlFor="name">Wisp Server</Label>
 						<Input
 							id="wispServer"

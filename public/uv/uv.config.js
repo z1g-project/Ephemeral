@@ -69,7 +69,7 @@ const cipher = factory(key);
 
 self.__uv$config = {
 	prefix: "/~/dark/",
-	bare: "/bend/",
+	bare: "https://gointerstellar.app/o/",
 	encodeUrl: cipher.enc,
 	decodeUrl: cipher.dec,
 	handler: "/uv/uv.handler.js",
