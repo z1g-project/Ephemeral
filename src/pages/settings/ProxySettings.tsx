@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { unregisterServiceWorker } from "@/utils/swUtil";
 import { useToast } from "@/components/ui/use-toast";
 import { useConfig } from "@/hooks"; // Replace with correct path
 import {
@@ -14,11 +13,17 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+	Select,
+	SelectTrigger,
+	SelectValue,
+	SelectContent,
+	SelectItem,
+} from "@/components/ui/select";
 export default function ProxySettings() {
 	const { toast } = useToast();
-	const wispServerRef = useRef<HTMLInputElement>(null);
-
 	const [config, reset, loading] = useConfig("proxy"); // Using the useConfig hook to get proxy settings
+	const wispServerRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
 		if (config) {
@@ -27,16 +32,16 @@ export default function ProxySettings() {
 				wispServerRef.current.value = config.wispServer;
 		}
 	}, [config]);
-
-	const handleWispServerChange = (
-		event: React.ChangeEvent<HTMLInputElement>,
-	) => {
-		unregisterServiceWorker();
-		config && (config.wispServer = event.target.value);
+	const handleSave = () => {
+		if (wispServerRef.current)
+			config && (config.wispServer = wispServerRef.current?.value);
+		toast({
+			title: "Proxy Settings have been saved",
+		});
+		setTimeout(window.location.reload.bind(window.location), 1000);
 	};
 	const handleReset = () => {
 		reset();
-		unregisterServiceWorker();
 		toast({
 			title: "Proxy Settings have been reset",
 			variant: "destructive",
@@ -53,19 +58,41 @@ export default function ProxySettings() {
 						<CardDescription>Set proxy settings</CardDescription>
 					</CardHeader>
 					<CardContent>
-						<Label htmlFor="name">Wisp Server</Label>
+						<Label htmlFor="wispServer">Wisp Server</Label>
 						<Input
 							id="wispServer"
 							ref={wispServerRef}
 							spellCheck={false}
 							placeholder="Type a valid Wisp URL"
-							defaultValue={config?.wispServer || ""}
-							onChange={handleWispServerChange}
+							defaultValue={config.wispServer}
 						/>
+						<Label htmlFor="transport">Transport</Label>
+						<Select
+							value={config.transport}
+							onValueChange={(value: (typeof config)["transport"]) => {
+								config.transport && (config.transport = value);
+							}}
+						>
+							<SelectTrigger id="transport">
+								<SelectValue placeholder="Select a transport" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectItem value="libcurl">Libcurl</SelectItem>
+								<SelectItem value="epoxy">Epoxy</SelectItem>
+							</SelectContent>
+						</Select>
 					</CardContent>
-					<CardFooter className="mt-auto">
+					<CardFooter className="mt-auto justify-between">
 						<Button type="button" variant="destructive" onClick={handleReset}>
 							Reset
+						</Button>
+						<Button
+							type="button"
+							variant="default"
+							className="ml-2"
+							onClick={handleSave}
+						>
+							Save
 						</Button>
 					</CardFooter>
 				</>

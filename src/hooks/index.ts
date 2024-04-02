@@ -1,6 +1,7 @@
 import localforage from "localforage";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { fetch } from "@/utils/fetch";
+import { transports } from "@/utils/transports";
 
 interface Options {
 	useCurrentData?: boolean;
@@ -63,6 +64,7 @@ function useAsync<T>(
 
 type ProxyConfig = {
 	wispServer: string;
+	transport: keyof typeof transports;
 };
 
 type CloakConfig = {
@@ -85,6 +87,7 @@ type Config = {
 const defaultConfig: Config = {
 	proxy: {
 		wispServer: `${location.protocol.replace("http", "ws")}//${location.hostname}:${location.port}/wisp/`,
+		transport: "libcurl",
 	},
 	cloak: {
 		preset: "None",

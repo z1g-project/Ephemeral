@@ -93,26 +93,28 @@ export default function MainLayout() {
 								<br />
 								<ul className="list-inside list-disc">
 									{projectsUsed.map((project, key) => (
-										<a
-											href={project.url}
-											key={key}
-											className="inline font-medium text-primary underline-offset-4 hover:underline"
-										>
-											<li>{project.name}</li>
-										</a>
+										<li key={key}>
+											<a
+												href={project.url}
+												className="inline font-medium text-primary underline-offset-4 hover:underline"
+											>
+												{project.name}
+											</a>
+										</li>
 									))}
 								</ul>
 								Developers:
 								<br />
 								<ul className="list-inside list-disc">
 									{developers.map((developer, key) => (
-										<a
-											href={`https://github.com/${developer}`}
-											key={key}
-											className="inline font-medium text-primary underline-offset-4 hover:underline"
-										>
-											<li>{developer}</li>
-										</a>
+										<li key={key}>
+											<a
+												href={`https://github.com/${developer}`}
+												className="inline font-medium text-primary underline-offset-4 hover:underline"
+											>
+												{developer}
+											</a>
+										</li>
 									))}
 								</ul>
 								<br />

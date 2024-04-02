@@ -13,6 +13,7 @@ import Error from "@/pages/error";
 // utils
 import { libcurl } from "libcurl.js/bundled";
 import { useConfig } from "./hooks";
+import { transports } from "./utils/transports";
 import {
 	SetTransport,
 	registerRemoteListener,
@@ -65,7 +66,7 @@ export default function AppRoutes() {
 	const [config] = useConfig("proxy");
 	useEffect(() => {
 		try {
-			SetTransport("CurlMod.LibcurlClient", {
+			SetTransport(transports[config.transport], {
 				wisp: config.wispServer,
 			});
 			registerRemoteListener(navigator.serviceWorker.controller!);
@@ -80,6 +81,6 @@ export default function AppRoutes() {
 
 		return () =>
 			document.removeEventListener("libcurl_load", handleLibcurlLoad);
-	}, [config.wispServer]);
+	});
 	return <RouterProvider router={routes} />;
 }
