@@ -86,7 +86,9 @@ type Config = {
 
 const defaultConfig: Config = {
 	proxy: {
-		wispServer: `${location.protocol.replace("http", "ws")}//${location.hostname}:${location.port}/wisp/`,
+		wispServer:
+			import.meta.env.VITE_WISP_SERVER ||
+			`${location.protocol.replace("http", "ws")}//${location.host}/wisp/`,
 		transport: "libcurl",
 	},
 	cloak: {

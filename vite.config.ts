@@ -54,6 +54,5 @@ export default defineConfig({
 	},
 	define: {
 		__BUILD_DATE__: JSON.stringify(new Date()),
-		__DEFAULT_WISP_SERVER__: process.env.WISP_SERVER,
 	},
 });
