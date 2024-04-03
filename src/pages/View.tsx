@@ -274,20 +274,10 @@ export default function View() {
 											<CommandItem
 												className="cursor-pointer"
 												key={index}
-												onClick={function (this: HTMLAnchorElement) {
-													setSearch(suggestion);
-													/* im proud of this hack */
+												onSelect={() => {
 													frameRef.current!.src =
 														proxyPrefix +
-														encoder.encode(
-															config.search.url.replace("%s", suggestion),
-														);
-													this.style.pointerEvents = "none";
-													setTimeout(
-														function (this: HTMLAnchorElement) {
-															this.style.pointerEvents = "";
-														}.bind(this),
-													);
+														encoder.encode(config.search.url + suggestion);
 												}}
 											>
 												{suggestion}

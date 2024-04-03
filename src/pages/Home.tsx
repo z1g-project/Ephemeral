@@ -10,12 +10,13 @@ import {
 } from "@/components/ui/command";
 
 import { Input } from "@/components/ui/input";
-import { useSuggestions } from "@/hooks";
+import { useSuggestions, useConfig } from "@/hooks";
 
 export default function Home() {
 	const navigate = useNavigate();
 	const inputRef = useRef<HTMLInputElement>(null);
 	const { suggestions, error, fetchSuggestions } = useSuggestions();
+	const [config] = useConfig("search");
 
 	const onInputChange = useCallback(
 		async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,9 +28,6 @@ export default function Home() {
 	);
 
 	const throttledInputChange = useCallback(throttle(500, onInputChange), []); // eslint-disable-line
-
-	const searchEngine =
-		localStorage.getItem("searchUrl") || "https://duckduckgo.com/?q=";
 
 	return (
 		<div className="flex h-[calc(100%_-_5rem)] flex-1 flex-col items-center justify-center">
@@ -66,7 +64,7 @@ export default function Home() {
 						} else {
 							navigate(
 								`/view/${encodeURIComponent(
-									encoder.encode(searchEngine + inputRef.current.value),
+									encoder.encode(config.url + inputRef.current.value),
 								)}`,
 							);
 						}
@@ -89,7 +87,7 @@ export default function Home() {
 									<Link
 										key={index}
 										to={`/view/${encodeURIComponent(
-											encoder.encode(searchEngine + suggestion),
+											encoder.encode(config.url + suggestion),
 										)}`}
 									>
 										<CommandItem className="cursor-pointer" key={index}>
