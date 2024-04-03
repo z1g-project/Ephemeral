@@ -1,5 +1,6 @@
 import million from "million/compiler";
 import path from "path";
+import { execSync } from "child_process";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { viteStaticCopy } from "vite-plugin-static-copy";
@@ -54,5 +55,10 @@ export default defineConfig({
 	},
 	define: {
 		__BUILD_DATE__: Date.now(),
+		__GIT_COMMIT__: JSON.stringify(
+			process.env.VERCEL_GIT_COMMIT_SHA ??
+			process.env.CF_PAGES_COMMIT_SHA ??
+				execSync("git rev-parse HEAD").toString().trim(),
+		),
 	},
 });
