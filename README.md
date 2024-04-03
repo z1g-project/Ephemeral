@@ -34,7 +34,7 @@ To set up Ephemeral, it is super simple. Below are some instructions to get you 
 
 ## Credits
 
-- UI & Design: [IncognitoTGT](https://github.com/IncognitoTGT)
+- Design & Backend: [IncognitoTGT](https://github.com/IncognitoTGT)
 - CSS & Apps Page: [vyx](https://github.com/vbnm0)
 - README improvements: [Yuko](https://github.com/yu6x)
 - Frontend Improvements:[XSTARS](https://github.com/notplayingallday383)
