@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData, Link } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import { Info, CircleDashed, Book, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
@@ -43,19 +43,6 @@ const developers = [
 	"anshnk",
 ];
 export default function MainLayout() {
-	const data = useLoaderData() as {
-		sha?: string;
-		html_url?: string;
-		commit?: {
-			author: {
-				name: string;
-			};
-			url: string;
-			committer: {
-				date: Date;
-			};
-		};
-	};
 	return (
 		<div className="h-[calc(100%_-_5rem)]">
 			<Navbar />
@@ -120,31 +107,20 @@ export default function MainLayout() {
 									</li>
 								))}
 							</ul>
-							<br />
-							Copyright 2024 z1g Project.{" "}
-							{data.sha && data.commit ? (
-								<span>
-									Last commit was on{" "}
-									<a
-										href={data?.html_url}
-										target="_blank"
-										rel="noreferrer"
-										className="inline font-medium text-primary underline-offset-4 hover:underline"
-									>
-										{new Date(
-											data?.commit?.committer.date,
-										).toLocaleDateString()}{" "}
-										by {data?.commit?.author.name}.
-									</a>
-									<br />
-									Commit SHA: {data.sha.slice(0, 7)}
-								</span>
-							) : (
-								"No commit information available."
-							)}
-							<br />
-							This version of Ephemeral was built on{" "}
-							{new Date(__BUILD_DATE__).toLocaleString()}
+							Copyright 2024 z1g Project.
+							<section>
+								This version of Ephemeral was built on{" "}
+								{new Date(__BUILD_DATE__).toLocaleString()} on commit{" "}
+								<a
+									href={
+										"https://github.com/z1g-project/Ephemeral/commit/" +
+										__GIT_COMMIT__
+									}
+									className="inline font-medium text-primary underline-offset-4 hover:underline"
+								>
+									{__GIT_COMMIT__.slice(0, 7)}
+								</a>
+							</section>
 							<DialogFooter>
 								<TooltipProvider>
 									<Tooltip>

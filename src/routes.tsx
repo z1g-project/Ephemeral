@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { createBrowserRouter, RouterProvider, json } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // layouts
 import RootLayout from "@/root-layout";
 import MainLayout from "@/main-layout";
@@ -27,15 +27,6 @@ const routes = createBrowserRouter([
 		children: [
 			{
 				Component: MainLayout,
-				loader: async () => {
-					return json(
-						await fetch(
-							"https://api.github.com/repos/z1g-project/ephemer/commits/main",
-						)
-							.then((res) => res.json())
-							.catch(() => ({})),
-					);
-				},
 				children: [
 					{
 						Component: Home,
