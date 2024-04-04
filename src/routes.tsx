@@ -56,19 +56,20 @@ const routes = createBrowserRouter([
 export default function AppRoutes() {
 	const [config] = useConfig("proxy");
 	useEffect(() => {
+		libcurl.set_websocket(config.wispServer);
+		libcurl.onload = () => {
+			console.log(
+				"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Libcurl.js version " +
+					libcurl.version.lib +
+					" loaded",
+			);
+			if (libcurl.ready) window.dispatchEvent(new Event("libcurlReady"));
+		};
 		try {
 			registerRemoteListener(navigator.serviceWorker.controller!);
 			SetTransport(transports[config.transport], {
 				wisp: config.wispServer,
 			});
-			if (libcurl.ready) {
-				libcurl.set_websocket(config.wispServer);
-				console.log(
-					"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Libcurl.js version " +
-						libcurl.version.lib +
-						" loaded",
-				);
-			}
 		} catch (e) {
 			console.error(e);
 		}
