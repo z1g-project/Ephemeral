@@ -83,11 +83,10 @@ type Config = {
 	cloak: CloakConfig;
 	search: SearchConfig;
 };
-
 const defaultConfig: Config = {
 	proxy: {
 		wispServer:
-			import.meta.env.VITE_WISP_SERVER ||
+			import.meta.env.VITE_WISP_SERVER ??
 			`${location.protocol.replace("http", "ws")}//${location.host}/wisp/`,
 		transport: "libcurl",
 	},
