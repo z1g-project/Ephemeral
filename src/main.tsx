@@ -34,6 +34,10 @@ export default function App() {
 					scope: "/~/",
 				})
 				.then(() => {
+					if (localStorage.getItem("refreshAgain") === "true") {
+						localStorage.removeItem("refreshAgain");
+						window.location.reload();
+					}
 					console.log(
 						"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Service workers registered",
 					);
