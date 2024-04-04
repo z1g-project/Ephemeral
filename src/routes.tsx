@@ -61,17 +61,17 @@ export default function AppRoutes() {
 			SetTransport(transports[config.transport], {
 				wisp: config.wispServer,
 			});
+			if (libcurl.ready) {
+				libcurl.set_websocket(config.wispServer);
+				console.log(
+					"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Libcurl.js version " +
+						libcurl.version.lib +
+						" loaded",
+				);
+			}
 		} catch (e) {
 			console.error(e);
 		}
-		const handleLibcurlLoad = () => {
-			libcurl.set_websocket(config.wispServer);
-			console.log("\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Libcurl.js ready!");
-		};
-		document.addEventListener("libcurl_load", handleLibcurlLoad);
-
-		return () =>
-			document.removeEventListener("libcurl_load", handleLibcurlLoad);
-	});
+	}, [config]);
 	return <RouterProvider router={routes} />;
 }

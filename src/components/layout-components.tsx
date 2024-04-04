@@ -175,20 +175,22 @@ export function Navbar() {
 							</CommandGroup>
 							<CommandGroup heading="Apps">
 								{!loadingApps
-									? apps?.map((app) => (
-											<CommandItem
-												key={app.url}
-												onSelect={() => {
-													setOpen(false);
-													navigate(`/view/${encoder.encode(app.url)}`);
-												}}
-											>
-												<span className="mr-2">
-													<CommandImage imageUrl={app.icon} />
-												</span>
-												{app.name}
-											</CommandItem>
-										))
+									? apps
+										? apps.map((app) => (
+												<CommandItem
+													key={app.url}
+													onSelect={() => {
+														setOpen(false);
+														navigate(`/view/${encoder.encode(app.url)}`);
+													}}
+												>
+													<span className="mr-2">
+														<CommandImage imageUrl={app.icon} />
+													</span>
+													{app.name}
+												</CommandItem>
+											))
+										: null
 									: null}
 							</CommandGroup>
 						</CommandList>
