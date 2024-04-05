@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useAsync } from "@/hooks";
 import { libcurl } from "libcurl.js/bundled";
 import type { Application } from "@/types/apps";
-import encoder from "@/utils/encoder";
+import encoder from "@/lib/encoder";
 import {
 	Card,
 	CardContent,

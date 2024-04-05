@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import type { Eruda as baseEruda } from "eruda";
-import encoder from "@/utils/encoder";
+import encoder from "@/lib/encoder";
 import {
 	ArrowUpRightFromSquare,
 	ChevronLeft,
@@ -21,10 +21,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { throttle } from "@/utils/throttle";
+import { throttle } from "@/lib/throttle";
 import { useSuggestions, useConfig } from "@/hooks";
 import type { NavButton } from "@/types/view";
-import { injectPlugins } from "@/utils/injector";
+import { injectPlugins } from "@/lib/injector";
 interface Eruda extends baseEruda {
 	_isInit: boolean;
 }

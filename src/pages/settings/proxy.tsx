@@ -20,7 +20,7 @@ import {
 	SelectContent,
 	SelectItem,
 } from "@/components/ui/select";
-import { unregisterServiceWorker } from "@/utils/swUtil";
+import { unregisterServiceWorker } from "@/lib/sw";
 export default function ProxySettings() {
 	const { toast } = useToast();
 	const [config, reset, loading] = useConfig("proxy"); // Using the useConfig hook to get proxy settings

@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useConfig } from "@/hooks";
-import Meta from "@/components/Meta";
+import Meta from "@/components/meta";
 import { Toaster } from "@/components/ui/toaster";
 import { Outlet } from "react-router-dom";
 const allowedOrigins = [
