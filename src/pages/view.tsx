@@ -230,9 +230,10 @@ export default function View() {
 			<div className="space-between flex max-h-14 items-start overflow-visible p-2">
 				<div className="mr-auto whitespace-nowrap">
 					{leftButtons.map(
-						({ title, onClick, disabled, children, asChild }) => (
+						({ title, onClick, disabled, children, asChild }, key) => (
 							<Button
 								{...{
+									key,
 									disabled,
 									onClick,
 									title,
@@ -298,9 +299,10 @@ export default function View() {
 				</section>
 				<div className="ml-auto whitespace-nowrap">
 					{rightButtons.map(
-						({ title, onClick, disabled, children, asChild }) => (
+						({ title, onClick, disabled, children, asChild }, key) => (
 							<Button
 								{...{
+									key,
 									disabled,
 									onClick,
 									title,

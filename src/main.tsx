@@ -34,8 +34,12 @@ export default function App() {
 					scope: "/~/",
 				})
 				.then(() => {
-					if (localStorage.getItem("refreshAgain") === "true") {
+					if (
+						localStorage.getItem("refreshAgain") === "true" ||
+						!localStorage.getItem("firstLoad")
+					) {
 						localStorage.removeItem("refreshAgain");
+						localStorage.setItem("firstLoad", "true");
 						window.location.reload();
 					}
 					console.log(
