@@ -12,6 +12,13 @@ import {
 } from "@/components/ui/card";
 import { useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Sparkles } from "lucide-react";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "./ui/tooltip";
 export default function ShortcutCard({ app }: { app: Application }) {
 	const { data: image, loading, run, error } = useAsync<string>(null);
 	useEffect(() => {
@@ -22,12 +29,29 @@ export default function ShortcutCard({ app }: { app: Application }) {
 					res.blob().then((blob) => URL.createObjectURL(blob) as string),
 				),
 		);
-	}, [app.image]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [app, run]);
 	return (
 		<Link to={`/view/${encoder.encode(app.url)}`}>
-			<Card className="my-2 flex h-[20rem] w-72 flex-col items-center justify-center duration-200 hover:bg-secondary">
+			<Card className="my-2 flex h-[19rem] w-72 flex-col items-center justify-center duration-200 hover:bg-secondary">
 				<CardHeader>
-					<CardTitle>{app.name}</CardTitle>
+					<CardTitle>
+						{app.featured && (
+							<TooltipProvider>
+								<Tooltip>
+									<TooltipTrigger asChild>
+										<Sparkles
+											className="mr-2 inline-block text-yellow-500"
+											size={24}
+										/>
+									</TooltipTrigger>
+									<TooltipContent className="font-medium">
+										Featured
+									</TooltipContent>
+								</Tooltip>
+							</TooltipProvider>
+						)}
+						{app.name}
+					</CardTitle>
 					<CardDescription>{app.description}</CardDescription>
 				</CardHeader>
 				<CardContent>

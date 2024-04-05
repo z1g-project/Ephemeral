@@ -34,9 +34,8 @@ export default function Home() {
 		async (event: React.ChangeEvent<HTMLInputElement>) => {
 			const query = event.target.value;
 			await fetchSuggestions(query);
-			console.log(suggestions);
 		},
-		[fetchSuggestions, suggestions],
+		[fetchSuggestions],
 	);
 
 	const throttledInputChange = useCallback(throttle(500, onInputChange), []); // eslint-disable-line
@@ -121,16 +120,16 @@ export default function Home() {
 					</CommandList>
 				</Command>
 			</section>
-			<section
-				className={`mt-24 w-[56rem] ${showingSuggestions ? "invisible" : "visible"}`}
-			>
-				<h1 className="mb-4 text-start text-xl font-bold text-foreground">
-					Featured Apps
-				</h1>
-				<div className="h-32 w-[56rem]">
-					<ShortcutCarousel />
-				</div>
-			</section>
+			{!showingSuggestions ? (
+				<section className="mt-24 w-[56rem]">
+					<h1 className="mb-4 text-start text-xl font-bold text-foreground">
+						Featured Apps
+					</h1>
+					<div className="h-32 w-[56rem]">
+						<ShortcutCarousel />
+					</div>
+				</section>
+			) : null}
 		</div>
 	);
 }

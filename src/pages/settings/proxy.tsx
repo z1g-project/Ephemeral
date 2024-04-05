@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useToast } from "@/components/ui/use-toast";
-import { useConfig } from "@/hooks"; // Replace with correct path
+import { useConfig } from "@/hooks";
 import {
 	Card,
 	CardContent,
@@ -23,12 +23,11 @@ import {
 import { unregisterServiceWorker } from "@/lib/sw";
 export default function ProxySettings() {
 	const { toast } = useToast();
-	const [config, reset, loading] = useConfig("proxy"); // Using the useConfig hook to get proxy settings
+	const [config, reset, loading] = useConfig("proxy");
 	const wispServerRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
 		if (config) {
-			// Setting default values from config if available
 			if (wispServerRef.current)
 				wispServerRef.current.value = config.wispServer;
 		}

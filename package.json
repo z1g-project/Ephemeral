@@ -1,7 +1,7 @@
 {
 	"name": "ephemeral",
 	"private": true,
-	"version": "0.9.0",
+	"version": "0.9.5",
 	"type": "module",
 	"scripts": {
 		"preinstall": "npx only-allow pnpm",
@@ -79,7 +79,6 @@
 		"typescript-eslint": "^7.4.0",
 		"vite": "^5.2.7"
 	},
-	"description": "release - 2/23/24 This is using Vite and React. To build and start, run `npm run bstart`. For UI components, we're using https://ui.shadcn.com/. To add a new component run `npx shadcn-ui@latest add [name of component]`. **Note: Whenever you add a component make sure to open it's file, and remove the dark prefixes from the classes. Then, remove the non-prefixed classes that were there before. **",
 	"main": "index.ts",
 	"author": "",
 	"license": "ISC"

@@ -54,24 +54,29 @@ export function ShortcutCarousel() {
 	return (
 		<Carousel>
 			<CarouselContent>
-				{!appError
-					? !loading
-						? apps
-							? apps
-									.filter((app) => app.featured)
-									.map((app) => (
-										<CarouselItem key={app.name} className="basis-1/4">
-											<Link
-												key={app.name}
-												to={`/view/${encodeURIComponent(encoder.encode(app.url))}`}
-											>
-												<AppImage imageUrl={app.image} />
-											</Link>
-										</CarouselItem>
-									))
-							: null
-						: null
-					: null}
+				{!appError ? (
+					!loading ? (
+						apps ? (
+							apps
+								.filter((app) => app.featured)
+								.map((app) => (
+									<CarouselItem
+										key={app.name}
+										className="basis-1/4 select-none"
+									>
+										<Link
+											key={app.name}
+											to={`/view/${encodeURIComponent(encoder.encode(app.url))}`}
+										>
+											<AppImage imageUrl={app.image} />
+										</Link>
+									</CarouselItem>
+								))
+						) : null
+					) : (
+						<div className="h-32 w-56" />
+					)
+				) : null}
 			</CarouselContent>
 			<CarouselPrevious />
 			<CarouselNext />
