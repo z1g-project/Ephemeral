@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // layouts
 import RootLayout from "@/layouts/root-layout";
@@ -54,24 +54,19 @@ const routes = createBrowserRouter([
 	},
 ]);
 export default function AppRoutes() {
+	const [init, setInit] = useState(false);
 	const [config] = useConfig("proxy");
 	useEffect(() => {
 		try {
+			libcurl.set_websocket(config.wispServer);
+			libcurl.onload = () => setInit(true);
 			registerRemoteListener(navigator.serviceWorker.controller!);
 			SetTransport(transports[config.transport], {
 				wisp: config.wispServer,
 			});
-			libcurl.set_websocket(config.wispServer);
-			if (libcurl.ready) {
-				console.log(
-					"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Libcurl.js version " +
-						libcurl.version.lib +
-						" loaded",
-				);
-			}
 		} catch (e) {
 			console.error(e);
 		}
-	}, [config]);
-	return <RouterProvider router={routes} />;
+	}, [config, init]);
+	return init ? <RouterProvider router={routes} /> : null;
 }
