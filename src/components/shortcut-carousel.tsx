@@ -30,10 +30,10 @@ function AppImage({ imageUrl }: { imageUrl: string }) {
 				src={image as string | undefined}
 				width={125}
 				height={50}
-				className="aspect-video	h-32 w-56 rounded-lg bg-accent object-cover"
+				className="aspect-video h-32 w-56 rounded-lg border-muted bg-accent object-cover transition-all duration-150 ease-in-out hover:border-4"
 			/>
 		) : (
-			<Skeleton className="aspect-video	h-32 w-56 rounded-lg object-cover" />
+			<Skeleton className="aspect-video	h-32 w-52 rounded-lg border-border object-cover" />
 		)
 	) : (
 		<div className="flex h-32 w-56 items-center justify-center rounded-lg bg-secondary text-lg text-destructive">
@@ -54,30 +54,24 @@ export function ShortcutCarousel() {
 	return (
 		<Carousel>
 			<CarouselContent>
-				{!appError ? (
-					!loading ? (
-						apps ? (
-							apps
-								.filter((app) => app.featured)
-								.map((app) => (
-									<CarouselItem key={app.name} className="basis-1/4">
-										<Link
-											key={app.name}
-											to={`/view/${encodeURIComponent(encoder.encode(app.url))}`}
-											className="group relative"
-										>
-											<AppImage imageUrl={app.image} />
-											<div className="invisible absolute bottom-0 left-0 flex h-full w-full items-end justify-start rounded-lg bg-gradient-to-t from-card to-accent/50 p-4 text-left text-foreground group-hover:visible">
-												<h3 className="text-center font-medium">{app.name}</h3>
-											</div>
-										</Link>
-									</CarouselItem>
-								))
-						) : null
-					) : (
-						<Skeleton className="h-32 w-[56rem]" />
-					)
-				) : null}
+				{!appError
+					? !loading
+						? apps
+							? apps
+									.filter((app) => app.featured)
+									.map((app) => (
+										<CarouselItem key={app.name} className="basis-1/4">
+											<Link
+												key={app.name}
+												to={`/view/${encodeURIComponent(encoder.encode(app.url))}`}
+											>
+												<AppImage imageUrl={app.image} />
+											</Link>
+										</CarouselItem>
+									))
+							: null
+						: null
+					: null}
 			</CarouselContent>
 			<CarouselPrevious />
 			<CarouselNext />
