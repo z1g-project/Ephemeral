@@ -1,7 +1,7 @@
 import localforage from "localforage";
 import { useState, useEffect, useRef, useCallback } from "react";
-import { fetch } from "@/utils/fetch";
-import { transports } from "@/utils/transports";
+import { fetch } from "@/lib/fetch";
+import { transports } from "@/lib/transports";
 
 interface Options {
 	useCurrentData?: boolean;

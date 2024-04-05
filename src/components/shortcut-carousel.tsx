@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { fetch } from "@/utils/fetch";
+import { fetch } from "@/lib/fetch";
 import { libcurl } from "libcurl.js/bundled";
 import { Link } from "react-router-dom";
-import encoder from "@/utils/encoder";
+import encoder from "@/lib/encoder";
 import {
 	Carousel,
 	CarouselContent,
@@ -54,30 +54,30 @@ export function ShortcutCarousel() {
 	return (
 		<Carousel>
 			<CarouselContent>
-				{!appError
-					? !loading
-						? apps
-							? apps
-									.filter((app) => app.featured)
-									.map((app) => (
-										<CarouselItem key={app.name} className="basis-1/4">
-											<Link
-												key={app.name}
-												to={`/view/${encodeURIComponent(encoder.encode(app.url))}`}
-												className="group relative"
-											>
-												<AppImage imageUrl={app.image} />
-												<div className="invisible absolute bottom-0 left-0 flex h-full w-full items-end justify-start rounded-lg bg-gradient-to-t from-card to-accent/50 p-4 text-left text-foreground group-hover:visible">
-													<h3 className="text-center font-medium">
-														{app.name}
-													</h3>
-												</div>
-											</Link>
-										</CarouselItem>
-									))
-							: null
-						: null
-					: null}
+				{!appError ? (
+					!loading ? (
+						apps ? (
+							apps
+								.filter((app) => app.featured)
+								.map((app) => (
+									<CarouselItem key={app.name} className="basis-1/4">
+										<Link
+											key={app.name}
+											to={`/view/${encodeURIComponent(encoder.encode(app.url))}`}
+											className="group relative"
+										>
+											<AppImage imageUrl={app.image} />
+											<div className="invisible absolute bottom-0 left-0 flex h-full w-full items-end justify-start rounded-lg bg-gradient-to-t from-card to-accent/50 p-4 text-left text-foreground group-hover:visible">
+												<h3 className="text-center font-medium">{app.name}</h3>
+											</div>
+										</Link>
+									</CarouselItem>
+								))
+						) : null
+					) : (
+						<Skeleton className="h-32 w-[56rem]" />
+					)
+				) : null}
 			</CarouselContent>
 			<CarouselPrevious />
 			<CarouselNext />

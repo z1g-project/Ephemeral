@@ -1,6 +1,6 @@
-import ProxySettings from "./settings/ProxySettings";
-import CloakSettings from "./settings/CloakSettings";
-import SearchSettings from "./settings/SearchSettings";
+import ProxySettings from "./settings/proxy";
+import CloakSettings from "./settings/cloak";
+import SearchSettings from "./settings/search";
 
 export default function Settings() {
 	return (

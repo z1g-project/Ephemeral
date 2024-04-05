@@ -18,8 +18,8 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Navbar } from "@/components/layout-components";
-import packageJson from "../package.json";
-import encoder from "./utils/encoder";
+import packageJson from "../../package.json";
+import encoder from "../lib/encoder";
 const projectsUsed = [
 	{
 		name: "Ultraviolet",

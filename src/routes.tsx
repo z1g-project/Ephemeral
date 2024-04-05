@@ -1,19 +1,19 @@
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // layouts
-import RootLayout from "@/root-layout";
-import MainLayout from "@/main-layout";
+import RootLayout from "@/layouts/root-layout";
+import MainLayout from "@/layouts/main-layout";
 // pages
-import Home from "@/pages/Home";
-import View from "@/pages/View";
-import Settings from "@/pages/Settings";
-import Apps from "@/pages/Apps";
-import ServiceWorkerError from "@/pages/ServiceWorkerError";
+import Home from "@/pages/home";
+import View from "@/pages/view";
+import Settings from "@/pages/settings";
+import Apps from "@/pages/apps";
+import ServiceWorkerError from "@/pages/sw-error";
 import Error from "@/pages/error";
 // utils
 import { libcurl } from "libcurl.js/bundled";
 import { useConfig } from "./hooks";
-import { transports } from "./utils/transports";
+import { transports } from "./lib/transports";
 import {
 	SetTransport,
 	registerRemoteListener,
@@ -56,20 +56,19 @@ const routes = createBrowserRouter([
 export default function AppRoutes() {
 	const [config] = useConfig("proxy");
 	useEffect(() => {
-		libcurl.set_websocket(config.wispServer);
-		libcurl.onload = () => {
-			console.log(
-				"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Libcurl.js version " +
-					libcurl.version.lib +
-					" loaded",
-			);
-			if (libcurl.ready) window.dispatchEvent(new Event("libcurlReady"));
-		};
 		try {
 			registerRemoteListener(navigator.serviceWorker.controller!);
 			SetTransport(transports[config.transport], {
 				wisp: config.wispServer,
 			});
+			libcurl.set_websocket(config.wispServer);
+			if (libcurl.ready) {
+				console.log(
+					"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Libcurl.js version " +
+						libcurl.version.lib +
+						" loaded",
+				);
+			}
 		} catch (e) {
 			console.error(e);
 		}

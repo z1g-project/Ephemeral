@@ -19,7 +19,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useConfig } from "@/hooks";
-import { openCloaked } from "@/utils/open-cloaked";
+import { openCloaked } from "@/lib/open-cloaked";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function CloakSettings() {

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { fetch } from "@/utils/fetch";
+import { fetch } from "@/lib/fetch";
 import { libcurl } from "libcurl.js/bundled";
 import { useAsync } from "@/hooks";
-import encoder from "@/utils/encoder";
-import { openCloaked } from "@/utils/open-cloaked";
+import encoder from "@/lib/encoder";
+import { openCloaked } from "@/lib/open-cloaked";
 import type { Application } from "@/types/apps";
 import {
 	LucideHome,

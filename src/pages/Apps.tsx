@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from "react";
 import { useAsync } from "@/hooks";
 import type { Application } from "@/types/apps";
 import { Loader2, X } from "lucide-react";
-import { fetch } from "@/utils/fetch";
+import { fetch } from "@/lib/fetch";
 export default function Apps() {
 	const { loading, data: apps, error, run } = useAsync<Application[]>([]);
 	const [searchTerm, setSearchTerm] = useState("");

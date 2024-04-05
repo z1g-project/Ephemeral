@@ -1,7 +1,7 @@
 import { useRef, useCallback, useEffect, useState } from "react";
-import { throttle } from "@/utils/throttle";
+import { throttle } from "@/lib/throttle";
 import { Link, useNavigate } from "react-router-dom";
-import encoder from "@/utils/encoder";
+import encoder from "@/lib/encoder";
 import {
 	Command,
 	CommandGroup,
