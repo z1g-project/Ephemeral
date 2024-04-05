@@ -57,7 +57,7 @@ export default defineConfig({
 		__BUILD_DATE__: Date.now(),
 		__GIT_COMMIT__: JSON.stringify(
 			process.env.VERCEL_GIT_COMMIT_SHA ??
-			process.env.CF_PAGES_COMMIT_SHA ??
+				process.env.CF_PAGES_COMMIT_SHA ??
 				execSync("git rev-parse HEAD").toString().trim(),
 		),
 	},
