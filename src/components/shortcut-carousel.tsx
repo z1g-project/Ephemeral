@@ -74,7 +74,7 @@ export function ShortcutCarousel() {
 								))
 						) : null
 					) : (
-						<div className="h-32 w-56" />
+						<Skeleton className="ml-4 h-32 w-[240rem] rounded-lg" />
 					)
 				) : null}
 			</CarouselContent>

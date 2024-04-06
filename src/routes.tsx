@@ -14,11 +14,8 @@ import Error from "@/pages/error";
 import { libcurl } from "libcurl.js/bundled";
 import { useConfig } from "./hooks";
 import { transports } from "./lib/transports";
-import {
-	SetTransport,
-	registerRemoteListener,
-	// @ts-expect-error shut
-} from "@mercuryworkshop/bare-mux";
+// @ts-expect-error shut
+import * as BareMux from "@mercuryworkshop/bare-mux";
 const routes = createBrowserRouter([
 	{
 		Component: RootLayout,
@@ -57,13 +54,46 @@ export default function AppRoutes() {
 	const [init, setInit] = useState(false);
 	const [config] = useConfig("proxy");
 	useEffect(() => {
+		if ("serviceWorker" in navigator) {
+			navigator.serviceWorker
+				.register("/sw.js", {
+					scope: "/~/",
+				})
+				.then(() => {
+					if (
+						localStorage.getItem("refreshAgain") === "true" ||
+						!localStorage.getItem("firstLoad")
+					) {
+						localStorage.removeItem("refreshAgain");
+						localStorage.setItem("firstLoad", "true");
+						window.location.reload();
+					}
+					console.log(
+						"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Service workers registered",
+					);
+				})
+				.catch((err) => {
+					console.error(
+						"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Service workers registration failed",
+						err,
+					);
+				});
+		} else {
+			console.error(
+				"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Service workers are not supported on this device",
+			);
+		}
+	}, []);
+	useEffect(() => {
 		try {
-			libcurl.set_websocket(config.wispServer);
-			libcurl.onload = () => setInit(true);
-			registerRemoteListener(navigator.serviceWorker.controller!);
-			SetTransport(transports[config.transport], {
+			BareMux.registerRemoteListener(navigator.serviceWorker.controller!);
+			BareMux.SetTransport(transports[config.transport], {
 				wisp: config.wispServer,
 			});
+			libcurl.set_websocket(config.wispServer);
+			if (libcurl.ready && Boolean(BareMux.findSwitcher().active.ready)) {
+				setInit(true);
+			}
 		} catch (e) {
 			console.error(e);
 		}
