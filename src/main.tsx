@@ -1,5 +1,5 @@
 // react stuff
-import { useEffect, StrictMode, lazy, Suspense } from "react";
+import { StrictMode, lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 // libraries
 import localforage from "localforage";
@@ -26,38 +26,6 @@ export default function App() {
 		name: "ephemeral",
 		storeName: "__ephemeral_config",
 	});
-	// const [config] = useConfig("proxy");
-	useEffect(() => {
-		if ("serviceWorker" in navigator) {
-			navigator.serviceWorker
-				.register("/sw.js", {
-					scope: "/~/",
-				})
-				.then(() => {
-					if (
-						localStorage.getItem("refreshAgain") === "true" ||
-						!localStorage.getItem("firstLoad")
-					) {
-						localStorage.removeItem("refreshAgain");
-						localStorage.setItem("firstLoad", "true");
-						window.location.reload();
-					}
-					console.log(
-						"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Service workers registered",
-					);
-				})
-				.catch((err) => {
-					console.error(
-						"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Service workers registration failed",
-						err,
-					);
-				});
-		} else {
-			console.error(
-				"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Service workers are not supported on this device",
-			);
-		}
-	}, []);
 	return (
 		<HelmetProvider>
 			<ThemeProvider themes={themes}>
