@@ -26,14 +26,6 @@ export default defineConfig({
 					overwrite: false,
 				},
 				{
-					src: `${__dirname}/node_modules/localforage/dist/localforage.*.js`.replace(
-						/\\/g,
-						"/",
-					),
-					dest: "localforage",
-					overwrite: false,
-				},
-				{
 					src: `${libcurlPath}/**/*`.replace(/\\/g, "/"),
 					dest: "libcurl",
 					overwrite: false,

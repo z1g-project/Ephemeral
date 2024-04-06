@@ -52,6 +52,7 @@ const routes = createBrowserRouter([
 ]);
 export default function AppRoutes() {
 	const [init, setInit] = useState(false);
+	const [swRegistered, setSwRegistered] = useState(false);
 	const [config] = useConfig("proxy");
 	useEffect(() => {
 		if ("serviceWorker" in navigator) {
@@ -60,17 +61,10 @@ export default function AppRoutes() {
 					scope: "/~/",
 				})
 				.then(() => {
-					if (
-						localStorage.getItem("refreshAgain") === "true" ||
-						!localStorage.getItem("firstLoad")
-					) {
-						localStorage.removeItem("refreshAgain");
-						localStorage.setItem("firstLoad", "true");
-						window.location.reload();
-					}
 					console.log(
 						"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Service workers registered",
 					);
+					setSwRegistered(true);
 				})
 				.catch((err) => {
 					console.error(
@@ -86,6 +80,7 @@ export default function AppRoutes() {
 	}, []);
 	useEffect(() => {
 		try {
+			if (!swRegistered) return;
 			BareMux.registerRemoteListener(navigator.serviceWorker.controller!);
 			BareMux.SetTransport(transports[config.transport], {
 				wisp: config.wispServer,
@@ -97,6 +92,6 @@ export default function AppRoutes() {
 		} catch (e) {
 			console.error(e);
 		}
-	}, [config, init]);
+	}, [config, init, swRegistered]);
 	return init ? <RouterProvider router={routes} /> : null;
 }

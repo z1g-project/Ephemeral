@@ -29,7 +29,7 @@ export default function ShortcutCard({ app }: { app: Application }) {
 					res.blob().then((blob) => URL.createObjectURL(blob) as string),
 				),
 		);
-	}, [app, run]);
+	}, [app]); // eslint-disable-line
 	return (
 		<Link to={`/view/${encoder.encode(app.url)}`}>
 			<Card className="my-2 flex h-[19rem] w-72 flex-col items-center justify-center duration-200 hover:bg-secondary">

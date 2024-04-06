@@ -71,9 +71,6 @@ dependencies:
   compression:
     specifier: ^1.7.4
     version: 1.7.4
-  cors:
-    specifier: ^2.8.5
-    version: 2.8.5
   crypto-js:
     specifier: ^4.2.0
     version: 4.2.0
@@ -3364,14 +3361,6 @@ packages:
   /cookie@0.6.0:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
     engines: {node: '>= 0.6'}
-    dev: false
-
-  /cors@2.8.5:
-    resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
-    engines: {node: '>= 0.10'}
-    dependencies:
-      object-assign: 4.1.1
-      vary: 1.1.2
     dev: false
 
   /cross-spawn@7.0.3:
