@@ -36,7 +36,6 @@ export default function ProxySettings() {
 		if (wispServerRef.current)
 			config && (config.wispServer = wispServerRef.current?.value);
 		unregisterServiceWorker();
-		localStorage.setItem("refreshAgain", "true");
 		toast({
 			title: "Proxy Settings have been saved",
 		});
@@ -45,7 +44,6 @@ export default function ProxySettings() {
 	const handleReset = () => {
 		reset();
 		unregisterServiceWorker();
-		localStorage.setItem("refreshAgain", "true");
 		toast({
 			title: "Proxy Settings have been reset",
 			variant: "destructive",

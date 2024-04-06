@@ -3,7 +3,6 @@ import { createServer } from "node:http";
 import { createServer as createViteServer } from "vite";
 import express from "express";
 import path from "path";
-import cors from "cors";
 import compression from "compression";
 import { argv } from "node:process";
 import { Socket } from "node:net";
@@ -31,11 +30,6 @@ const vite = await createViteServer({
 	server: { middlewareMode: true },
 });
 const app = express();
-const corsOptions = {
-	origin: `*`,
-	methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-	credentials: true,
-};
 const compressionOptions = {
 	threshold: 0,
 	filter: () => true,
@@ -44,21 +38,13 @@ const masqr =
 	(process.env.MASQR && process.env.MASQR.toLowerCase() === "true") ||
 	usingMasqr;
 app.use(compression(compressionOptions));
-app.use(cors(corsOptions));
-if (!devMode) {
-	app.use(express.static("dist"));
-} else {
-	app.use(vite.middlewares);
-}
-if (!devMode) {
-	app.get("*", (_, response) => {
-		response.sendFile(path.resolve("dist", "index.html"));
-	});
-}
+app.use(express.static("dist"));
+app.get("*", (_, response) => {
+	response.sendFile(path.resolve("dist", "index.html"));
+});
 
 const server = createServer();
-server.on("request", app);
-
+server.on("request", devMode ? vite.middlewares : app);
 server.on("upgrade", (req, socket: Socket, head) => {
 	if (req.url.endsWith("/wisp/")) {
 		wisp.routeRequest(req, socket, head);
@@ -69,3 +55,4 @@ console.log(`
 \x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Running on port ${port} in ${devMode ? "dev" : "production"} mode
 Configured with Masqr: ${masqr}
 `);
+vite.bindCLIShortcuts({ print: true });
