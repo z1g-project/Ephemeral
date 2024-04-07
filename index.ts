@@ -42,7 +42,7 @@ app.use(express.static("dist"));
 app.get("*", (_, response) => {
 	response.sendFile(path.resolve("dist", "index.html"));
 });
-
+vite.bindCLIShortcuts({ print: true });
 const server = createServer();
 server.on("request", devMode ? vite.middlewares : app);
 server.on("upgrade", (req, socket: Socket, head) => {
@@ -55,4 +55,3 @@ console.log(`
 \x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Running on port ${port} in ${devMode ? "dev" : "production"} mode
 Configured with Masqr: ${masqr}
 `);
-vite.bindCLIShortcuts({ print: true });

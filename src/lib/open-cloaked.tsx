@@ -1,11 +1,9 @@
+import { Config } from "@/hooks";
 import { renderToStaticMarkup } from "react-dom/server";
-export const openCloaked = () => {
+export const openCloaked = (config: Config["cloak"]) => {
 	const newWindow = window.open("about:blank");
 	if (!newWindow) return;
-	const { href } = document.getElementById(
-		"documentfavicon",
-	) as HTMLLinkElement;
-	const code = (
+	newWindow.document.body.innerHTML = renderToStaticMarkup(
 		<iframe
 			src={window.location.origin}
 			style={{
@@ -18,18 +16,17 @@ export const openCloaked = () => {
 				position: "fixed",
 				inset: "0px",
 			}}
-		></iframe>
+		></iframe>,
 	);
-	newWindow.document.body.innerHTML = renderToStaticMarkup(code);
 	newWindow.document.head.appendChild(
 		Object.assign(document.createElement("link"), {
 			rel: "icon",
-			href,
+			href: config.favicon,
 		}),
 	);
 	newWindow.document.head.appendChild(
 		Object.assign(document.createElement("title"), {
-			textContent: document.title,
+			textContent: config.title,
 		}),
 	);
 	window.location.replace("https://google.com");

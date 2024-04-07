@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useRouteError, isRouteErrorResponse } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CircleDashed } from "lucide-react";
-import { useRouteError, isRouteErrorResponse } from "react-router-dom";
 export default function ErrorPage() {
 	const error = useRouteError();
 	console.error(error);

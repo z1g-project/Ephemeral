@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { fetch } from "@/lib/fetch";
 import { libcurl } from "libcurl.js/bundled";
-import { useAsync } from "@/hooks";
+import { useAsync, useConfig } from "@/hooks";
 import encoder from "@/lib/encoder";
 import { openCloaked } from "@/lib/open-cloaked";
 import type { Application } from "@/types/apps";
@@ -70,6 +70,7 @@ function CommandImage({ imageUrl }: { imageUrl: string }) {
 export function Navbar() {
 	const [open, setOpen] = useState(false);
 	const { loading: loadingApps, data: apps, run } = useAsync<Application[]>([]);
+	const [config] = useConfig("cloak");
 	const navigate = useNavigate();
 	useEffect(() => {
 		run(() => fetch("https://z1g-backend.vercel.app/api/apps", { wisp: true }));
@@ -164,7 +165,7 @@ export function Navbar() {
 								<CommandItem
 									onSelect={() => {
 										setOpen(false);
-										openCloaked();
+										openCloaked(config);
 									}}
 								>
 									<span className="mr-2 [&>svg]:h-4 [&>svg]:w-4">

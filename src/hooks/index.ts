@@ -1,4 +1,3 @@
-import localforage from "localforage";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { fetch } from "@/lib/fetch";
 import { transports } from "@/lib/transports";
@@ -78,7 +77,7 @@ type SearchConfig = {
 	engine: string;
 };
 
-type Config = {
+export type Config = {
 	proxy: ProxyConfig;
 	cloak: CloakConfig;
 	search: SearchConfig;
@@ -116,15 +115,15 @@ function useConfig(
 	const [loading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
-		const initConfig = async () => {
+		const initConfig = () => {
 			try {
 				for (const key in defaultConfig) {
 					const subConfig: Record<string, string> = {};
 					const subKeys = Object.keys(defaultConfig[key as Path]);
 					for (const subKey of subKeys) {
-						const value = await localforage.getItem(`${key}.${subKey}`);
+						const value = localStorage.getItem(`${key}.${subKey}`);
 						if (!value) {
-							await localforage.setItem(
+							localStorage.setItem(
 								`${key}.${subKey}`,
 								defaultConfig[key as Path][subKey as SubPath],
 							);
@@ -159,7 +158,7 @@ function useConfig(
 						[property]: value,
 					},
 				}));
-				localforage.setItem(`${path}.${property}`, value);
+				localStorage.setItem(`${path}.${property}`, value);
 			} else {
 				throw new TypeError("Config is read only when no path is specified.");
 			}
@@ -181,7 +180,7 @@ function useConfig(
 	const reset = useCallback(() => {
 		if (path) {
 			for (const key in defaultConfig[path as Path]) {
-				localforage.setItem(
+				localStorage.setItem(
 					`${path}.${key}`,
 					defaultConfig[path][key as SubPath],
 				);
@@ -196,7 +195,7 @@ function useConfig(
 		} else {
 			for (const key in defaultConfig) {
 				for (const subKey in defaultConfig[key as Path]) {
-					localforage.setItem(
+					localStorage.setItem(
 						`${key}.${subKey}`,
 						defaultConfig[key as Path][subKey as SubPath],
 					);

@@ -13,11 +13,7 @@ export default function RootLayout() {
 		<main className="h-full">
 			<Helmet>
 				<title>{config?.title}</title>
-				<link
-					rel="icon"
-					href={config?.favicon || "/icon.svg"}
-					id="documentfavicon"
-				/>
+				<link rel="icon" href={config?.favicon || "/icon.svg"} />
 			</Helmet>
 			{allowedOrigins.includes(window.location.origin) ? <Meta /> : null}
 			<Toaster />

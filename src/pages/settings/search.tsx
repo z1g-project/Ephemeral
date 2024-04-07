@@ -105,7 +105,7 @@ export default function SearchSettings() {
 						/>
 					</CardContent>
 					<CardFooter className="mt-auto">
-						<Button variant={"destructive"} onClick={handleReset}>
+						<Button variant="destructive" onClick={handleReset}>
 							Reset
 						</Button>
 					</CardFooter>
