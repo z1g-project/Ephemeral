@@ -1,8 +1,6 @@
 // react stuff
 import { StrictMode, lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
-// libraries
-import localforage from "localforage";
 // css
 import "@/index.css";
 // routes
@@ -12,20 +10,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import themes from "@/lib/themes";
 import { HelmetProvider } from "react-helmet-async";
 import { Loader2 } from "lucide-react";
-// types
-declare global {
-	interface Window {
-		__uv$config: {
-			prefix: string;
-		};
-	}
-}
 export default function App() {
-	localforage.config({
-		driver: localforage.INDEXEDDB,
-		name: "ephemeral",
-		storeName: "__ephemeral_config",
-	});
 	return (
 		<HelmetProvider>
 			<ThemeProvider themes={themes}>

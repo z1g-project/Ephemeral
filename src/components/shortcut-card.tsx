@@ -35,7 +35,7 @@ export default function ShortcutCard({ app }: { app: Application }) {
 			<Card className="my-2 flex h-[19rem] w-72 flex-col items-center justify-center duration-200 hover:bg-secondary">
 				<CardHeader>
 					<CardTitle>
-						{app.featured && (
+						{app.featured ? (
 							<TooltipProvider>
 								<Tooltip>
 									<TooltipTrigger asChild>
@@ -49,7 +49,7 @@ export default function ShortcutCard({ app }: { app: Application }) {
 									</TooltipContent>
 								</Tooltip>
 							</TooltipProvider>
-						)}
+						) : null}
 						{app.name}
 					</CardTitle>
 					<CardDescription>{app.description}</CardDescription>

@@ -1,4 +1,8 @@
-export function unregisterServiceWorker() {
+import { Config } from "@/hooks";
+import { transports } from "@/lib/transports";
+// @ts-expect-error no types
+import * as BareMux from "@mercuryworkshop/bare-mux";
+function unregisterServiceWorker() {
 	if ("serviceWorker" in navigator) {
 		navigator.serviceWorker.getRegistrations().then((registrations) => {
 			for (const registration of registrations) {
@@ -10,15 +14,31 @@ export function unregisterServiceWorker() {
 		});
 	}
 }
-export function updateServiceWorker() {
+function registerServiceWorker(config: Config["proxy"]) {
 	if ("serviceWorker" in navigator) {
-		navigator.serviceWorker.getRegistrations().then((registrations) => {
-			for (const registration of registrations) {
-				registration.update();
+		navigator.serviceWorker
+			.register("/sw.js", {
+				scope: "/~/",
+			})
+			.then((registration) => {
 				console.log(
-					"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Service workers updated",
+					"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Service workers registered",
 				);
-			}
-		});
+				BareMux.registerRemoteListener(registration.active);
+				BareMux.SetTransport(transports[config.transport], {
+					wisp: config.wispServer,
+				});
+			})
+			.catch((err) => {
+				console.error(
+					"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Service workers registration failed",
+					err,
+				);
+			});
+	} else {
+		console.error(
+			"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Service workers are not supported on this device",
+		);
 	}
 }
+export { registerServiceWorker, unregisterServiceWorker };

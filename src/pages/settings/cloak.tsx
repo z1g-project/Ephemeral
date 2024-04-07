@@ -137,7 +137,7 @@ export default function CloakSettings() {
 						<Button variant="destructive" onClick={handleReset}>
 							Reset
 						</Button>
-						<Button variant="default" onClick={openCloaked}>
+						<Button variant="default" onClick={() => openCloaked(config)}>
 							Open about:blank
 						</Button>
 					</CardFooter>
