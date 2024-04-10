@@ -80,7 +80,9 @@ export default function AppRoutes() {
 			);
 		}
 		try {
-			libcurl.set_websocket(config.wispServer);
+			libcurl.set_websocket(
+				config.wispServer as `ws://${string}` | `wss://${string}`,
+			);
 			libcurl.onload = () => setInit(true);
 		} catch (e) {
 			console.error(e);
