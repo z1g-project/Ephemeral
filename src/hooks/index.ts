@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { fetch } from "@/lib/fetch";
 import { transports } from "@/lib/transports";
+import { libcurl } from "libcurl.js/bundled";
 
 interface Options {
 	useCurrentData?: boolean;

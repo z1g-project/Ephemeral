@@ -47,7 +47,7 @@ export default function MainLayout() {
 		<div className="h-[calc(100%_-_5rem)]">
 			<Navbar />
 			<Outlet />
-			<section className="fixed bottom-2 right-2 flex gap-2 text-xs">
+			<section className="fixed bottom-2 right-2 flex gap-1 rounded-lg bg-secondary-foreground/10 p-[0.25rem] text-xs backdrop-blur-lg">
 				<ModeToggle />
 				<Dialog>
 					<TooltipProvider>

@@ -12,8 +12,10 @@ import ServiceWorkerError from "@/pages/sw-error";
 import Error from "@/pages/error";
 // utils
 import { libcurl } from "libcurl.js/bundled";
+// @ts-expect-error shut
+import * as BareMux from "@mercuryworkshop/bare-mux";
+import { transports } from "./lib/transports";
 import { useConfig } from "./hooks";
-import { registerServiceWorker } from "./lib/sw";
 const routes = createBrowserRouter([
 	{
 		Component: RootLayout,
@@ -52,7 +54,31 @@ export default function AppRoutes() {
 	const [init, setInit] = useState(false);
 	const [config] = useConfig("proxy");
 	useEffect(() => {
-		registerServiceWorker(config);
+		if ("serviceWorker" in navigator) {
+			navigator.serviceWorker
+				.register("/sw.js", {
+					scope: "/~/",
+				})
+				.then(() => {
+					console.log(
+						"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Service workers registered",
+					);
+					BareMux.registerRemoteListener(navigator.serviceWorker.controller);
+					BareMux.SetTransport(transports[config.transport], {
+						wisp: config.wispServer,
+					});
+				})
+				.catch((err) => {
+					console.error(
+						"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Service workers registration failed",
+						err,
+					);
+				});
+		} else {
+			console.error(
+				"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Service workers are not supported on this device",
+			);
+		}
 		try {
 			libcurl.set_websocket(config.wispServer);
 			libcurl.onload = () => setInit(true);
