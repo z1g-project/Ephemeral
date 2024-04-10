@@ -24,7 +24,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { throttle } from "@/lib/throttle";
 import { useSuggestions, useConfig } from "@/hooks";
 import type { NavButton } from "@/types/view";
-import { injectPlugins } from "@/lib/injector";
+// import { injectPlugins } from "@/lib/injector";
 interface Eruda extends baseEruda {
 	_isInit: boolean;
 }
@@ -71,6 +71,16 @@ export default function View() {
 		},
 		[proxyPrefix],
 	);
+	// useEffect(() => {
+	// 	const intervalId = setInterval(() => {
+	// 		injectPlugins("mainframe");
+	// 		console.log("Plugins injected");
+	// 	}, 250);
+	// 	return () => {
+	// 		clearInterval(intervalId);
+	// 		console.log("Interval cleared");
+	// 	};
+	// }, []);
 
 	useEffect(() => {
 		if (!inputFocused) {
@@ -213,15 +223,6 @@ export default function View() {
 	];
 
 	window.history.replaceState(null, "", "/");
-	useEffect(() => {
-		const intervalId = setInterval(() => {
-			injectPlugins("mainframe");
-		}, 1000);
-		return () => {
-			clearInterval(intervalId);
-			console.log("Interval cleared");
-		};
-	}, []);
 	return (
 		<div
 			ref={pageRef}
