@@ -1,13 +1,32 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = (typeof themes)[number];
+export type Theme =
+	| "light"
+	| "dark"
+	| "zinc"
+	| "monokai"
+	| "mocha"
+	| "macchiato"
+	| "frappe"
+	| "latte"
+	| "system";
+// eslint-disable-next-line
+export const themes: Theme[] = [
+	"light",
+	"dark",
+	"zinc",
+	"monokai",
+	"mocha",
+	"macchiato",
+	"frappe",
+	"latte",
+	"system",
+];
 type ThemeProviderProps = {
 	children: React.ReactNode;
 	defaultTheme?: Theme;
 	storageKey?: string;
-	themes: string[];
 };
-const themes = [""];
 type ThemeProviderState = {
 	themes: Theme[];
 	theme: Theme;
@@ -24,7 +43,6 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
 	children,
-	themes,
 	defaultTheme = "system",
 	storageKey = "vite-ui-theme",
 	...props
@@ -51,7 +69,7 @@ export function ThemeProvider({
 		}
 
 		root.classList.add(theme);
-	}, [theme, themes]);
+	}, [theme]);
 
 	const value = {
 		theme,
