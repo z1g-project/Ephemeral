@@ -7,13 +7,12 @@ import "@/index.css";
 const AppRoutes = lazy(() => import("@/routes"));
 // providers
 import { ThemeProvider } from "@/components/theme-provider";
-import themes from "@/lib/themes";
 import { HelmetProvider } from "react-helmet-async";
 import { Loader2 } from "lucide-react";
 export default function App() {
 	return (
 		<HelmetProvider>
-			<ThemeProvider themes={themes}>
+			<ThemeProvider>
 				<Suspense
 					fallback={
 						<div className="flex h-screen w-screen flex-col items-center justify-center gap-2 bg-background text-foreground">

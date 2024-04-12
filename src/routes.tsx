@@ -56,9 +56,7 @@ export default function AppRoutes() {
 	useEffect(() => {
 		if ("serviceWorker" in navigator) {
 			navigator.serviceWorker
-				.register("/sw.js", {
-					scope: "/~/",
-				})
+				.register("/sw.js")
 				.then(() => {
 					console.log(
 						"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Service workers registered",
