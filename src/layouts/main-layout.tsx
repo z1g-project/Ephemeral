@@ -146,7 +146,7 @@ export default function MainLayout() {
 										<TooltipTrigger asChild>
 											<Button variant="outline" size="icon" asChild>
 												<Link
-													to={`/view/${encoder.encode("https://z1g-project.vercel.app/docs")}`}
+													to={`/view/${encoder.encode("https://z1g.top/docs")}`}
 												>
 													<Book className="size-4" />
 												</Link>
@@ -157,9 +157,7 @@ export default function MainLayout() {
 									<Tooltip>
 										<TooltipTrigger asChild>
 											<Button variant="outline" size="icon" asChild>
-												<Link
-													to={`/view/${encoder.encode("https://z1g-project.vercel.app")}`}
-												>
+												<Link to={`/view/${encoder.encode("https://z1g.top")}`}>
 													<Globe className="size-4" />
 												</Link>
 											</Button>

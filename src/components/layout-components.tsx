@@ -73,7 +73,7 @@ export function Navbar() {
 	const [config] = useConfig("cloak");
 	const navigate = useNavigate();
 	useEffect(() => {
-		run(() => fetch("https://z1g-backend.vercel.app/api/apps", { wisp: true }));
+		run(() => fetch("https://api.z1g.top/api/apps", { wisp: true }));
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 	useEffect(() => {
 		const down = (e: KeyboardEvent) => {
