@@ -39,5 +39,6 @@ To set up Ephemeral, it is super simple. Below are some instructions to get you 
 - README improvements: [Yuko](https://github.com/yu6x)
 - Frontend Improvements:[XSTARS](https://github.com/notplayingallday383)
 - Frontend Improvements: [Interpolation](https://github.com/interpolation-0)
+- Frontend Improvements: [anshnk](https://github.com/anshnk)
 - (C) Copyright 2021-2024 [z1g Project](https://github.com/z1g-project/) All rights reserved
 - Licensed under [The MIT License](https://github.com/z1g-project/ephemeral/blob/master/LICENSE)
