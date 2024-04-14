@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-export type Theme =
+type Theme =
 	| "light"
 	| "dark"
 	| "zinc"
@@ -10,8 +10,7 @@ export type Theme =
 	| "frappe"
 	| "latte"
 	| "system";
-// eslint-disable-next-line
-export const themes: Theme[] = [
+const themes: Theme[] = [
 	"light",
 	"dark",
 	"zinc",
@@ -44,7 +43,7 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 export function ThemeProvider({
 	children,
 	defaultTheme = "system",
-	storageKey = "vite-ui-theme",
+	storageKey = "ephemeral-ui-theme",
 	...props
 }: ThemeProviderProps) {
 	const [theme, setTheme] = useState<Theme>(
@@ -54,9 +53,7 @@ export function ThemeProvider({
 	useEffect(() => {
 		const root = window.document.documentElement;
 
-		themes.forEach((theme) => {
-			root.classList.remove(theme);
-		});
+		themes.forEach((theme) => root.classList.remove(theme));
 
 		if (theme === "system") {
 			const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")

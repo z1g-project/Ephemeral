@@ -13,19 +13,6 @@ const port =
 	process.env.PORT ||
 	(argv.includes("--port") && argv[argv.indexOf("--port") + 1]) ||
 	8080;
-process.chdir(import.meta.url.replace("file://", "").replace("index.ts", ""));
-if (argv.includes("-h") || argv.includes("--help")) {
-	console.log(`
-\x1b[34;49mEphemeral
-\x1b[37;49m
-default: Run in production mode
---port <port>: Specify the port to run on
---dev: Run in development mode
---help, -h: Display this help message
---masqr: Enable masqr
-    `);
-	process.exit(0);
-}
 const vite = await createViteServer({
 	server: { middlewareMode: true },
 });
@@ -42,7 +29,6 @@ app.use(express.static("dist"));
 app.get("*", (_, response) => {
 	response.sendFile(path.resolve("dist", "index.html"));
 });
-vite.bindCLIShortcuts({ print: true });
 const server = createServer();
 server.on("request", devMode ? vite.middlewares : app);
 server.on("upgrade", (req, socket: Socket, head) => {
