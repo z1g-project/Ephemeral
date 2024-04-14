@@ -5,22 +5,16 @@ import ReactDOM from "react-dom/client";
 import "@/index.css";
 // routes
 const AppRoutes = lazy(() => import("@/routes"));
+// components
+import LoadSuspense from "@/components/loading-suspense";
 // providers
 import { ThemeProvider } from "@/components/theme-provider";
 import { HelmetProvider } from "react-helmet-async";
-import { Loader2 } from "lucide-react";
 export default function App() {
 	return (
 		<HelmetProvider>
 			<ThemeProvider>
-				<Suspense
-					fallback={
-						<div className="flex h-screen w-screen flex-col items-center justify-center gap-2 bg-background text-foreground">
-							<Loader2 size={64} className="animate-spin" />
-							<p className="text-xl font-bold">Ephemeral is loading</p>
-						</div>
-					}
-				>
+				<Suspense fallback={<LoadSuspense />}>
 					<AppRoutes />
 				</Suspense>
 			</ThemeProvider>
