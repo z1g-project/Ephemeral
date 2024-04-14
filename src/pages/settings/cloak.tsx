@@ -123,6 +123,10 @@ export default function CloakSettings() {
 							ref={cloakTitleRef}
 							type="text"
 							placeholder="Set how the tab title looks"
+							onChange={(e) => {
+								config && (config.title = e.target.value);
+								document.title = e.target.value;
+							}}
 						/>
 						<Label htmlFor="page-favicon">Page Favicon</Label>
 						<Input
@@ -131,6 +135,9 @@ export default function CloakSettings() {
 							type="text"
 							spellCheck={false}
 							placeholder="Set the favicon"
+							onChange={(e) => {
+								config && (config.favicon = e.target.value);
+							}}
 						/>
 					</CardContent>
 					<CardFooter className="justify-between space-x-2">

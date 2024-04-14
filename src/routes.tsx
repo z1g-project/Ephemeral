@@ -55,16 +55,18 @@ export default function AppRoutes() {
 	const [config] = useConfig("proxy");
 	useEffect(() => {
 		if ("serviceWorker" in navigator) {
+			navigator.serviceWorker.ready.then((registration) => {
+				BareMux.registerRemoteListener(registration.active);
+				BareMux.SetTransport(transports[config.transport], {
+					wisp: config.wispServer,
+				});
+			});
 			navigator.serviceWorker
 				.register("/sw.js")
 				.then(() => {
 					console.log(
 						"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Service workers registered",
 					);
-					BareMux.registerRemoteListener(navigator.serviceWorker.controller);
-					BareMux.SetTransport(transports[config.transport], {
-						wisp: config.wispServer,
-					});
 				})
 				.catch((err) => {
 					console.error(
