@@ -26,9 +26,8 @@ export default function SearchSettings() {
 	const customSearchRef = useRef<HTMLInputElement>(null);
 	const [config, reset, loading] = useConfig("search");
 	const searchEngines = {
-		Google: "https://google.com/search?q=%s",
-		DuckDuckGo: "https://duckduckgo.com/?q=%s",
-		Bing: "https://bing.com/search?q=%s",
+		Google: "https://google.com/search?q=",
+		DuckDuckGo: "https://duckduckgo.com/?q=",
 	};
 
 	useEffect(() => {
@@ -53,7 +52,6 @@ export default function SearchSettings() {
 			title: "Search Settings Reset",
 			description: "Search settings have been reset",
 		});
-		setTimeout(window.location.reload.bind(window.location), 1000);
 	};
 
 	return (
