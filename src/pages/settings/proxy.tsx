@@ -35,16 +35,17 @@ export default function ProxySettings() {
 	const handleSave = () => {
 		if (wispServerRef.current) {
 			if (
-				!wispServerRef.current?.value.startsWith("wss://") ||
-				!wispServerRef.current?.value.startsWith("ws://")
+				wispServerRef.current?.value.startsWith("wss://") ||
+				wispServerRef.current?.value.startsWith("ws://")
 			) {
-			toast({
-          title: "Invalid Wisp Server URL",
-          variant: "destructive",
-        });
+				config && (config.wispServer = wispServerRef.current?.value);
+			} else {
+				toast({
+					title: "Invalid Wisp Server URL",
+					variant: "destructive",
+				});
 				throw new Error("Invalid Wisp Server URL");
 			}
-			config && (config.wispServer = wispServerRef.current?.value);
 		}
 		unregisterServiceWorker();
 		toast({
