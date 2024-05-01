@@ -124,7 +124,7 @@ dependencies:
     version: 4.7.1
   vite-plugin-static-copy:
     specifier: ^1.0.2
-    version: 1.0.2(vite@5.2.7)
+    version: 1.0.2(vite@5.2.10)
   wisp-server-node:
     specifier: ^1.0.4
     version: 1.0.4
@@ -159,7 +159,7 @@ devDependencies:
     version: 7.4.0(eslint@8.57.0)(typescript@5.4.3)
   '@vitejs/plugin-react-swc':
     specifier: ^3.6.0
-    version: 3.6.0(vite@5.2.7)
+    version: 3.6.0(vite@5.2.10)
   eslint:
     specifier: ^8.57.0
     version: 8.57.0
@@ -185,8 +185,8 @@ devDependencies:
     specifier: ^7.4.0
     version: 7.4.0(eslint@8.57.0)(typescript@5.4.3)
   vite:
-    specifier: ^5.2.7
-    version: 5.2.7(@types/node@20.12.2)
+    specifier: ^5.2.10
+    version: 5.2.10(@types/node@20.12.2)
 
 packages:
 
@@ -2801,13 +2801,13 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /@vitejs/plugin-react-swc@3.6.0(vite@5.2.7):
+  /@vitejs/plugin-react-swc@3.6.0(vite@5.2.10):
     resolution: {integrity: sha512-XFRbsGgpGxGzEV5i5+vRiro1bwcIaZDIdBRP16qwm+jP68ue/S8FJTBEgOeojtVDYrbSua3XFp71kC8VJE6v+g==}
     peerDependencies:
       vite: ^4 || ^5
     dependencies:
       '@swc/core': 1.4.11
-      vite: 5.2.7(@types/node@20.12.2)
+      vite: 5.2.10(@types/node@20.12.2)
     transitivePeerDependencies:
       - '@swc/helpers'
     dev: true
@@ -6116,7 +6116,7 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
-  /vite-plugin-static-copy@1.0.2(vite@5.2.7):
+  /vite-plugin-static-copy@1.0.2(vite@5.2.10):
     resolution: {integrity: sha512-AfmEF+a/mfjsUsrgjbCkhzUCeIUF4EKQXXt3Ie1cour9MBpy6f6GphbdW2td28oYfOrwCyRzFCksgLkpk58q6Q==}
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
@@ -6126,11 +6126,11 @@ packages:
       fast-glob: 3.3.2
       fs-extra: 11.2.0
       picocolors: 1.0.0
-      vite: 5.2.7(@types/node@20.12.2)
+      vite: 5.2.10(@types/node@20.12.2)
     dev: false
 
-  /vite@5.2.7(@types/node@20.12.2):
-    resolution: {integrity: sha512-k14PWOKLI6pMaSzAuGtT+Cf0YmIx12z9YGon39onaJNy8DLBfBJrzg9FQEmkAM5lpHBZs9wksWAsyF/HkpEwJA==}
+  /vite@5.2.10(@types/node@20.12.2):
+    resolution: {integrity: sha512-PAzgUZbP7msvQvqdSD+ErD5qGnSFiGOoWmV5yAKUEI0kdhjbH6nMWVyZQC/hSc4aXwc0oJ9aEdIiF9Oje0JFCw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
