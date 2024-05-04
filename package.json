@@ -52,7 +52,7 @@
 		"react-router-dom": "^6.23.0",
 		"tailwind-merge": "^2.3.0",
 		"tailwindcss-animate": "^1.0.7",
-		"tsx": "^4.7.3",
+		"tsx": "^4.9.1",
 		"vite-plugin-static-copy": "^1.0.3",
 		"wisp-server-node": "^1.0.6"
 	},
