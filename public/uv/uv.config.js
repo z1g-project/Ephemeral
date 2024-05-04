@@ -50,12 +50,11 @@ const factory = (key) => {
 
 	return {
 		enc: base64Encode,
-		dec: function (encodedText) {
+		dec: (encodedText) => {
 			if (encodedText.includes("?")) {
+				// biome-ignore lint:
 				encodedText = base64Encode(
-					base64Decode(encodedText.split("?")[0]) +
-						"?" +
-						encodedText.split("?")[1],
+					`${base64Decode(encodedText.split("?")[0])}?${encodedText.split("?")[1]}`,
 				);
 				console.log(1);
 			}

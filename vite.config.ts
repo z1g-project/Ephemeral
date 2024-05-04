@@ -1,14 +1,14 @@
-import million from "million/compiler";
-import path from "path";
-import { execSync } from "child_process";
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import { viteStaticCopy } from "vite-plugin-static-copy";
-import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
+import { execSync } from "node:child_process";
+import path from "node:path";
 // @ts-expect-error stfu
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 // @ts-expect-error stfu
 import { libcurlPath } from "@mercuryworkshop/libcurl-transport";
+import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
+import react from "@vitejs/plugin-react-swc";
+import million from "million/compiler";
+import { defineConfig } from "vite";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 const __dirname = path.resolve();
 
 // https://vitejs.dev/config/

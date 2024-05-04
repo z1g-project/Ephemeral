@@ -1,11 +1,11 @@
 #!/usr/bin/env tsx
 import { createServer } from "node:http";
-import { createServer as createViteServer } from "vite";
-import express from "express";
-import path from "path";
-import compression from "compression";
+import type { Socket } from "node:net";
+import path from "node:path";
 import { argv } from "node:process";
-import { Socket } from "node:net";
+import compression from "compression";
+import express from "express";
+import { createServer as createViteServer } from "vite";
 import wisp from "wisp-server-node";
 const devMode = argv.includes("--dev");
 const usingMasqr = process.env.MASQR || argv.includes("--masqr");
