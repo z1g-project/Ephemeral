@@ -123,8 +123,8 @@ dependencies:
     specifier: ^4.9.1
     version: 4.9.1
   vite-plugin-static-copy:
-    specifier: ^1.0.3
-    version: 1.0.3(vite@5.2.11)
+    specifier: ^1.0.4
+    version: 1.0.4(vite@5.2.11)
   wisp-server-node:
     specifier: ^1.0.6
     version: 1.0.6
@@ -5346,8 +5346,8 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
-  /vite-plugin-static-copy@1.0.3(vite@5.2.11):
-    resolution: {integrity: sha512-hBCCz6T0uNI3oF5oJ/Ju73rhoR+ADrJ2iLAea5+wA7kpQ8clYgY8BD+GL0w0BrqsYCbgBITOByBP/3y9Y+h93A==}
+  /vite-plugin-static-copy@1.0.4(vite@5.2.11):
+    resolution: {integrity: sha512-UtyOttgoeotSCwmBugsEZCZJZcIpjE9NGO7jlZ9OeedYpBueBdspD8waRZrjE+yQLH6qGNU2CvYB2FILviCQjg==}
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       vite: ^5.0.0
