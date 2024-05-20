@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -9,6 +8,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
 	Select,
 	SelectContent,
@@ -16,10 +16,10 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/use-toast";
 import { useConfig } from "@/hooks";
-import { Skeleton } from "@/components/ui/skeleton";
+import { useEffect, useRef, useState } from "react";
 export default function SearchSettings() {
 	const { toast } = useToast();
 	const [custom, setCustom] = useState<boolean>(false);
@@ -42,7 +42,7 @@ export default function SearchSettings() {
 		config.url = searchEngines[value];
 		toast({
 			title: "Search Engine Changed",
-			description: "Search Engine has been changed to " + value,
+			description: `Search Engine has been changed to ${value}`,
 		});
 	};
 
@@ -55,7 +55,7 @@ export default function SearchSettings() {
 	};
 
 	return (
-		<Card className={`flex h-96 w-full flex-col md:w-96`}>
+		<Card className="flex h-96 w-full flex-col md:w-96">
 			{!loading ? (
 				<>
 					<CardHeader>

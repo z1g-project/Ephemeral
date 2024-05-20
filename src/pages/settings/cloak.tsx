@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -9,6 +8,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
 	Select,
 	SelectContent,
@@ -16,11 +16,11 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/use-toast";
 import { useConfig } from "@/hooks";
 import { openCloaked } from "@/lib/open-cloaked";
-import { Skeleton } from "@/components/ui/skeleton";
+import { useEffect, useRef } from "react";
 
 export default function CloakSettings() {
 	const cloakTitleRef = useRef<HTMLInputElement>(null);
@@ -76,7 +76,7 @@ export default function CloakSettings() {
 		setTimeout(window.location.reload.bind(window.location), 1000);
 	};
 	return (
-		<Card className={`flex h-96 w-full flex-col md:w-96`}>
+		<Card className="flex h-96 w-full flex-col md:w-96">
 			{!loading ? (
 				<>
 					<CardHeader>

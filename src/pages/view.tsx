@@ -1,7 +1,17 @@
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
-import { Link, useParams } from "react-router-dom";
-import type { Eruda as baseEruda } from "eruda";
+import { Button } from "@/components/ui/button";
+import {
+	Command,
+	CommandGroup,
+	CommandItem,
+	CommandList,
+} from "@/components/ui/command";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
+import { useConfig, useSuggestions } from "@/hooks";
 import encoder from "@/lib/encoder";
+import { throttle } from "@/lib/throttle";
+import type { NavButton } from "@/types/view";
+import type { Eruda as baseEruda } from "eruda";
 import {
 	ArrowUpRightFromSquare,
 	ChevronLeft,
@@ -12,18 +22,8 @@ import {
 	Minimize,
 	RotateCw,
 } from "lucide-react";
-import {
-	Command,
-	CommandGroup,
-	CommandItem,
-	CommandList,
-} from "@/components/ui/command";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
-import { throttle } from "@/lib/throttle";
-import { useSuggestions, useConfig } from "@/hooks";
-import type { NavButton } from "@/types/view";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 // import { injectPlugins } from "@/lib/injector";
 interface Eruda extends baseEruda {
 	_isInit: boolean;
@@ -54,23 +54,20 @@ export default function View() {
 	);
 	const throttledInputChange = useRef(throttle(750, onInputChange));
 
-	const setSearch = useCallback(
-		(suggestion?: string) => {
-			if (!inputRef.current) return;
-			let site =
-				frameRef.current?.contentWindow?.location.href
-					?.replace(window.location.origin, "")
-					.replace(proxyPrefix, "") || "";
-			if (site == undefined) return;
-			site = encoder.decode(site);
-			if (suggestion) {
-				inputRef.current.value = suggestion;
-				return;
-			}
-			inputRef.current.value = site?.toString() || "";
-		},
-		[proxyPrefix],
-	);
+	const setSearch = useCallback((suggestion?: string) => {
+		if (!inputRef.current) return;
+		let site =
+			frameRef.current?.contentWindow?.location.href
+				?.replace(window.location.origin, "")
+				.replace(proxyPrefix, "") || "";
+		if (site === undefined) return;
+		site = encoder.decode(site);
+		if (suggestion) {
+			inputRef.current.value = suggestion;
+			return;
+		}
+		inputRef.current.value = site?.toString() || "";
+	}, []);
 	// useEffect(() => {
 	// 	const intervalId = setInterval(() => {
 	// 		injectPlugins("mainframe");
@@ -231,10 +228,9 @@ export default function View() {
 			<div className="space-between flex max-h-14 items-start overflow-visible p-2">
 				<div className="mr-auto whitespace-nowrap">
 					{leftButtons.map(
-						({ title, onClick, disabled, children, asChild }, key) => (
+						({ title, onClick, disabled, children, asChild }) => (
 							<Button
 								{...{
-									key,
 									disabled,
 									onClick,
 									title,
@@ -243,6 +239,7 @@ export default function View() {
 								}}
 								variant="ghost"
 								size="icon"
+								key={title}
 							>
 								{children}
 							</Button>
@@ -265,17 +262,15 @@ export default function View() {
 						onChange={throttledInputChange.current}
 						onKeyDown={parseInput}
 					/>
-					<Command
-						className={`invisible z-20 h-0 w-96 rounded-b-lg rounded-t-none border-x border-border shadow-md group-hover:visible group-hover:h-auto peer-focus:visible peer-focus:h-auto sm:w-[484px] lg:w-[584px]`}
-					>
+					<Command className="invisible z-20 h-0 w-96 rounded-b-lg rounded-t-none border-x border-border shadow-md group-hover:visible group-hover:h-auto peer-focus:visible peer-focus:h-auto sm:w-[484px] lg:w-[584px]">
 						<CommandList>
 							{suggestions ? (
 								suggestions.length > 0 ? (
 									<CommandGroup heading="Suggestions">
-										{suggestions.map((suggestion: string, index: number) => (
+										{suggestions.map((suggestion: string) => (
 											<CommandItem
 												className="cursor-pointer"
-												key={index}
+												key={suggestion}
 												onSelect={() => {
 													frameRef.current!.src =
 														proxyPrefix +
@@ -300,16 +295,16 @@ export default function View() {
 				</section>
 				<div className="ml-auto whitespace-nowrap">
 					{rightButtons.map(
-						({ title, onClick, disabled, children, asChild }, key) => (
+						({ title, onClick, disabled, children, asChild }) => (
 							<Button
 								{...{
-									key,
 									disabled,
 									onClick,
 									title,
 									"aria-label": title,
 									asChild: asChild ?? false,
 								}}
+								key={title}
 								variant="ghost"
 								size="icon"
 							>

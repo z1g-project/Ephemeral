@@ -1,6 +1,4 @@
-import { useEffect, useRef } from "react";
-import { useToast } from "@/components/ui/use-toast";
-import { useConfig } from "@/hooks";
+import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
@@ -9,18 +7,20 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Label } from "@/components/ui/label";
 import {
 	Select,
-	SelectTrigger,
-	SelectValue,
 	SelectContent,
 	SelectItem,
+	SelectTrigger,
+	SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useToast } from "@/components/ui/use-toast";
+import { useConfig } from "@/hooks";
 import { unregisterServiceWorker } from "@/lib/sw";
+import { useEffect, useRef } from "react";
 export default function ProxySettings() {
 	const { toast } = useToast();
 	const [config, reset, loading] = useConfig("proxy");
@@ -64,7 +64,7 @@ export default function ProxySettings() {
 	};
 
 	return (
-		<Card className={`flex h-96 w-full flex-col md:w-96`}>
+		<Card className="flex h-96 w-full flex-col md:w-96">
 			{!loading ? (
 				<>
 					<CardHeader>

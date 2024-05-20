@@ -1,0 +1,19 @@
+{
+	"name": "Ephemeral",
+	"short_name": "Ephemeral",
+	"description": "Ephemeral is a web proxy that allows you to bypass internet restrictions such as firewalls, filters, and parental controls.",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#020617",
+	"theme_color": "#020617",
+	"icons": [
+		{
+			"src": "/icon.svg",
+			"sizes": "192x192"
+		},
+		{
+			"src": "/icon.svg",
+			"sizes": "512x512"
+		}
+	]
+}
