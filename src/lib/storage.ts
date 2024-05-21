@@ -34,14 +34,19 @@ export function getIndexedDB(): Promise<any[]> {
 		};
 	});
 }
-export function setIndexedDB(data: { name: string; value: string }) {
+export function setIndexedDB(data: { [key: string]: unknown }) {
+	if (data.expires) {
+		data.expires = new Date(data.expires as string);
+	}
+	if (data.set) {
+		data.set = new Date(data.set as string);
+	}
 	return new Promise<void>((resolve, reject) => {
 		const openRequest = indexedDB.open("__op");
 		openRequest.onsuccess = () => {
 			const db = openRequest.result;
 			const trans = db.transaction("cookies", "readwrite");
 			const cookies = trans.objectStore("cookies");
-			console.log(data);
 			cookies.add(data);
 			resolve();
 		};

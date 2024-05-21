@@ -1,7 +1,7 @@
-export type EphemeralExport = {
+export type DataExport = {
 	exportedBy: string;
 	version: number;
 	date: number;
-	cookies: { name: string; value: string }[] | undefined;
+	cookies: { [key: string]: unknown }[] | undefined;
 	localStorage: { name: string; value: string }[] | undefined;
 };
