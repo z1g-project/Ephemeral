@@ -1,6 +1,6 @@
 <div>
   <p align="center">
-    <img src="https://cdn.discordapp.com/attachments/1131413885061185697/1212894557428121671/ALMPKm3.png?ex=65f37f14&is=65e10a14&hm=587993c4d39773f0c751f900309b8b407327bdc2c0b2effd6b820fed67e462fe&" height="135" width="135">
+    <img src="./public/icon.svg" height="135" width="135">
   </p>
   <h1 align="center">Ephemeral</h1>
   <p align="center">Ephemeral is a site used for evading internet censorship at fast speeds!</p>
@@ -14,7 +14,12 @@ Some of the features of Ephemeral are:
 - Auto-Stealth Pages (Loads the pages within the current page you are on instead of loading the page classicly with the example.com/sw/)
 - Tab Cloaking - Changeable Title, Icon, and About:blank cloaking
 - Customizable! - Ephemeral has tons of other customization options for you to play with to match your preferences!
+- Built to last & fast with Wisp UV and more!
+- Importable and Exportable cookies 
 - _More coming soon! ;)_
+
+> [!CAUTION]
+> Use cookie importing and exporting at your own risk as this can get you hacked if used malicously.
 
 ## Setup & installation
 
@@ -28,7 +33,8 @@ To set up Ephemeral, it is super simple. Below are some instructions to get you 
 - Make sure that you have NodeJS 18.x installed to check this in your operating system of choice command line or terminal type: `Node --Version` and if it says 18.0.0 or anything later than that you are fine. If you need to install or update NodeJS Please Refer to [This Page](https://nodejs.org/en/download). You also need pnpm, which can be installed with `npm i -g pnpm`
 - Next, after all these things have been completed. Please make sure you are in the directory with all the files inside it. Next Run `pnpm i` or `pnpm install` (they are the same command) and wait for it to finish installing Dependencies.
 
-> ⚠️ Note if you are on Replit, Glitch, Heroku (or any other host that doesn't allow proxies), This Repository will probably automatically flag your repository. Check out how to Bypass these Restrictions here: [Bypassing Restrictions](https://github.com/holy-unblocker/website-aio/wiki/Circumventing-deployment-restrictions)
+> [!NOTE]
+> If you are on Replit, Glitch, Heroku (or any other host that doesn't allow proxies), This Repository will probably automatically flag your repository. Check out how to Bypass these Restrictions here: [Bypassing Restrictions](https://github.com/holy-unblocker/website-aio/wiki/Circumventing-deployment-restrictions)
 
 - Once all dependencies are installed you may run `pnpm start` to start the HTTP Server.
 
