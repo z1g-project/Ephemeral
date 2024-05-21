@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -13,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
 import { getIndexedDB, getLocalStorage, setIndexedDB } from "@/lib/storage";
-import type { EphemeralExport } from "@/types/export-json";
+import type { DataExport } from "@/types/export-json";
 import { useState } from "react";
 import CloakSettings from "./settings/cloak";
 import ProxySettings from "./settings/proxy";
@@ -21,7 +20,7 @@ import SearchSettings from "./settings/search";
 export default function Settings() {
 	const { toast } = useToast();
 	const [exportSettings, setExportSettings] = useState({
-		cookies: false,
+		cookies: true,
 		data: true,
 	});
 	return (
@@ -36,7 +35,7 @@ export default function Settings() {
 				>
 					<TabsList className="my-2 grid w-96 grid-cols-2">
 						<TabsTrigger value="general">General</TabsTrigger>
-						<TabsTrigger value="importexport">Import/Export</TabsTrigger>
+						<TabsTrigger value="data">Data</TabsTrigger>
 					</TabsList>
 					<TabsContent
 						value="general"
@@ -47,16 +46,18 @@ export default function Settings() {
 						<SearchSettings />
 					</TabsContent>
 					<TabsContent
-						value="importexport"
+						value="data"
 						className="flex flex-grow flex-col items-center justify-center gap-8 px-4 xl:flex-row xl:gap-x-4 xl:gap-y-0 xl:px-0"
 					>
 						<Card className="flex h-96 w-full flex-col md:w-96">
 							<CardHeader>
-								<CardTitle className="flex flex-row gap-2">
-									Export<Badge className="w-auto">Cookies: Experimental</Badge>
-								</CardTitle>
+								<CardTitle className="flex flex-row gap-2">Export</CardTitle>
 								<CardDescription>
-									Export settings and data for use on another link.
+									Export settings and data for use on another link.{" "}
+									<span className="font-semibold text-destructive">
+										DO NOT share this file with anyone! Doing so will compromise
+										your accounts.
+									</span>
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="flex flex-col gap-4">
@@ -108,7 +109,7 @@ export default function Settings() {
 											localStorage: exportSettings.data
 												? localStorage
 												: undefined,
-										} as EphemeralExport);
+										} as DataExport);
 										const url = URL.createObjectURL(new Blob([json]));
 										const a = Object.assign(document.createElement("a"), {
 											href: url,
@@ -135,9 +136,7 @@ export default function Settings() {
 									onChange={async (e) => {
 										const [file] = e.target.files || [];
 										try {
-											const json: EphemeralExport = JSON.parse(
-												await file.text(),
-											);
+											const json: DataExport = JSON.parse(await file.text());
 											json.localStorage?.forEach((v) =>
 												localStorage.setItem(v.name, v.value),
 											);
@@ -149,7 +148,6 @@ export default function Settings() {
 												);
 											toast({ title: "Successfully imported settings" });
 										} catch (e) {
-											console.log("error %s", e);
 											toast({
 												title: "Failed to import settings",
 												description: (e as Error).message,
