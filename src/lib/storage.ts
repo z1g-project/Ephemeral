@@ -35,23 +35,35 @@ export function getIndexedDB(): Promise<any[]> {
 	});
 }
 export function setIndexedDB(data: { [key: string]: unknown }) {
-	if (data.expires) {
-		data.expires = new Date(data.expires as string);
-	}
-	if (data.set) {
-		data.set = new Date(data.set as string);
-	}
-	return new Promise<void>((resolve, reject) => {
-		const openRequest = indexedDB.open("__op");
-		openRequest.onsuccess = () => {
-			const db = openRequest.result;
-			const trans = db.transaction("cookies", "readwrite");
-			const cookies = trans.objectStore("cookies");
-			cookies.add(data);
-			resolve();
-		};
-		openRequest.onerror = () => {
-			reject();
-		};
-	});
+    if (data.expires) {
+        data.expires = new Date(data.expires as string);
+    }
+    if (data.set) {
+        data.set = new Date(data.set as string);
+    }
+    return new Promise<void>((resolve, reject) => {
+        const openRequest = indexedDB.open("__op", 1);
+        openRequest.onupgradeneeded = () => {
+            const db = openRequest.result;
+            if (!db.objectStoreNames.contains("cookies")) {
+                const st = db.createObjectStore("cookies", { keyPath: "id", autoIncrement: true });
+				st.createIndex("path", "path", { unique: false });
+            }
+        };
+        openRequest.onsuccess = () => {
+            const db = openRequest.result;
+            const trans = db.transaction("cookies", "readwrite");
+            const cookies = trans.objectStore("cookies");
+            cookies.add(data);
+            trans.oncomplete = () => {
+                resolve();
+            };
+            trans.onerror = () => {
+                reject();
+            };
+        };
+        openRequest.onerror = () => {
+            reject();
+        };
+    });
 }
