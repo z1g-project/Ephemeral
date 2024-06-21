@@ -112,7 +112,7 @@ export default function Home() {
 						) : null}
 						{suggestError ? (
 							<CommandGroup heading="Error">
-								<CommandItem className="cursor-not-allowed !bg-background !text-red-600">
+								<CommandItem className="cursor-not-allowed !bg-background !text-destructive">
 									{suggestError.message}
 								</CommandItem>
 							</CommandGroup>

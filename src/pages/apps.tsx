@@ -74,7 +74,7 @@ export default function Apps() {
 				) : null}
 			</div>
 			<span
-				className={`flex w-full items-center justify-center pb-10 text-center text-2xl font-bold ${error ? "text-red-600" : "text-foreground"}`}
+				className={`flex w-full items-center justify-center pb-10 text-center text-2xl font-bold ${error ? "text-destructive" : "text-foreground"}`}
 			>
 				{!error ? (
 					!loading ? (

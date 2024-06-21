@@ -285,7 +285,7 @@ export default function View() {
 							) : null}
 							{error ? (
 								<CommandGroup heading="Error">
-									<CommandItem className="cursor-not-allowed !bg-background !text-red-600">
+									<CommandItem className="cursor-not-allowed !bg-background !text-destructive">
 										{error.message}
 									</CommandItem>
 								</CommandGroup>
