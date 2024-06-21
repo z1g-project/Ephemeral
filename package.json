@@ -38,7 +38,7 @@
 		"cmdk": "^0.2.1",
 		"compression": "^1.7.4",
 		"crypto-js": "^4.2.0",
-		"embla-carousel-react": "^8.1.2",
+		"embla-carousel-react": "^8.1.5",
 		"eruda": "^3.0.1",
 		"express": "^4.19.2",
 		"fs": "0.0.1-security",
