@@ -1,4 +1,5 @@
 import { execSync } from "node:child_process";
+import type { Socket } from "node:net";
 import path from "node:path";
 // @ts-expect-error stfu
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
@@ -9,7 +10,7 @@ import react from "@vitejs/plugin-react-swc";
 import million from "million/compiler";
 import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-const __dirname = path.resolve();
+import wisp from "wisp-server-node";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,6 +19,16 @@ export default defineConfig({
 		chunkSizeWarningLimit: 2700,
 	},
 	plugins: [
+		{
+			name: "vite-wisp-server",
+			configureServer(server) {
+				server.httpServer?.on("upgrade", (req, socket: Socket, head) =>
+					req.url?.startsWith("/wisp")
+						? wisp.routeRequest(req, socket, head)
+						: undefined,
+				);
+			},
+		},
 		viteStaticCopy({
 			targets: [
 				{

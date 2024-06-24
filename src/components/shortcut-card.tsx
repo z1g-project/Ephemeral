@@ -1,8 +1,3 @@
-import { Link } from "react-router-dom";
-import { useAsync } from "@/hooks";
-import { libcurl } from "libcurl.js/bundled";
-import type { Application } from "@/types/apps";
-import encoder from "@/lib/encoder";
 import {
 	Card,
 	CardContent,
@@ -10,9 +5,15 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAsync } from "@/hooks";
+import encoder from "@/lib/encoder";
+import type { Application } from "@/types/apps";
+// @ts-expect-error - no types
+import { BareClient } from "@mercuryworkshop/bare-mux";
 import { Sparkles } from "lucide-react";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
 	Tooltip,
 	TooltipContent,
@@ -22,11 +23,14 @@ import {
 export default function ShortcutCard({ app }: { app: Application }) {
 	const { data: image, loading, run, error } = useAsync<string>(null);
 	useEffect(() => {
+		const client = new BareClient();
 		run(() =>
-			libcurl
+			client
 				.fetch(app.image)
-				.then((res) =>
-					res.blob().then((blob) => URL.createObjectURL(blob) as string),
+				.then(({ rawResponse }: { rawResponse: Response }) =>
+					rawResponse
+						.blob()
+						.then((blob) => URL.createObjectURL(blob) as string),
 				),
 		);
 	}, [app]); // eslint-disable-line
@@ -61,7 +65,8 @@ export default function ShortcutCard({ app }: { app: Application }) {
 								src={image as string | undefined}
 								width={125}
 								height={50}
-								className="aspect-video	h-32 w-56 rounded-lg object-cover"
+								className="aspect-video h-32 w-56 rounded-lg object-cover"
+								alt={app.name}
 							/>
 						) : (
 							<Skeleton className="aspect-video h-32 w-56 rounded-lg object-cover" />

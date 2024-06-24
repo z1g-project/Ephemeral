@@ -1,8 +1,4 @@
-import { useEffect } from "react";
-import { fetch } from "@/lib/fetch";
-import { libcurl } from "libcurl.js/bundled";
-import { Link } from "react-router-dom";
-import encoder from "@/lib/encoder";
+/** eslint-disable no-empty-pattern */
 import {
 	Carousel,
 	CarouselContent,
@@ -12,15 +8,24 @@ import {
 } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAsync } from "@/hooks";
-import { Application } from "@/types/apps";
+import encoder from "@/lib/encoder";
+import { fetch } from "@/lib/fetch";
+import type { Application } from "@/types/apps";
+// @ts-expect-error BareClient is not typed
+import { BareClient } from "@mercuryworkshop/bare-mux";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 function AppImage({ imageUrl }: { imageUrl: string }) {
 	const { data: image, loading, run, error } = useAsync<string>(null);
 	useEffect(() => {
+		const client = new BareClient();
 		run(() =>
-			libcurl
+			client
 				.fetch(imageUrl)
-				.then((res) =>
-					res.blob().then((blob) => URL.createObjectURL(blob) as string),
+				.then(({ rawResponse }: { rawResponse: Response }) =>
+					rawResponse
+						.blob()
+						.then((blob) => URL.createObjectURL(blob) as string),
 				),
 		);
 	}, [imageUrl]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -31,9 +36,10 @@ function AppImage({ imageUrl }: { imageUrl: string }) {
 				width={125}
 				height={50}
 				className="aspect-video h-32 w-56 rounded-lg border-muted bg-accent object-cover transition-all duration-150 ease-in-out hover:border-4"
+				alt=""
 			/>
 		) : (
-			<Skeleton className="aspect-video	h-32 w-52 rounded-lg border-border object-cover" />
+			<Skeleton className="aspect-video h-32 w-52 rounded-lg border-border object-cover" />
 		)
 	) : (
 		<div className="flex h-32 w-56 items-center justify-center rounded-lg bg-secondary text-lg text-destructive">

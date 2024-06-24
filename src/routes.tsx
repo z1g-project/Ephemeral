@@ -1,26 +1,26 @@
-import { useEffect, useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+/** eslint-disable @typescript-eslint/no-unused-vars */
+import MainLayout from "@/layouts/main-layout";
 // layouts
 import RootLayout from "@/layouts/root-layout";
-import MainLayout from "@/layouts/main-layout";
+import Apps from "@/pages/apps";
+import ErrorPage from "@/pages/error";
 // pages
 import Home from "@/pages/home";
-import View from "@/pages/view";
 import Settings from "@/pages/settings";
-import Apps from "@/pages/apps";
 import ServiceWorkerError from "@/pages/sw-error";
-import Error from "@/pages/error";
-// utils
-import { libcurl } from "libcurl.js/bundled";
+import View from "@/pages/view";
 // @ts-expect-error shut
 import * as BareMux from "@mercuryworkshop/bare-mux";
-import { transports } from "./lib/transports";
+// utils
+import { useEffect, useState } from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { useConfig } from "./hooks";
+import { transports } from "./lib/transports";
 const routes = createBrowserRouter([
 	{
 		Component: RootLayout,
 		path: "/",
-		ErrorBoundary: Error,
+		ErrorBoundary: ErrorPage,
 		children: [
 			{
 				Component: MainLayout,
@@ -59,6 +59,7 @@ export default function AppRoutes() {
 				BareMux.SetTransport(transports[config.transport], {
 					wisp: config.wispServer,
 				});
+				setInit(true);
 			});
 			navigator.serviceWorker
 				.register("/sw.js")
@@ -77,14 +78,6 @@ export default function AppRoutes() {
 			console.error(
 				"\x1b[34;49;1m[Ephemeral] \x1B[31mERROR: Service workers are not supported on this device",
 			);
-		}
-		try {
-			libcurl.set_websocket(
-				config.wispServer as `ws://${string}` | `wss://${string}`,
-			);
-			libcurl.onload = () => setInit(true);
-		} catch (e) {
-			console.error(e);
 		}
 	}, [config]);
 	return init ? <RouterProvider router={routes} /> : null;

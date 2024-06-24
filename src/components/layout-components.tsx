@@ -1,26 +1,4 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { fetch } from "@/lib/fetch";
-import { libcurl } from "libcurl.js/bundled";
-import { useAsync, useConfig } from "@/hooks";
-import encoder from "@/lib/encoder";
-import { openCloaked } from "@/lib/open-cloaked";
-import type { Application } from "@/types/apps";
-import {
-	LucideHome,
-	Settings,
-	LayoutGrid,
-	CircleDashed,
-	Search,
-	ExternalLink,
-} from "lucide-react";
-import {
-	NavigationMenu,
-	NavigationMenuItem,
-	NavigationMenuLink,
-	NavigationMenuList,
-	navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+import { Button } from "@/components/ui/button";
 import {
 	Command,
 	CommandDialog,
@@ -30,8 +8,32 @@ import {
 	CommandItem,
 	CommandList,
 } from "@/components/ui/command";
-import { Button } from "@/components/ui/button";
+import {
+	NavigationMenu,
+	NavigationMenuItem,
+	NavigationMenuLink,
+	NavigationMenuList,
+	navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAsync, useConfig } from "@/hooks";
+import encoder from "@/lib/encoder";
+import { fetch } from "@/lib/fetch";
+import { openCloaked } from "@/lib/open-cloaked";
+import type { Application } from "@/types/apps";
+// @ts-expect-error - no types
+import { BareClient } from "@mercuryworkshop/bare-mux";
+import {
+	CircleDashed,
+	ExternalLink,
+	LayoutGrid,
+	LucideHome,
+	Search,
+	Settings,
+} from "lucide-react";
+/** eslint-disable @typescript-eslint/no-unused-vars */
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 const links: {
 	href: string;
 	text: string;
@@ -44,11 +46,14 @@ const links: {
 function CommandImage({ imageUrl }: { imageUrl: string }) {
 	const { data: image, loading, run, error } = useAsync<string>(null);
 	useEffect(() => {
+		const client = new BareClient();
 		run(() =>
-			libcurl
+			client
 				.fetch(imageUrl)
-				.then((res) =>
-					res.blob().then((blob) => URL.createObjectURL(blob) as string),
+				.then(({ rawResponse }: { rawResponse: Response }) =>
+					rawResponse
+						.blob()
+						.then((blob) => URL.createObjectURL(blob) as string),
 				),
 		);
 	}, [imageUrl]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -59,6 +64,7 @@ function CommandImage({ imageUrl }: { imageUrl: string }) {
 				width={12}
 				height={12}
 				className="size-5 rounded-sm"
+				alt=""
 			/>
 		) : (
 			<Skeleton className="size-5 rounded-sm" />

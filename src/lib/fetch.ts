@@ -1,5 +1,6 @@
 import type { APIData, APIError, APIResponse } from "@/types/api";
-import { libcurl } from "libcurl.js/bundled";
+// @ts-expect-error stfu
+import { BareClient } from "@mercuryworkshop/bare-mux";
 
 const _fetch = globalThis.fetch;
 async function fetch<T>(
@@ -16,9 +17,11 @@ async function fetch<T>(
 			}
 			return response.data as APIData<T>;
 		}
-		const response: APIResponse<T> = await libcurl
+
+		const client = new BareClient();
+		const response: APIResponse<T> = await client
 			.fetch(url)
-			.then((response: Response) => response.json());
+			.then(({ rawResponse }: { rawResponse: Response }) => rawResponse.json());
 		if (response.status === "error") {
 			throw { error: true, ...response.error } as APIError;
 		}
@@ -26,7 +29,8 @@ async function fetch<T>(
 	}
 
 	if (wisp) {
-		return libcurl.fetch(url) as Promise<T>;
+		const client = new BareClient();
+		return (await client.fetch(url)).rawResponse as Promise<T>;
 	}
 	return _fetch(url) as Promise<T>;
 }
