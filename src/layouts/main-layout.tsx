@@ -26,8 +26,8 @@ const projectsUsed = [
 		url: "https://github.com/titaniumnetwork-dev/ultraviolet",
 	},
 	{
-		name: "wisp-server-node",
-		url: "https://github.com/MercuryWorkshop/wisp-server-node",
+		name: "wisp-client-js",
+		url: "https://github.com/MercuryWorkshop/wisp-client-js/tree/rewrite",
 	},
 	{
 		name: "shadcn/ui",

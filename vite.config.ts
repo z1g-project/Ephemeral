@@ -10,7 +10,7 @@ import react from "@vitejs/plugin-react-swc";
 import million from "million/compiler";
 import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import wisp from "wisp-server-node";
+import { server as wisp } from '@mercuryworkshop/wisp-js/server'
 
 // https://vitejs.dev/config/
 export default defineConfig({

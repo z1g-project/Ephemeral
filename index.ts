@@ -6,7 +6,7 @@ import { argv } from "node:process";
 import compression from "@fastify/compress";
 import fastifyStatic from "@fastify/static";
 import Fastify from "fastify";
-import wisp from "wisp-server-node";
+import { server as wisp } from '@mercuryworkshop/wisp-js/server'
 const port =
 	Number.parseInt(process.env.PORT) ||
 	(argv.includes("--port") &&
