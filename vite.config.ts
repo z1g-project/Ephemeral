@@ -1,9 +1,8 @@
 import { execSync } from 'node:child_process';
 import type { Socket } from 'node:net';
 import path from 'node:path';
-// @ts-expect-error stfu
+import { baremuxPath } from '@mercuryworkshop/bare-mux/node';
 import { epoxyPath } from '@mercuryworkshop/epoxy-transport';
-// @ts-expect-error stfu
 import { libcurlPath } from '@mercuryworkshop/libcurl-transport';
 import { server as wisp } from '@mercuryworkshop/wisp-js/server';
 import { uvPath } from '@titaniumnetwork-dev/ultraviolet';
@@ -44,6 +43,11 @@ export default defineConfig({
 				{
 					src: `${epoxyPath}/**/*`.replace(/\\/g, '/'),
 					dest: 'epoxy',
+					overwrite: false,
+				},
+				{
+					src: `${baremuxPath}/**/*`.replace(/\\/g, '/'),
+					dest: 'baremux',
 					overwrite: false,
 				},
 			],

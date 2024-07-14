@@ -17,15 +17,14 @@ import {
 	SelectValue,
 } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/hooks';
 import { openCloaked } from '@/lib/open-cloaked';
 import { useEffect, useRef } from 'react';
+import { toast } from 'sonner';
 
 export default function CloakSettings() {
 	const cloakTitleRef = useRef<HTMLInputElement>(null);
 	const cloakFaviconRef = useRef<HTMLInputElement>(null);
-	const { toast } = useToast();
 
 	const [config, reset, loading] = useConfig('cloak');
 
@@ -68,11 +67,7 @@ export default function CloakSettings() {
 
 	const handleReset = () => {
 		reset();
-		toast({
-			title: 'Cloak preset reset',
-			description: 'Cloak preset has been reset',
-			variant: 'destructive',
-		});
+		toast.error('Cloak preset has been reset');
 		setTimeout(window.location.reload.bind(window.location), 1000);
 	};
 	return (
@@ -95,10 +90,7 @@ export default function CloakSettings() {
 										config.title = cloak.title;
 										config.favicon = cloak.favicon;
 									}
-									toast({
-										title: 'Cloak Preset Changed',
-										description: `Cloak preset has been changed to "${value}"`,
-									});
+									toast.success(`Cloak preset has been changed to "${value}"`);
 									setTimeout(
 										window.location.reload.bind(window.location),
 										1000,

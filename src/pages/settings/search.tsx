@@ -17,11 +17,10 @@ import {
 	SelectValue,
 } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/hooks';
 import { useEffect, useRef, useState } from 'react';
+import { toast } from 'sonner';
 export default function SearchSettings() {
-	const { toast } = useToast();
 	const [custom, setCustom] = useState<boolean>(false);
 	const customSearchRef = useRef<HTMLInputElement>(null);
 	const [config, reset, loading] = useConfig('search');
@@ -40,18 +39,12 @@ export default function SearchSettings() {
 	) => {
 		config.engine = value;
 		config.url = searchEngines[value];
-		toast({
-			title: 'Search Engine Changed',
-			description: `Search Engine has been changed to ${value}`,
-		});
+		toast.success(`Search Engine has been changed to ${value}`);
 	};
 
 	const handleReset = () => {
 		reset();
-		toast({
-			title: 'Search Settings Reset',
-			description: 'Search settings have been reset',
-		});
+		toast.error('Search Engine has been reset to default');
 	};
 
 	return (

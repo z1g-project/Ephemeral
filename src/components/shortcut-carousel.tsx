@@ -11,7 +11,6 @@ import { useAsync } from '@/hooks';
 import encoder from '@/lib/encoder';
 import { fetch } from '@/lib/fetch';
 import type { Application } from '@/types/apps';
-// @ts-expect-error BareClient is not typed
 import { BareClient } from '@mercuryworkshop/bare-mux';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';

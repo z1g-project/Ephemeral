@@ -87,7 +87,7 @@ const defaultConfig: Config = {
 		wispServer:
 			import.meta.env.VITE_WISP_SERVER ??
 			`${location.protocol.replace('http', 'ws')}//${location.host}/wisp/`,
-		transport: 'libcurl',
+		transport: 'epoxy',
 	},
 	cloak: {
 		preset: 'None',

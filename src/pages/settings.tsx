@@ -10,15 +10,14 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useToast } from '@/components/ui/use-toast';
 import { getIndexedDB, getLocalStorage, setIndexedDB } from '@/lib/storage';
 import type { DataExport } from '@/types/export-json';
 import { useState } from 'react';
+import { toast } from 'sonner';
 import CloakSettings from './settings/cloak';
 import ProxySettings from './settings/proxy';
 import SearchSettings from './settings/search';
 export default function Settings() {
-	const { toast } = useToast();
 	const [exportSettings, setExportSettings] = useState({
 		cookies: true,
 		data: true,
@@ -53,7 +52,8 @@ export default function Settings() {
 							<CardHeader>
 								<CardTitle className="flex flex-row gap-2">Export</CardTitle>
 								<CardDescription>
-									Export settings and data for use on another link.{' '}
+									Export settings and data for use on another link. Only
+									supported on Ultraviolet.
 									<span className="font-semibold text-destructive">
 										DO NOT share this file with anyone! Doing so will compromise
 										your accounts.
@@ -145,12 +145,10 @@ export default function Settings() {
 														async (cookie) => await setIndexedDB(cookie),
 													),
 												);
-											toast({ title: 'Successfully imported settings' });
+											toast.success('Successfully imported settings');
 										} catch (e) {
-											toast({
-												title: 'Failed to import settings',
+											toast.error('Failed to import settings', {
 												description: (e as Error).message,
-												variant: 'destructive',
 											});
 										}
 									}}

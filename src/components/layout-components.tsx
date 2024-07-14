@@ -21,7 +21,6 @@ import encoder from '@/lib/encoder';
 import { fetch } from '@/lib/fetch';
 import { openCloaked } from '@/lib/open-cloaked';
 import type { Application } from '@/types/apps';
-// @ts-expect-error - no types
 import { BareClient } from '@mercuryworkshop/bare-mux';
 import {
 	CircleDashed,

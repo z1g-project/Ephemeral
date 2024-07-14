@@ -18,11 +18,11 @@ importers:
         specifier: ^7.0.4
         version: 7.0.4
       '@mercuryworkshop/bare-mux':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^2.0.2
+        version: 2.0.2
       '@mercuryworkshop/epoxy-transport':
-        specifier: ^1.1.0
-        version: 1.1.0(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)
+        specifier: ^2.1.3
+        version: 2.1.3(typescript@5.4.5)
       '@mercuryworkshop/libcurl-transport':
         specifier: ^1.3.1
         version: 1.3.1(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)
@@ -56,15 +56,12 @@ importers:
       '@radix-ui/react-tabs':
         specifier: ^1.0.4
         version: 1.0.4(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@radix-ui/react-toast':
-        specifier: ^1.1.5
-        version: 1.1.5(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-tooltip':
         specifier: ^1.0.7
         version: 1.0.7(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@titaniumnetwork-dev/ultraviolet':
-        specifier: ^3.1.2
-        version: 3.1.2
+        specifier: ^3.2.3
+        version: 3.2.3
       '@types/react-router-dom':
         specifier: ^5.3.3
         version: 5.3.3
@@ -119,6 +116,9 @@ importers:
       react-router-dom:
         specifier: ^6.23.1
         version: 6.23.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      sonner:
+        specifier: ^1.5.0
+        version: 1.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tailwind-merge:
         specifier: ^2.3.0
         version: 2.3.0
@@ -686,14 +686,14 @@ packages:
     resolution: {integrity: sha512-9I2Zn6+NJLfaGoz9jN3lpwDgAYvfGeNYdbAIjJOqzs4Tpc+VU3Jqq4IofSUBKajiDS8k9fZIg18/z13mpk1bsA==}
     engines: {node: '>=8'}
 
-  '@mercuryworkshop/bare-mux@1.1.0':
-    resolution: {integrity: sha512-E+d2GZEdbnUrGTx8AOrDVe0d7Cxz57rjDWBn9xAHH65G68PQkVY17j0EXAurFXF/sJzbjLTPcJZvHZQA2P/IVQ==}
+  '@mercuryworkshop/bare-mux@2.0.2':
+    resolution: {integrity: sha512-1rnqFfI29VXi3jrMbkotHV+NnafJ3tpTIuH3Ov/BtVAfZMNGcsCRr3dwEKRWc+mDb0tWdNWC0PnZghgfAlbr+A==}
 
-  '@mercuryworkshop/epoxy-tls@1.5.0':
-    resolution: {integrity: sha512-U2TxqKksH8O8ml+7bm3yR4oZ3cnUSSSCO8sRqDWOoVM9B6iYQ0vBF62gfT3djJLiNLnrCQ0rJWI6H1+wzCJo7w==}
+  '@mercuryworkshop/epoxy-tls@2.0.6-1':
+    resolution: {integrity: sha512-sirpgUiIO6gxjvoI+QDRebsWEgutHiMbV5ghx2Q39IkfGqYNFinaMIDZRno8yY4IZCxydf9KAo/V+1xEMwvJ+w==}
 
-  '@mercuryworkshop/epoxy-transport@1.1.0':
-    resolution: {integrity: sha512-JVdKr+u53qu3GQyehZDWRfWV1UWct2fAtU2/50plFl9TLzy2rPLUHqyHTmyAuErNS6SP2uZ9BlgMz6FN4PlpVg==}
+  '@mercuryworkshop/epoxy-transport@2.1.3':
+    resolution: {integrity: sha512-cxuaPCVUmGnB1c/8cdoyhTIrZfL5feqH/sZRclkj8wFmrGz4PzzOHZRNMOrlzNoEiJDPYqHC4qJ6mNuiPC4vCw==}
 
   '@mercuryworkshop/libcurl-transport@1.3.1':
     resolution: {integrity: sha512-yGt8K7D1j8WLn7LgH6YPnxmHc+JUCB0x/QPIStuRftl0tq3D8uHskRFeOJ8ksTrru7mTAjk5Cpmvix8jNJ+Lug==}
@@ -1133,19 +1133,6 @@ packages:
       '@types/react-dom':
         optional: true
 
-  '@radix-ui/react-toast@1.1.5':
-    resolution: {integrity: sha512-fRLn227WHIBRSzuRzGJ8W+5YALxofH23y0MlPLddaIpLpCDqdE0NZlS2NRQDRiptfxDeeCjgFIpexB1/zkxDlw==}
-    peerDependencies:
-      '@types/react': '*'
-      '@types/react-dom': '*'
-      react: ^16.8 || ^17.0 || ^18.0
-      react-dom: ^16.8 || ^17.0 || ^18.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      '@types/react-dom':
-        optional: true
-
   '@radix-ui/react-tooltip@1.0.7':
     resolution: {integrity: sha512-lPh5iKNFVQ/jav/j6ZrWq3blfDJ0OH9R6FlNUHPMqdLuQ9vwDgFsRxvl8b7Asuy5c8xmoojHUxKHQSOAvMHxyw==}
     peerDependencies:
@@ -1433,8 +1420,8 @@ packages:
   '@swc/types@0.1.7':
     resolution: {integrity: sha512-scHWahbHF0eyj3JsxG9CFJgFdFNaVQCNAimBlT6PzS3n/HptxqREjsm4OH6AN3lYcffZYSPxXW8ua2BEHp0lJQ==}
 
-  '@titaniumnetwork-dev/ultraviolet@3.1.2':
-    resolution: {integrity: sha512-PvhyL9IQtSwHTVRRpNGn+YCWkSzP7JEk0wX7M5YfUSobBicoRLOJhCC4u6T9qh/vObDpLDE3TfP4GKqMTSa2rw==}
+  '@titaniumnetwork-dev/ultraviolet@3.2.3':
+    resolution: {integrity: sha512-dSsNGOxfmNwF1KcfLFpOlFsmKkAicZF0OlSe6WYvZMtZ0KamLFVvQLBdCwJK0z7S+VdC3vfpSpeskXkncGQs6w==}
 
   '@types/cors@2.8.17':
     resolution: {integrity: sha512-8CGDvrBj1zgo2qE+oS3pOCyYNqCPryMWY2bGfwA0dcfopWGgxs+78df0Rs3rc9THP4JkOhLsAa+15VdpAqkcUA==}
@@ -1471,9 +1458,6 @@ packages:
 
   '@types/triple-beam@1.3.5':
     resolution: {integrity: sha512-6WaYesThRMCl19iryMYP7/x2OVgCtbIVflDGFpWnb9irXI3UjYE4AzmYuiUKY1AJstGijoY+MgUszMgRxIYTYw==}
-
-  '@types/uuid@9.0.8':
-    resolution: {integrity: sha512-jg+97EGIcY9AGHJJRaaPVgetKDsrTgbRjQ5Msgjh/DQKEFl0DtyRr/VCOyD1T2R1MNeWPK/u7JoGhlDZnKBAfA==}
 
   '@types/wrap-ansi@3.0.0':
     resolution: {integrity: sha512-ltIpx+kM7g/MLRZfkbL7EsCEjfzCcScLpkg37eXEtx5kmrAKBkTJwd1GIAjDSL8wTpM6Hzn5YO4pSb91BEwu1g==}
@@ -1629,8 +1613,8 @@ packages:
   caniuse-lite@1.0.30001620:
     resolution: {integrity: sha512-WJvYsOjd1/BYUY6SNGUosK9DUidBPDTnOARHp3fSmFO1ekdxaY6nKRttEVrfMmYi80ctS0kz1wiWmm14fVc3ew==}
 
-  caniuse-lite@1.0.30001636:
-    resolution: {integrity: sha512-bMg2vmr8XBsbL6Lr0UHXy/21m84FTxDLWn2FSqMd5PrlbMxwJlQnC2YWYxVgp66PZE+BBNF2jYQUBKCo1FDeZg==}
+  caniuse-lite@1.0.30001642:
+    resolution: {integrity: sha512-3XQ0DoRgLijXJErLSl+bLnJ+Et4KqV1PY6JJBGAFlsNsz31zeAIncyeZfLCabHK/jtSh+671RM9YMldxjUPZtA==}
 
   chalk@2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
@@ -2751,6 +2735,12 @@ packages:
   sonic-boom@4.0.1:
     resolution: {integrity: sha512-hTSD/6JMLyT4r9zeof6UtuBDpjJ9sO08/nmS5djaA9eozT9oOlNdpXSnzcgj4FTqpk3nkLrs61l4gip9r1HCrQ==}
 
+  sonner@1.5.0:
+    resolution: {integrity: sha512-FBjhG/gnnbN6FY0jaNnqZOMmB73R+5IiyYAw8yBj7L54ER7HB3fOSE5OFiQiE2iXWxeXKvg6fIP4LtVppHEdJA==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+
   source-map-js@1.2.0:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
     engines: {node: '>=0.10.0'}
@@ -2955,10 +2945,6 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
-
-  uuid@9.0.1:
-    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
-    hasBin: true
 
   vite-plugin-static-copy@1.0.5:
     resolution: {integrity: sha512-02k0Rox+buYdEOfeilKZSgs1gXfPf9RjVztZEIYZgVIxjsVZi6AXssjzdi+qW6zYt00d3bq+tpP2voVXN2fKLw==}
@@ -3536,25 +3522,19 @@ snapshots:
 
   '@lukeed/ms@2.0.2': {}
 
-  '@mercuryworkshop/bare-mux@1.1.0':
-    dependencies:
-      '@types/uuid': 9.0.8
-      uuid: 9.0.1
+  '@mercuryworkshop/bare-mux@2.0.2': {}
 
-  '@mercuryworkshop/epoxy-tls@1.5.0': {}
+  '@mercuryworkshop/epoxy-tls@2.0.6-1': {}
 
-  '@mercuryworkshop/epoxy-transport@1.1.0(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)':
+  '@mercuryworkshop/epoxy-transport@2.1.3(typescript@5.4.5)':
     dependencies:
-      '@mercuryworkshop/epoxy-tls': 1.5.0
+      '@mercuryworkshop/epoxy-tls': 2.0.6-1
       esbuild-plugin-umd-wrapper: 2.0.0
       rollup: 4.17.2
       rollup-plugin-node-resolve: 5.2.0(rollup@4.17.2)
       rollup-plugin-typescript2: 0.36.0(rollup@4.17.2)(typescript@5.4.5)
-      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     transitivePeerDependencies:
-      - bufferutil
       - typescript
-      - utf-8-validate
 
   '@mercuryworkshop/libcurl-transport@1.3.1(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)':
     dependencies:
@@ -4071,27 +4051,6 @@ snapshots:
       '@types/react': 18.3.2
       '@types/react-dom': 18.3.0
 
-  '@radix-ui/react-toast@1.1.5(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.24.5
-      '@radix-ui/primitive': 1.0.1
-      '@radix-ui/react-collection': 1.0.3(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@radix-ui/react-compose-refs': 1.0.1(@types/react@18.3.2)(react@18.3.1)
-      '@radix-ui/react-context': 1.0.1(@types/react@18.3.2)(react@18.3.1)
-      '@radix-ui/react-dismissable-layer': 1.0.5(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@radix-ui/react-portal': 1.0.4(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@radix-ui/react-presence': 1.0.1(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@radix-ui/react-primitive': 1.0.3(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@radix-ui/react-use-callback-ref': 1.0.1(@types/react@18.3.2)(react@18.3.1)
-      '@radix-ui/react-use-controllable-state': 1.0.1(@types/react@18.3.2)(react@18.3.1)
-      '@radix-ui/react-use-layout-effect': 1.0.1(@types/react@18.3.2)(react@18.3.1)
-      '@radix-ui/react-visually-hidden': 1.0.3(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    optionalDependencies:
-      '@types/react': 18.3.2
-      '@types/react-dom': 18.3.0
-
   '@radix-ui/react-tooltip@1.0.7(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.24.5
@@ -4323,7 +4282,7 @@ snapshots:
     dependencies:
       '@swc/counter': 0.1.3
 
-  '@titaniumnetwork-dev/ultraviolet@3.1.2': {}
+  '@titaniumnetwork-dev/ultraviolet@3.2.3': {}
 
   '@types/cors@2.8.17':
     dependencies:
@@ -4368,8 +4327,6 @@ snapshots:
       '@types/node': 20.12.12
 
   '@types/triple-beam@1.3.5': {}
-
-  '@types/uuid@9.0.8': {}
 
   '@types/wrap-ansi@3.0.0': {}
 
@@ -4510,7 +4467,7 @@ snapshots:
 
   caniuse-lite@1.0.30001620: {}
 
-  caniuse-lite@1.0.30001636: {}
+  caniuse-lite@1.0.30001642: {}
 
   chalk@2.4.2:
     dependencies:
@@ -5156,7 +5113,7 @@ snapshots:
       '@next/env': 14.2.3
       '@swc/helpers': 0.5.5
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001636
+      caniuse-lite: 1.0.30001642
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.3.1
@@ -5595,6 +5552,11 @@ snapshots:
     dependencies:
       atomic-sleep: 1.0.0
 
+  sonner@1.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   source-map-js@1.2.0: {}
 
   split2@4.2.0: {}
@@ -5795,8 +5757,6 @@ snapshots:
     optional: true
 
   util-deprecate@1.0.2: {}
-
-  uuid@9.0.1: {}
 
   vite-plugin-static-copy@1.0.5(vite@5.3.1(@types/node@20.12.12)):
     dependencies:

@@ -9,7 +9,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useAsync } from '@/hooks';
 import encoder from '@/lib/encoder';
 import type { Application } from '@/types/apps';
-// @ts-expect-error - no types
 import { BareClient } from '@mercuryworkshop/bare-mux';
 import { Sparkles } from 'lucide-react';
 import { useEffect } from 'react';

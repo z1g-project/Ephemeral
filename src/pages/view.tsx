@@ -6,7 +6,6 @@ import {
 	CommandList,
 } from '@/components/ui/command';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
 import { useConfig, useSuggestions } from '@/hooks';
 import encoder from '@/lib/encoder';
 import { throttle } from '@/lib/throttle';
@@ -24,6 +23,7 @@ import {
 } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { toast } from 'sonner';
 // import { injectPlugins } from "@/lib/injector";
 interface Eruda extends baseEruda {
 	_isInit: boolean;
@@ -33,7 +33,6 @@ interface ProxyWindow extends Window {
 }
 export default function View() {
 	const { url } = useParams();
-	const { toast } = useToast();
 	const [inputFocused, setInputFocused] = useState(false);
 	const [fullScreen, setFullScreen] = useState(false);
 	const frameRef = useRef<HTMLIFrameElement>(null);
@@ -68,17 +67,6 @@ export default function View() {
 		}
 		inputRef.current.value = site?.toString() || '';
 	}, []);
-	// useEffect(() => {
-	// 	const intervalId = setInterval(() => {
-	// 		injectPlugins("mainframe");
-	// 		console.log("Plugins injected");
-	// 	}, 250);
-	// 	return () => {
-	// 		clearInterval(intervalId);
-	// 		console.log("Interval cleared");
-	// 	};
-	// }, []);
-
 	useEffect(() => {
 		if (!inputFocused) {
 			const interval = setInterval(setSearch, 13);
@@ -90,12 +78,9 @@ export default function View() {
 
 	useEffect(() => {
 		if (aboutBlank) {
-			toast({
-				description:
-					'Note: Back and Forward buttons will not work in about:blank',
-			});
+			toast('Note: Back and Forward buttons will not work in about:blank');
 		}
-	}, [aboutBlank, toast]);
+	}, [aboutBlank]);
 
 	function onLoad() {
 		setSearch();

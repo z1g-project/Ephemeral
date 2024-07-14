@@ -17,12 +17,11 @@ import {
 	SelectValue,
 } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useToast } from '@/components/ui/use-toast';
 import { useConfig } from '@/hooks';
 import { unregisterServiceWorker } from '@/lib/sw';
 import { useEffect, useRef } from 'react';
+import { toast } from 'sonner';
 export default function ProxySettings() {
-	const { toast } = useToast();
 	const [config, reset, loading] = useConfig('proxy');
 	const wispServerRef = useRef<HTMLInputElement>(null);
 
@@ -40,26 +39,18 @@ export default function ProxySettings() {
 			) {
 				if (config) config.wispServer = wispServerRef.current?.value;
 			} else {
-				toast({
-					title: 'Invalid Wisp Server URL',
-					variant: 'destructive',
-				});
+				toast.error('Invalid Wisp Server URL');
 				throw new Error('Invalid Wisp Server URL');
 			}
 		}
 		unregisterServiceWorker();
-		toast({
-			title: 'Proxy Settings have been saved',
-		});
+		toast.success('Proxy Settings have been saved');
 		setTimeout(window.location.reload.bind(window.location), 1000);
 	};
 	const handleReset = () => {
 		reset();
 		unregisterServiceWorker();
-		toast({
-			title: 'Proxy Settings have been reset',
-			variant: 'destructive',
-		});
+		toast.error('Proxy Settings have been reset');
 		setTimeout(window.location.reload.bind(window.location), 1000);
 	};
 

@@ -1,5 +1,5 @@
 const transports = {
-	libcurl: 'CurlMod.LibcurlClient',
-	epoxy: 'EpxMod.EpoxyClient',
+	libcurl: '/libcurl/index.mjs',
+	epoxy: '/epoxy/index.mjs',
 };
 export { transports };
