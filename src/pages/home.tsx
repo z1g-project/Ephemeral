@@ -1,17 +1,17 @@
-import { useRef, useCallback, useEffect, useState } from "react";
-import { throttle } from "@/lib/throttle";
-import { Link, useNavigate } from "react-router-dom";
-import encoder from "@/lib/encoder";
 import {
 	Command,
 	CommandGroup,
 	CommandItem,
 	CommandList,
-} from "@/components/ui/command";
+} from '@/components/ui/command';
+import encoder from '@/lib/encoder';
+import { throttle } from '@/lib/throttle';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { Input } from "@/components/ui/input";
-import { useSuggestions, useConfig } from "@/hooks";
-import { ShortcutCarousel } from "@/components/shortcut-carousel";
+import { ShortcutCarousel } from '@/components/shortcut-carousel';
+import { Input } from '@/components/ui/input';
+import { useConfig, useSuggestions } from '@/hooks';
 
 export default function Home() {
 	const navigate = useNavigate();
@@ -22,7 +22,7 @@ export default function Home() {
 		error: suggestError,
 		fetchSuggestions,
 	} = useSuggestions();
-	const [config] = useConfig("search");
+	const [config] = useConfig('search');
 	useEffect(() => {
 		if (suggestions && suggestions.length > 0) {
 			setShowingSuggestions(true);
@@ -49,28 +49,28 @@ export default function Home() {
 					placeholder="Search the web freely"
 					className={`z-50 w-96 rounded-t-lg focus-visible:ring-0 focus-visible:ring-offset-0 ${
 						suggestError || (suggestions?.length ?? 0) > 0
-							? `!rounded-b-none !border-b-0`
-							: ``
+							? '!rounded-b-none !border-b-0'
+							: ''
 					}`}
 					spellCheck={false}
 					onChange={throttledInputChange}
 					onKeyDown={(e) => {
 						if (!inputRef.current) return;
-						if (e.key === "Enter") {
+						if (e.key === 'Enter') {
 							if (
-								inputRef.current.value.startsWith("http://") ||
-								inputRef.current.value.startsWith("https://")
+								inputRef.current.value.startsWith('http://') ||
+								inputRef.current.value.startsWith('https://')
 							) {
 								navigate(
 									`/view/${encodeURIComponent(encoder.encode(inputRef.current.value))}`,
 								);
 							} else if (
-								inputRef.current.value.includes(".") &&
-								!inputRef.current.value.includes(" ")
+								inputRef.current.value.includes('.') &&
+								!inputRef.current.value.includes(' ')
 							) {
 								navigate(
 									`/view/${encodeURIComponent(
-										encoder.encode("https://" + inputRef.current.value),
+										encoder.encode(`https://${inputRef.current.value}`),
 									)}`,
 								);
 							} else {
@@ -86,23 +86,23 @@ export default function Home() {
 
 				<Command
 					className={`h-0 w-96 overflow-visible border-none shadow-md ${
-						(suggestions && suggestions.length) || suggestError
-							? `visible border-x border-b`
-							: `invisible border-none`
+						suggestions?.length || suggestError
+							? 'visible border-x border-b'
+							: 'invisible border-none'
 					}`}
 				>
 					<CommandList className="overflow-visible rounded-b-lg rounded-t-none border-x border-b border-border">
 						{suggestions ? (
 							suggestions.length > 0 ? (
 								<CommandGroup heading="Suggestions">
-									{suggestions.map((suggestion: string, index: number) => (
+									{suggestions.map((suggestion) => (
 										<Link
-											key={index}
+											key={suggestion}
 											to={`/view/${encodeURIComponent(
 												encoder.encode(config.url + suggestion),
 											)}`}
 										>
-											<CommandItem className="cursor-pointer" key={index}>
+											<CommandItem className="cursor-pointer">
 												{suggestion}
 											</CommandItem>
 										</Link>

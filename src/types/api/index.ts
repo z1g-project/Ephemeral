@@ -1,5 +1,5 @@
 type APIData<T> = T;
-type APIStatus = "success" | "error";
+type APIStatus = 'success' | 'error';
 type APIError = {
 	error: true;
 	message: string;

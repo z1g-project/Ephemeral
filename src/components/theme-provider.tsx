@@ -1,25 +1,25 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from 'react';
 
 type Theme =
-	| "light"
-	| "dark"
-	| "zinc"
-	| "monokai"
-	| "mocha"
-	| "macchiato"
-	| "frappe"
-	| "latte"
-	| "system";
+	| 'light'
+	| 'dark'
+	| 'zinc'
+	| 'monokai'
+	| 'mocha'
+	| 'macchiato'
+	| 'frappe'
+	| 'latte'
+	| 'system';
 const themes: Theme[] = [
-	"light",
-	"dark",
-	"zinc",
-	"monokai",
-	"mocha",
-	"macchiato",
-	"frappe",
-	"latte",
-	"system",
+	'light',
+	'dark',
+	'zinc',
+	'monokai',
+	'mocha',
+	'macchiato',
+	'frappe',
+	'latte',
+	'system',
 ];
 type ThemeProviderProps = {
 	children: React.ReactNode;
@@ -34,7 +34,7 @@ type ThemeProviderState = {
 
 const initialState: ThemeProviderState = {
 	themes: themes,
-	theme: "system",
+	theme: 'system',
 	setTheme: () => null,
 };
 
@@ -42,8 +42,8 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
 	children,
-	defaultTheme = "system",
-	storageKey = "ephemeral-ui-theme",
+	defaultTheme = 'system',
+	storageKey = 'ephemeral-ui-theme',
 	...props
 }: ThemeProviderProps) {
 	const [theme, setTheme] = useState<Theme>(
@@ -53,13 +53,13 @@ export function ThemeProvider({
 	useEffect(() => {
 		const root = window.document.documentElement;
 
-		themes.forEach((theme) => root.classList.remove(theme));
+		root.classList.remove(...themes);
 
-		if (theme === "system") {
-			const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+		if (theme === 'system') {
+			const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
 				.matches
-				? "dark"
-				: "light";
+				? 'dark'
+				: 'light';
 
 			root.classList.add(systemTheme);
 			return;
@@ -88,7 +88,7 @@ export const useTheme = () => {
 	const context = useContext(ThemeProviderContext);
 
 	if (context === undefined)
-		throw new Error("useTheme must be used within a ThemeProvider");
+		throw new Error('useTheme must be used within a ThemeProvider');
 
 	return context;
 };

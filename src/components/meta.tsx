@@ -1,60 +1,60 @@
-import { Helmet } from "react-helmet-async";
+import { Helmet } from 'react-helmet-async';
 export default function Meta() {
 	const description =
-		"Ephemeral is a web proxy that allows you to bypass internet restrictions such as firewalls, filters, and parental controls. It has a simple and clean UI, and has powerful features such as userscripts, userstyles, and a browser like UI";
-	const url = "https://ephemeral.incognitotgt.me";
+		'Ephemeral is a web proxy that allows you to bypass internet restrictions such as firewalls, filters, and parental controls. It has a simple and clean UI, and has powerful features such as userscripts, userstyles, and a browser like UI';
+	const url = 'https://ephemeral.incognitotgt.me';
 	const faqSchema = {
-		"@context": "https://schema.org",
-		"@type": "FAQPage",
+		'@context': 'https://schema.org',
+		'@type': 'FAQPage',
 		mainEntity: [
 			{
-				"@type": "Question",
-				name: "What is Ephemeral?",
+				'@type': 'Question',
+				name: 'What is Ephemeral?',
 				acceptedAnswer: {
-					"@type": "Answer",
+					'@type': 'Answer',
 					text: description,
 				},
 			},
 			{
-				"@type": "Question",
-				name: "How do I unblock websites at school?",
+				'@type': 'Question',
+				name: 'How do I unblock websites at school?',
 				acceptedAnswer: {
-					"@type": "Answer",
-					text: "Using Ephemeral, a powerful web proxy that circumvents network and extension filters. It is also open-source and free to use.",
+					'@type': 'Answer',
+					text: 'Using Ephemeral, a powerful web proxy that circumvents network and extension filters. It is also open-source and free to use.',
 				},
 			},
 			{
-				"@type": "Question",
-				name: "What sites can I unblock with Ephemeral?",
+				'@type': 'Question',
+				name: 'What sites can I unblock with Ephemeral?',
 				acceptedAnswer: {
-					"@type": "Answer",
-					text: "With Ephemeral you can access sites such as Discord, Spotify, YouTube and other game sites!",
+					'@type': 'Answer',
+					text: 'With Ephemeral you can access sites such as Discord, Spotify, YouTube and other game sites!',
 				},
 			},
 			{
-				"@type": "Question",
-				name: "Does Ephemeral hide my search history?",
+				'@type': 'Question',
+				name: 'Does Ephemeral hide my search history?',
 				acceptedAnswer: {
-					"@type": "Answer",
-					text: "Yes! Change your Tab appearance in Settings and make the tab look like another site!.",
+					'@type': 'Answer',
+					text: 'Yes! Change your Tab appearance in Settings and make the tab look like another site!.',
 				},
 			},
 			{
-				"@type": "Question",
-				name: "Is Ephemeral open-source?",
+				'@type': 'Question',
+				name: 'Is Ephemeral open-source?',
 				acceptedAnswer: {
-					"@type": "Answer",
-					text: "Yes! Check out our GitHub where you can deploy or host your own instance of Ephemeral.",
+					'@type': 'Answer',
+					text: 'Yes! Check out our GitHub where you can deploy or host your own instance of Ephemeral.',
 				},
 			},
 		],
 	};
 	const orgSchema = {
-		"@context": "https://schema.org",
-		"@type": "Organization",
-		name: "Ephemeral",
+		'@context': 'https://schema.org',
+		'@type': 'Organization',
+		name: 'Ephemeral',
 		url,
-		sameAs: ["https://github.com/z1g-project", url],
+		sameAs: ['https://github.com/z1g-project', url],
 	};
 	return (
 		<Helmet>

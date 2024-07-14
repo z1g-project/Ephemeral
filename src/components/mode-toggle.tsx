@@ -1,22 +1,22 @@
-import { SwatchBook } from "lucide-react";
+import { SwatchBook } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from '@/components/ui/tooltip';
 
-import { useTheme } from "@/components/theme-provider";
+import { useTheme } from '@/components/theme-provider';
 
 export function ModeToggle({ text }: { text?: string }) {
 	const { setTheme, themes } = useTheme();
@@ -26,10 +26,10 @@ export function ModeToggle({ text }: { text?: string }) {
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<DropdownMenuTrigger asChild>
-							<Button variant="outline" size={text ? "default" : "icon"}>
+							<Button variant="outline" size={text ? 'default' : 'icon'}>
 								{text}
 								<SwatchBook
-									className={`${text && "ml-2"} h-[1.2rem] w-[1.2rem] transition-all`}
+									className={`${text && 'ml-2'} h-[1.2rem] w-[1.2rem] transition-all`}
 								/>
 								<span className="sr-only">Toggle theme</span>
 							</Button>

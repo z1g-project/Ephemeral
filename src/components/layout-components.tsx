@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
 	Command,
 	CommandDialog,
@@ -7,22 +7,22 @@ import {
 	CommandInput,
 	CommandItem,
 	CommandList,
-} from "@/components/ui/command";
+} from '@/components/ui/command';
 import {
 	NavigationMenu,
 	NavigationMenuItem,
 	NavigationMenuLink,
 	NavigationMenuList,
 	navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useAsync, useConfig } from "@/hooks";
-import encoder from "@/lib/encoder";
-import { fetch } from "@/lib/fetch";
-import { openCloaked } from "@/lib/open-cloaked";
-import type { Application } from "@/types/apps";
+} from '@/components/ui/navigation-menu';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useAsync, useConfig } from '@/hooks';
+import encoder from '@/lib/encoder';
+import { fetch } from '@/lib/fetch';
+import { openCloaked } from '@/lib/open-cloaked';
+import type { Application } from '@/types/apps';
 // @ts-expect-error - no types
-import { BareClient } from "@mercuryworkshop/bare-mux";
+import { BareClient } from '@mercuryworkshop/bare-mux';
 import {
 	CircleDashed,
 	ExternalLink,
@@ -30,18 +30,18 @@ import {
 	LucideHome,
 	Search,
 	Settings,
-} from "lucide-react";
+} from 'lucide-react';
 /** eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 const links: {
 	href: string;
 	text: string;
 	icon: React.ReactNode;
 }[] = [
-	{ href: "/", text: "Home", icon: <LucideHome /> },
-	{ href: "/apps", text: "Apps", icon: <LayoutGrid /> },
-	{ href: "/settings", text: "Settings", icon: <Settings /> },
+	{ href: '/', text: 'Home', icon: <LucideHome /> },
+	{ href: '/apps', text: 'Apps', icon: <LayoutGrid /> },
+	{ href: '/settings', text: 'Settings', icon: <Settings /> },
 ];
 function CommandImage({ imageUrl }: { imageUrl: string }) {
 	const { data: image, loading, run, error } = useAsync<string>(null);
@@ -56,7 +56,7 @@ function CommandImage({ imageUrl }: { imageUrl: string }) {
 						.then((blob) => URL.createObjectURL(blob) as string),
 				),
 		);
-	}, [imageUrl]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [imageUrl, run]);
 	return !error ? (
 		!loading ? (
 			<img
@@ -76,20 +76,20 @@ function CommandImage({ imageUrl }: { imageUrl: string }) {
 export function Navbar() {
 	const [open, setOpen] = useState(false);
 	const { loading: loadingApps, data: apps, run } = useAsync<Application[]>([]);
-	const [config] = useConfig("cloak");
+	const [config] = useConfig('cloak');
 	const navigate = useNavigate();
 	useEffect(() => {
-		run(() => fetch("https://api.z1g.top/api/apps", { wisp: true }));
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+		run(() => fetch('https://api.z1g.top/api/apps', { wisp: true }));
+	}, [run]);
 	useEffect(() => {
 		const down = (e: KeyboardEvent) => {
-			if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+			if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
 				e.preventDefault();
 				setOpen((open) => !open);
 			}
 		};
-		document.addEventListener("keydown", down);
-		return () => document.removeEventListener("keydown", down);
+		document.addEventListener('keydown', down);
+		return () => document.removeEventListener('keydown', down);
 	}, []);
 	return (
 		<div className="flex justify-between">
@@ -126,7 +126,7 @@ export function Navbar() {
 						<Search className="h-4 w-4" /> Search
 					</span>
 					<kbd className="pointer-events-none -mr-8 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100 sm:inline-flex">
-						<span>{navigator.userAgent.includes("Mac") ? "⌘" : "Ctrl +"}</span>K
+						<span>{navigator.userAgent.includes('Mac') ? '⌘' : 'Ctrl +'}</span>K
 					</kbd>
 				</Button>
 				<CommandDialog open={open} onOpenChange={setOpen}>

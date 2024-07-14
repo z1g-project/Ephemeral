@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
 	Card,
 	CardContent,
@@ -6,28 +6,28 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useToast } from "@/components/ui/use-toast";
-import { useConfig } from "@/hooks";
-import { openCloaked } from "@/lib/open-cloaked";
-import { useEffect, useRef } from "react";
+} from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useToast } from '@/components/ui/use-toast';
+import { useConfig } from '@/hooks';
+import { openCloaked } from '@/lib/open-cloaked';
+import { useEffect, useRef } from 'react';
 
 export default function CloakSettings() {
 	const cloakTitleRef = useRef<HTMLInputElement>(null);
 	const cloakFaviconRef = useRef<HTMLInputElement>(null);
 	const { toast } = useToast();
 
-	const [config, reset, loading] = useConfig("cloak");
+	const [config, reset, loading] = useConfig('cloak');
 
 	useEffect(() => {
 		if (config && cloakTitleRef.current && cloakFaviconRef.current) {
@@ -38,40 +38,40 @@ export default function CloakSettings() {
 
 	const cloakValues = [
 		{
-			name: "None",
-			title: "Ephemeral",
-			favicon: "/icon.svg",
+			name: 'None',
+			title: 'Ephemeral',
+			favicon: '/icon.svg',
 		},
 		{
-			name: "Schoology",
-			title: "Home | Schoology",
+			name: 'Schoology',
+			title: 'Home | Schoology',
 			favicon:
-				"https://asset-cdn.schoology.com/sites/all/themes/schoology_theme/favicon.ico",
+				'https://asset-cdn.schoology.com/sites/all/themes/schoology_theme/favicon.ico',
 		},
 		{
-			name: "Google Classroom",
-			title: "Classes",
-			favicon: "https://ssl.gstatic.com/classroom/ic_product_classroom_144.png",
+			name: 'Google Classroom',
+			title: 'Classes',
+			favicon: 'https://ssl.gstatic.com/classroom/ic_product_classroom_144.png',
 		},
 		{
-			name: "Canvas",
-			title: "Dashboard",
+			name: 'Canvas',
+			title: 'Dashboard',
 			favicon:
-				"https://du11hjcvx0uqb.cloudfront.net/dist/images/favicon-e10d657a73.ico",
+				'https://du11hjcvx0uqb.cloudfront.net/dist/images/favicon-e10d657a73.ico',
 		},
 		{
-			name: "Google",
-			title: "Google",
-			favicon: "https://www.google.com/favicon.ico",
+			name: 'Google',
+			title: 'Google',
+			favicon: 'https://www.google.com/favicon.ico',
 		},
 	];
 
 	const handleReset = () => {
 		reset();
 		toast({
-			title: "Cloak preset reset",
-			description: "Cloak preset has been reset",
-			variant: "destructive",
+			title: 'Cloak preset reset',
+			description: 'Cloak preset has been reset',
+			variant: 'destructive',
 		});
 		setTimeout(window.location.reload.bind(window.location), 1000);
 	};
@@ -90,11 +90,13 @@ export default function CloakSettings() {
 							onValueChange={(value) => {
 								const cloak = cloakValues.find((cloak) => cloak.name === value);
 								if (cloak) {
-									config && (config.preset = cloak.name);
-									config && (config.title = cloak.title);
-									config && (config.favicon = cloak.favicon);
+									if (config) {
+										config.preset = cloak.name;
+										config.title = cloak.title;
+										config.favicon = cloak.favicon;
+									}
 									toast({
-										title: "Cloak Preset Changed",
+										title: 'Cloak Preset Changed',
 										description: `Cloak preset has been changed to "${value}"`,
 									});
 									setTimeout(
@@ -106,7 +108,7 @@ export default function CloakSettings() {
 						>
 							<SelectTrigger aria-label="Presets">
 								<SelectValue
-									placeholder={config?.preset || "Select a preset"}
+									placeholder={config?.preset || 'Select a preset'}
 								/>
 								<SelectContent position="popper">
 									{cloakValues.map((value) => (
@@ -124,7 +126,7 @@ export default function CloakSettings() {
 							type="text"
 							placeholder="Set how the tab title looks"
 							onChange={(e) => {
-								config && (config.title = e.target.value);
+								if (config) config.title = e.target.value;
 								document.title = e.target.value;
 							}}
 						/>
@@ -136,7 +138,7 @@ export default function CloakSettings() {
 							spellCheck={false}
 							placeholder="Set the favicon"
 							onChange={(e) => {
-								config && (config.favicon = e.target.value);
+								if (config) config.favicon = e.target.value;
 							}}
 						/>
 					</CardContent>

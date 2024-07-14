@@ -1,15 +1,15 @@
 // react stuff
-import { StrictMode, lazy, Suspense } from "react";
-import ReactDOM from "react-dom/client";
+import { StrictMode, Suspense, lazy } from 'react';
+import ReactDOM from 'react-dom/client';
 // css
-import "@/index.css";
+import '@/index.css';
 // routes
-const AppRoutes = lazy(() => import("@/routes"));
+const AppRoutes = lazy(() => import('@/routes'));
 // components
-import LoadSuspense from "@/components/loading-suspense";
+import LoadSuspense from '@/components/loading-suspense';
 // providers
-import { ThemeProvider } from "@/components/theme-provider";
-import { HelmetProvider } from "react-helmet-async";
+import { ThemeProvider } from '@/components/theme-provider';
+import { HelmetProvider } from 'react-helmet-async';
 export default function App() {
 	return (
 		<HelmetProvider>
@@ -21,7 +21,7 @@ export default function App() {
 		</HelmetProvider>
 	);
 }
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<StrictMode>
 		<App />
 	</StrictMode>,

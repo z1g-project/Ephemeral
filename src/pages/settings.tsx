@@ -1,22 +1,22 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
 	Card,
 	CardContent,
 	CardDescription,
 	CardHeader,
 	CardTitle,
-} from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useToast } from "@/components/ui/use-toast";
-import { getIndexedDB, getLocalStorage, setIndexedDB } from "@/lib/storage";
-import type { DataExport } from "@/types/export-json";
-import { useState } from "react";
-import CloakSettings from "./settings/cloak";
-import ProxySettings from "./settings/proxy";
-import SearchSettings from "./settings/search";
+} from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useToast } from '@/components/ui/use-toast';
+import { getIndexedDB, getLocalStorage, setIndexedDB } from '@/lib/storage';
+import type { DataExport } from '@/types/export-json';
+import { useState } from 'react';
+import CloakSettings from './settings/cloak';
+import ProxySettings from './settings/proxy';
+import SearchSettings from './settings/search';
 export default function Settings() {
 	const { toast } = useToast();
 	const [exportSettings, setExportSettings] = useState({
@@ -53,7 +53,7 @@ export default function Settings() {
 							<CardHeader>
 								<CardTitle className="flex flex-row gap-2">Export</CardTitle>
 								<CardDescription>
-									Export settings and data for use on another link.{" "}
+									Export settings and data for use on another link.{' '}
 									<span className="font-semibold text-destructive">
 										DO NOT share this file with anyone! Doing so will compromise
 										your accounts.
@@ -102,7 +102,7 @@ export default function Settings() {
 										const cookies = await getIndexedDB();
 										const localStorage = getLocalStorage();
 										const json = JSON.stringify({
-											exportedBy: "Ephemeral",
+											exportedBy: 'Ephemeral',
 											version: 1.0,
 											date: Date.now(),
 											cookies: exportSettings.cookies ? cookies : undefined,
@@ -111,7 +111,7 @@ export default function Settings() {
 												: undefined,
 										} as DataExport);
 										const url = URL.createObjectURL(new Blob([json]));
-										const a = Object.assign(document.createElement("a"), {
+										const a = Object.assign(document.createElement('a'), {
 											href: url,
 											download: `ephemeral-export-${Date.now()}.json`,
 										});
@@ -145,12 +145,12 @@ export default function Settings() {
 														async (cookie) => await setIndexedDB(cookie),
 													),
 												);
-											toast({ title: "Successfully imported settings" });
+											toast({ title: 'Successfully imported settings' });
 										} catch (e) {
 											toast({
-												title: "Failed to import settings",
+												title: 'Failed to import settings',
 												description: (e as Error).message,
-												variant: "destructive",
+												variant: 'destructive',
 											});
 										}
 									}}

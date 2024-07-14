@@ -1,6 +1,6 @@
-import { Link, useRouteError, isRouteErrorResponse } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { CircleDashed } from "lucide-react";
+import { Button } from '@/components/ui/button';
+import { CircleDashed } from 'lucide-react';
+import { Link, isRouteErrorResponse, useRouteError } from 'react-router-dom';
 export default function ErrorPage() {
 	const error = useRouteError();
 	console.error(error);
@@ -11,11 +11,11 @@ export default function ErrorPage() {
 		errorCode = error.status;
 	} else if (error instanceof Error) {
 		errorMessage = error.message;
-	} else if (typeof error === "string") {
+	} else if (typeof error === 'string') {
 		errorMessage = error;
 	} else {
 		console.error(error);
-		errorMessage = "Unknown error";
+		errorMessage = 'Unknown error';
 	}
 	return (
 		<div className="flex h-full w-full flex-col items-center justify-center bg-background text-foreground">

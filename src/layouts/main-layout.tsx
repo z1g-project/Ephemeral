@@ -1,6 +1,6 @@
-import { Navbar } from "@/components/layout-components";
-import { ModeToggle } from "@/components/mode-toggle";
-import { Button } from "@/components/ui/button";
+import { Navbar } from '@/components/layout-components';
+import { ModeToggle } from '@/components/mode-toggle';
+import { Button } from '@/components/ui/button';
 import {
 	Dialog,
 	DialogContent,
@@ -9,38 +9,38 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Book, CircleDashed, Globe, Info } from "lucide-react";
-import { Link, Outlet } from "react-router-dom";
-import packageJson from "../../package.json";
-import encoder from "../lib/encoder";
+} from '@/components/ui/tooltip';
+import { Book, CircleDashed, Globe, Info } from 'lucide-react';
+import { Link, Outlet } from 'react-router-dom';
+import packageJson from '../../package.json';
+import encoder from '../lib/encoder';
 const projectsUsed = [
 	{
-		name: "Ultraviolet",
-		url: "https://github.com/titaniumnetwork-dev/ultraviolet",
+		name: 'Ultraviolet',
+		url: 'https://github.com/titaniumnetwork-dev/ultraviolet',
 	},
 	{
-		name: "wisp-client-js",
-		url: "https://github.com/MercuryWorkshop/wisp-client-js/tree/rewrite",
+		name: 'wisp-client-js',
+		url: 'https://github.com/MercuryWorkshop/wisp-client-js/tree/rewrite',
 	},
 	{
-		name: "shadcn/ui",
-		url: "https://ui.shadcn.com/",
+		name: 'shadcn/ui',
+		url: 'https://ui.shadcn.com/',
 	},
 ];
 const developers = [
-	"interpolation-0",
-	"incognitotgt",
-	"vbnm0",
-	"notplayingallday383",
-	"yu6x",
-	"anshnk",
+	'interpolation-0',
+	'incognitotgt',
+	'vbnm0',
+	'notplayingallday383',
+	'yu6x',
+	'anshnk',
 ];
 export default function MainLayout() {
 	return (
@@ -109,8 +109,8 @@ export default function MainLayout() {
 							</ul>
 							Copyright 2024 z1g Project.
 							<section>
-								This version of Ephemeral was built on{" "}
-								{new Date(__BUILD_DATE__).toLocaleString()} on commit{" "}
+								This version of Ephemeral was built on{' '}
+								{new Date(__BUILD_DATE__).toLocaleString()} on commit{' '}
 								<a
 									href={`https://github.com/z1g-project/Ephemeral/commit/${__GIT_COMMIT__}`}
 									className="inline font-medium text-primary underline-offset-4 hover:underline"
@@ -124,7 +124,7 @@ export default function MainLayout() {
 										<TooltipTrigger asChild>
 											<Button asChild variant="outline" size="icon">
 												<Link
-													to={`/view/${encoder.encode("https://github.com/z1g-project/Ephemeral")}`}
+													to={`/view/${encoder.encode('https://github.com/z1g-project/Ephemeral')}`}
 												>
 													<svg
 														xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +144,7 @@ export default function MainLayout() {
 										<TooltipTrigger asChild>
 											<Button variant="outline" size="icon" asChild>
 												<Link
-													to={`/view/${encoder.encode("https://z1g.top/docs")}`}
+													to={`/view/${encoder.encode('https://z1g.top/docs')}`}
 												>
 													<Book className="size-5" />
 												</Link>
@@ -155,7 +155,7 @@ export default function MainLayout() {
 									<Tooltip>
 										<TooltipTrigger asChild>
 											<Button variant="outline" size="icon" asChild>
-												<Link to={`/view/${encoder.encode("https://z1g.top")}`}>
+												<Link to={`/view/${encoder.encode('https://z1g.top')}`}>
 													<Globe className="size-5" />
 												</Link>
 											</Button>

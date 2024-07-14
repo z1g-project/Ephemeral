@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { ShieldX } from "lucide-react";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import { ShieldX } from 'lucide-react';
 
 export default function PageNotFound() {
 	return (

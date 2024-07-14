@@ -1,7 +1,7 @@
 const factory = (key) => {
 	const getShuffledAlphabet = () => {
 		const alphabet =
-			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
 		return shuffle(alphabet, key);
 	};
 	const shuffle = (alphabet, key) => {
@@ -19,42 +19,42 @@ const factory = (key) => {
 			}
 		}
 
-		return shuffledAlphabet.join("");
+		return shuffledAlphabet.join('');
 	};
 
 	const base64Encode = (text) => {
 		const shuffledAlphabet = getShuffledAlphabet();
 		const alphabet =
-			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 		return [...btoa(text)]
 			.map((char) => {
 				const index = alphabet.indexOf(char);
 				return index !== -1 ? shuffledAlphabet[index] : char;
 			})
-			.join("");
+			.join('');
 	};
 
 	const base64Decode = (encodedText) => {
 		const shuffledAlphabet = getShuffledAlphabet();
 		const alphabet =
-			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 		return atob(
 			[...encodedText]
 				.map((char) => {
 					const index = shuffledAlphabet.indexOf(char);
 					return index !== -1 ? alphabet[index] : char;
 				})
-				.join(""),
+				.join(''),
 		);
 	};
 
 	return {
 		enc: base64Encode,
 		dec: (encodedText) => {
-			if (encodedText.includes("?")) {
+			if (encodedText.includes('?')) {
 				// biome-ignore lint:
 				encodedText = base64Encode(
-					`${base64Decode(encodedText.split("?")[0])}?${encodedText.split("?")[1]}`,
+					`${base64Decode(encodedText.split('?')[0])}?${encodedText.split('?')[1]}`,
 				);
 				console.log(1);
 			}
@@ -67,15 +67,15 @@ const key = (location.origin + navigator.userAgent).toUpperCase();
 const cipher = factory(key);
 
 self.__uv$config = {
-	prefix: "/~/dark/",
-	bare: "",
+	prefix: '/~/dark/',
+	bare: '',
 	encodeUrl: cipher.enc,
 	decodeUrl: cipher.dec,
-	handler: "/uv/uv.handler.js",
-	client: "/uv/uv.client.js",
-	bundle: "/uv/uv.bundle.js",
-	config: "/uv/uv.config.js",
-	sw: "/uv/uv.sw.js",
+	handler: '/uv/uv.handler.js',
+	client: '/uv/uv.client.js',
+	bundle: '/uv/uv.bundle.js',
+	config: '/uv/uv.config.js',
+	sw: '/uv/uv.sw.js',
 };
 self.encoder = {
 	encode: cipher.enc,

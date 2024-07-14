@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { fetch } from "@/lib/fetch";
-import { transports } from "@/lib/transports";
+import { fetch } from '@/lib/fetch';
+import type { transports } from '@/lib/transports';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface Options {
 	useCurrentData?: boolean;
@@ -86,17 +86,17 @@ const defaultConfig: Config = {
 	proxy: {
 		wispServer:
 			import.meta.env.VITE_WISP_SERVER ??
-			`${location.protocol.replace("http", "ws")}//${location.host}/wisp/`,
-		transport: "libcurl",
+			`${location.protocol.replace('http', 'ws')}//${location.host}/wisp/`,
+		transport: 'libcurl',
 	},
 	cloak: {
-		preset: "None",
-		title: "Ephemeral",
-		favicon: "/icon.svg",
+		preset: 'None',
+		title: 'Ephemeral',
+		favicon: '/icon.svg',
 	},
 	search: {
-		url: "https://google.com/search?q=",
-		engine: "Google",
+		url: 'https://google.com/search?q=',
+		engine: 'Google',
 	},
 };
 
@@ -137,7 +137,7 @@ function useConfig(
 					}));
 				}
 				console.log(
-					"\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Default config loaded.",
+					'\x1b[34;49;1m[Ephemeral] \x1B[32mINFO: Default config loaded.',
 				);
 			} catch (error) {
 				console.error(error); // Handle or log the error appropriately
@@ -149,7 +149,7 @@ function useConfig(
 	}, []);
 
 	const configProxyHandler: ProxyHandler<Record<string, string>> = {
-		set: function (_, property: string, value: never) {
+		set: (_, property: string, value: never) => {
 			if (path) {
 				setConfigState((prevState) => ({
 					...prevState,
@@ -160,7 +160,7 @@ function useConfig(
 				}));
 				localStorage.setItem(`${path}.${property}`, value);
 			} else {
-				throw new TypeError("Config is read only when no path is specified.");
+				throw new TypeError('Config is read only when no path is specified.');
 			}
 			return true;
 		},
@@ -213,9 +213,8 @@ function useConfig(
 
 	if (path) {
 		return [proxiedConfig[path as Path], reset, loading];
-	} else {
-		return [proxiedConfig, reset, loading];
 	}
+	return [proxiedConfig, reset, loading];
 }
 
 const useSuggestions = () => {
@@ -238,14 +237,13 @@ const useSuggestions = () => {
 							backend: false,
 						},
 					).then((response) => response.text()),
-					"text/xml",
+					'text/xml',
 				);
 				return [...response.childNodes[0].childNodes]
 					.map(
 						(element) =>
-							(element.childNodes[0] as Element).attributes.getNamedItem(
-								"data",
-							)!.nodeValue!,
+							(element.childNodes[0] as Element).attributes.getNamedItem('data')
+								?.nodeValue as string,
 					)
 					.slice(0, 8);
 			});

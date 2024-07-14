@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
 	Card,
 	CardContent,
@@ -6,24 +6,24 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useToast } from "@/components/ui/use-toast";
-import { useConfig } from "@/hooks";
-import { unregisterServiceWorker } from "@/lib/sw";
-import { useEffect, useRef } from "react";
+} from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useToast } from '@/components/ui/use-toast';
+import { useConfig } from '@/hooks';
+import { unregisterServiceWorker } from '@/lib/sw';
+import { useEffect, useRef } from 'react';
 export default function ProxySettings() {
 	const { toast } = useToast();
-	const [config, reset, loading] = useConfig("proxy");
+	const [config, reset, loading] = useConfig('proxy');
 	const wispServerRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
@@ -35,21 +35,21 @@ export default function ProxySettings() {
 	const handleSave = () => {
 		if (wispServerRef.current) {
 			if (
-				wispServerRef.current?.value.startsWith("wss://") ||
-				wispServerRef.current?.value.startsWith("ws://")
+				wispServerRef.current?.value.startsWith('wss://') ||
+				wispServerRef.current?.value.startsWith('ws://')
 			) {
-				config && (config.wispServer = wispServerRef.current?.value);
+				if (config) config.wispServer = wispServerRef.current?.value;
 			} else {
 				toast({
-					title: "Invalid Wisp Server URL",
-					variant: "destructive",
+					title: 'Invalid Wisp Server URL',
+					variant: 'destructive',
 				});
-				throw new Error("Invalid Wisp Server URL");
+				throw new Error('Invalid Wisp Server URL');
 			}
 		}
 		unregisterServiceWorker();
 		toast({
-			title: "Proxy Settings have been saved",
+			title: 'Proxy Settings have been saved',
 		});
 		setTimeout(window.location.reload.bind(window.location), 1000);
 	};
@@ -57,8 +57,8 @@ export default function ProxySettings() {
 		reset();
 		unregisterServiceWorker();
 		toast({
-			title: "Proxy Settings have been reset",
-			variant: "destructive",
+			title: 'Proxy Settings have been reset',
+			variant: 'destructive',
 		});
 		setTimeout(window.location.reload.bind(window.location), 1000);
 	};
@@ -83,8 +83,8 @@ export default function ProxySettings() {
 						<Label htmlFor="transport">Transport</Label>
 						<Select
 							value={config.transport}
-							onValueChange={(value: (typeof config)["transport"]) => {
-								config.transport && (config.transport = value);
+							onValueChange={(value: (typeof config)['transport']) => {
+								if (config) config.transport = value;
 							}}
 						>
 							<SelectTrigger id="transport">

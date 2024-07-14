@@ -5,16 +5,16 @@ import {
 	CarouselItem,
 	CarouselNext,
 	CarouselPrevious,
-} from "@/components/ui/carousel";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useAsync } from "@/hooks";
-import encoder from "@/lib/encoder";
-import { fetch } from "@/lib/fetch";
-import type { Application } from "@/types/apps";
+} from '@/components/ui/carousel';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useAsync } from '@/hooks';
+import encoder from '@/lib/encoder';
+import { fetch } from '@/lib/fetch';
+import type { Application } from '@/types/apps';
 // @ts-expect-error BareClient is not typed
-import { BareClient } from "@mercuryworkshop/bare-mux";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { BareClient } from '@mercuryworkshop/bare-mux';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 function AppImage({ imageUrl }: { imageUrl: string }) {
 	const { data: image, loading, run, error } = useAsync<string>(null);
 	useEffect(() => {
@@ -28,7 +28,7 @@ function AppImage({ imageUrl }: { imageUrl: string }) {
 						.then((blob) => URL.createObjectURL(blob) as string),
 				),
 		);
-	}, [imageUrl]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [imageUrl, run]);
 	return !error ? (
 		!loading ? (
 			<img
@@ -55,8 +55,8 @@ export function ShortcutCarousel() {
 		run,
 	} = useAsync<Application[]>([]);
 	useEffect(() => {
-		run(() => fetch("https://api.z1g.top/api/apps", { wisp: true }));
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+		run(() => fetch('https://api.z1g.top/api/apps', { wisp: true }));
+	}, [run]);
 	return (
 		<Carousel>
 			<CarouselContent>

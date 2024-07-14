@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
 	Card,
 	CardContent,
@@ -6,32 +6,32 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useToast } from "@/components/ui/use-toast";
-import { useConfig } from "@/hooks";
-import { useEffect, useRef, useState } from "react";
+} from '@/components/ui/select';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useToast } from '@/components/ui/use-toast';
+import { useConfig } from '@/hooks';
+import { useEffect, useRef, useState } from 'react';
 export default function SearchSettings() {
 	const { toast } = useToast();
 	const [custom, setCustom] = useState<boolean>(false);
 	const customSearchRef = useRef<HTMLInputElement>(null);
-	const [config, reset, loading] = useConfig("search");
+	const [config, reset, loading] = useConfig('search');
 	const searchEngines = {
-		Google: "https://google.com/search?q=",
-		DuckDuckGo: "https://duckduckgo.com/?q=",
+		Google: 'https://google.com/search?q=',
+		DuckDuckGo: 'https://duckduckgo.com/?q=',
 	};
 
 	useEffect(() => {
-		if (config.engine === "Custom") setCustom(true);
+		if (config.engine === 'Custom') setCustom(true);
 		else setCustom(false);
 	}, [config]);
 
@@ -41,7 +41,7 @@ export default function SearchSettings() {
 		config.engine = value;
 		config.url = searchEngines[value];
 		toast({
-			title: "Search Engine Changed",
+			title: 'Search Engine Changed',
 			description: `Search Engine has been changed to ${value}`,
 		});
 	};
@@ -49,8 +49,8 @@ export default function SearchSettings() {
 	const handleReset = () => {
 		reset();
 		toast({
-			title: "Search Settings Reset",
-			description: "Search settings have been reset",
+			title: 'Search Settings Reset',
+			description: 'Search settings have been reset',
 		});
 	};
 
@@ -97,7 +97,7 @@ export default function SearchSettings() {
 							placeholder="Enter a valid Search Engine URL"
 							value={config.url}
 							onChange={(e) => {
-								config.engine = "Custom";
+								config.engine = 'Custom';
 								config.url = e.target.value;
 							}}
 						/>

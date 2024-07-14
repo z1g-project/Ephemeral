@@ -1,30 +1,30 @@
-import Fuse from "fuse.js";
-import { For } from "million/react";
-import { Input } from "@/components/ui/input";
-import ShortcutCard from "@/components/shortcut-card";
-import { useState, useEffect, useRef } from "react";
-import { useAsync } from "@/hooks";
-import type { Application } from "@/types/apps";
-import { Loader2, X } from "lucide-react";
-import { fetch } from "@/lib/fetch";
+import ShortcutCard from '@/components/shortcut-card';
+import { Input } from '@/components/ui/input';
+import { useAsync } from '@/hooks';
+import { fetch } from '@/lib/fetch';
+import type { Application } from '@/types/apps';
+import Fuse from 'fuse.js';
+import { Loader2, X } from 'lucide-react';
+import { For } from 'million/react';
+import { useEffect, useRef, useState } from 'react';
 export default function Apps() {
 	const { loading, data: apps, error, run } = useAsync<Application[]>([]);
-	const [searchTerm, setSearchTerm] = useState("");
+	const [searchTerm, setSearchTerm] = useState('');
 	const [searchResults, setSearchResults] = useState<Application[] | null>([]);
 	const [listOutOfBounds, setListOutOfBounds] = useState(false);
 	const [fuse, setFuse] = useState<Fuse<Application> | null>(null);
 	const listRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		run(() => fetch("https://api.z1g.top/api/apps", { wisp: true }));
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+		run(() => fetch('https://api.z1g.top/api/apps', { wisp: true }));
+	}, [run]);
 
 	useEffect(() => {
 		if (!apps) return;
 		setSearchResults(apps);
 		setFuse(
 			new Fuse<Application>(apps, {
-				keys: ["name", "description"],
+				keys: ['name', 'description'],
 			}),
 		);
 	}, [apps]);
@@ -74,15 +74,15 @@ export default function Apps() {
 				) : null}
 			</div>
 			<span
-				className={`flex w-full items-center justify-center pb-10 text-center text-2xl font-bold ${error ? "text-destructive" : "text-foreground"}`}
+				className={`flex w-full items-center justify-center pb-10 text-center text-2xl font-bold ${error ? 'text-destructive' : 'text-foreground'}`}
 			>
 				{!error ? (
 					!loading ? (
 						(searchResults ?? []).length > 0 ? (
 							listOutOfBounds ? (
-								"No more apps."
+								'No more apps.'
 							) : (
-								""
+								''
 							)
 						) : (
 							<>

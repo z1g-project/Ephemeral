@@ -1,6 +1,6 @@
-import type { APIData, APIError, APIResponse } from "@/types/api";
+import type { APIData, APIError, APIResponse } from '@/types/api';
 // @ts-expect-error stfu
-import { BareClient } from "@mercuryworkshop/bare-mux";
+import { BareClient } from '@mercuryworkshop/bare-mux';
 
 const _fetch = globalThis.fetch;
 async function fetch<T>(
@@ -12,7 +12,7 @@ async function fetch<T>(
 			const response: APIResponse<T> = await _fetch(url).then((response) =>
 				response.json(),
 			);
-			if (response.status === "error") {
+			if (response.status === 'error') {
 				throw { error: true, ...response.error } as APIError;
 			}
 			return response.data as APIData<T>;
@@ -22,7 +22,7 @@ async function fetch<T>(
 		const response: APIResponse<T> = await client
 			.fetch(url)
 			.then(({ rawResponse }: { rawResponse: Response }) => rawResponse.json());
-		if (response.status === "error") {
+		if (response.status === 'error') {
 			throw { error: true, ...response.error } as APIError;
 		}
 		return response.data as APIData<T>;

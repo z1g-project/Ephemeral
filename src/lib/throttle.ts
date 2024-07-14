@@ -2,10 +2,10 @@ function throttle(
 	delay: number,
 	func: (...args: never[]) => void,
 ): (...args: never[]) => void {
-	let lastCallTime: number = 0;
+	let lastCallTime = 0;
 	let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-	return function (...args: never[]) {
+	return (...args: never[]) => {
 		const currentTime = performance.now();
 
 		if (currentTime - lastCallTime >= delay) {

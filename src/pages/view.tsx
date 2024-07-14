@@ -1,17 +1,17 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
 	Command,
 	CommandGroup,
 	CommandItem,
 	CommandList,
-} from "@/components/ui/command";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
-import { useConfig, useSuggestions } from "@/hooks";
-import encoder from "@/lib/encoder";
-import { throttle } from "@/lib/throttle";
-import type { NavButton } from "@/types/view";
-import type { Eruda as baseEruda } from "eruda";
+} from '@/components/ui/command';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
+import { useConfig, useSuggestions } from '@/hooks';
+import encoder from '@/lib/encoder';
+import { throttle } from '@/lib/throttle';
+import type { NavButton } from '@/types/view';
+import type { Eruda as baseEruda } from 'eruda';
 import {
 	ArrowUpRightFromSquare,
 	ChevronLeft,
@@ -21,9 +21,9 @@ import {
 	Maximize,
 	Minimize,
 	RotateCw,
-} from "lucide-react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+} from 'lucide-react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 // import { injectPlugins } from "@/lib/injector";
 interface Eruda extends baseEruda {
 	_isInit: boolean;
@@ -41,7 +41,7 @@ export default function View() {
 	const pageRef = useRef<HTMLDivElement>(null);
 	const [config] = useConfig();
 
-	const proxyPrefix = "/~/dark/";
+	const proxyPrefix = '/~/dark/';
 
 	const { suggestions, error, fetchSuggestions } = useSuggestions();
 
@@ -58,15 +58,15 @@ export default function View() {
 		if (!inputRef.current) return;
 		let site =
 			frameRef.current?.contentWindow?.location.href
-				?.replace(window.location.origin, "")
-				.replace(proxyPrefix, "") || "";
+				?.replace(window.location.origin, '')
+				.replace(proxyPrefix, '') || '';
 		if (site === undefined) return;
 		site = encoder.decode(site);
 		if (suggestion) {
 			inputRef.current.value = suggestion;
 			return;
 		}
-		inputRef.current.value = site?.toString() || "";
+		inputRef.current.value = site?.toString() || '';
 	}, []);
 	// useEffect(() => {
 	// 	const intervalId = setInterval(() => {
@@ -92,7 +92,7 @@ export default function View() {
 		if (aboutBlank) {
 			toast({
 				description:
-					"Note: Back and Forward buttons will not work in about:blank",
+					'Note: Back and Forward buttons will not work in about:blank',
 			});
 		}
 	}, [aboutBlank, toast]);
@@ -103,27 +103,27 @@ export default function View() {
 
 	function parseInput(event: React.KeyboardEvent<HTMLInputElement>) {
 		if (!inputRef.current) return;
-		if (event.key === "Enter") {
-			let src = "";
+		if (event.key === 'Enter') {
+			let src = '';
 			const inputValue = inputRef.current.value.trim();
 			if (
-				inputValue.startsWith("http://") ||
-				inputValue.startsWith("https://")
+				inputValue.startsWith('http://') ||
+				inputValue.startsWith('https://')
 			) {
 				src = `/~/dark/${encoder.encode(inputValue)}`;
-			} else if (inputValue.includes(".") && !inputValue.includes(" ")) {
-				src = `/~/dark/${encoder.encode("https://" + inputValue)}`;
+			} else if (inputValue.includes('.') && !inputValue.includes(' ')) {
+				src = `/~/dark/${encoder.encode(`https://${inputValue}`)}`;
 			} else {
-				src = `/~/dark/${encoder.encode(config.search.url.replace("%s", inputValue))}`;
+				src = `/~/dark/${encoder.encode(config.search.url.replace('%s', inputValue))}`;
 			}
 			if (frameRef.current) frameRef.current.src = src;
 		}
 	}
 
-	const buttonClasses = "h-4 w-4 text-foreground";
+	const buttonClasses = 'h-4 w-4 text-foreground';
 	const leftButtons: NavButton[] = [
 		{
-			title: "Back",
+			title: 'Back',
 			onClick() {
 				if (!frameRef.current) return;
 				frameRef.current.contentWindow?.history.back();
@@ -132,7 +132,7 @@ export default function View() {
 			children: <ChevronLeft className={buttonClasses} />,
 		},
 		{
-			title: "Forward",
+			title: 'Forward',
 			onClick() {
 				if (!frameRef.current) return;
 				frameRef.current.contentWindow?.history.forward();
@@ -141,7 +141,7 @@ export default function View() {
 			children: <ChevronRight className={buttonClasses} />,
 		},
 		{
-			title: "Reload",
+			title: 'Reload',
 			onClick() {
 				if (!frameRef.current) return;
 				frameRef.current.contentWindow?.location.reload();
@@ -150,7 +150,7 @@ export default function View() {
 			children: <RotateCw className={buttonClasses} />,
 		},
 		{
-			title: "Home",
+			title: 'Home',
 			disabled: aboutBlank,
 			children: (
 				<Link to="/">
@@ -162,7 +162,7 @@ export default function View() {
 	];
 	const rightButtons: NavButton[] = [
 		{
-			title: "Eruda (Browser console)",
+			title: 'Eruda (Browser console)',
 			disabled: false,
 			onClick() {
 				if (!frameRef.current) return;
@@ -172,14 +172,14 @@ export default function View() {
 				if (proxyWindow.eruda?._isInit) {
 					proxyWindow.eruda.destroy();
 				} else {
-					const script = proxyDocument.createElement("script");
-					script.src = "https://cdn.jsdelivr.net/npm/eruda";
+					const script = proxyDocument.createElement('script');
+					script.src = 'https://cdn.jsdelivr.net/npm/eruda';
 					script.onload = () => {
 						if (!proxyWindow) return;
 						proxyWindow.eruda.init({
 							defaults: {
 								displaySize: 45,
-								theme: "Atom One Dark",
+								theme: 'Atom One Dark',
 							},
 						});
 						proxyWindow.eruda.show();
@@ -190,7 +190,7 @@ export default function View() {
 			children: <Code className={buttonClasses} />,
 		},
 		{
-			title: "Open in new tab (raw)",
+			title: 'Open in new tab (raw)',
 			disabled: false,
 			onClick() {
 				if (!frameRef.current) return;
@@ -199,7 +199,7 @@ export default function View() {
 			children: <ArrowUpRightFromSquare className={buttonClasses} />,
 		},
 		{
-			title: "Fullscreen",
+			title: 'Fullscreen',
 			disabled: false,
 			onClick() {
 				if (!pageRef.current) return;
@@ -219,7 +219,7 @@ export default function View() {
 		},
 	];
 
-	window.history.replaceState(null, "", "/");
+	window.history.replaceState(null, '', '/');
 	return (
 		<div
 			ref={pageRef}
@@ -234,7 +234,7 @@ export default function View() {
 									disabled,
 									onClick,
 									title,
-									"aria-label": title,
+									'aria-label': title,
 									asChild: asChild ?? false,
 								}}
 								variant="ghost"
@@ -254,10 +254,10 @@ export default function View() {
 							setInputFocused(true);
 						}}
 						onBlur={() => setInputFocused(false)}
-						className={`peer focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[484px] lg:w-[584px] ${(suggestions?.length ?? 0) > 0 || error ? "focus:rounded-b-none focus:border-b-0 group-hover:rounded-b-none group-hover:border-b-0" : ""}`}
+						className={`peer focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-[484px] lg:w-[584px] ${(suggestions?.length ?? 0) > 0 || error ? 'focus:rounded-b-none focus:border-b-0 group-hover:rounded-b-none group-hover:border-b-0' : ''}`}
 						spellCheck={false}
 						placeholder={
-							frameRef?.current?.src ? "Search the web freely" : "Loading..."
+							frameRef?.current?.src ? 'Search the web freely' : 'Loading...'
 						}
 						onChange={throttledInputChange.current}
 						onKeyDown={parseInput}
@@ -272,9 +272,10 @@ export default function View() {
 												className="cursor-pointer"
 												key={suggestion}
 												onSelect={() => {
-													frameRef.current!.src =
-														proxyPrefix +
-														encoder.encode(config.search.url + suggestion);
+													if (frameRef.current)
+														frameRef.current.src =
+															proxyPrefix +
+															encoder.encode(config.search.url + suggestion);
 												}}
 											>
 												{suggestion}
@@ -301,7 +302,7 @@ export default function View() {
 									disabled,
 									onClick,
 									title,
-									"aria-label": title,
+									'aria-label': title,
 									asChild: asChild ?? false,
 								}}
 								key={title}
