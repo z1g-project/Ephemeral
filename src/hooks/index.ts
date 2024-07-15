@@ -64,6 +64,7 @@ function useAsync<T>(
 type ProxyConfig = {
 	wispServer: string;
 	transport: keyof typeof transports;
+	service: 'meteor' | 'ultraviolet';
 };
 
 type CloakConfig = {
@@ -88,6 +89,7 @@ const defaultConfig: Config = {
 			import.meta.env.VITE_WISP_SERVER ??
 			`${location.protocol.replace('http', 'ws')}//${location.host}/wisp/`,
 		transport: 'epoxy',
+		service: 'ultraviolet',
 	},
 	cloak: {
 		preset: 'None',

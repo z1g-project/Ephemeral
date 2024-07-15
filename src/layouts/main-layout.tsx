@@ -26,6 +26,10 @@ const projectsUsed = [
 		url: 'https://github.com/titaniumnetwork-dev/ultraviolet',
 	},
 	{
+		name: 'Meteor',
+		url: 'https://github.com/meteorproxy/meteor',
+	},
+	{
 		name: 'wisp-client-js',
 		url: 'https://github.com/MercuryWorkshop/wisp-client-js/tree/rewrite',
 	},

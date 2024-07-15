@@ -7,6 +7,7 @@ import { libcurlPath } from '@mercuryworkshop/libcurl-transport';
 import { server as wisp } from '@mercuryworkshop/wisp-js/server';
 import { uvPath } from '@titaniumnetwork-dev/ultraviolet';
 import react from '@vitejs/plugin-react-swc';
+import { meteorPath } from 'meteorproxy';
 import million from 'million/compiler';
 import { defineConfig } from 'vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
@@ -33,6 +34,11 @@ export default defineConfig({
 				{
 					src: `${uvPath}/uv.*`.replace(/\\/g, '/'),
 					dest: 'uv',
+					overwrite: false,
+				},
+				{
+					src: `${meteorPath}/meteor.*`.replace(/\\/g, '/'),
+					dest: 'meteor',
 					overwrite: false,
 				},
 				{

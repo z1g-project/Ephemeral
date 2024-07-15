@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useConfig } from '@/hooks';
-import { unregisterServiceWorker } from '@/lib/sw';
+import { registerServiceWorker, unregisterServiceWorker } from '@/lib/sw';
 import { useEffect, useRef } from 'react';
 import { toast } from 'sonner';
 export default function ProxySettings() {
@@ -44,14 +44,20 @@ export default function ProxySettings() {
 			}
 		}
 		unregisterServiceWorker();
-		toast.success('Proxy Settings have been saved');
-		setTimeout(window.location.reload.bind(window.location), 1000);
+		toast.promise(() => registerServiceWorker(config), {
+			loading: 'Saving Proxy Settings',
+			success: 'Proxy Settings have been saved',
+			error: 'Failed to save Proxy Settings',
+		});
 	};
 	const handleReset = () => {
 		reset();
 		unregisterServiceWorker();
-		toast.error('Proxy Settings have been reset');
-		setTimeout(window.location.reload.bind(window.location), 1000);
+		toast.promise(() => registerServiceWorker(config), {
+			loading: 'Resetting Proxy Settings',
+			success: 'Proxy Settings have been reset',
+			error: 'Failed to reset Proxy Settings',
+		});
 	};
 
 	return (
@@ -84,6 +90,21 @@ export default function ProxySettings() {
 							<SelectContent>
 								<SelectItem value="libcurl">Libcurl</SelectItem>
 								<SelectItem value="epoxy">Epoxy</SelectItem>
+							</SelectContent>
+						</Select>
+						<Label htmlFor="service">Service</Label>
+						<Select
+							value={config.service}
+							onValueChange={(value: (typeof config)['service']) => {
+								if (config) config.service = value;
+							}}
+						>
+							<SelectTrigger id="service">
+								<SelectValue placeholder="Select a Service" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectItem value="ultraviolet">Ultraviolet</SelectItem>
+								<SelectItem value="meteor">Meteor</SelectItem>
 							</SelectContent>
 						</Select>
 					</CardContent>

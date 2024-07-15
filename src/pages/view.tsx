@@ -40,7 +40,7 @@ export default function View() {
 	const pageRef = useRef<HTMLDivElement>(null);
 	const [config] = useConfig();
 
-	const proxyPrefix = '/~/dark/';
+	const proxyPrefix = `/~/${config.proxy.service === 'meteor' ? 'light' : 'dark'}/`;
 
 	const { suggestions, error, fetchSuggestions } = useSuggestions();
 
@@ -53,20 +53,23 @@ export default function View() {
 	);
 	const throttledInputChange = useRef(throttle(750, onInputChange));
 
-	const setSearch = useCallback((suggestion?: string) => {
-		if (!inputRef.current) return;
-		let site =
-			frameRef.current?.contentWindow?.location.href
-				?.replace(window.location.origin, '')
-				.replace(proxyPrefix, '') || '';
-		if (site === undefined) return;
-		site = encoder.decode(site);
-		if (suggestion) {
-			inputRef.current.value = suggestion;
-			return;
-		}
-		inputRef.current.value = site?.toString() || '';
-	}, []);
+	const setSearch = useCallback(
+		(suggestion?: string) => {
+			if (!inputRef.current) return;
+			let site =
+				frameRef.current?.contentWindow?.location.href
+					?.replace(window.location.origin, '')
+					.replace(proxyPrefix, '') || '';
+			if (site === undefined) return;
+			site = encoder.decode(site);
+			if (suggestion) {
+				inputRef.current.value = suggestion;
+				return;
+			}
+			inputRef.current.value = site?.toString() || '';
+		},
+		[proxyPrefix],
+	);
 	useEffect(() => {
 		if (!inputFocused) {
 			const interval = setInterval(setSearch, 13);
