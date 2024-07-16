@@ -102,8 +102,8 @@ importers:
         specifier: ^0.363.0
         version: 0.363.0(react@18.3.1)
       meteorproxy:
-        specifier: ^1.0.1
-        version: 1.0.1(utf-8-validate@6.0.4)
+        specifier: ^1.0.5
+        version: 1.0.5(utf-8-validate@6.0.4)
       million:
         specifier: ^3.1.11
         version: 3.1.11(rollup@4.18.1)
@@ -2262,8 +2262,8 @@ packages:
     resolution: {integrity: sha512-Rbiu0QPIxTXgOXwiIpRVJfZRQ2FWyfzYrOGBs9SN5RbaXg1CN5ELn/plodwWwluX93yzc4qO/bNIen1ThGFCxw==}
     engines: {node: '>=10.4.0'}
 
-  meteorproxy@1.0.1:
-    resolution: {integrity: sha512-7PTbHFu/iqYwetb3fO/3krC0iu9jA+xWszCMhj+SxVqWrDsHFh831s+Jdp/gO4KFhevbUIVQxcQbF8tVidXJ6Q==}
+  meteorproxy@1.0.5:
+    resolution: {integrity: sha512-RhruUa9H9qj0C9nkpQfAvTcoktx0ojS424CnYZMk3DhUxtYJaC0AmQI+Rpx4p59TsDERINru1jiOSUyg5LtO0Q==}
 
   micromatch@4.0.7:
     resolution: {integrity: sha512-LPP/3KorzCwBxfeUuZmaR6bG2kdeHSbe0P2tY3FLRU4vYrjYz5hI4QZwV0njUx3jeuKe67YukQ1LSPZBKDqO/Q==}
@@ -5150,7 +5150,7 @@ snapshots:
 
   meriyah@4.5.0: {}
 
-  meteorproxy@1.0.1(utf-8-validate@6.0.4):
+  meteorproxy@1.0.5(utf-8-validate@6.0.4):
     dependencies:
       '@mercuryworkshop/bare-mux': 2.0.2
       '@mercuryworkshop/wisp-js': 0.1.0(utf-8-validate@6.0.4)
