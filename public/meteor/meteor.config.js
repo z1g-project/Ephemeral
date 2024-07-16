@@ -10,9 +10,8 @@ const config = {
 			filter: /discord.com*/g,
 			inject(ctx) {
 				ctx.injectHTML(
-					'<script src="https://raw.githubusercontent.com/Vencord/builds/main/browser.js"></script>',
+					'<script src="https://raw.githubusercontent.com/Vencord/builds/main/browser.js"></script><link rel="stylesheet" href="https://raw.githubusercontent.com/Vencord/builds/main/browser.css">',
 				);
-				// ctx.injectHTML('<link rel="stylesheet" href="https://raw.githubusercontent.com/Vencord/builds/main/browser.css">')
 			},
 		},
 	],
