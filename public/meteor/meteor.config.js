@@ -2,7 +2,7 @@
 /** @type {import('meteorproxy').Config} */
 const config = {
 	prefix: '/~/light/',
-	codec: self.__meteor$codecs.locationvariable,
+	codec: self.$meteor_codecs.locationvariable,
 	debug: false,
 	plugins: [
 		{
@@ -25,4 +25,4 @@ const config = {
 	},
 };
 
-self.__meteor$config = config;
+self.$meteor_config = config;

@@ -102,8 +102,8 @@ importers:
         specifier: ^0.363.0
         version: 0.363.0(react@18.3.1)
       meteorproxy:
-        specifier: ^1.0.5
-        version: 1.0.5(utf-8-validate@6.0.4)
+        specifier: ^1.0.6
+        version: 1.0.6(utf-8-validate@6.0.4)
       million:
         specifier: ^3.1.11
         version: 3.1.11(rollup@4.18.1)
@@ -1632,6 +1632,9 @@ packages:
   caniuse-lite@1.0.30001642:
     resolution: {integrity: sha512-3XQ0DoRgLijXJErLSl+bLnJ+Et4KqV1PY6JJBGAFlsNsz31zeAIncyeZfLCabHK/jtSh+671RM9YMldxjUPZtA==}
 
+  caniuse-lite@1.0.30001643:
+    resolution: {integrity: sha512-ERgWGNleEilSrHM6iUz/zJNSQTP8Mr21wDWpdgvRwcTXGAq6jMtOUPP4dqFPTdKqZ2wKTdtB+uucZ3MRpAUSmg==}
+
   chalk@2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
     engines: {node: '>=4'}
@@ -1723,6 +1726,9 @@ packages:
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+
+  cookie-es@1.2.1:
+    resolution: {integrity: sha512-ilTPDuxhZX44BSzzRB58gvSY2UevZKQM9fjisn7Z+NJ92CtSU6kO1+22ZN/agbEJANFjK85EiJJbi/gQv18OXA==}
 
   cookie@0.6.0:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
@@ -2262,8 +2268,8 @@ packages:
     resolution: {integrity: sha512-Rbiu0QPIxTXgOXwiIpRVJfZRQ2FWyfzYrOGBs9SN5RbaXg1CN5ELn/plodwWwluX93yzc4qO/bNIen1ThGFCxw==}
     engines: {node: '>=10.4.0'}
 
-  meteorproxy@1.0.5:
-    resolution: {integrity: sha512-RhruUa9H9qj0C9nkpQfAvTcoktx0ojS424CnYZMk3DhUxtYJaC0AmQI+Rpx4p59TsDERINru1jiOSUyg5LtO0Q==}
+  meteorproxy@1.0.6:
+    resolution: {integrity: sha512-yfg1RHHapNzai5S597PHX8FA+5PQ+ao5zgOcfgdSM4K4WEwUYuLpGrHA0/GXEtoH1VbUyiTKdtcpYlB7g5XyYw==}
 
   micromatch@4.0.7:
     resolution: {integrity: sha512-LPP/3KorzCwBxfeUuZmaR6bG2kdeHSbe0P2tY3FLRU4vYrjYz5hI4QZwV0njUx3jeuKe67YukQ1LSPZBKDqO/Q==}
@@ -4504,6 +4510,8 @@ snapshots:
 
   caniuse-lite@1.0.30001642: {}
 
+  caniuse-lite@1.0.30001643: {}
+
   chalk@2.4.2:
     dependencies:
       ansi-styles: 3.2.1
@@ -4606,6 +4614,8 @@ snapshots:
       safe-buffer: 5.2.1
 
   convert-source-map@2.0.0: {}
+
+  cookie-es@1.2.1: {}
 
   cookie@0.6.0: {}
 
@@ -5150,14 +5160,14 @@ snapshots:
 
   meriyah@4.5.0: {}
 
-  meteorproxy@1.0.5(utf-8-validate@6.0.4):
+  meteorproxy@1.0.6(utf-8-validate@6.0.4):
     dependencies:
       '@mercuryworkshop/bare-mux': 2.0.2
       '@mercuryworkshop/wisp-js': 0.1.0(utf-8-validate@6.0.4)
       '@types/estree': 1.0.5
       '@webreflection/idb-map': 0.3.1
       astring: 1.8.6
-      cookie: 0.6.0
+      cookie-es: 1.2.1
       dom-serializer: 2.0.0
       domhandler: 5.0.3
       domutils: 3.1.0
@@ -5224,7 +5234,7 @@ snapshots:
       '@next/env': 14.2.3
       '@swc/helpers': 0.5.5
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001642
+      caniuse-lite: 1.0.30001643
       graceful-fs: 4.2.11
       postcss: 8.4.31
       react: 18.3.1
