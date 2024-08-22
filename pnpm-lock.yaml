@@ -22,13 +22,13 @@ importers:
         version: 2.0.4
       '@mercuryworkshop/epoxy-transport':
         specifier: ^2.1.3
-        version: 2.1.3(typescript@5.5.3)
+        version: 2.1.3(typescript@5.5.4)
       '@mercuryworkshop/libcurl-transport':
         specifier: ^1.3.6
-        version: 1.3.6(typescript@5.5.3)
+        version: 1.3.6(typescript@5.5.4)
       '@mercuryworkshop/wisp-js':
         specifier: github:mercuryworkshop/wisp-client-js#rewrite
-        version: https://codeload.github.com/mercuryworkshop/wisp-client-js/tar.gz/c7b6d7973fd391c80dfe258f3d4836740498637c(utf-8-validate@6.0.4)
+        version: git+https://git@github.com:mercuryworkshop/wisp-client-js.git#a9a86f36fcffd7ec0dabef31a2326012350d0e48(utf-8-validate@6.0.4)
       '@radix-ui/react-checkbox':
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -160,8 +160,8 @@ importers:
         specifier: ^3.4.4
         version: 3.4.4
       typescript:
-        specifier: ^5.5.3
-        version: 5.5.3
+        specifier: ^5.5.4
+        version: 5.5.4
       vite:
         specifier: ^5.3.3
         version: 5.3.3(@types/node@20.14.10)
@@ -707,12 +707,12 @@ packages:
   '@mercuryworkshop/libcurl-transport@1.3.6':
     resolution: {integrity: sha512-K4/TSfHlkjuzY6j0XXFmIbG8m3tpMoTxLga46fhmeuX8k3EJR/FVbW8JTXOD34Iofu0vCZuuY8n/ywNCcB6XjA==}
 
-  '@mercuryworkshop/wisp-js@0.1.0':
-    resolution: {integrity: sha512-KhSViqQmRr7cFKi4zb/VawYikeJlRbICvh6mBEAvGBhK4SAX/3xhhRNgsdw/nVEykU9oBhY7qR2SPxG6Up7jFg==}
+  '@mercuryworkshop/wisp-js@0.1.1':
+    resolution: {integrity: sha512-mpsoKteEPkuY6uGGY6B73lU+EBGMlh/A39yXG4hNKzV6FZZ9CWmq3bAREmsLqA8adK/Y+OV8MkYWBEaRJHVhTw==}
 
-  '@mercuryworkshop/wisp-js@https://codeload.github.com/mercuryworkshop/wisp-client-js/tar.gz/c7b6d7973fd391c80dfe258f3d4836740498637c':
-    resolution: {tarball: https://codeload.github.com/mercuryworkshop/wisp-client-js/tar.gz/c7b6d7973fd391c80dfe258f3d4836740498637c}
-    version: 0.1.0
+  '@mercuryworkshop/wisp-js@git+https://git@github.com:mercuryworkshop/wisp-client-js.git#a9a86f36fcffd7ec0dabef31a2326012350d0e48':
+    resolution: {commit: a9a86f36fcffd7ec0dabef31a2326012350d0e48, repo: git@github.com:mercuryworkshop/wisp-client-js.git, type: git}
+    version: 0.1.1
 
   '@next/env@14.2.3':
     resolution: {integrity: sha512-W7fd7IbkfmeeY2gXrzJYDx8D2lWKbVoTIj1o1ScPHNzvp30s1AuoEFSdr39bC5sjxJaxTtq3OTCZboNp0lNWHA==}
@@ -2962,8 +2962,8 @@ packages:
     resolution: {integrity: sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==}
     engines: {node: '>=10'}
 
-  typescript@5.5.3:
-    resolution: {integrity: sha512-/hreyEujaB0w76zKo6717l3L0o/qEUtRgdvUBvlkhoWeOVMjMuHNHk0BRBzikzuGDqNmPQbg5ifMEqsHLiIUcQ==}
+  typescript@5.5.4:
+    resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -3599,34 +3599,34 @@ snapshots:
 
   '@mercuryworkshop/epoxy-tls@2.0.6-1': {}
 
-  '@mercuryworkshop/epoxy-transport@2.1.3(typescript@5.5.3)':
+  '@mercuryworkshop/epoxy-transport@2.1.3(typescript@5.5.4)':
     dependencies:
       '@mercuryworkshop/epoxy-tls': 2.0.6-1
       esbuild-plugin-umd-wrapper: 2.0.3
       rollup: 4.18.1
       rollup-plugin-node-resolve: 5.2.0(rollup@4.18.1)
-      rollup-plugin-typescript2: 0.36.0(rollup@4.18.1)(typescript@5.5.3)
+      rollup-plugin-typescript2: 0.36.0(rollup@4.18.1)(typescript@5.5.4)
     transitivePeerDependencies:
       - typescript
 
-  '@mercuryworkshop/libcurl-transport@1.3.6(typescript@5.5.3)':
+  '@mercuryworkshop/libcurl-transport@1.3.6(typescript@5.5.4)':
     dependencies:
       esbuild-plugin-umd-wrapper: 2.0.3
       libcurl.js: 0.6.10
       rollup: 4.18.1
       rollup-plugin-node-resolve: 5.2.0(rollup@4.18.1)
-      rollup-plugin-typescript2: 0.36.0(rollup@4.18.1)(typescript@5.5.3)
+      rollup-plugin-typescript2: 0.36.0(rollup@4.18.1)(typescript@5.5.4)
     transitivePeerDependencies:
       - typescript
 
-  '@mercuryworkshop/wisp-js@0.1.0(utf-8-validate@6.0.4)':
+  '@mercuryworkshop/wisp-js@0.1.1(utf-8-validate@6.0.4)':
     dependencies:
       bufferutil: 4.0.8
       ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     transitivePeerDependencies:
       - utf-8-validate
 
-  '@mercuryworkshop/wisp-js@https://codeload.github.com/mercuryworkshop/wisp-client-js/tar.gz/c7b6d7973fd391c80dfe258f3d4836740498637c(utf-8-validate@6.0.4)':
+  '@mercuryworkshop/wisp-js@git+https://git@github.com:mercuryworkshop/wisp-client-js.git#a9a86f36fcffd7ec0dabef31a2326012350d0e48(utf-8-validate@6.0.4)':
     dependencies:
       bufferutil: 4.0.8
       ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
@@ -5163,7 +5163,7 @@ snapshots:
   meteorproxy@1.0.6-patch.1(utf-8-validate@6.0.4):
     dependencies:
       '@mercuryworkshop/bare-mux': 2.0.4
-      '@mercuryworkshop/wisp-js': 0.1.0(utf-8-validate@6.0.4)
+      '@mercuryworkshop/wisp-js': 0.1.1(utf-8-validate@6.0.4)
       '@types/estree': 1.0.5
       '@webreflection/idb-map': 0.3.1
       astring: 1.8.6
@@ -5597,7 +5597,7 @@ snapshots:
       rollup: 4.18.1
       rollup-pluginutils: 2.8.2
 
-  rollup-plugin-typescript2@0.36.0(rollup@4.18.1)(typescript@5.5.3):
+  rollup-plugin-typescript2@0.36.0(rollup@4.18.1)(typescript@5.5.4):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       find-cache-dir: 3.3.2
@@ -5605,7 +5605,7 @@ snapshots:
       rollup: 4.18.1
       semver: 7.6.2
       tslib: 2.6.3
-      typescript: 5.5.3
+      typescript: 5.5.4
 
   rollup-pluginutils@2.8.2:
     dependencies:
@@ -5834,7 +5834,7 @@ snapshots:
 
   type-fest@0.21.3: {}
 
-  typescript@5.5.3: {}
+  typescript@5.5.4: {}
 
   undici-types@5.26.5: {}
 
