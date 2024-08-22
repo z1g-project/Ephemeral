@@ -28,7 +28,7 @@ importers:
         version: 1.3.6(typescript@5.5.3)
       '@mercuryworkshop/wisp-js':
         specifier: github:mercuryworkshop/wisp-client-js#rewrite
-        version: https://codeload.github.com/mercuryworkshop/wisp-client-js/tar.gz/c7b6d7973fd391c80dfe258f3d4836740498637c(utf-8-validate@6.0.4)
+        version: git+https://git@github.com:mercuryworkshop/wisp-client-js.git#a9a86f36fcffd7ec0dabef31a2326012350d0e48(utf-8-validate@6.0.4)
       '@radix-ui/react-checkbox':
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -133,7 +133,7 @@ importers:
         version: 4.16.2
       vite-plugin-static-copy:
         specifier: ^1.0.6
-        version: 1.0.6(vite@5.3.3(@types/node@20.14.10))
+        version: 1.0.6(vite@5.3.3(@types/node@22.5.0))
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.8.3
@@ -142,8 +142,8 @@ importers:
         specifier: ^2.8.17
         version: 2.8.17
       '@types/node':
-        specifier: ^20.14.10
-        version: 20.14.10
+        specifier: ^22.5.0
+        version: 22.5.0
       '@types/react':
         specifier: ^18.3.3
         version: 18.3.3
@@ -152,7 +152,7 @@ importers:
         version: 18.3.0
       '@vitejs/plugin-react-swc':
         specifier: ^3.7.0
-        version: 3.7.0(@swc/helpers@0.5.5)(vite@5.3.3(@types/node@20.14.10))
+        version: 3.7.0(@swc/helpers@0.5.5)(vite@5.3.3(@types/node@22.5.0))
       prettier-plugin-tailwindcss:
         specifier: ^0.6.5
         version: 0.6.5(prettier@3.2.5)
@@ -164,7 +164,7 @@ importers:
         version: 5.5.3
       vite:
         specifier: ^5.3.3
-        version: 5.3.3(@types/node@20.14.10)
+        version: 5.3.3(@types/node@22.5.0)
 
 packages:
 
@@ -707,12 +707,12 @@ packages:
   '@mercuryworkshop/libcurl-transport@1.3.6':
     resolution: {integrity: sha512-K4/TSfHlkjuzY6j0XXFmIbG8m3tpMoTxLga46fhmeuX8k3EJR/FVbW8JTXOD34Iofu0vCZuuY8n/ywNCcB6XjA==}
 
-  '@mercuryworkshop/wisp-js@0.1.0':
-    resolution: {integrity: sha512-KhSViqQmRr7cFKi4zb/VawYikeJlRbICvh6mBEAvGBhK4SAX/3xhhRNgsdw/nVEykU9oBhY7qR2SPxG6Up7jFg==}
+  '@mercuryworkshop/wisp-js@0.1.1':
+    resolution: {integrity: sha512-mpsoKteEPkuY6uGGY6B73lU+EBGMlh/A39yXG4hNKzV6FZZ9CWmq3bAREmsLqA8adK/Y+OV8MkYWBEaRJHVhTw==}
 
-  '@mercuryworkshop/wisp-js@https://codeload.github.com/mercuryworkshop/wisp-client-js/tar.gz/c7b6d7973fd391c80dfe258f3d4836740498637c':
-    resolution: {tarball: https://codeload.github.com/mercuryworkshop/wisp-client-js/tar.gz/c7b6d7973fd391c80dfe258f3d4836740498637c}
-    version: 0.1.0
+  '@mercuryworkshop/wisp-js@git+https://git@github.com:mercuryworkshop/wisp-client-js.git#a9a86f36fcffd7ec0dabef31a2326012350d0e48':
+    resolution: {commit: a9a86f36fcffd7ec0dabef31a2326012350d0e48, repo: git@github.com:mercuryworkshop/wisp-client-js.git, type: git}
+    version: 0.1.1
 
   '@next/env@14.2.3':
     resolution: {integrity: sha512-W7fd7IbkfmeeY2gXrzJYDx8D2lWKbVoTIj1o1ScPHNzvp30s1AuoEFSdr39bC5sjxJaxTtq3OTCZboNp0lNWHA==}
@@ -1449,6 +1449,9 @@ packages:
 
   '@types/node@20.14.10':
     resolution: {integrity: sha512-MdiXf+nDuMvY0gJKxyfZ7/6UFsETO7mGKF54MVD/ekJS6HdFtpZFBgrh6Pseu64XTb2MLyFPlbW6hj8HYRQNOQ==}
+
+  '@types/node@22.5.0':
+    resolution: {integrity: sha512-DkFrJOe+rfdHTqqMg0bSNlGlQ85hSoh2TPzZyhHsXnMtligRWpxUySiyw8FY14ITt24HVCiQPWxS3KO/QlGmWg==}
 
   '@types/prop-types@15.7.12':
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
@@ -2970,6 +2973,9 @@ packages:
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
+  undici-types@6.19.8:
+    resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
+
   undici@5.28.4:
     resolution: {integrity: sha512-72RFADWFqKmUb2hmmvNODKL3p9hcB6Gt2DOQMis1SEBaV6a4MH8soBvzg+95CYhCKPFedut2JY9bMfrDl9D23g==}
     engines: {node: '>=14.0'}
@@ -3619,14 +3625,14 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@mercuryworkshop/wisp-js@0.1.0(utf-8-validate@6.0.4)':
+  '@mercuryworkshop/wisp-js@0.1.1(utf-8-validate@6.0.4)':
     dependencies:
       bufferutil: 4.0.8
       ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     transitivePeerDependencies:
       - utf-8-validate
 
-  '@mercuryworkshop/wisp-js@https://codeload.github.com/mercuryworkshop/wisp-client-js/tar.gz/c7b6d7973fd391c80dfe258f3d4836740498637c(utf-8-validate@6.0.4)':
+  '@mercuryworkshop/wisp-js@git+https://git@github.com:mercuryworkshop/wisp-client-js.git#a9a86f36fcffd7ec0dabef31a2326012350d0e48(utf-8-validate@6.0.4)':
     dependencies:
       bufferutil: 4.0.8
       ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
@@ -4339,6 +4345,10 @@ snapshots:
     dependencies:
       undici-types: 5.26.5
 
+  '@types/node@22.5.0':
+    dependencies:
+      undici-types: 6.19.8
+
   '@types/prop-types@15.7.12': {}
 
   '@types/react-dom@18.3.0':
@@ -4369,10 +4379,10 @@ snapshots:
 
   '@types/wrap-ansi@3.0.0': {}
 
-  '@vitejs/plugin-react-swc@3.7.0(@swc/helpers@0.5.5)(vite@5.3.3(@types/node@20.14.10))':
+  '@vitejs/plugin-react-swc@3.7.0(@swc/helpers@0.5.5)(vite@5.3.3(@types/node@22.5.0))':
     dependencies:
       '@swc/core': 1.6.13(@swc/helpers@0.5.5)
-      vite: 5.3.3(@types/node@20.14.10)
+      vite: 5.3.3(@types/node@22.5.0)
     transitivePeerDependencies:
       - '@swc/helpers'
 
@@ -5163,7 +5173,7 @@ snapshots:
   meteorproxy@1.0.6-patch.1(utf-8-validate@6.0.4):
     dependencies:
       '@mercuryworkshop/bare-mux': 2.0.4
-      '@mercuryworkshop/wisp-js': 0.1.0(utf-8-validate@6.0.4)
+      '@mercuryworkshop/wisp-js': 0.1.1(utf-8-validate@6.0.4)
       '@types/estree': 1.0.5
       '@webreflection/idb-map': 0.3.1
       astring: 1.8.6
@@ -5838,6 +5848,8 @@ snapshots:
 
   undici-types@5.26.5: {}
 
+  undici-types@6.19.8: {}
+
   undici@5.28.4:
     dependencies:
       '@fastify/busboy': 2.1.1
@@ -5881,21 +5893,21 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vite-plugin-static-copy@1.0.6(vite@5.3.3(@types/node@20.14.10)):
+  vite-plugin-static-copy@1.0.6(vite@5.3.3(@types/node@22.5.0)):
     dependencies:
       chokidar: 3.6.0
       fast-glob: 3.3.2
       fs-extra: 11.2.0
       picocolors: 1.0.1
-      vite: 5.3.3(@types/node@20.14.10)
+      vite: 5.3.3(@types/node@22.5.0)
 
-  vite@5.3.3(@types/node@20.14.10):
+  vite@5.3.3(@types/node@22.5.0):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.39
       rollup: 4.18.1
     optionalDependencies:
-      '@types/node': 20.14.10
+      '@types/node': 22.5.0
       fsevents: 2.3.3
 
   wcwidth@1.0.1:
