@@ -8,8 +8,8 @@ import {
 import { Skeleton } from '@/components/ui/skeleton';
 import { useAsync } from '@/hooks';
 import encoder from '@/lib/encoder';
+import { getFetch } from '@/lib/libcurl';
 import type { Application } from '@/types/apps';
-import { BareClient } from '@mercuryworkshop/bare-mux';
 import { Sparkles } from 'lucide-react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -22,15 +22,10 @@ import {
 export default function ShortcutCard({ app }: { app: Application }) {
 	const { data: image, loading, run, error } = useAsync<string>(null);
 	useEffect(() => {
-		const client = new BareClient();
 		run(() =>
-			client
-				.fetch(app.image)
-				.then(({ rawResponse }: { rawResponse: Response }) =>
-					rawResponse
-						.blob()
-						.then((blob) => URL.createObjectURL(blob) as string),
-				),
+			getFetch(window.libcurl)(app.image).then((res) =>
+				res.blob().then((blob) => URL.createObjectURL(blob) as string),
+			),
 		);
 	}, [app, run]);
 	return (

@@ -1,7 +1,8 @@
 import type { APIData, APIError, APIResponse } from '@/types/api';
-import { BareClient } from '@mercuryworkshop/bare-mux';
+import { getFetch } from './libcurl';
 
 const _fetch = globalThis.fetch;
+const libcurlFetch = getFetch(window.libcurl);
 async function fetch<T>(
 	url: string,
 	{ backend = true, wisp = false }: { backend?: boolean; wisp?: boolean } = {},
@@ -17,10 +18,9 @@ async function fetch<T>(
 			return response.data as APIData<T>;
 		}
 
-		const client = new BareClient();
-		const response: APIResponse<T> = await client
-			.fetch(url)
-			.then(({ rawResponse }: { rawResponse: Response }) => rawResponse.json());
+		const response: APIResponse<T> = await libcurlFetch(url).then((response) =>
+			response.json(),
+		);
 		if (response.status === 'error') {
 			throw { error: true, ...response.error } as APIError;
 		}
@@ -28,8 +28,7 @@ async function fetch<T>(
 	}
 
 	if (wisp) {
-		const client = new BareClient();
-		return client.fetch(url) as Promise<T>;
+		return libcurlFetch(url) as Promise<T>;
 	}
 	return _fetch(url) as Promise<T>;
 }

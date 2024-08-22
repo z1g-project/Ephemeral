@@ -19,9 +19,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useAsync, useConfig } from '@/hooks';
 import encoder from '@/lib/encoder';
 import { fetch } from '@/lib/fetch';
+import { getFetch } from '@/lib/libcurl';
 import { openCloaked } from '@/lib/open-cloaked';
 import type { Application } from '@/types/apps';
-import { BareClient } from '@mercuryworkshop/bare-mux';
 import {
 	CircleDashed,
 	ExternalLink,
@@ -45,15 +45,10 @@ const links: {
 function CommandImage({ imageUrl }: { imageUrl: string }) {
 	const { data: image, loading, run, error } = useAsync<string>(null);
 	useEffect(() => {
-		const client = new BareClient();
 		run(() =>
-			client
-				.fetch(imageUrl)
-				.then(({ rawResponse }: { rawResponse: Response }) =>
-					rawResponse
-						.blob()
-						.then((blob) => URL.createObjectURL(blob) as string),
-				),
+			getFetch(window.libcurl)(imageUrl).then((res) =>
+				res.blob().then((blob) => URL.createObjectURL(blob) as string),
+			),
 		);
 	}, [imageUrl, run]);
 	return !error ? (
