@@ -28,7 +28,7 @@ importers:
         version: 1.3.6(typescript@5.5.3)
       '@mercuryworkshop/wisp-js':
         specifier: github:mercuryworkshop/wisp-client-js#rewrite
-        version: https://codeload.github.com/mercuryworkshop/wisp-client-js/tar.gz/c7b6d7973fd391c80dfe258f3d4836740498637c(utf-8-validate@6.0.4)
+        version: git+https://git@github.com:mercuryworkshop/wisp-client-js.git#a9a86f36fcffd7ec0dabef31a2326012350d0e48(utf-8-validate@6.0.4)
       '@radix-ui/react-checkbox':
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -81,8 +81,8 @@ importers:
         specifier: ^8.1.6
         version: 8.1.6(react@18.3.1)
       eruda:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.2.3
+        version: 3.2.3
       fastify:
         specifier: ^4.28.1
         version: 4.28.1
@@ -707,12 +707,12 @@ packages:
   '@mercuryworkshop/libcurl-transport@1.3.6':
     resolution: {integrity: sha512-K4/TSfHlkjuzY6j0XXFmIbG8m3tpMoTxLga46fhmeuX8k3EJR/FVbW8JTXOD34Iofu0vCZuuY8n/ywNCcB6XjA==}
 
-  '@mercuryworkshop/wisp-js@0.1.0':
-    resolution: {integrity: sha512-KhSViqQmRr7cFKi4zb/VawYikeJlRbICvh6mBEAvGBhK4SAX/3xhhRNgsdw/nVEykU9oBhY7qR2SPxG6Up7jFg==}
+  '@mercuryworkshop/wisp-js@0.1.1':
+    resolution: {integrity: sha512-mpsoKteEPkuY6uGGY6B73lU+EBGMlh/A39yXG4hNKzV6FZZ9CWmq3bAREmsLqA8adK/Y+OV8MkYWBEaRJHVhTw==}
 
-  '@mercuryworkshop/wisp-js@https://codeload.github.com/mercuryworkshop/wisp-client-js/tar.gz/c7b6d7973fd391c80dfe258f3d4836740498637c':
-    resolution: {tarball: https://codeload.github.com/mercuryworkshop/wisp-client-js/tar.gz/c7b6d7973fd391c80dfe258f3d4836740498637c}
-    version: 0.1.0
+  '@mercuryworkshop/wisp-js@git+https://git@github.com:mercuryworkshop/wisp-client-js.git#a9a86f36fcffd7ec0dabef31a2326012350d0e48':
+    resolution: {commit: a9a86f36fcffd7ec0dabef31a2326012350d0e48, repo: git@github.com:mercuryworkshop/wisp-client-js.git, type: git}
+    version: 0.1.1
 
   '@next/env@14.2.3':
     resolution: {integrity: sha512-W7fd7IbkfmeeY2gXrzJYDx8D2lWKbVoTIj1o1ScPHNzvp30s1AuoEFSdr39bC5sjxJaxTtq3OTCZboNp0lNWHA==}
@@ -1855,8 +1855,8 @@ packages:
     resolution: {integrity: sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==}
     engines: {node: '>=6'}
 
-  eruda@3.1.0:
-    resolution: {integrity: sha512-3vBWitemp5bmg7xHGnD4L3yTkEJfhWgXgQVg+O35wqfw7XWQIY8DuQ4gwDAyVNzJdN9HY4S/19MG6GwZAx8fLQ==}
+  eruda@3.2.3:
+    resolution: {integrity: sha512-304e6QPmPGoFHh+nI0BJHBuGJFCh+VoRvpaFg4FIQA1+JS+DpjWCylLdbXp1O73735+47Wuls7+qUmB3khelmg==}
 
   esbuild-plugin-umd-wrapper@2.0.3:
     resolution: {integrity: sha512-w81fZGyIahBBOvlJdirDJX73qoAfuD9hAQxuHZFKM+LZjsQo5To+1CFId+RYKk6PKEJZcE8yZ8LK/vyFoLqzHg==}
@@ -3619,14 +3619,14 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@mercuryworkshop/wisp-js@0.1.0(utf-8-validate@6.0.4)':
+  '@mercuryworkshop/wisp-js@0.1.1(utf-8-validate@6.0.4)':
     dependencies:
       bufferutil: 4.0.8
       ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     transitivePeerDependencies:
       - utf-8-validate
 
-  '@mercuryworkshop/wisp-js@https://codeload.github.com/mercuryworkshop/wisp-client-js/tar.gz/c7b6d7973fd391c80dfe258f3d4836740498637c(utf-8-validate@6.0.4)':
+  '@mercuryworkshop/wisp-js@git+https://git@github.com:mercuryworkshop/wisp-client-js.git#a9a86f36fcffd7ec0dabef31a2326012350d0e48(utf-8-validate@6.0.4)':
     dependencies:
       bufferutil: 4.0.8
       ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
@@ -4727,7 +4727,7 @@ snapshots:
 
   env-paths@2.2.1: {}
 
-  eruda@3.1.0: {}
+  eruda@3.2.3: {}
 
   esbuild-plugin-umd-wrapper@2.0.3: {}
 
@@ -5163,7 +5163,7 @@ snapshots:
   meteorproxy@1.0.6-patch.1(utf-8-validate@6.0.4):
     dependencies:
       '@mercuryworkshop/bare-mux': 2.0.4
-      '@mercuryworkshop/wisp-js': 0.1.0(utf-8-validate@6.0.4)
+      '@mercuryworkshop/wisp-js': 0.1.1(utf-8-validate@6.0.4)
       '@types/estree': 1.0.5
       '@webreflection/idb-map': 0.3.1
       astring: 1.8.6
